@@ -42,36 +42,38 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
     elev, transform, crs, nodata = read_dem_geotiff(raw_dem_path)
     print(f"        Grid shape: {elev.shape[0]} rows x {elev.shape[1]} cols (Total {elev.size:,} cells)")
 
-    # 2. Pit Filling / Conditioning
+    # 2. Pit Filling / Conditioning & Flow Routing
     cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
+    fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
+    acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
+
+    flw_obj = None
     if os.path.exists(cond_dem_path):
         print("  [2/5] [CACHE] Loading existing conditioned_dem.tif...")
         filled_dem, _, _, _ = read_dem_geotiff(cond_dem_path)
     else:
-        print("  [2/5] Running Priority-Flood hydrological pit filling...")
-        filled_dem = fill_depressions_priority_flood(elev, nodata=nodata)
+        print("  [2/5] Running C-accelerated Priority-Flood hydrological pit filling...")
+        filled_dem, flw_obj = fill_depressions_priority_flood(elev, transform=transform, nodata=nodata)
         save_geotiff_raster(filled_dem, transform, crs, cond_dem_path, nodata=nodata)
         print(f"        Saved conditioned DEM: {cond_dem_path}")
 
     # 3. D8 Flow Direction
-    fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
     if os.path.exists(fdir_path):
         print("  [3/5] [CACHE] Loading existing flow_direction.tif...")
         fdir, _, _, _ = read_dem_geotiff(fdir_path)
     else:
         print("  [3/5] Computing D8 Flow Direction grid...")
-        fdir = compute_d8_flow_direction(filled_dem, transform, nodata=nodata)
+        fdir = compute_d8_flow_direction(filled_dem, transform, flw_obj=flw_obj, nodata=nodata)
         save_geotiff_raster(fdir, transform, crs, fdir_path, nodata=0)
         print(f"        Saved D8 flow direction: {fdir_path}")
 
     # 4. Flow Accumulation
-    acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
     if os.path.exists(acc_path):
         print("  [4/5] [CACHE] Loading existing flow_accumulation.tif...")
         acc, _, _, _ = read_dem_geotiff(acc_path)
     else:
-        print("  [4/5] Computing Flow Accumulation grid (upstream cell counts)...")
-        acc = compute_flow_accumulation(fdir)
+        print("  [4/5] Computing Flow Accumulation grid...")
+        acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
         save_geotiff_raster(acc, transform, crs, acc_path, nodata=0)
         print(f"        Saved flow accumulation: {acc_path}")
 
