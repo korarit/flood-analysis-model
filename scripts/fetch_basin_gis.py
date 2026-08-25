@@ -135,8 +135,17 @@ def download_alos_palsar_dem(
             processingLevel=asf.PRODUCT_TYPE.RTC_HIGH_RES,
             intersectsWith=wkt_poly
         )
-        print(f"  [DEM] Found {len(results)} ALOS PALSAR granules. Downloading .dem.tif files...")
-        results.download(path=tiles_dir, session=session)
+        # Deduplicate by unique spatial (pathNumber, frameNumber) to avoid downloading duplicate temporal passes
+        unique_granules = {}
+        for g in results:
+            key = (g.properties.get('pathNumber'), g.properties.get('frameNumber'))
+            if key not in unique_granules:
+                unique_granules[key] = g
+
+        unique_results = asf.ASFSearchResults(list(unique_granules.values()))
+        print(f"  [DEM] Found {len(results)} total granules -> filtered to {len(unique_results)} unique spatial tiles covering the basin.")
+        print(f"  [DEM] Downloading {len(unique_results)} ALOS PALSAR 12.5m DEM tiles...")
+        unique_results.download(path=tiles_dir, session=session)
     except Exception as e:
         print(f"❌ ERROR: Failed to download ALOS PALSAR DEM from ASF: {e}", file=sys.stderr)
         sys.exit(1)
