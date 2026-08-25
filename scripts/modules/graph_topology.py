@@ -72,12 +72,15 @@ def detect_confluences(
     fdir: np.ndarray,
     acc: np.ndarray,
     transform: Affine,
+    crs: Any = None,
     min_acc_cells: int = 500
 ) -> Dict[str, Any]:
     """
     Detects Confluence Points (nodes where in-degree >= 2 in the river network).
     Returns a GeoJSON FeatureCollection of confluence Point features.
     """
+    from rasterio.warp import transform as warp_coords
+
     nrows, ncols = fdir.shape
     in_degree = np.zeros((nrows, ncols), dtype=np.int32)
 
@@ -94,12 +97,22 @@ def detect_confluences(
 
     features = []
     junction_count = 0
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
 
     for r in range(nrows):
         for c in range(ncols):
             if in_degree[r, c] >= 2 and acc[r, c] >= min_acc_cells:
                 junction_count += 1
-                lon, lat = transform * (c + 0.5, r + 0.5)
+                x, y = transform * (c + 0.5, r + 0.5)
+                if not is_geographic and crs is not None:
+                    try:
+                        xs, ys = warp_coords(crs, "EPSG:4326", [x], [y])
+                        lon, lat = xs[0], ys[0]
+                    except Exception:
+                        lon, lat = x, y
+                else:
+                    lon, lat = x, y
+
                 junction_id = f"JUNC_{junction_count:04d}"
                 features.append({
                     "type": "Feature",

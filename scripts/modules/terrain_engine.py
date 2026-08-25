@@ -30,14 +30,15 @@ D8_DELTAS = {
 def clip_dem_to_polygon(
     dem_path: str,
     polygon_geom: Any,
-    buffer_deg: float = 0.01
+    buffer_deg: float = 0.015
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
     Clips DEM raster directly to a specific sub-basin polygon at native 12.5m resolution.
+    Handles CRS coordinate transformation automatically (e.g. EPSG:4326 to UTM/native CRS).
     Returns (clipped_elev, clipped_transform, crs, nodata).
-    Uses tiny RAM (~10-20 MB) per sub-basin!
     """
     from rasterio.mask import mask
+    from rasterio.warp import transform_geom
     from shapely.geometry import shape, mapping
 
     if isinstance(polygon_geom, dict):
@@ -53,7 +54,18 @@ def clip_dem_to_polygon(
     with rasterio.open(dem_path) as src:
         nodata = src.nodata if src.nodata is not None else -9999.0
         crs = src.crs
-        out_image, out_transform = mask(src, [mapping(poly_buffered)], crop=True, nodata=nodata)
+
+        # Reproject polygon from EPSG:4326 to raster native CRS if needed
+        poly_geojson = mapping(poly_buffered)
+        if crs and crs.to_string() != "EPSG:4326":
+            try:
+                poly_in_raster_crs = transform_geom("EPSG:4326", crs, poly_geojson)
+            except Exception:
+                poly_in_raster_crs = poly_geojson
+        else:
+            poly_in_raster_crs = poly_geojson
+
+        out_image, out_transform = mask(src, [poly_in_raster_crs], crop=True, nodata=nodata)
         clipped_elev = out_image[0].astype(np.float32)
 
     return clipped_elev, out_transform, crs, nodata
@@ -240,12 +252,16 @@ def extract_river_network_reaches(
     fdir: np.ndarray,
     acc: np.ndarray,
     transform: Affine,
+    crs: Any = None,
     min_stream_acc_cells: int = 500
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """
     Extracts vectorized river network (GeoJSON FeatureCollection) and segment features
     along cells with Flow Accumulation >= min_stream_acc_cells.
+    Automatically reprojects coordinates to WGS84 (lon, lat) if DEM is projected in UTM/meters.
     """
+    from rasterio.warp import transform as warp_coords
+
     nrows, ncols = fdir.shape
     stream_mask = acc >= min_stream_acc_cells
     visited = np.zeros((nrows, ncols), dtype=bool)
@@ -254,10 +270,18 @@ def extract_river_network_reaches(
     segments_summary = []
     reach_counter = 0
 
-    # Convert (row, col) to (lon, lat) using transform
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+
+    # Convert (row, col) to (lon, lat) in WGS84
     def rc_to_lonlat(r: int, c: int) -> Tuple[float, float]:
-        lon, lat = transform * (c + 0.5, r + 0.5)
-        return lon, lat
+        x, y = transform * (c + 0.5, r + 0.5)
+        if not is_geographic and crs is not None:
+            try:
+                xs, ys = warp_coords(crs, "EPSG:4326", [x], [y])
+                return xs[0], ys[0]
+            except Exception:
+                pass
+        return x, y
 
     # Trace stream lines from stream heads
     for r in range(nrows):

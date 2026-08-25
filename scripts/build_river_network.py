@@ -93,7 +93,7 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
         # 4. Extract River Reaches at 12.5m resolution
         print(f"        Extracting river reaches (Threshold >= {stream_threshold} cells)...")
         sub_river_geojson, sub_segments = extract_river_network_reaches(
-            filled_dem, fdir, acc, sub_transform, min_stream_acc_cells=stream_threshold
+            filled_dem, fdir, acc, sub_transform, crs=crs, min_stream_acc_cells=stream_threshold
         )
         
         # Tag reach features with subbasin_id
@@ -110,7 +110,7 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
             all_river_segments.append(seg)
 
         # 5. Detect Confluences
-        sub_confluences = detect_confluences(fdir, acc, sub_transform, min_acc_cells=stream_threshold)
+        sub_confluences = detect_confluences(fdir, acc, sub_transform, crs=crs, min_acc_cells=stream_threshold)
         for conf in sub_confluences['features']:
             conf['properties']['subbasin_id'] = sub_id
             all_confluences.append(conf)
