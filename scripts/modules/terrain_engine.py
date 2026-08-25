@@ -113,6 +113,65 @@ def read_dem_geotiff(
     return elev, transform, crs, nodata
 
 
+import threading
+import time
+
+
+class LiveProgressBar:
+    """Live active progress bar thread for C-compiled hydrological routines."""
+    def __init__(self, desc: str, total_sec: int = 60):
+        self.desc = desc
+        self.total_sec = total_sec
+        self.running = False
+        self.thread = None
+
+    def __enter__(self):
+        try:
+            from tqdm import tqdm
+            self.tqdm = tqdm
+        except ImportError:
+            self.tqdm = None
+            return self
+
+        self.running = True
+        self.start_t = time.time()
+        self.pbar = self.tqdm(
+            total=self.total_sec,
+            desc=f"  │  [Progress] {self.desc}",
+            unit="s",
+            ncols=85,
+            leave=True
+        )
+        self.thread = threading.Thread(target=self._animate, daemon=True)
+        self.thread.start()
+        return self
+
+    def _animate(self):
+        while self.running:
+            time.sleep(0.3)
+            elapsed = int(time.time() - self.start_t)
+            if elapsed <= self.total_sec:
+                self.pbar.n = elapsed
+                self.pbar.refresh()
+            else:
+                self.pbar.total = elapsed + 5
+                self.pbar.n = elapsed
+                self.pbar.set_postfix_str(f"Processing ({elapsed}s)...")
+                self.pbar.refresh()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.running = False
+        if self.thread:
+            self.thread.join(timeout=0.5)
+        if hasattr(self, 'pbar') and self.pbar:
+            elapsed = max(1, int(time.time() - self.start_t))
+            self.pbar.n = elapsed
+            self.pbar.total = elapsed
+            self.pbar.set_postfix_str(f"Completed ({elapsed}s)")
+            self.pbar.refresh()
+            self.pbar.close()
+
+
 def fill_depressions_priority_flood(
     dem: np.ndarray,
     transform: Optional[Affine] = None,
@@ -121,17 +180,21 @@ def fill_depressions_priority_flood(
 ) -> Tuple[np.ndarray, Optional[Any]]:
     """
     Hydrological conditioning (Pit filling) using pyflwdir C engine for O(N) speed and minimal RAM.
+    Displays live active progress bar.
     """
     try:
         import pyflwdir
         trans = transform if transform is not None else Affine.identity()
         is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
-        flw = pyflwdir.from_dem(
-            data=dem,
-            nodata=nodata,
-            transform=trans,
-            latlon=is_latlon
-        )
+        
+        est_seconds = max(10, int(dem.size / 1_500_000))
+        with LiveProgressBar(f"Pit-Filling & Flow Graph ({dem.size/1e6:.1f}M cells)", total_sec=est_seconds):
+            flw = pyflwdir.from_dem(
+                data=dem,
+                nodata=nodata,
+                transform=trans,
+                latlon=is_latlon
+            )
         return dem, flw
     except Exception as e:
         print(f"  [WARN] pyflwdir fallback: {e}")
