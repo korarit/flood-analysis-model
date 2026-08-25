@@ -20,20 +20,39 @@ def snap_stations_to_stream(
     fdir: np.ndarray,
     acc: np.ndarray,
     transform: Affine,
+    crs: Any = None,
     search_radius_cells: int = 15,
     min_acc_cells: int = 100
 ) -> List[Dict[str, Any]]:
     """
     Snaps each water level station to the highest flow accumulation cell
     within `search_radius_cells` to align with the actual raster stream channel.
+    Handles projected CRS (UTM) and WGS84 coordinates.
     """
     nrows, ncols = fdir.shape
     snapped = []
 
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            transformer = None
+            inv_transformer = None
+
     for st in stations:
         lat = float(st['latitude'])
         lon = float(st['longitude'])
-        r, c = rowcol(transform, lon, lat)
+
+        if inv_transformer is not None:
+            proj_x, proj_y = inv_transformer.transform(lon, lat)
+            r, c = rowcol(transform, proj_x, proj_y)
+        else:
+            r, c = rowcol(transform, lon, lat)
 
         best_r, best_c = r, c
         best_acc = -1
@@ -51,7 +70,12 @@ def snap_stations_to_stream(
                         best_r, best_c = cr, cc
 
         # Convert back to lon, lat
-        snapped_lon, snapped_lat = transform * (best_c + 0.5, best_r + 0.5)
+        x, y = transform * (best_c + 0.5, best_r + 0.5)
+        if transformer is not None:
+            snapped_lon, snapped_lat = transformer.transform(x, y)
+        else:
+            snapped_lon, snapped_lat = x, y
+
         offset_m = haversine_distance(lat, lon, snapped_lat, snapped_lon) * 1000.0
 
         st_copy = dict(st)
@@ -142,6 +166,7 @@ def trace_downstream_path(
     start_c: int,
     fdir: np.ndarray,
     transform: Affine,
+    crs: Any = None,
     stop_condition_fn=None,
     max_steps: int = 2000
 ) -> Tuple[List[List[float]], Optional[Any]]:
@@ -155,6 +180,15 @@ def trace_downstream_path(
     visited: Set[Tuple[int, int]] = set()
     stop_data = None
 
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        except Exception:
+            transformer = None
+
     for _ in range(max_steps):
         if not (0 <= curr_r < nrows and 0 <= curr_c < ncols):
             break
@@ -162,7 +196,11 @@ def trace_downstream_path(
             break  # cycle protection
         visited.add((curr_r, curr_c))
 
-        lon, lat = transform * (curr_c + 0.5, curr_r + 0.5)
+        x, y = transform * (curr_c + 0.5, curr_r + 0.5)
+        if transformer is not None:
+            lon, lat = transformer.transform(x, y)
+        else:
+            lon, lat = x, y
         coords.append([round(lon, 6), round(lat, 6)])
 
         if stop_condition_fn:
@@ -186,7 +224,8 @@ def build_flow_paths_and_relations(
     fdir: np.ndarray,
     acc: np.ndarray,
     filled_dem: np.ndarray,
-    transform: Affine
+    transform: Affine,
+    crs: Any = None
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     Generates:
@@ -274,10 +313,24 @@ def build_flow_paths_and_relations(
                 gauge_relations.append(feature["properties"])
 
     # 2. Trace Overland Flow from Rainfall Stations to Primary Water Level Station
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            inv_transformer = None
+
     for r_st in rain_stations:
         r_id = r_st['station_id']
         lat, lon = float(r_st['latitude']), float(r_st['longitude'])
-        r, c = rowcol(transform, lon, lat)
+        if inv_transformer is not None:
+            proj_x, proj_y = inv_transformer.transform(lon, lat)
+            r, c = rowcol(transform, proj_x, proj_y)
+        else:
+            r, c = rowcol(transform, lon, lat)
+
         if not (0 <= r < nrows and 0 <= c < ncols):
             continue
 
@@ -288,7 +341,7 @@ def build_flow_paths_and_relations(
             return False, None
 
         coords, target_water_id = trace_downstream_path(
-            r, c, fdir, transform,
+            r, c, fdir, transform, crs=crs,
             stop_condition_fn=stop_at_any_water_station,
             max_steps=2000
         )
@@ -327,7 +380,8 @@ def build_flow_paths_and_relations(
 def delineate_station_catchments(
     water_stations: List[Dict[str, Any]],
     fdir: np.ndarray,
-    transform: Affine
+    transform: Affine,
+    crs: Any = None
 ) -> Dict[str, Any]:
     """
     Delineates contributing upstream watershed boundary polygons for each water station.
@@ -335,6 +389,15 @@ def delineate_station_catchments(
     """
     nrows, ncols = fdir.shape
     features = []
+
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        except Exception:
+            transformer = None
 
     # Map D8 reverse lookups
     reverse_d8 = {
@@ -371,20 +434,32 @@ def delineate_station_catchments(
 
         # Create bounding polygon for the catchment cells
         if len(visited) > 10:
-            lons = []
-            lats = []
+            xs = []
+            ys = []
             for (vr, vc) in list(visited)[::max(1, len(visited) // 100)]:  # sample points for convex hull
-                vlon, vlat = transform * (vc + 0.5, vr + 0.5)
-                lons.append(vlon)
-                lats.append(vlat)
+                vx, vy = transform * (vc + 0.5, vr + 0.5)
+                xs.append(vx)
+                ys.append(vy)
 
             from shapely.geometry import MultiPoint
-            mp = MultiPoint(list(zip(lons, lats)))
+            mp = MultiPoint(list(zip(xs, ys)))
             hull = mp.convex_hull
             if hull.geom_type == 'Polygon':
-                poly_coords = [[round(x, 6), round(y, 6)] for x, y in hull.exterior.coords]
+                poly_pts = list(hull.exterior.coords)
+                if transformer is not None:
+                    h_xs = [p[0] for p in poly_pts]
+                    h_ys = [p[1] for p in poly_pts]
+                    lons, lats = transformer.transform(h_xs, h_ys)
+                    poly_coords = [[round(lo, 6), round(la, 6)] for lo, la in zip(lons, lats)]
+                else:
+                    poly_coords = [[round(p[0], 6), round(p[1], 6)] for p in poly_pts]
+
                 # Approx area in sq.km
-                cell_area_km2 = (abs(transform[0]) * 111.32) * (abs(transform[4]) * 110.54)
+                if is_geographic:
+                    cell_area_km2 = (abs(transform[0]) * 111.32) * (abs(transform[4]) * 110.54)
+                else:
+                    cell_area_km2 = (abs(transform[0]) * abs(transform[4])) / 1_000_000.0
+
                 area_km2 = len(visited) * cell_area_km2
 
                 features.append({

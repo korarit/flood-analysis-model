@@ -34,7 +34,21 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
     acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
 
-    dem_to_use = cond_dem_path if os.path.exists(cond_dem_path) else raw_dem_path
+    # Safely select valid DEM file
+    dem_to_use = raw_dem_path
+    if os.path.exists(cond_dem_path):
+        try:
+            if os.path.getsize(cond_dem_path) > 1024:
+                import rasterio
+                with rasterio.open(cond_dem_path) as test_src:
+                    if test_src.width > 0 and test_src.height > 0:
+                        dem_to_use = cond_dem_path
+        except Exception:
+            try:
+                os.remove(cond_dem_path)
+            except Exception:
+                pass
+
     if not os.path.exists(dem_to_use):
         print(f"❌ ERROR: DEM not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
         sys.exit(1)
@@ -45,12 +59,13 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     print("  [1/4] Loading DEM and computing Flow Direction for station snapping...")
     filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
     
-    if os.path.exists(fdir_path) and os.path.exists(acc_path):
+    if os.path.exists(fdir_path) and os.path.exists(acc_path) and os.path.getsize(fdir_path) > 1024:
         fdir, _, _, _ = read_dem_geotiff(fdir_path)
         acc, _, _, _ = read_dem_geotiff(acc_path)
     else:
         import pyflwdir
-        flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=True)
+        is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+        flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
         fdir = flw.to_array(ftype='d8')
         acc = flw.upstream_area(unit='cell')
 
@@ -60,7 +75,7 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
 
     # 3. Snap Water Stations to stream channel
     print("        Snapping water level stations to stream channel...")
-    snapped_water_st = snap_stations_to_stream(water_st, fdir, acc, transform)
+    snapped_water_st = snap_stations_to_stream(water_st, fdir, acc, transform, crs=crs)
     station_mapping_path = os.path.join(station_dir, "station-mapping.json")
     save_json(snapped_water_st, station_mapping_path)
     print(f"        Saved station mapping: {station_mapping_path}")
@@ -68,7 +83,7 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     # 4. Build Flow Paths (Gauge-to-Gauge & Rain-to-Gauge)
     print("  [3/4] Tracing Gauge-to-Gauge & Overland Rain-to-Gauge Flow Paths...")
     flow_paths_geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
-        snapped_water_st, rain_st, fdir, acc, filled_dem, transform
+        snapped_water_st, rain_st, fdir, acc, filled_dem, transform, crs=crs
     )
     flow_paths_path = os.path.join(processed_dir, "flow_paths.geojson")
     gauge_relations_path = os.path.join(station_dir, "station-relations.json")
@@ -84,9 +99,11 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
 
     # 5. Delineate Sub-catchments
     print("  [4/4] Delineating Sub-Catchment Polygons for station outlets...")
-    catchments_geojson = delineate_station_catchments(snapped_water_st, fdir, transform)
+    catchments_geojson = delineate_station_catchments(snapped_water_st, fdir, transform, crs=crs)
     catchments_path = os.path.join(catchment_dir, "catchments.geojson")
+    processed_catchments_path = os.path.join(processed_dir, "catchments.geojson")
     save_geojson(catchments_geojson, catchments_path)
+    save_geojson(catchments_geojson, processed_catchments_path)
     print(f"        Generated {len(catchments_geojson['features'])} catchment polygons.")
     print(f"        Saved Catchments GeoJSON: {catchments_path}")
 
