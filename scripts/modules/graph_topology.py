@@ -411,20 +411,35 @@ def delineate_station_catchments(
         128: (1, -1),
     }
 
-    for st in water_stations:
+    from collections import deque
+    try:
+        from tqdm import tqdm
+    except ImportError:
+        def tqdm(iterable, **kwargs):
+            return iterable
+
+    pbar = tqdm(
+        water_stations,
+        desc="        [Progress] Delineating Catchment Polygons",
+        unit="station",
+        ncols=85,
+        leave=True
+    )
+
+    for st in pbar:
         st_id = st['station_id']
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
         if start_r is None or start_c is None:
             continue
 
-        # BFS upstream traversal to collect all contributing cells
+        # Fast O(1) BFS upstream traversal using collections.deque
         visited = set()
-        queue = [(start_r, start_c)]
+        queue = deque([(start_r, start_c)])
         visited.add((start_r, start_c))
 
         while queue:
-            cr, cc = queue.pop(0)
+            cr, cc = queue.popleft()
             for code, (dr, dc) in reverse_d8.items():
                 nr, nc = cr + dr, cc + dc
                 if 0 <= nr < nrows and 0 <= nc < ncols and (nr, nc) not in visited:
