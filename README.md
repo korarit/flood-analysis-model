@@ -12,6 +12,7 @@
 | [`fetch_hii_data.py`](fetch_hii_data.py) | ดาวน์โหลดข้อมูลฝนและระดับน้ำของ สสน. + MOU ย้อนหลัง 01/2025 – 07/2026 | HII Open Data Catalog | โหลดตรงจาก Catalog รายเดือน |
 | [`scrape_dwr_rain.py`](scrape_dwr_rain.py) | Web Scraper ดึงข้อมูลฝนย้อนหลังของกรมทรัพยากรน้ำ (DWR) | `ews.dwr.go.th/ews/show-rain` | **Multi-Threading** + **Auto-Resume** + **`--dir`** |
 | [`scrape_rid_waterlevel.py`](scrape_rid_waterlevel.py) | Web Scraper ดึงข้อมูลระดับน้ำย้อนหลังของกรมชลประทาน (RID) | `hyd-app-db.rid.go.th` | ดึงผ่าน WCF Service แยกรายลุ่มน้ำ + **`--dir`** |
+| [`consolidate_basin_data.py`](consolidate_basin_data.py) | รวมและ Clean ข้อมูลฝน/ระดับน้ำจากทุกแหล่งเป็นไฟล์เดี่ยวต่อเนื่อง | DWR, HII, RID Files ใน `dataset/` | **Harmonize 10m -> 1h**, **Deduplicate**, **Sort**, **Summary JSON** |
 
 ---
 
@@ -82,6 +83,27 @@ python scrape_rid_waterlevel.py --dir ./dataset --basin yom
 
 ---
 
+### 2.5 รวบรวมและ Clean ข้อมูลให้เป็นไฟล์ต่อเนื่อง (Data Consolidation Pipeline)
+
+สร้างไฟล์ Time-series รวมต่อเนื่องระดับ 1 ชั่วโมงสำหรับเตรียมเข้า Model ([`req-make-model.md`](req-make-model.md)):
+- รวมข้อมูลฝนจาก **DWR + HII MOU + HII Non-MOU**
+- รวมข้อมูลระดับน้ำจาก **RID + HII** (แปลง 10 นาที เป็น 1 ชั่วโมงเฉลี่ย)
+- กรองช่วงเวลา (01/2025 – 07/2026), Deduplicate, เรียงลำดับเวลา และสร้าง Summary JSON
+
+#### ตัวอย่างคำสั่ง:
+```bash
+# 1. รวบรวมข้อมูลสำหรับลุ่มน้ำยม
+python consolidate_basin_data.py --basin yom
+
+# 2. รวบรวมข้อมูลทุก 5 ลุ่มน้ำ
+python consolidate_basin_data.py --basin all
+
+# 3. กำหนดโฟลเดอร์ dataset และช่วงวันที่ต้องการ
+python consolidate_basin_data.py --basin yom --dir ./dataset --start-date 2025-01-01 --end-date 2026-07-31
+```
+
+---
+
 ## 3. โครงสร้างโฟลเดอร์ผลลัพธ์ (Dataset Structure)
 
 ```text
@@ -98,13 +120,16 @@ flood-analysis-model/dataset/
 │   │   └── yom_waterlevel_stations_rid.json / .csv (สถานีระดับน้ำ RID กรมชล)
 │   ├── rainfall/
 │   │   ├── dwr_station_cache/                      (Checkpoint รายสถานี DWR)
-│   │   ├── yom_dwr_hourly_rain.csv
-│   │   ├── yom_hii_rain_non_mou_202501.csv ...
+│   │   ├── yom_dwr_hourly_rain.csv                 (ข้อมูลฝน DWR รวม)
+│   │   ├── yom_hii_rain_non_mou_202501.csv ...     (ข้อมูลฝน HII รายเดือน)
 │   │   └── yom_hii_rain_mou_202501.csv ...
-│   └── waterlevel/
-│       ├── yom_hii_wl_non_mou_202501.csv ...
-│       ├── yom_hii_wl_mou_202501.csv ...
-│       └── yom_rid_hourly_waterlevel.csv
+│   ├── waterlevel/
+│   │   ├── yom_hii_wl_non_mou_202501.csv ...       (ข้อมูลระดับน้ำ HII 10 นาที)
+│   │   └── yom_rid_hourly_waterlevel.csv           (ข้อมูลระดับน้ำ RID รวม)
+│   └── processed/                                  <-- [Model-Ready Datasets]
+│       ├── yom_hourly_rainfall.csv                 (ฝนรวมทุกสถานี ต่อเนื่อง 19 เดือน)
+│       ├── yom_hourly_waterlevel.csv               (ระดับน้ำรวมทุกสถานี ต่อเนื่อง 19 เดือน)
+│       └── yom_consolidation_summary.json          (สถิติจำนวนแถว สถานี และความครบถ้วน)
 ├── nan/
 ├── ping/
 ├── wang/
