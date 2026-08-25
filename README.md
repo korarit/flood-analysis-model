@@ -130,8 +130,45 @@ flood-analysis-model/dataset/
 │       ├── yom_hourly_rainfall.csv                 (ฝนรวมทุกสถานี ต่อเนื่อง 19 เดือน)
 │       ├── yom_hourly_waterlevel.csv               (ระดับน้ำรวมทุกสถานี ต่อเนื่อง 19 เดือน)
 │       └── yom_consolidation_summary.json          (สถิติจำนวนแถว สถานี และความครบถ้วน)
-├── nan/
-├── ping/
-├── wang/
-└── chao-phraya/
+## 4. โมเดลการไหลของน้ำและเวลาน้ำเดินทาง (Water Flow Chain & Travel Time Model)
+
+ชุดสคริปต์ในโฟลเดอร์ `scripts/` สำหรับสร้างโมเดลโครงข่ายแม่น้ำ (Chain Water) และคำนวณเวลาน้ำหลากเดินทาง (Travel Time) ตามข้อกำหนดใน [`req-make-model.md`](req-make-model.md) และ [`backend-req.md`](backend-req.md)
+
+### 4.1 รายการสคริปต์ใน `scripts/`
+
+| สคริปต์ | หน้าที่หลัก |
+| :--- | :--- |
+| [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 5 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
+| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata |
+| [`scripts/build_river_network.py`](scripts/build_river_network.py) | Step 2: ทำ Pit Filling, คำนวณ D8 Flow Direction, Flow Accumulation, และสกัด `river_network.geojson` |
+| [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานี, ลากเส้นทางน้ำไหล (Overland Flow Paths), และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
+| [`scripts/train_response_model.py`](scripts/train_response_model.py) | Step 4: ตรวจจับน้ำขึ้นต่อเนื่อง $\ge 4$ ชม., วิเคราะห์ช่วงน้ำนิ่งแช่, คำนวณ Observed Travel Time, และเทรน ML Model |
+| [`scripts/export_backend_dataset.py`](scripts/export_backend_dataset.py) | Step 5: Export ข้อมูลลงตาราง Database `station_relations` และสร้าง `relations_frontend.json` |
+
+---
+
+### 4.2 ตัวอย่างคำสั่งการรัน Master Script (Single-Command Run)
+
+```bash
+# 1. รันลุ่มน้ำยม (ระบุ NASA Earthdata Login สำหรับโหลด ALOS PALSAR 12.5m DEM)
+python scripts/run_model_pipeline.py --basin yom --username <earthdata_user> --password <earthdata_pass>
+
+# 2. หรือตั้งค่าใน Environment Variables
+export EARTHDATA_USER="your_username"
+export EARTHDATA_PASS="your_password"
+python scripts/run_model_pipeline.py --basin yom
+
+# 3. รันครบทุก 5 ลุ่มน้ำหลัก
+python scripts/run_model_pipeline.py --basin all
 ```
+
+---
+
+### 4.3 ไฟล์ผลลัพธ์โมเดลสำหรับ Backend & แผนที่ Frontend
+
+* `dataset/{basin}/processed/flow_paths.geojson` — เส้นทางเวกเตอร์การไหลของน้ำ (Rain-to-Gauge และ Gauge-to-Gauge) สำหรับแสดงผลบน `LeafletWaterMap.tsx`
+* `dataset/{basin}/processed/river_network.geojson` — เส้นโครงข่ายลำน้ำสายหลักและสายรองทั้งหมด พร้อมความชัน
+* `dataset/{basin}/processed/station_relations_db.json` — ข้อมูลสำหรับบันทึกลงตาราง `station_relations` ของ PostgreSQL
+* `dataset/{basin}/processed/relations_frontend.json` — ข้อมูลสรุปความสัมพันธ์ของสถานีสำหรับคอมโพเนนต์ `StationRelations.tsx`
+* `dataset/{basin}/catchment/catchments.geojson` — รูปปิด Polygon ขอบเขตพื้นที่รับน้ำย่อยของแต่ละสถานี
+
