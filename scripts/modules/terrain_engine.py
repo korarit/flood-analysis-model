@@ -357,68 +357,107 @@ def extract_river_network_reaches(
             return lon, lat
         return x, y
 
-    # Trace stream lines only from stream cells with Progress Bar
-    stream_rows, stream_cols = np.where(stream_mask)
+    # 1. Compute in-degree specifically within the stream network to find Stream Heads & Junctions
+    stream_in_degree = np.zeros((nrows, ncols), dtype=np.int32)
+    stream_r, stream_c = np.where(stream_mask)
+
+    for r, c in zip(stream_r, stream_c):
+        code = int(fdir[r, c])
+        if code in D8_DELTAS:
+            dr, dc = D8_DELTAS[code]
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < nrows and 0 <= nc < ncols and stream_mask[nr, nc]:
+                stream_in_degree[nr, nc] += 1
+
+    # Stream starting nodes: Channel Heads (in_degree == 0) and Confluences (in_degree >= 2)
+    start_r, start_c = np.where(stream_mask & ((stream_in_degree == 0) | (stream_in_degree >= 2)))
+    
     pbar = tqdm(
-        total=len(stream_rows),
-        desc="        [Progress] Extracting River Lines",
-        unit="cell",
-        ncols=80,
-        leave=False
+        total=len(start_r),
+        desc="        [Progress] Extracting River Reaches",
+        unit="reach",
+        ncols=85,
+        leave=True
     )
 
-    for r, c in zip(stream_rows, stream_cols):
+    for sr, sc in zip(start_r, start_c):
         pbar.update(1)
-        if not visited[r, c]:
-            code = int(fdir[r, c])
-            curr_r, curr_c = r, c
-            coords = []
-            elevs = []
-            
-            while 0 <= curr_r < nrows and 0 <= curr_c < ncols and stream_mask[curr_r, curr_c]:
-                visited[curr_r, curr_c] = True
-                lon, lat = rc_to_lonlat(curr_r, curr_c)
-                coords.append([round(lon, 6), round(lat, 6)])
+        if visited[sr, sc] and stream_in_degree[sr, sc] < 2:
+            continue
+
+        curr_r, curr_c = sr, sc
+        pts_r = []
+        pts_c = []
+        elevs = []
+
+        while 0 <= curr_r < nrows and 0 <= curr_c < ncols and stream_mask[curr_r, curr_c]:
+            if len(pts_r) > 0 and visited[curr_r, curr_c]:
+                # Reached an already-visited downstream segment
+                pts_r.append(curr_r)
+                pts_c.append(curr_c)
                 elevs.append(float(filled_dem[curr_r, curr_c]))
+                break
 
-                next_code = int(fdir[curr_r, curr_c])
-                if next_code not in D8_DELTAS:
-                    break
-                dr, dc = D8_DELTAS[next_code]
-                next_r, next_c = curr_r + dr, curr_c + dc
-                
-                curr_r, curr_c = next_r, next_c
-                if len(coords) > 250: # chunk long continuous reaches
-                    break
+            visited[curr_r, curr_c] = True
+            pts_r.append(curr_r)
+            pts_c.append(curr_c)
+            elevs.append(float(filled_dem[curr_r, curr_c]))
 
-            if len(coords) >= 2:
-                reach_counter += 1
-                reach_id = f"REACH_{reach_counter:05d}"
-                length_km = linestring_length_km(coords)
-                z_up = elevs[0]
-                z_down = elevs[-1]
-                dz = max(0.0, z_up - z_down)
-                slope = (dz / (length_km * 1000.0)) if length_km > 0 else 0.0
+            next_code = int(fdir[curr_r, curr_c])
+            if next_code not in D8_DELTAS:
+                break
+            dr, dc = D8_DELTAS[next_code]
+            next_r, next_c = curr_r + dr, curr_c + dc
 
-                feature = {
-                    "type": "Feature",
-                    "id": reach_id,
-                    "properties": {
-                        "reach_id": reach_id,
-                        "length_km": round(length_km, 3),
-                        "upstream_elev_m": round(z_up, 2),
-                        "downstream_elev_m": round(z_down, 2),
-                        "elevation_diff_m": round(dz, 2),
-                        "river_slope": round(slope, 6),
-                        "start_acc_cells": int(acc[r, c]),
-                    },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": coords
-                    }
+            # Stop at downstream confluence junction to chunk cleanly
+            if len(pts_r) > 1 and 0 <= next_r < nrows and 0 <= next_c < ncols and stream_in_degree[next_r, next_c] >= 2:
+                pts_r.append(next_r)
+                pts_c.append(next_c)
+                elevs.append(float(filled_dem[next_r, next_c]))
+                break
+
+            curr_r, curr_c = next_r, next_c
+            if len(pts_r) >= 300: # chunk long continuous main rivers
+                break
+
+        if len(pts_r) >= 2:
+            # Batch coordinate conversion using Affine & Transformer
+            xs = [transform[2] + (c + 0.5) * transform[0] for c in pts_c]
+            ys = [transform[5] + (r + 0.5) * transform[4] for r in pts_r]
+
+            if transformer is not None:
+                lons, lats = transformer.transform(xs, ys)
+                coords = [[round(lo, 6), round(la, 6)] for lo, la in zip(lons, lats)]
+            else:
+                coords = [[round(x, 6), round(y, 6)] for x, y in zip(xs, ys)]
+
+            reach_counter += 1
+            reach_id = f"REACH_{reach_counter:05d}"
+            length_km = linestring_length_km(coords)
+            z_up = elevs[0]
+            z_down = elevs[-1]
+            dz = max(0.0, z_up - z_down)
+            slope = (dz / (length_km * 1000.0)) if length_km > 0 else 0.0
+
+            feature = {
+                "type": "Feature",
+                "id": reach_id,
+                "properties": {
+                    "reach_id": reach_id,
+                    "length_km": round(length_km, 3),
+                    "upstream_elev_m": round(z_up, 2),
+                    "downstream_elev_m": round(z_down, 2),
+                    "elevation_diff_m": round(dz, 2),
+                    "river_slope": round(slope, 6),
+                    "start_acc_cells": int(acc[sr, sc]),
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": coords
                 }
-                features.append(feature)
-                segments_summary.append(feature["properties"])
+            }
+            features.append(feature)
+            segments_summary.append(feature["properties"])
 
     pbar.close()
 
