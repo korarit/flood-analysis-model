@@ -276,6 +276,7 @@ def run_rid_scraper(
 
 def main():
     parser = argparse.ArgumentParser(description="High-Speed Multi-Threaded RID historical hourly water level scraper.")
+    parser.add_argument("--dir", default=None, help="Root directory for dataset (default: dataset/)")
     parser.add_argument("--basin", default="all", help="Target basin: yom, nan, ping, wang, chao-phraya, or all")
     parser.add_argument("--start-date", default="2025-01-01", help="Start date (YYYY-MM-DD), default: 2025-01-01")
     parser.add_argument("--end-date", default="2026-07-31", help="End date (YYYY-MM-DD), default: 2026-07-31")
@@ -284,7 +285,7 @@ def main():
     args = parser.parse_args()
 
     base_dir = Path(__file__).parent
-    dataset_dir = base_dir / "dataset"
+    dataset_dir = Path(args.dir) if args.dir else base_dir / "dataset"
 
     target_basins = list(BASIN_RID_MAP.keys()) if args.basin == "all" else [args.basin.lower()]
 
