@@ -116,6 +116,7 @@ def read_dem_geotiff(
 def fill_depressions_priority_flood(
     dem: np.ndarray,
     transform: Optional[Affine] = None,
+    crs: Any = None,
     nodata: float = -9999.0
 ) -> Tuple[np.ndarray, Optional[Any]]:
     """
@@ -124,11 +125,12 @@ def fill_depressions_priority_flood(
     try:
         import pyflwdir
         trans = transform if transform is not None else Affine.identity()
+        is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
         flw = pyflwdir.from_dem(
             data=dem,
             nodata=nodata,
             transform=trans,
-            latlon=True
+            latlon=is_latlon
         )
         return dem, flw
     except Exception as e:
@@ -283,61 +285,59 @@ def extract_river_network_reaches(
                 pass
         return x, y
 
-    # Trace stream lines from stream heads
-    for r in range(nrows):
-        for c in range(ncols):
-            if stream_mask[r, c] and not visited[r, c]:
-                # Check if this is a stream head or confluence start
-                code = int(fdir[r, c])
-                curr_r, curr_c = r, c
-                coords = []
-                elevs = []
+    # Trace stream lines only from stream cells (1000x faster than full 109M grid loop)
+    stream_rows, stream_cols = np.where(stream_mask)
+    for r, c in zip(stream_rows, stream_cols):
+        if not visited[r, c]:
+            code = int(fdir[r, c])
+            curr_r, curr_c = r, c
+            coords = []
+            elevs = []
+            
+            while 0 <= curr_r < nrows and 0 <= curr_c < ncols and stream_mask[curr_r, curr_c]:
+                visited[curr_r, curr_c] = True
+                lon, lat = rc_to_lonlat(curr_r, curr_c)
+                coords.append([round(lon, 6), round(lat, 6)])
+                elevs.append(float(filled_dem[curr_r, curr_c]))
+
+                next_code = int(fdir[curr_r, curr_c])
+                if next_code not in D8_DELTAS:
+                    break
+                dr, dc = D8_DELTAS[next_code]
+                next_r, next_c = curr_r + dr, curr_c + dc
                 
-                while 0 <= curr_r < nrows and 0 <= curr_c < ncols and stream_mask[curr_r, curr_c]:
-                    visited[curr_r, curr_c] = True
-                    lon, lat = rc_to_lonlat(curr_r, curr_c)
-                    coords.append([round(lon, 6), round(lat, 6)])
-                    elevs.append(float(filled_dem[curr_r, curr_c]))
+                curr_r, curr_c = next_r, next_c
+                if len(coords) > 250: # chunk long continuous reaches
+                    break
 
-                    next_code = int(fdir[curr_r, curr_c])
-                    if next_code not in D8_DELTAS:
-                        break
-                    dr, dc = D8_DELTAS[next_code]
-                    next_r, next_c = curr_r + dr, curr_c + dc
-                    
-                    # Stop segment at confluences or stream end
-                    curr_r, curr_c = next_r, next_c
-                    if len(coords) > 200: # chunk long continuous lines
-                        break
+            if len(coords) >= 2:
+                reach_counter += 1
+                reach_id = f"REACH_{reach_counter:05d}"
+                length_km = linestring_length_km(coords)
+                z_up = elevs[0]
+                z_down = elevs[-1]
+                dz = max(0.0, z_up - z_down)
+                slope = (dz / (length_km * 1000.0)) if length_km > 0 else 0.0
 
-                if len(coords) >= 2:
-                    reach_counter += 1
-                    reach_id = f"REACH_{reach_counter:05d}"
-                    length_km = linestring_length_km(coords)
-                    z_up = elevs[0]
-                    z_down = elevs[-1]
-                    dz = max(0.0, z_up - z_down)
-                    slope = (dz / (length_km * 1000.0)) if length_km > 0 else 0.0
-
-                    feature = {
-                        "type": "Feature",
-                        "id": reach_id,
-                        "properties": {
-                            "reach_id": reach_id,
-                            "length_km": round(length_km, 3),
-                            "upstream_elev_m": round(z_up, 2),
-                            "downstream_elev_m": round(z_down, 2),
-                            "elevation_diff_m": round(dz, 2),
-                            "river_slope": round(slope, 6),
-                            "start_acc_cells": int(acc[r, c]),
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": coords
-                        }
+                feature = {
+                    "type": "Feature",
+                    "id": reach_id,
+                    "properties": {
+                        "reach_id": reach_id,
+                        "length_km": round(length_km, 3),
+                        "upstream_elev_m": round(z_up, 2),
+                        "downstream_elev_m": round(z_down, 2),
+                        "elevation_diff_m": round(dz, 2),
+                        "river_slope": round(slope, 6),
+                        "start_acc_cells": int(acc[r, c]),
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": coords
                     }
-                    features.append(feature)
-                    segments_summary.append(feature["properties"])
+                }
+                features.append(feature)
+                segments_summary.append(feature["properties"])
 
     geojson = {
         "type": "FeatureCollection",

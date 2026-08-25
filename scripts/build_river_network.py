@@ -86,7 +86,7 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
 
         # 3. Flow Routing & Accumulation in C
         print("        Running C-accelerated Pit-filling & D8 Flow Routing...")
-        filled_dem, flw_obj = fill_depressions_priority_flood(sub_elev, transform=sub_transform, nodata=nodata)
+        filled_dem, flw_obj = fill_depressions_priority_flood(sub_elev, transform=sub_transform, crs=crs, nodata=nodata)
         fdir = compute_d8_flow_direction(filled_dem, sub_transform, flw_obj=flw_obj, nodata=nodata)
         acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
 
