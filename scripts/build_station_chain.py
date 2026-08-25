@@ -21,9 +21,8 @@ from scripts.modules.graph_topology import (
 )
 
 
-def build_basin_station_chain(basin: str, basin_dir: str):
+def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     """Snaps stations, generates flow paths, and delineates catchments for the basin."""
-    terrain_dir = os.path.join(basin_dir, "terrain")
     station_dir = os.path.join(basin_dir, "station")
     catchment_dir = os.path.join(basin_dir, "catchment")
     processed_dir = os.path.join(basin_dir, "processed")
@@ -36,7 +35,7 @@ def build_basin_station_chain(basin: str, basin_dir: str):
 
     for f in (cond_dem_path, fdir_path, acc_path):
         if not os.path.exists(f):
-            print(f"❌ ERROR: Required terrain file missing: {f}. Please run 02_build_river_network.py first!", file=sys.stderr)
+            print(f"❌ ERROR: Required terrain file missing: {f}. Please run build_river_network.py first!", file=sys.stderr)
             sys.exit(1)
 
     print(f"\n🔗 [STEP 3] Building Station Chain & Flow Paths for Basin: {basin.upper()}")
@@ -88,12 +87,14 @@ def main():
     parser = argparse.ArgumentParser(description="Snap stations, generate flow paths, and delineate catchments")
     parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
+    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
-        build_basin_station_chain(b, basin_dir)
+        terrain_basin_dir = os.path.join(args.terrain_dir, b)
+        build_basin_station_chain(b, basin_dir, terrain_basin_dir)
 
 
 if __name__ == "__main__":

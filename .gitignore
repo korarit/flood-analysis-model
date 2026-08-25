@@ -37,6 +37,9 @@ Thumbs.db
 # TypeScript / Vite / Cache
 *.tsbuildinfo
 .vite/
-.eslintcache
 venv
 __pycache__
+terrain/
+*.tif
+*.tiff
+alos_tiles/

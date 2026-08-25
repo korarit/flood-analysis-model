@@ -89,19 +89,20 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
 
 
 def download_alos_palsar_dem(
-    basin_dir: str,
+    terrain_dir: str,
     stations: List[Dict[str, Any]],
     username: Optional[str],
     password: Optional[str]
 ) -> str:
     """
-    Searches and downloads ALOS PALSAR RTC 12.5m DEM tiles from NASA ASF DAAC.
+    Searches and downloads ALOS PALSAR RTC 12.5m DEM tiles from NASA ASF DAAC into terrain_dir.
     Enforces strict credential validation.
     """
-    terrain_dir = os.path.join(basin_dir, "terrain")
+    import zipfile
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     tiles_dir = os.path.join(terrain_dir, "alos_tiles")
-    os.makedirs(tiles_dir, exist_ok=True)
+    extracted_dir = os.path.join(tiles_dir, "extracted")
+    os.makedirs(extracted_dir, exist_ok=True)
 
     if os.path.exists(raw_dem_path) and os.path.getsize(raw_dem_path) > 1000:
         print(f"  [CACHE] Mosaic DEM already exists: {raw_dem_path}")
@@ -144,15 +145,33 @@ def download_alos_palsar_dem(
 
         unique_results = asf.ASFSearchResults(list(unique_granules.values()))
         print(f"  [DEM] Found {len(results)} total granules -> filtered to {len(unique_results)} unique spatial tiles covering the basin.")
-        print(f"  [DEM] Downloading {len(unique_results)} ALOS PALSAR 12.5m DEM tiles...")
-        unique_results.download(path=tiles_dir, session=session)
+        print(f"  [DEM] Downloading {len(unique_results)} ALOS PALSAR 12.5m DEM tiles (parallel)...")
+        unique_results.download(path=tiles_dir, session=session, processes=4)
     except Exception as e:
         print(f"❌ ERROR: Failed to download ALOS PALSAR DEM from ASF: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Find and mosaic all downloaded *.dem.tif files
-    dem_files = glob.glob(os.path.join(tiles_dir, "**", "*_dem.tif"), recursive=True) + \
-                glob.glob(os.path.join(tiles_dir, "**", "*.dem.tif"), recursive=True)
+    # Extract *.dem.tif from downloaded .zip files
+    zip_files = glob.glob(os.path.join(tiles_dir, "*.zip"))
+    if zip_files:
+        print(f"  [EXTRACT] Unzipping {len(zip_files)} DEM tiles...")
+        for zf_path in zip_files:
+            try:
+                with zipfile.ZipFile(zf_path, 'r') as zf:
+                    for member in zf.namelist():
+                        if member.endswith(".dem.tif") or member.endswith("_dem.tif"):
+                            filename = os.path.basename(member)
+                            target_dest = os.path.join(extracted_dir, filename)
+                            if not os.path.exists(target_dest):
+                                with zf.open(member) as source, open(target_dest, "wb") as target:
+                                    target.write(source.read())
+            except Exception as ex:
+                print(f"  [WARN] Failed to extract {zf_path}: {ex}")
+
+    # Find and mosaic all downloaded/extracted *.dem.tif files
+    dem_files = glob.glob(os.path.join(extracted_dir, "**", "*dem.tif"), recursive=True) + \
+                glob.glob(os.path.join(tiles_dir, "**", "*dem.tif"), recursive=True)
+    dem_files = list(set([f for f in dem_files if not f.endswith("raw_dem.tif")]))
 
     if not dem_files:
         print(f"❌ ERROR: No DEM GeoTIFF files found in {tiles_dir}", file=sys.stderr)
@@ -185,6 +204,7 @@ def main():
     parser = argparse.ArgumentParser(description="Fetch GIS boundaries, HydroRIVERS, and ALOS PALSAR 12.5m DEM")
     parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, wang, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
+    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
     args = parser.parse_args()
@@ -193,6 +213,7 @@ def main():
 
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
+        terrain_basin_dir = os.path.join(args.terrain_dir, b)
         print(f"\n🌊 [STEP 1] Fetching GIS & DEM for Basin: {b.upper()}")
         water_st, rain_st = load_stations_for_basin(basin_dir)
         all_st = water_st + rain_st
@@ -202,13 +223,14 @@ def main():
             print(f"  [WARN] No stations found in {basin_dir}/station/. Skipping.")
             continue
 
-        # 1. Basin Boundary
+        # 1. Basin Boundary (in dataset/{basin}/gis/)
         boundary_path = os.path.join(basin_dir, "gis", f"{b}_boundary.geojson")
         fetch_basin_boundary(b, boundary_path, all_st)
 
-        # 2. ALOS PALSAR 12.5m DEM
-        download_alos_palsar_dem(basin_dir, all_st, args.username, args.password)
+        # 2. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
+        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password)
 
 
 if __name__ == "__main__":
     main()
+

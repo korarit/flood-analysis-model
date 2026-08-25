@@ -107,29 +107,31 @@ python consolidate_basin_data.py --basin yom --dir ./dataset --start-date 2025-0
 ## 3. โครงสร้างโฟลเดอร์ผลลัพธ์ (Dataset Structure)
 
 ```text
-flood-analysis-model/dataset/
-├── summary-list-station.json
-├── yom/
-│   ├── station/
-│   │   ├── yom_rain_stations.json / .csv           (รวมสถานีฝน)
-│   │   ├── yom_rain_stations_hii.json / .csv       (สถานีฝน HII + MOU)
-│   │   ├── yom_rain_stations_dwr.json / .csv       (สถานีฝน DWR)
-│   │   ├── yom_waterlevel_stations.json / .csv     (รวมสถานีระดับน้ำ)
-│   │   ├── yom_waterlevel_stations_hii.json / .csv (สถานีระดับน้ำ HII + MOU)
-│   │   ├── yom_waterlevel_stations_dwr.json / .csv (สถานีระดับน้ำ DWR)
-│   │   └── yom_waterlevel_stations_rid.json / .csv (สถานีระดับน้ำ RID กรมชล)
-│   ├── rainfall/
-│   │   ├── dwr_station_cache/                      (Checkpoint รายสถานี DWR)
-│   │   ├── yom_dwr_hourly_rain.csv                 (ข้อมูลฝน DWR รวม)
-│   │   ├── yom_hii_rain_non_mou_202501.csv ...     (ข้อมูลฝน HII รายเดือน)
-│   │   └── yom_hii_rain_mou_202501.csv ...
-│   ├── waterlevel/
-│   │   ├── yom_hii_wl_non_mou_202501.csv ...       (ข้อมูลระดับน้ำ HII 10 นาที)
-│   │   └── yom_rid_hourly_waterlevel.csv           (ข้อมูลระดับน้ำ RID รวม)
-│   └── processed/                                  <-- [Model-Ready Datasets]
-│       ├── yom_hourly_rainfall.csv                 (ฝนรวมทุกสถานี ต่อเนื่อง 19 เดือน)
-│       ├── yom_hourly_waterlevel.csv               (ระดับน้ำรวมทุกสถานี ต่อเนื่อง 19 เดือน)
-│       └── yom_consolidation_summary.json          (สถิติจำนวนแถว สถานี และความครบถ้วน)
+```text
+flood-analysis-model/
+├── dataset/                                        <-- [Station & Time-Series Data (--dir)]
+│   ├── summary-list-station.json
+│   ├── yom/
+│   │   ├── station/                                (สถานีฝนและระดับน้ำ)
+│   │   ├── rainfall/                               (ข้อมูลฝนดิบ)
+│   │   ├── waterlevel/                             (ข้อมูลระดับน้ำดิบ)
+│   │   ├── catchment/                              (catchments.geojson ขอบเขตลุ่มน้ำย่อย)
+│   │   └── processed/                              (ไฟล์โมเดลพร้อมใช้งาน และ GeoJSON แผนที่)
+├── terrain/                                        <-- [Terrain & DEM Raster Data (--terrain-dir)]
+│   ├── yom/
+│   │   ├── alos_tiles/                             (Zip tiles & extracted .dem.tif)
+│   │   ├── raw_dem.tif                             (Mosaic DEM 12.5m รวม)
+│   │   ├── conditioned_dem.tif                     (DEM หลังทำ Pit Filling)
+│   │   ├── flow_direction.tif                      (D8 Flow Direction Raster)
+│   │   └── flow_accumulation.tif                   (Flow Accumulation Raster)
+│   ├── nan/
+│   ├── ping/
+│   ├── wang/
+│   └── chao-phraya/
+```
+
+---
+
 ## 4. โมเดลการไหลของน้ำและเวลาน้ำเดินทาง (Water Flow Chain & Travel Time Model)
 
 ชุดสคริปต์ในโฟลเดอร์ `scripts/` สำหรับสร้างโมเดลโครงข่ายแม่น้ำ (Chain Water) และคำนวณเวลาน้ำหลากเดินทาง (Travel Time) ตามข้อกำหนดใน [`req-make-model.md`](req-make-model.md) และ [`backend-req.md`](backend-req.md)
@@ -139,7 +141,7 @@ flood-analysis-model/dataset/
 | สคริปต์ | หน้าที่หลัก |
 | :--- | :--- |
 | [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 5 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
-| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata |
+| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata ลงใน `terrain/` |
 | [`scripts/build_river_network.py`](scripts/build_river_network.py) | Step 2: ทำ Pit Filling, คำนวณ D8 Flow Direction, Flow Accumulation, และสกัด `river_network.geojson` |
 | [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานี, ลากเส้นทางน้ำไหล (Overland Flow Paths), และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
 | [`scripts/train_response_model.py`](scripts/train_response_model.py) | Step 4: ตรวจจับน้ำขึ้นต่อเนื่อง $\ge 4$ ชม., วิเคราะห์ช่วงน้ำนิ่งแช่, คำนวณ Observed Travel Time, และเทรน ML Model |
@@ -151,15 +153,18 @@ flood-analysis-model/dataset/
 
 ```bash
 # 1. รันลุ่มน้ำยม (ระบุ NASA Earthdata Login สำหรับโหลด ALOS PALSAR 12.5m DEM)
-python scripts/run_model_pipeline.py --basin yom --username <earthdata_user> --password <earthdata_pass>
+./venv/bin/python scripts/run_model_pipeline.py --basin yom --username <earthdata_user> --password <earthdata_pass>
 
 # 2. หรือตั้งค่าใน Environment Variables
 export EARTHDATA_USER="your_username"
 export EARTHDATA_PASS="your_password"
-python scripts/run_model_pipeline.py --basin yom
+./venv/bin/python scripts/run_model_pipeline.py --basin yom
 
-# 3. รันครบทุก 5 ลุ่มน้ำหลัก
-python scripts/run_model_pipeline.py --basin all
+# 3. กำหนดโฟลเดอร์ terrain อิสระจาก dataset ด้วย --terrain-dir
+./venv/bin/python scripts/run_model_pipeline.py --basin yom --dir ./dataset --terrain-dir ./terrain
+
+# 4. รันครบทุก 5 ลุ่มน้ำหลัก
+./venv/bin/python scripts/run_model_pipeline.py --basin all
 ```
 
 ---
@@ -171,4 +176,5 @@ python scripts/run_model_pipeline.py --basin all
 * `dataset/{basin}/processed/station_relations_db.json` — ข้อมูลสำหรับบันทึกลงตาราง `station_relations` ของ PostgreSQL
 * `dataset/{basin}/processed/relations_frontend.json` — ข้อมูลสรุปความสัมพันธ์ของสถานีสำหรับคอมโพเนนต์ `StationRelations.tsx`
 * `dataset/{basin}/catchment/catchments.geojson` — รูปปิด Polygon ขอบเขตพื้นที่รับน้ำย่อยของแต่ละสถานี
+
 

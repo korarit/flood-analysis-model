@@ -27,16 +27,20 @@ from scripts.export_backend_dataset import export_basin_model_dataset
 def run_pipeline_for_basin(
     basin: str,
     dataset_dir: str,
+    terrain_dir: str = "./terrain",
     username: str = None,
     password: str = None,
     stream_threshold: int = 300
 ):
     """Runs all 5 pipeline steps for a single river basin."""
     basin_dir = os.path.join(dataset_dir, basin)
+    terrain_basin_dir = os.path.join(terrain_dir, basin)
     start_total_time = time.time()
 
     print("\n" + "═" * 70)
     print(f"🚀 [PIPELINE START] River Basin: {basin.upper()}")
+    print(f"   • Dataset Dir : {basin_dir}")
+    print(f"   • Terrain Dir : {terrain_basin_dir}")
     print("═" * 70)
 
     # -------------------------------------------------------------
@@ -52,7 +56,7 @@ def run_pipeline_for_basin(
 
     boundary_path = os.path.join(basin_dir, "gis", f"{basin}_boundary.geojson")
     fetch_basin_boundary(basin, boundary_path, all_st)
-    download_alos_palsar_dem(basin_dir, all_st, username, password)
+    download_alos_palsar_dem(terrain_basin_dir, all_st, username, password)
     t1_elapsed = time.time() - t0
     print(f"  ⏱️ Step 1 completed in {t1_elapsed:.1f}s")
 
@@ -61,7 +65,7 @@ def run_pipeline_for_basin(
     # -------------------------------------------------------------
     t0 = time.time()
     print(f"\n[Step 2/5] Conditioning DEM, Computing D8 Flow, and Extracting River Lines...")
-    process_basin_terrain(basin, basin_dir, stream_threshold=stream_threshold)
+    process_basin_terrain(basin, basin_dir, terrain_basin_dir, stream_threshold=stream_threshold)
     t2_elapsed = time.time() - t0
     print(f"  ⏱️ Step 2 completed in {t2_elapsed:.1f}s")
 
@@ -70,7 +74,7 @@ def run_pipeline_for_basin(
     # -------------------------------------------------------------
     t0 = time.time()
     print(f"\n[Step 3/5] Snapping Stations, Tracing Flow Paths, and Catchment Delineation...")
-    build_basin_station_chain(basin, basin_dir)
+    build_basin_station_chain(basin, basin_dir, terrain_basin_dir)
     t3_elapsed = time.time() - t0
     print(f"  ⏱️ Step 3 completed in {t3_elapsed:.1f}s")
 
@@ -107,6 +111,7 @@ def main():
     parser = argparse.ArgumentParser(description="Automated Water Flow Chain & Travel Time Response Model Pipeline")
     parser.add_argument("--basin", type=str, default="yom", help="Target river basin (yom, nan, ping, wang, chao-phraya, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Root dataset directory")
+    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username for ALOS PALSAR 12.5m DEM")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password for ALOS PALSAR 12.5m DEM")
     parser.add_argument("--threshold", type=int, default=300, help="Stream delineation cell accumulation threshold")
@@ -118,6 +123,7 @@ def main():
         run_pipeline_for_basin(
             basin=b,
             dataset_dir=args.dir,
+            terrain_dir=args.terrain_dir,
             username=args.username,
             password=args.password,
             stream_threshold=args.threshold

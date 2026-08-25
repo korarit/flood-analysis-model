@@ -24,15 +24,15 @@ from scripts.modules.terrain_engine import (
 from scripts.modules.graph_topology import detect_confluences
 
 
-def process_basin_terrain(basin: str, basin_dir: str, stream_threshold: int = 300):
+def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_threshold: int = 300):
     """Processes DEM to extract river reaches, slope profiles, and confluences."""
-    terrain_dir = os.path.join(basin_dir, "terrain")
     river_dir = os.path.join(basin_dir, "river")
     os.makedirs(river_dir, exist_ok=True)
+    os.makedirs(terrain_dir, exist_ok=True)
 
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     if not os.path.exists(raw_dem_path):
-        print(f"❌ ERROR: raw_dem.tif not found in {terrain_dir}. Please run 01_fetch_basin_gis.py first!", file=sys.stderr)
+        print(f"❌ ERROR: raw_dem.tif not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
         sys.exit(1)
 
     print(f"\n🏔️ [STEP 2] Processing Terrain & River Network for Basin: {basin.upper()}")
@@ -100,13 +100,15 @@ def main():
     parser = argparse.ArgumentParser(description="Process DEM to extract flow network and river lines")
     parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
+    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--threshold", type=int, default=300, help="Stream accumulation threshold in cells")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
-        process_basin_terrain(b, basin_dir, stream_threshold=args.threshold)
+        terrain_basin_dir = os.path.join(args.terrain_dir, b)
+        process_basin_terrain(b, basin_dir, terrain_basin_dir, stream_threshold=args.threshold)
 
 
 if __name__ == "__main__":
