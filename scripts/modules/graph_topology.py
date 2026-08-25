@@ -97,17 +97,20 @@ def detect_confluences(
     features = []
     junction_count = 0
     is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        except Exception:
+            transformer = None
 
     junc_rows, junc_cols = np.where((in_degree >= 2) & (acc >= min_acc_cells))
     for r, c in zip(junc_rows, junc_cols):
         junction_count += 1
         x, y = transform * (c + 0.5, r + 0.5)
-        if not is_geographic and crs is not None:
-            try:
-                xs, ys = warp_coords(crs, "EPSG:4326", [x], [y])
-                lon, lat = xs[0], ys[0]
-            except Exception:
-                lon, lat = x, y
+        if transformer is not None:
+            lon, lat = transformer.transform(x, y)
         else:
             lon, lat = x, y
 

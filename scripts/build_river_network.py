@@ -60,6 +60,13 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
         key=lambda x: x['properties'].get('order', 1)
     )
 
+    import time
+    try:
+        from tqdm import tqdm
+    except ImportError:
+        def tqdm(iterable, **kwargs):
+            return iterable
+
     print(f"\n🏔️ [STEP 2] Sub-basin Cascade Engine (Native 12.5m DEM) for Basin: {basin.upper()}")
     print(f"        Processing {len(subbasin_features)} sub-basins from headwaters to outlet...")
 
@@ -68,30 +75,37 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
     all_confluences = []
     reach_counter = 0
 
-    for idx, sub_feat in enumerate(subbasin_features, 1):
+    subbasin_pbar = tqdm(subbasin_features, desc="Total Sub-basin Progress", unit="subbasin", ncols=85)
+
+    for idx, sub_feat in enumerate(subbasin_pbar, 1):
+        t_sub_start = time.time()
         props = sub_feat['properties']
         sub_id = props['subbasin_id']
         sub_name = props['subbasin_name_th']
         sub_order = props.get('order', idx)
-        print(f"\n  [{idx}/{len(subbasin_features)}] Processing Sub-basin ({sub_order}): {sub_name}")
+        print(f"\n  ┌─ [{idx}/{len(subbasin_features)}] Sub-basin ({sub_order}): {sub_name}")
 
         # 2. Clip native 12.5m DEM for this sub-basin
-        print(f"        Clipping 12.5m DEM for sub-basin...")
+        t0 = time.time()
+        print(f"  │  [1/4] Clipping 12.5m DEM for sub-basin...")
         sub_elev, sub_transform, crs, nodata = clip_dem_to_polygon(
             raw_dem_path,
             sub_feat['geometry'],
             buffer_deg=0.015
         )
-        print(f"        Grid shape: {sub_elev.shape[0]} rows x {sub_elev.shape[1]} cols (Total {sub_elev.size:,} cells at 12.5m)")
+        print(f"  │        Grid shape: {sub_elev.shape[0]:,} rows x {sub_elev.shape[1]:,} cols ({sub_elev.size:,} cells, {time.time()-t0:.1f}s)")
 
         # 3. Flow Routing & Accumulation in C
-        print("        Running C-accelerated Pit-filling & D8 Flow Routing...")
+        t0 = time.time()
+        print("  │  [2/4] Running C-accelerated Pit-filling & D8 Flow Routing...")
         filled_dem, flw_obj = fill_depressions_priority_flood(sub_elev, transform=sub_transform, crs=crs, nodata=nodata)
         fdir = compute_d8_flow_direction(filled_dem, sub_transform, flw_obj=flw_obj, nodata=nodata)
         acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
+        print(f"  │        Flow tree & accumulation computed in {time.time()-t0:.1f}s")
 
         # 4. Extract River Reaches at 12.5m resolution
-        print(f"        Extracting river reaches (Threshold >= {stream_threshold} cells)...")
+        t0 = time.time()
+        print(f"  │  [3/4] Extracting river reaches (Threshold >= {stream_threshold} cells)...")
         sub_river_geojson, sub_segments = extract_river_network_reaches(
             filled_dem, fdir, acc, sub_transform, crs=crs, min_stream_acc_cells=stream_threshold
         )
@@ -108,14 +122,19 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
         for seg in sub_segments:
             seg['subbasin_id'] = sub_id
             all_river_segments.append(seg)
+        print(f"  │        Extracted {len(sub_segments)} reaches in {time.time()-t0:.1f}s")
 
         # 5. Detect Confluences
+        t0 = time.time()
+        print(f"  │  [4/4] Detecting Confluences...")
         sub_confluences = detect_confluences(fdir, acc, sub_transform, crs=crs, min_acc_cells=stream_threshold)
         for conf in sub_confluences['features']:
             conf['properties']['subbasin_id'] = sub_id
             all_confluences.append(conf)
+        print(f"  │        Found {len(sub_confluences['features'])} junctions in {time.time()-t0:.1f}s")
 
-        print(f"        [OK] Extracted {len(sub_segments)} reaches in {sub_name}.")
+        sub_elapsed = time.time() - t_sub_start
+        print(f"  └─ ✅ Sub-basin ({sub_order}) finished in {sub_elapsed:.1f}s")
 
     # 6. Save Merged Native 12.5m River Network
     merged_river_geojson = {
