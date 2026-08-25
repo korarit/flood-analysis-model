@@ -195,7 +195,7 @@ class StationProgressTracker:
                 del self.active_stations[code]
             if code in self.station_start_times:
                 del self.station_start_times[code]
-            sys.stdout.write("\r" + " " * 110 + "\r")
+            sys.stdout.write("\r" + " " * 160 + "\r")
             sys.stdout.flush()
 
     def _render(self, force: bool = False):
@@ -216,15 +216,14 @@ class StationProgressTracker:
             bar = f"{bar:<{bar_len}}"
 
             msg = f"\r    -> [{code}] [{bar}] {done:>3}/{total} dates ({pct:>5.1f}%) | {speed:>4.1f} req/s | ETA: {format_duration(rem_sec)}"
-            sys.stdout.write(f"{msg:<110}")
+            sys.stdout.write(f"{msg:<160}")
             sys.stdout.flush()
         else:
-            parts = []
-            for code, (done, total) in list(self.active_stations.items())[:3]:
-                parts.append(f"{code}: {done}/{total}")
+            parts = [f"{code}:{done}/{total}" for code, (done, total) in list(self.active_stations.items())]
             status_str = " | ".join(parts)
-            msg = f"\r    -> Querying: {status_str}"
-            sys.stdout.write(f"{msg:<110}")
+            n_active = len(self.active_stations)
+            msg = f"\r    -> Active ({n_active} workers): {status_str}"
+            sys.stdout.write(f"{msg:<160}")
             sys.stdout.flush()
 
 
