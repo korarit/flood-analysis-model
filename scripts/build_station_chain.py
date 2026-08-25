@@ -22,29 +22,37 @@ from scripts.modules.graph_topology import (
 
 
 def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
-    """Snaps stations, generates flow paths, and delineates catchments for the basin."""
+    """Snaps stations, generates flow paths, and delineates catchments for any basin."""
     station_dir = os.path.join(basin_dir, "station")
     catchment_dir = os.path.join(basin_dir, "catchment")
     processed_dir = os.path.join(basin_dir, "processed")
     os.makedirs(catchment_dir, exist_ok=True)
     os.makedirs(processed_dir, exist_ok=True)
 
+    raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
     fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
     acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
 
-    for f in (cond_dem_path, fdir_path, acc_path):
-        if not os.path.exists(f):
-            print(f"❌ ERROR: Required terrain file missing: {f}. Please run build_river_network.py first!", file=sys.stderr)
-            sys.exit(1)
+    dem_to_use = cond_dem_path if os.path.exists(cond_dem_path) else raw_dem_path
+    if not os.path.exists(dem_to_use):
+        print(f"❌ ERROR: DEM not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
+        sys.exit(1)
 
     print(f"\n🔗 [STEP 3] Building Station Chain & Flow Paths for Basin: {basin.upper()}")
 
     # 1. Load Terrain Grids
-    print("  [1/4] Loading conditioned DEM, Flow Direction, and Accumulation grids...")
-    filled_dem, transform, crs, _ = read_dem_geotiff(cond_dem_path)
-    fdir, _, _, _ = read_dem_geotiff(fdir_path)
-    acc, _, _, _ = read_dem_geotiff(acc_path)
+    print("  [1/4] Loading DEM and computing Flow Direction for station snapping...")
+    filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
+    
+    if os.path.exists(fdir_path) and os.path.exists(acc_path):
+        fdir, _, _, _ = read_dem_geotiff(fdir_path)
+        acc, _, _, _ = read_dem_geotiff(acc_path)
+    else:
+        import pyflwdir
+        flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=True)
+        fdir = flw.to_array(ftype='d8')
+        acc = flw.upstream_area(unit='cell')
 
     # 2. Load Stations
     water_st, rain_st = load_stations_for_basin(basin_dir)

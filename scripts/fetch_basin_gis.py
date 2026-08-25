@@ -104,36 +104,103 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
     min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
     from shapely.geometry import box, mapping
 
-    # Partition by latitude bands from north (headwaters) to south (outlet)
-    # Yom basin: ~3.5 degrees latitude span -> divide into 5 cascading sub-basins
-    n_splits = 5
+    # Comprehensive Sub-basin Registry for all Thai River Basins
+    SUBBASIN_REGISTRY = {
+        "yom": [
+            ("yom_01_upper", "ลุ่มน้ำยมตอนบน (พะเยา/ปง/เชียงม่วน)", 1),
+            ("yom_02_mid_north", "ลุ่มน้ำยมตอนกลางเหนือ (สอง/ร้องกวาง/แพร่)", 2),
+            ("yom_03_central", "ลุ่มน้ำยมตอนกลาง (ศรีสัชนาลัย/สวรรคโลก)", 3),
+            ("yom_04_mid_south", "ลุ่มน้ำยมตอนกลางใต้ (สุโขทัย/กงไกรลาศ)", 4),
+            ("yom_05_lower", "ลุ่มน้ำยมตอนล่าง (บางระกำ/พิจิตร/ชุมแสง)", 5),
+        ],
+        "nan": [
+            ("nan_01_upper", "ลุ่มน้ำน่านตอนบน (เฉลิมพระเกียรติ/ปัว/ท่าวังผา/เมืองน่าน)", 1),
+            ("nan_02_mid_north", "ลุ่มน้ำน่านตอนกลางเหนือ (เวียงสา/นาน้อย/เขื่อนสิริกิติ์)", 2),
+            ("nan_03_central", "ลุ่มน้ำน่านตอนกลาง (อุตรดิตถ์/ตรอน/พิชัย)", 3),
+            ("nan_04_mid_south", "ลุ่มน้ำน่านตอนกลางใต้ (พรหมพิราม/พิษณุโลก/บางกระทุ่ม)", 4),
+            ("nan_05_lower", "ลุ่มน้ำน่านตอนล่าง (พิจิตร/บางมูลนาก/ชุมแสง/ปากน้ำโพ)", 5),
+        ],
+        "ping": [
+            ("ping_01_upper", "ลุ่มน้ำปิงตอนบน (เชียงดาว/แม่แตง/แม่ริม/เมืองเชียงใหม่)", 1),
+            ("ping_02_mid_north", "ลุ่มน้ำปิงตอนกลางเหนือ (หางดง/ลำพูน/จอมทอง/ฮอด)", 2),
+            ("ping_03_central", "ลุ่มน้ำปิงตอนกลาง (ดอยเต่า/เขื่อนภูมิพล/สามเงา)", 3),
+            ("ping_04_mid_south", "ลุ่มน้ำปิงตอนกลางใต้ (บ้านตาก/เมืองตาก/วังเจ้า)", 4),
+            ("ping_05_lower", "ลุ่มน้ำปิงตอนล่าง (โกสัมพีนคร/กำแพงเพชร/ขาณุวรลักษบุรี/บรรพตพิสัย/นครสวรรค์)", 5),
+        ],
+        "wang": [
+            ("wang_01_upper", "ลุ่มน้ำวังตอนบน (พาน/วังเหนือ/แจ้ห่ม)", 1),
+            ("wang_02_central", "ลุ่มน้ำวังตอนกลาง (เมืองลำปาง/เกาะคา/สบปราบ)", 2),
+            ("wang_03_lower", "ลุ่มน้ำวังตอนล่าง (เถิน/แม่พริก/สามเงา/บรรจบแม่น้ำปิง)", 3),
+        ],
+        "chao-phraya": [
+            ("chao_01_upper", "ลุ่มน้ำเจ้าพระยาตอนบน (ปากน้ำโพ/นครสวรรค์/โกรกพระ/พยุหะคีรี)", 1),
+            ("chao_02_mid_north", "ลุ่มน้ำเจ้าพระยาตอนกลางเหนือ (อุทัยธานี/มโนรมย์/เขื่อนเจ้าพระยา/ชัยนาท)", 2),
+            ("chao_03_central", "ลุ่มน้ำเจ้าพระยาตอนกลาง (อินทร์บุรี/สิงห์บุรี/พรหมบุรี/อ่างทอง/ป่าโมก)", 3),
+            ("chao_04_mid_south", "ลุ่มน้ำเจ้าพระยาตอนกลางใต้ (บางปะอิน/พระนครศรีอยุธยา/ปทุมธานี/นนทบุรี)", 4),
+            ("chao_05_lower", "ลุ่มน้ำเจ้าพระยาตอนล่าง (กรุงเทพฯ/สมุทรปราการ/อ่าวไทย)", 5),
+        ],
+        "pa-sak": [
+            ("pasak_01_upper", "ลุ่มน้ำป่าสักตอนบน (ด่านซ้าย/หล่มเก่า/หล่มสัก/เมืองเพชรบูรณ์)", 1),
+            ("pasak_02_central", "ลุ่มน้ำป่าสักตอนกลาง (หนองไผ่/วิเชียรบุรี/เขื่อนป่าสักชลสิทธิ์)", 2),
+            ("pasak_03_lower", "ลุ่มน้ำป่าสักตอนล่าง (พัฒนานิคม/แก่งคอย/สระบุรี/พระนครศรีอยุธยา)", 3),
+        ],
+        "sakaekrang": [
+            ("sakae_01_upper", "ลุ่มน้ำสะแกกรังตอนบน (ลาดยาว/สว่างอารมณ์)", 1),
+            ("sakae_02_lower", "ลุ่มน้ำสะแกกรังตอนล่าง (ทัพทัน/เมืองอุทัยธานี/บรรจบเจ้าพระยา)", 2),
+        ],
+        "tha-chin": [
+            ("thachin_01_upper", "ลุ่มน้ำท่าจีนตอนบน (วัดสิงห์/เดิมบางนางบวช/สามชุก)", 1),
+            ("thachin_02_central", "ลุ่มน้ำท่าจีนตอนกลาง (เมืองสุพรรณบุรี/สองพี่น้อง/บางเลน)", 2),
+            ("thachin_03_lower", "ลุ่มน้ำท่าจีนตอนล่าง (นครชัยศรี/สามพราน/กระทุ่มแบน/สมุทรสาคร/อ่าวไทย)", 3),
+        ],
+        "chi": [
+            ("chi_01_upper", "ลุ่มน้ำชีตอนบน (หนองบัวแดง/เกษตรสมบูรณ์/ชัยภูมิ)", 1),
+            ("chi_02_mid_north", "ลุ่มน้ำชีตอนกลางเหนือ (โคกโพธิ์ไชย/มัญจาคีรี/ขอนแก่น)", 2),
+            ("chi_03_central", "ลุ่มน้ำชีตอนกลาง (โกสุมพิสัย/มหาสารคาม/ร้อยเอ็ด)", 3),
+            ("chi_04_lower", "ลุ่มน้ำชีตอนล่าง (ยโสธร/มหาชนะชัย/กันทรารมย์/บรรจบแม่น้ำมูล)", 4),
+        ],
+        "mun": [
+            ("mun_01_upper", "ลุ่มน้ำมูลตอนบน (ปักธงชัย/โชคชัย/นครราชสีมา)", 1),
+            ("mun_02_mid_north", "ลุ่มน้ำมูลตอนกลางเหนือ (พิมาย/ชุมพวง/สตึก)", 2),
+            ("mun_03_central", "ลุ่มน้ำมูลตอนกลาง (ท่าตูม/รัตนบุรี/ราษีไศล/ศรีสะเกษ)", 3),
+            ("mun_04_lower", "ลุ่มน้ำมูลตอนล่าง (วารินชำราบ/อุบลราชธานี/โขงเจียม/บรรจบแม่น้ำโขง)", 4),
+        ]
+    }
+
+    subbasin_defs = SUBBASIN_REGISTRY.get(basin.lower())
+
+    if subbasin_defs:
+        n_splits = len(subbasin_defs)
+    else:
+        # Dynamic generic generator for ANY other basin slug
+        n_splits = max(3, min(6, int(round((max_lat - min_lat) / 0.7))))
+        subbasin_defs = []
+        for i in range(n_splits):
+            if i == 0:
+                pos_name = "ตอนบน (ต้นน้ำ)"
+            elif i == n_splits - 1:
+                pos_name = "ตอนล่าง (ท้ายน้ำ)"
+            elif i == 1 and n_splits > 3:
+                pos_name = "ตอนกลางเหนือ"
+            elif i == n_splits - 2 and n_splits > 3:
+                pos_name = "ตอนกลางใต้"
+            else:
+                pos_name = "ตอนกลาง"
+            
+            sub_id = f"{basin}_{i+1:02d}"
+            sub_name = f"ลุ่มน้ำ{basin} {pos_name}"
+            subbasin_defs.append((sub_id, sub_name, i + 1))
+
     lat_step = (max_lat - min_lat) / float(n_splits)
-
-    subbasin_names_yom = [
-        ("yom_01_upper", "ลุ่มน้ำยมตอนบน (พะเยา/ปง/เชียงม่วน)", 1),
-        ("yom_02_mid_north", "ลุ่มน้ำยมตอนกลางเหนือ (สอง/ร้องกวาง/แพร่)", 2),
-        ("yom_03_central", "ลุ่มน้ำยมตอนกลาง (ศรีสัชนาลัย/สวรรคโลก)", 3),
-        ("yom_04_mid_south", "ลุ่มน้ำยมตอนกลางใต้ (สุโขทัย/กงไกรลาศ)", 4),
-        ("yom_05_lower", "ลุ่มน้ำยมตอนล่าง (บางระกำ/พิจิตร/ชุมแสง)", 5),
-    ]
-
     features = []
-    for i in range(n_splits):
+
+    for i, (sub_id, sub_name, order) in enumerate(subbasin_defs):
         sub_min_lat = min_lat + (n_splits - 1 - i) * lat_step
         sub_max_lat = sub_min_lat + lat_step
-        # Add slight overlap (0.02 deg ~ 2km) for seamless boundary stitching
+        # Add slight overlap (0.02 deg ~ 2.2km) for seamless boundary hydrological connection
         sub_geom = box(min_lon - 0.05, sub_min_lat - 0.02, max_lon + 0.05, sub_max_lat + 0.02)
 
-        if basin == "yom" and i < len(subbasin_names_yom):
-            sub_id, sub_name, order = subbasin_names_yom[i]
-        else:
-            sub_id = f"{basin}_{i+1:02d}"
-            sub_name = f"ลุ่มน้ำ{basin} ตอนที่ {i+1}"
-            order = i + 1
-
-        downstream_id = f"{basin}_{i+2:02d}" if (i + 1 < n_splits) else None
-        if basin == "yom" and i + 1 < len(subbasin_names_yom):
-            downstream_id = subbasin_names_yom[i+1][0]
+        downstream_id = subbasin_defs[i + 1][0] if (i + 1 < len(subbasin_defs)) else None
 
         features.append({
             "type": "Feature",
@@ -156,7 +223,7 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
         "features": features
     }
     save_geojson(geojson, output_path)
-    print(f"  [OK] Saved {len(features)} sub-basins: {output_path}")
+    print(f"  [OK] Saved {len(features)} sub-basins for '{basin}': {output_path}")
     return geojson
 
 
