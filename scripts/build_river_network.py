@@ -28,7 +28,13 @@ from scripts.modules.graph_topology import detect_confluences
 from scripts.fetch_basin_gis import fetch_subbasins_boundary, load_stations_for_basin
 
 
-def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_threshold: int = 300):
+def process_basin_terrain(
+    basin: str,
+    basin_dir: str,
+    terrain_dir: str,
+    stream_threshold: int = 300,
+    force: bool = False
+):
     """
     Processes DEM using Sub-basin Topological Cascade at native 12.5m resolution.
     Runs each sub-basin in order with minimal RAM footprint (~200-400 MB),
@@ -40,6 +46,19 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
     os.makedirs(river_dir, exist_ok=True)
     os.makedirs(processed_dir, exist_ok=True)
     os.makedirs(terrain_dir, exist_ok=True)
+
+    # 0. Check if already computed (Cache)
+    processed_river_path = os.path.join(processed_dir, "river_network.geojson")
+    river_segments_path = os.path.join(river_dir, "river_segments.json")
+    if (
+        os.path.exists(processed_river_path)
+        and os.path.exists(river_segments_path)
+        and os.path.getsize(processed_river_path) > 1024
+        and not force
+    ):
+        print(f"\n🏔️ [STEP 2] [CACHE] River network already exists: {processed_river_path}")
+        print("        Loaded cached 12.5m river network and confluences (skipping re-computation).")
+        return
 
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     if not os.path.exists(raw_dem_path):
