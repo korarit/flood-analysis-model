@@ -227,30 +227,60 @@ def run_rid_scraper(
                 date_be_str = to_buddhist_date_str(dt)
                 return fetch_hourly_stage_report(session, gid, date_be_str)
 
+            total_dates = len(dates)
+            done_dates = 0
+            last_render_time = 0.0
+
             with ThreadPoolExecutor(max_workers=workers) as date_exec:
-                reports = date_exec.map(fetch_single_date, dates)
-                for report_rows in reports:
-                    for row_item in report_rows:
-                        dt_iso = parse_rid_timestamp(row_item.get("time", ""))
-                        if not dt_iso:
-                            continue
+                future_to_date = {date_exec.submit(fetch_single_date, dt): dt for dt in dates}
+                for fut in as_completed(future_to_date):
+                    done_dates += 1
+                    now = time.time()
+                    if now - last_render_time >= 0.08 or done_dates == total_dates:
+                        last_render_time = now
+                        pct = (done_dates / total_dates) * 100 if total_dates > 0 else 0
+                        grp_elapsed = max(0.001, now - t_grp_start)
+                        speed = done_dates / grp_elapsed
+                        rem_sec = (total_dates - done_dates) / speed if speed > 0 else 0
 
-                        hvalues = row_item.get("hvalues", [])
-                        for val, stn_meta in zip(hvalues, stn_list):
-                            if val is None:
-                                continue
-                            stn_code = stn_meta.get("stationcode") or ""
-                            if not stn_code:
+                        bar_len = 15
+                        filled = int(bar_len * done_dates / total_dates) if total_dates > 0 else 0
+                        bar = "=" * filled + (">" if filled < bar_len else "")
+                        bar = f"{bar:<{bar_len}}"
+
+                        msg = f"\r    -> Querying: [{bar}] {done_dates:>3}/{total_dates} dates ({pct:>5.1f}%) | {speed:>4.1f} req/s | ETA: {format_duration(rem_sec)}"
+                        sys.stdout.write(f"{msg:<110}")
+                        sys.stdout.flush()
+
+                    try:
+                        report_rows = fut.result()
+                        for row_item in report_rows:
+                            dt_iso = parse_rid_timestamp(row_item.get("time", ""))
+                            if not dt_iso:
                                 continue
 
-                            key = (stn_code, dt_iso)
-                            if key not in all_records_by_key:
-                                all_records_by_key[key] = {
-                                    "station_code": stn_code,
-                                    "datetime": dt_iso,
-                                    "waterlevel_msl": float(val),
-                                    "group_id": gid,
-                                }
+                            hvalues = row_item.get("hvalues", [])
+                            for val, stn_meta in zip(hvalues, stn_list):
+                                if val is None:
+                                    continue
+                                stn_code = stn_meta.get("stationcode") or ""
+                                if not stn_code:
+                                    continue
+
+                                key = (stn_code, dt_iso)
+                                if key not in all_records_by_key:
+                                    all_records_by_key[key] = {
+                                        "station_code": stn_code,
+                                        "datetime": dt_iso,
+                                        "waterlevel_msl": float(val),
+                                        "group_id": gid,
+                                    }
+                    except Exception:
+                        pass
+
+            # Clear live progress line
+            sys.stdout.write("\r" + " " * 110 + "\r")
+            sys.stdout.flush()
 
             grp_dur = time.time() - t_grp_start
             print(f"    -> Group {gid} completed in {format_duration(grp_dur)} (Total pool: {len(all_records_by_key):,} records)")

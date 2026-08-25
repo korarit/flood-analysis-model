@@ -21,6 +21,7 @@ import csv
 import re
 import time
 import argparse
+import threading
 from pathlib import Path
 from typing import Dict, List, Set, Any, Optional, Tuple
 from datetime import datetime, timedelta
@@ -166,6 +167,67 @@ def scrape_dwr_station_date_session(
     return records
 
 
+class StationProgressTracker:
+    """Thread-safe live terminal progress tracker for active station date queries."""
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.active_stations: Dict[str, Tuple[int, int]] = {}
+        self.station_start_times: Dict[str, float] = {}
+        self.last_render_time = 0.0
+
+    def start_station(self, code: str, total_dates: int):
+        with self.lock:
+            self.active_stations[code] = (0, total_dates)
+            self.station_start_times[code] = time.time()
+            self._render(force=True)
+
+    def update_date(self, code: str, done: int, total: int):
+        with self.lock:
+            self.active_stations[code] = (done, total)
+            now = time.time()
+            if now - self.last_render_time >= 0.08 or done == total:
+                self.last_render_time = now
+                self._render(force=False)
+
+    def complete_station(self, code: str):
+        with self.lock:
+            if code in self.active_stations:
+                del self.active_stations[code]
+            if code in self.station_start_times:
+                del self.station_start_times[code]
+            sys.stdout.write("\r" + " " * 110 + "\r")
+            sys.stdout.flush()
+
+    def _render(self, force: bool = False):
+        if not self.active_stations:
+            return
+
+        if len(self.active_stations) == 1:
+            code, (done, total) = next(iter(self.active_stations.items()))
+            stn_start = self.station_start_times.get(code, time.time())
+            elapsed = max(0.001, time.time() - stn_start)
+            speed = done / elapsed if elapsed > 0 else 0
+            rem_sec = (total - done) / speed if speed > 0 else 0
+            pct = (done / total * 100) if total > 0 else 0
+
+            bar_len = 15
+            filled = int(bar_len * done / total) if total > 0 else 0
+            bar = "=" * filled + (">" if filled < bar_len else "")
+            bar = f"{bar:<{bar_len}}"
+
+            msg = f"\r    -> [{code}] [{bar}] {done:>3}/{total} dates ({pct:>5.1f}%) | {speed:>4.1f} req/s | ETA: {format_duration(rem_sec)}"
+            sys.stdout.write(f"{msg:<110}")
+            sys.stdout.flush()
+        else:
+            parts = []
+            for code, (done, total) in list(self.active_stations.items())[:3]:
+                parts.append(f"{code}: {done}/{total}")
+            status_str = " | ".join(parts)
+            msg = f"\r    -> Querying: {status_str}"
+            sys.stdout.write(f"{msg:<110}")
+            sys.stdout.flush()
+
+
 def scrape_station_fast(
     session: requests.Session,
     stn_info: Dict[str, Any],
@@ -173,7 +235,8 @@ def scrape_station_fast(
     filter_type: str,
     station_cache_file: Path,
     inner_workers: int = 15,
-    hourly_only: bool = True
+    hourly_only: bool = True,
+    progress_tracker: Optional[StationProgressTracker] = None,
 ) -> Tuple[str, int, float]:
     """
     Scrapes a single station using internal multi-threading over its date windows.
@@ -182,6 +245,10 @@ def scrape_station_fast(
     t_start = time.time()
     code = stn_info["station_code"]
     records_dict = {}
+    total_dates = len(date_windows)
+
+    if progress_tracker:
+        progress_tracker.start_station(code, total_dates)
 
     def fetch_date(d_str):
         return scrape_dwr_station_date_session(
@@ -193,10 +260,21 @@ def scrape_station_fast(
         )
 
     with ThreadPoolExecutor(max_workers=inner_workers) as inner_exec:
-        results = inner_exec.map(fetch_date, date_windows)
-        for recs in results:
-            for r in recs:
-                records_dict[r["datetime"]] = r
+        future_to_date = {inner_exec.submit(fetch_date, d): d for d in date_windows}
+        done_dates = 0
+        for fut in as_completed(future_to_date):
+            done_dates += 1
+            if progress_tracker:
+                progress_tracker.update_date(code, done_dates, total_dates)
+            try:
+                recs = fut.result()
+                for r in recs:
+                    records_dict[r["datetime"]] = r
+            except Exception:
+                pass
+
+    if progress_tracker:
+        progress_tracker.complete_station(code)
 
     duration = time.time() - t_start
 
@@ -321,6 +399,7 @@ def run_dwr_scraper(
             start_time = time.time()
             completed_count = already_cached_count
             recent_durations = []  # rolling window of station durations
+            progress_tracker = StationProgressTracker()
 
             with ThreadPoolExecutor(max_workers=workers) as executor:
                 future_to_station = {
@@ -332,7 +411,8 @@ def run_dwr_scraper(
                         filter_type,
                         station_cache_dir / f"{stn['station_code']}.csv",
                         inner_workers,
-                        hourly_only
+                        hourly_only,
+                        progress_tracker,
                     ): stn for stn in pending_stations
                 }
 
