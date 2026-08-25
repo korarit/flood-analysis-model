@@ -136,6 +136,11 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
         sub_elapsed = time.time() - t_sub_start
         print(f"  └─ ✅ Sub-basin ({sub_order}) finished in {sub_elapsed:.1f}s")
 
+        # Free large raster arrays and C memory buffers immediately
+        import gc
+        del sub_elev, filled_dem, fdir, acc, flw_obj, sub_river_geojson, sub_segments, sub_confluences
+        gc.collect()
+
     # 6. Save Merged Native 12.5m River Network
     merged_river_geojson = {
         "type": "FeatureCollection",

@@ -461,6 +461,8 @@ def extract_river_network_reaches(
 
     pbar.close()
 
+    del stream_mask, visited, stream_in_degree, stream_r, stream_c, start_r, start_c
+
     geojson = {
         "type": "FeatureCollection",
         "features": features
