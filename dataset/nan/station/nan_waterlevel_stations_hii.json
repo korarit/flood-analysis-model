@@ -1,0 +1,1622 @@
+[
+  {
+    "station": {
+      "id": 1653,
+      "tele_station_name": {
+        "th": "ชุมแสง",
+        "en": ""
+      },
+      "tele_station_lat": 15.86923,
+      "tele_station_long": 100.26481,
+      "tele_station_oldcode": "G23069-NAN008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 16.208,
+      "qmax": null,
+      "min_bank": 27.97,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชุมแสง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกยไชย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600304",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1590,
+      "tele_station_name": {
+        "th": "ท่าวังผา",
+        "en": ""
+      },
+      "tele_station_lat": 19.09611,
+      "tele_station_long": 100.80258,
+      "tele_station_oldcode": "G23069-NAN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 216.328,
+      "qmax": null,
+      "min_bank": 223.307,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าวังผา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าวังผา",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550609",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268785,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยมัด",
+        "en": ""
+      },
+      "tele_station_lat": 19.01162,
+      "tele_station_long": 100.94317,
+      "tele_station_oldcode": "G23069-RES027",
+      "tele_station_type": "waterlevel",
+      "ground_level": 295.2,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำยาว (2)",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปัว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อวน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550506",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1602,
+      "tele_station_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tele_station_lat": 18.85971,
+      "tele_station_long": 100.8171,
+      "tele_station_oldcode": "G23069-NAN002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 195.061,
+      "qmax": null,
+      "min_bank": 205.643,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองจัง",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268789,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำน้ำเกี๋ยน",
+        "en": ""
+      },
+      "tele_station_lat": 18.75228,
+      "tele_station_long": 100.853,
+      "tele_station_oldcode": "G23069-RES031",
+      "tele_station_type": "waterlevel",
+      "ground_level": 267.6,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/2",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "น้ำเกี๋ยน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551404",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268784,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยหวะ",
+        "en": ""
+      },
+      "tele_station_lat": 18.89904,
+      "tele_station_long": 100.83237,
+      "tele_station_oldcode": "G23069-RES026",
+      "tele_station_type": "waterlevel",
+      "ground_level": 230.6,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/2",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองจัง",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1603,
+      "tele_station_name": {
+        "th": "เมืองน่าน",
+        "en": ""
+      },
+      "tele_station_lat": 18.73796,
+      "tele_station_long": 100.75609,
+      "tele_station_oldcode": "G23069-NAN003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 187.025,
+      "qmax": null,
+      "min_bank": 195.433,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าน้าว",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551406",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268786,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำขอนแก่น 2",
+        "en": ""
+      },
+      "tele_station_lat": 18.96273,
+      "tele_station_long": 100.92741,
+      "tele_station_oldcode": "G23069-RES028",
+      "tele_station_type": "waterlevel",
+      "ground_level": 262.4,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำยาว (2)",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันติสุข",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าแลวหลวง",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551102",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268787,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำน้ำพงษ์",
+        "en": ""
+      },
+      "tele_station_lat": 18.9116,
+      "tele_station_long": 100.96423,
+      "tele_station_oldcode": "G23069-RES029",
+      "tele_station_type": "waterlevel",
+      "ground_level": 303.2,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำยาว (2)",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันติสุข",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พงษ์",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551103",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268788,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยก๊อต",
+        "en": ""
+      },
+      "tele_station_lat": 18.87318,
+      "tele_station_long": 100.93699,
+      "tele_station_oldcode": "G23069-RES030",
+      "tele_station_type": "waterlevel",
+      "ground_level": 309.6,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำยาว (2)",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันติสุข",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พงษ์",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551103",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1581,
+      "tele_station_name": {
+        "th": "บ้านกาใส",
+        "en": ""
+      },
+      "tele_station_lat": 18.86399,
+      "tele_station_long": 100.67626,
+      "tele_station_oldcode": "G23069-TB0001",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำสมุน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองน่าน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเนียน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550117",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10120,
+      "tele_station_name": {
+        "th": "น้ำสา",
+        "en": ""
+      },
+      "tele_station_lat": 18.584002,
+      "tele_station_long": 100.600266,
+      "tele_station_oldcode": "G23069-NAN016",
+      "tele_station_type": "waterlevel",
+      "ground_level": 226.052,
+      "qmax": null,
+      "min_bank": 232.077,
+      "river_name": "น้ำสา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงสา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปงสนุก",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550710",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1592,
+      "tele_station_name": {
+        "th": "เวียงสา",
+        "en": ""
+      },
+      "tele_station_lat": 18.54992,
+      "tele_station_long": 100.76151,
+      "tele_station_oldcode": "G23069-NAN009",
+      "tele_station_type": "waterlevel",
+      "ground_level": 175.094,
+      "qmax": null,
+      "min_bank": 185.01,
+      "river_name": "แม่น้ำน่านส่วนที่ 3/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงสา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ส้าน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10119,
+      "tele_station_name": {
+        "th": "แม่น้ำสา",
+        "en": ""
+      },
+      "tele_station_lat": 18.571873,
+      "tele_station_long": 100.74266,
+      "tele_station_oldcode": "G23069-NAN015",
+      "tele_station_type": "waterlevel",
+      "ground_level": 182.652,
+      "qmax": null,
+      "min_bank": 189.647,
+      "river_name": "น้ำสา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงสา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "กลางเวียง",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1761,
+      "tele_station_name": {
+        "th": "ตะพานหิน",
+        "en": ""
+      },
+      "tele_station_lat": 16.27034,
+      "tele_station_long": 100.41396,
+      "tele_station_oldcode": "G23069-NAN007",
+      "tele_station_type": "waterlevel",
+      "ground_level": 21.693,
+      "qmax": null,
+      "min_bank": 34.162,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตะพานหิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "งิ้วราย",
+        "en": ""
+      },
+      "province_code": "66",
+      "province_name": {
+        "th": "พิจิตร",
+        "en": ""
+      },
+      "geo_code": "660402",
+      "rid_code": "",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1739,
+      "tele_station_name": {
+        "th": "นครไทย",
+        "en": ""
+      },
+      "tele_station_lat": 17.10701,
+      "tele_station_long": 100.84587,
+      "tele_station_oldcode": "G23069-KWN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 196.785,
+      "qmax": null,
+      "min_bank": 202.195,
+      "river_name": "แม่น้ำแควน้อยส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นครไทย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครไทย",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1745,
+      "tele_station_name": {
+        "th": "บางกระทุ่ม",
+        "en": ""
+      },
+      "tele_station_lat": 16.58046,
+      "tele_station_long": 100.23858,
+      "tele_station_oldcode": "G23069-NAN006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 29.14,
+      "qmax": null,
+      "min_bank": 39.856,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางกระทุ่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โคกสลุด",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650503",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1746,
+      "tele_station_name": {
+        "th": "สะพานนครป่าหมากร่วมใจ",
+        "en": ""
+      },
+      "tele_station_lat": 16.60887,
+      "tele_station_long": 100.36977,
+      "tele_station_oldcode": "G23069-VLGE12",
+      "tele_station_type": "waterlevel",
+      "ground_level": 28.755,
+      "qmax": null,
+      "min_bank": 38.196,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางกระทุ่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครป่าหมาก",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650507",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1753,
+      "tele_station_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "tele_station_lat": 16.8222,
+      "tele_station_long": 100.43159,
+      "tele_station_oldcode": "G23069-NAN013",
+      "tele_station_type": "waterlevel",
+      "ground_level": 38.363,
+      "qmax": null,
+      "min_bank": 49.241,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650801",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1754,
+      "tele_station_name": {
+        "th": "แม่น้ำเข็ก (ว้งทอง)",
+        "en": ""
+      },
+      "tele_station_lat": 16.85502,
+      "tele_station_long": 100.66681,
+      "tele_station_oldcode": "G23069-NAN005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 133.875,
+      "qmax": null,
+      "min_bank": 140.171,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังนกแอ่น",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650808",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7075,
+      "tele_station_name": {
+        "th": "เขื่อนแควน้อยบำรุงแดน",
+        "en": ""
+      },
+      "tele_station_lat": 17.182213,
+      "tele_station_long": 100.41388,
+      "tele_station_oldcode": "G23069-KWN003",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแควน้อยส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วัดโบสถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คันโช้ง",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1735,
+      "tele_station_name": {
+        "th": "เมืองพิษณุโลก",
+        "en": ""
+      },
+      "tele_station_lat": 16.86469,
+      "tele_station_long": 100.24476,
+      "tele_station_oldcode": "G23069-NAN012",
+      "tele_station_type": "waterlevel",
+      "ground_level": 32.561,
+      "qmax": null,
+      "min_bank": 45.326,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองพิษณุโลก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากโทก",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650110",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1555,
+      "tele_station_name": {
+        "th": "ตรอน",
+        "en": ""
+      },
+      "tele_station_lat": 17.41834,
+      "tele_station_long": 100.13075,
+      "tele_station_oldcode": "G23069-NAN014",
+      "tele_station_type": "waterlevel",
+      "ground_level": 44.976,
+      "qmax": null,
+      "min_bank": 54.156,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตรอน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หาดสองแคว",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1558,
+      "tele_station_name": {
+        "th": "น้ำปาด",
+        "en": ""
+      },
+      "tele_station_lat": 17.79087,
+      "tele_station_long": 100.74902,
+      "tele_station_oldcode": "G23069-NAN010",
+      "tele_station_type": "waterlevel",
+      "ground_level": 152.424,
+      "qmax": null,
+      "min_bank": 159.459,
+      "river_name": "น้ำปาด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "น้ำปาด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านฝาย",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530402",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1563,
+      "tele_station_name": {
+        "th": "คลองผันน้ำยม-น่าน3",
+        "en": ""
+      },
+      "tele_station_lat": 17.29251,
+      "tele_station_long": 100.07764,
+      "tele_station_oldcode": "G23069-DIV003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 42.551,
+      "qmax": null,
+      "min_bank": 53.671,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พิชัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คอรุม",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1562,
+      "tele_station_name": {
+        "th": "พิชัย",
+        "en": ""
+      },
+      "tele_station_lat": 17.29433,
+      "tele_station_long": 100.08282,
+      "tele_station_oldcode": "G23069-NAN004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 43.678,
+      "qmax": null,
+      "min_bank": 51.539,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พิชัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ในเมือง",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1552,
+      "tele_station_name": {
+        "th": "เมืองอุตรดิตถ์",
+        "en": ""
+      },
+      "tele_station_lat": 17.61011,
+      "tele_station_long": 100.09943,
+      "tele_station_oldcode": "G23069-NAN011",
+      "tele_station_type": "waterlevel",
+      "ground_level": 49.677,
+      "qmax": null,
+      "min_bank": 58.02,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอุตรดิตถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าเซ่า",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530104",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  }
+]

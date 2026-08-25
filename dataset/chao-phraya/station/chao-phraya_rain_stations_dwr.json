@@ -1,0 +1,812 @@
+[
+  {
+    "station": {
+      "id": 2072,
+      "tele_station_name": {
+        "th": "กรมทรัพยากรน้ำ"
+      },
+      "tele_station_lat": 13.785535,
+      "tele_station_long": 100.53908,
+      "tele_station_oldcode": "STN1064",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": "Bangkok"
+      },
+      "amphoe_name": {
+        "th": "พญาไท",
+        "en": "Phaya Thai District"
+      },
+      "tumbon_name": {
+        "th": "สามเสนใน",
+        "en": "Sam Sen Nai"
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": "Bangkok"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1648,
+      "tele_station_name": {
+        "th": "บ้านโค้งสง่า"
+      },
+      "tele_station_lat": 15.304897,
+      "tele_station_long": 100.610502,
+      "tele_station_oldcode": "STN0558",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ตากฟ้า",
+        "en": "Tak Fa District"
+      },
+      "tumbon_name": {
+        "th": "ลำพยนต์",
+        "en": "Lam Phayon"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1123714,
+      "tele_station_name": {
+        "th": "บ้านอุดมพัฒนา"
+      },
+      "tele_station_lat": 15.829543,
+      "tele_station_long": 100.767315,
+      "tele_station_oldcode": "STN1875",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "หนองบัว",
+        "en": "Nong Bua District"
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": "Nong Bua"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501554,
+      "tele_station_name": {
+        "th": "บ้านซับสมบูรณ์"
+      },
+      "tele_station_lat": 15.566287,
+      "tele_station_long": 100.778566,
+      "tele_station_oldcode": "STN1526",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": "Phaisali District"
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": "Wang Khoi"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501251,
+      "tele_station_name": {
+        "th": "บ้านพุฝรั่ง"
+      },
+      "tele_station_lat": 15.62993,
+      "tele_station_long": 100.798017,
+      "tele_station_oldcode": "STN1217",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": "Phaisali District"
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": "Wang Khoi"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501282,
+      "tele_station_name": {
+        "th": "บ้านหัวพุ"
+      },
+      "tele_station_lat": 15.564188,
+      "tele_station_long": 100.705829,
+      "tele_station_oldcode": "STN1249",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": "Phaisali District"
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": "Wang Khoi"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1020,
+      "tele_station_name": {
+        "th": "บ้านรังเตี้ย"
+      },
+      "tele_station_lat": 15.210777,
+      "tele_station_long": 100.932682,
+      "tele_station_oldcode": "STN0451",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สระโบสถ์",
+        "en": "Sa Bot District"
+      },
+      "tumbon_name": {
+        "th": "นิยมชัย",
+        "en": "Niyom Chai"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1018,
+      "tele_station_name": {
+        "th": "ชุมชนเขาสามยอด (บ้านน้ำจั้น หมู่ 2)"
+      },
+      "tele_station_lat": 14.825584,
+      "tele_station_long": 100.69195,
+      "tele_station_oldcode": "STN0674",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองลพบุรี",
+        "en": "Mueang Lop Buri District"
+      },
+      "tumbon_name": {
+        "th": "เขาสามยอด",
+        "en": "Khao Sam Yot"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501236,
+      "tele_station_name": {
+        "th": "บ้านนกเขาเปล้า"
+      },
+      "tele_station_lat": 15.017018,
+      "tele_station_long": 100.793065,
+      "tele_station_oldcode": "STN1202",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "โคกสำโรง",
+        "en": "Khon Samrong District"
+      },
+      "tumbon_name": {
+        "th": "เพนียด",
+        "en": "Phaniat"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501552,
+      "tele_station_name": {
+        "th": "บ้านพุม่วง"
+      },
+      "tele_station_lat": 15.015938,
+      "tele_station_long": 100.863294,
+      "tele_station_oldcode": "STN1524",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "โคกสำโรง",
+        "en": "Khon Samrong District"
+      },
+      "tumbon_name": {
+        "th": "วังเพลิง",
+        "en": "Wang Phloeng"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501219,
+      "tele_station_name": {
+        "th": "บ้านเขาขุยพัฒนา"
+      },
+      "tele_station_lat": 15.528146,
+      "tele_station_long": 100.843028,
+      "tele_station_oldcode": "STN1185",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "โคกเจริญ",
+        "en": "Khok Charoen District"
+      },
+      "tumbon_name": {
+        "th": "หนองมะค่า",
+        "en": "Nong Makha"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1021,
+      "tele_station_name": {
+        "th": "บ้านโคกแสมสาร"
+      },
+      "tele_station_lat": 15.336768,
+      "tele_station_long": 100.831599,
+      "tele_station_oldcode": "STN0675",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1002",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "โคกเจริญ",
+        "en": "Khok Charoen District"
+      },
+      "tumbon_name": {
+        "th": "โคกแสมสาร",
+        "en": "Khok Samae San"
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": "Lop Buri"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501221,
+      "tele_station_name": {
+        "th": "บ้านคลองบน"
+      },
+      "tele_station_lat": 15.931117,
+      "tele_station_long": 100.829141,
+      "tele_station_oldcode": "STN1187",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "02",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ชนแดน",
+        "en": "Chon Daen District"
+      },
+      "tumbon_name": {
+        "th": "ลาดแค",
+        "en": "Lat Khae"
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": "Phetchabun"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501260,
+      "tele_station_name": {
+        "th": "บ้านลาดแคใต้"
+      },
+      "tele_station_lat": 16.035818,
+      "tele_station_long": 100.826486,
+      "tele_station_oldcode": "STN1227",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "02",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ชนแดน",
+        "en": "Chon Daen District"
+      },
+      "tumbon_name": {
+        "th": "ลาดแค",
+        "en": "Lat Khae"
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": "Phetchabun"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501250,
+      "tele_station_name": {
+        "th": "บ้านพญาวัง"
+      },
+      "tele_station_lat": 15.864996,
+      "tele_station_long": 100.848355,
+      "tele_station_oldcode": "STN1216",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1001",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "02",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บึงสามพัน",
+        "en": "Bueng Sam Phan District"
+      },
+      "tumbon_name": {
+        "th": "พญาวัง",
+        "en": "Phaya Wang"
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": "Phetchabun"
+      }
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  }
+]

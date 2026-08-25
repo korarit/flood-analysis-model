@@ -1,0 +1,2367 @@
+[
+  {
+    "station": {
+      "id": 630,
+      "tele_station_name": {
+        "en": "Wang 1",
+        "th": "สามเงา"
+      },
+      "tele_station_lat": 17.26053,
+      "tele_station_long": 99.07797,
+      "tele_station_oldcode": "WAN001",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "วังหมัน",
+        "en": "Wang Man"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476446,
+      "tele_station_name": {
+        "en": "National Park Protection Unit, 3 (Dong Lan)",
+        "th": "หน่วยพิทักษ์อุทยานแห่งชาติที่ มว.3 (ดงลาน)"
+      },
+      "tele_station_lat": 17.2975,
+      "tele_station_long": 99.1891,
+      "tele_station_oldcode": "MOU317",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "วังจันทร์",
+        "en": "Wang Chan"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601372,
+      "tele_station_name": {
+        "en": "Song Kwai Luang Reservoir",
+        "th": "อ่างเก็บน้ำสองแควหลวง"
+      },
+      "tele_station_lat": 17.37875,
+      "tele_station_long": 99.01148,
+      "tele_station_oldcode": "RES050",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601373,
+      "tele_station_name": {
+        "en": "Song Kwai Nuea Reservoir",
+        "th": "อ่างเก็บน้ำสองแควเหนือ"
+      },
+      "tele_station_lat": 17.35603,
+      "tele_station_long": 99.02463,
+      "tele_station_oldcode": "RES051",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601374,
+      "tele_station_name": {
+        "en": "Song Kwai Tai Reservoir",
+        "th": "อ่างเก็บน้ำสองแควใต้"
+      },
+      "tele_station_lat": 17.32797,
+      "tele_station_long": 99.02184,
+      "tele_station_oldcode": "RES052",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601377,
+      "tele_station_name": {
+        "en": "Nong Kao Pla Reservoir",
+        "th": "อ่างเก็บน้ำหนองก้างปลา"
+      },
+      "tele_station_lat": 17.31207,
+      "tele_station_long": 99.09735,
+      "tele_station_oldcode": "RES055",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601376,
+      "tele_station_name": {
+        "en": "Nong Khae Reservoir",
+        "th": "อ่างเก็บน้ำหนองเข้"
+      },
+      "tele_station_lat": 17.34999,
+      "tele_station_long": 99.06564,
+      "tele_station_oldcode": "RES054",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601375,
+      "tele_station_name": {
+        "en": "Huai Khlong Mai Daeng Reservoir",
+        "th": "อ่างเก็บน้ำห้วยคลองไม้แดง"
+      },
+      "tele_station_lat": 17.30193,
+      "tele_station_long": 99.0265,
+      "tele_station_oldcode": "RES053",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0711",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": "Sam Ngao District"
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": "Yok Krabat"
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": "Tak"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121234,
+      "tele_station_name": {
+        "en": "Nam Wang Bridge",
+        "th": "สะพานน้ำวัง"
+      },
+      "tele_station_lat": 19.232492,
+      "tele_station_long": 99.63247,
+      "tele_station_oldcode": "MOU323",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": "Wang Nuea District"
+      },
+      "tumbon_name": {
+        "th": "ทุ่งฮั้ว",
+        "en": "Thung Hua"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 467,
+      "tele_station_name": {
+        "en": "Na Yang",
+        "th": "อบต.นายาง"
+      },
+      "tele_station_lat": 17.90977,
+      "tele_station_long": 99.30969,
+      "tele_station_oldcode": "SPPT",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "สบปราบ",
+        "en": "Sop Prap District"
+      },
+      "tumbon_name": {
+        "th": "นายาง",
+        "en": "Na Yang"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 469,
+      "tele_station_name": {
+        "en": "Mae Tan Noi Communuty",
+        "th": "ชุมชนแม่ตาลน้อย"
+      },
+      "tele_station_lat": 18.41521,
+      "tele_station_long": 99.26469,
+      "tele_station_oldcode": "VLGE28",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": "Hang Chat District"
+      },
+      "tumbon_name": {
+        "th": "เวียงตาล",
+        "en": "Wiang Tan"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1556917,
+      "tele_station_name": {
+        "en": "Doi Pha Mueang Wildlife Sanctuary",
+        "th": "ที่ทำการเขตรักษาพันธุ์สัตว์ป่าดอยผาเมือง"
+      },
+      "tele_station_lat": 18.36925,
+      "tele_station_long": 99.23496,
+      "tele_station_oldcode": "MOU313",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": "Hang Chat District"
+      },
+      "tumbon_name": {
+        "th": "เวียงตาล",
+        "en": "Wiang Tan"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1472982,
+      "tele_station_name": {
+        "en": "Hua Thung Forest Protection Unit",
+        "th": "หน่วยพิทักษ์ป่าหัวทุ่ง"
+      },
+      "tele_station_lat": 18.30243,
+      "tele_station_long": 99.229454,
+      "tele_station_oldcode": "MOU259",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": "Hang Chat District"
+      },
+      "tumbon_name": {
+        "th": "แม่สัน",
+        "en": "Mae San"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 468,
+      "tele_station_name": {
+        "en": "Nong Lom",
+        "th": "อบต.หนองหล่ม"
+      },
+      "tele_station_lat": 18.33624,
+      "tele_station_long": 99.39992,
+      "tele_station_oldcode": "HCTT",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": "Hang Chat District"
+      },
+      "tumbon_name": {
+        "th": "หนองหล่ม",
+        "en": "Nong Lom"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 435367,
+      "tele_station_name": {
+        "en": "Wiang Tan",
+        "th": "อบต.เวียงตาล"
+      },
+      "tele_station_lat": 18.31132,
+      "tele_station_long": 99.3252,
+      "tele_station_oldcode": "TBR011",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": "Hang Chat District"
+      },
+      "tumbon_name": {
+        "th": "เวียงตาล",
+        "en": "Wiang Tan"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 454,
+      "tele_station_name": {
+        "en": "Wang 4",
+        "th": "เกาะคา"
+      },
+      "tele_station_lat": 18.15915,
+      "tele_station_long": 99.38407,
+      "tele_station_oldcode": "WAN004",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0705",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เกาะคา",
+        "en": "Ko Kha District"
+      },
+      "tumbon_name": {
+        "th": "วังพร้าว",
+        "en": "Wang Phrao"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121233,
+      "tele_station_name": {
+        "en": "Watershed Research Unit ofNam Wang",
+        "th": "สถานีวิจัยต้นน้ำวัง"
+      },
+      "tele_station_lat": 17.7567,
+      "tele_station_long": 99.1794,
+      "tele_station_oldcode": "MOU321",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": "Thoeng District"
+      },
+      "tumbon_name": {
+        "th": "แม่ถอด",
+        "en": "Mae Thot"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476465,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Aab Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่อาบ"
+      },
+      "tele_station_lat": 17.65963,
+      "tele_station_long": 99.12293,
+      "tele_station_oldcode": "MOU328",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": "Thoeng District"
+      },
+      "tumbon_name": {
+        "th": "นาโป่ง",
+        "en": "Na Pong"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476448,
+      "tele_station_name": {
+        "en": "National Park Protection Unit 1 (Raw Ton Kok)",
+        "th": "หน่วยพิทักษ์อุทยานแห่งชาติที่ 1 (น้ำดิบต้นกอก)"
+      },
+      "tele_station_lat": 17.494926,
+      "tele_station_long": 99.214226,
+      "tele_station_oldcode": "MOU318",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": "Thoeng District"
+      },
+      "tumbon_name": {
+        "th": "แม่วะ",
+        "en": "Mae Wa"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 463,
+      "tele_station_name": {
+        "en": "Wang 3",
+        "th": "เถิน"
+      },
+      "tele_station_lat": 17.75171,
+      "tele_station_long": 99.23061,
+      "tele_station_oldcode": "WAN003",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": "Thoeng District"
+      },
+      "tumbon_name": {
+        "th": "แม่ถอด",
+        "en": "Mae Thot"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 642755,
+      "tele_station_name": {
+        "en": "Chae Son National Parks",
+        "th": "ที่ทำการอุทยานแห่งชาติแจ้ซ้อน"
+      },
+      "tele_station_lat": 18.836481,
+      "tele_station_long": 99.47019,
+      "tele_station_oldcode": "MOU041",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท แอดวานซ์ อินโฟร์ เซอร์วิส จำกัด (มหาชน)"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": "Chae Son"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121232,
+      "tele_station_name": {
+        "en": "Wildlife Sanctuary of Doi Phra Bat",
+        "th": "ที่ทำการเขตห้ามล่าสัตว์ป่าดอยพระบาท"
+      },
+      "tele_station_lat": 18.616037,
+      "tele_station_long": 99.49938,
+      "tele_station_oldcode": "MOU320",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0704",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "ทุ่งกว๋าว",
+        "en": "Thung Khwao"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1483111,
+      "tele_station_name": {
+        "en": "Khlong Mae Mon Bridge",
+        "th": "สะพานคลองแม่มอญ"
+      },
+      "tele_station_lat": 18.810192,
+      "tele_station_long": 99.50328,
+      "tele_station_oldcode": "MOU373",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": "Chae Son"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121235,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Khun Soi Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์ขุนสอย"
+      },
+      "tele_station_lat": 18.997137,
+      "tele_station_long": 99.51786,
+      "tele_station_oldcode": "MOU327",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "หัวเมือง",
+        "en": "Hua Mueang"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1481156,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Nueng Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่นึง"
+      },
+      "tele_station_lat": 18.571398,
+      "tele_station_long": 99.43958,
+      "tele_station_oldcode": "MOU363",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0704",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "ทุ่งกว๋าว",
+        "en": "Thung Khwao"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476450,
+      "tele_station_name": {
+        "en": "National Park Protection Unit at Jho Chor. 5 (Mae Jam)",
+        "th": "หน่วยพิทักษ์อุทยานแห่งชาติที่ จซ. 5 (แม่แจ๋ม)"
+      },
+      "tele_station_lat": 18.9263,
+      "tele_station_long": 99.4099,
+      "tele_station_oldcode": "MOU319",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": "Mueang Pan District"
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": "Chae Son"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476461,
+      "tele_station_name": {
+        "en": "Friendship Bridge, Tui River",
+        "th": "สะพานพัฒนามิตรภาพแม่น้ำตุ๋ย"
+      },
+      "tele_station_lat": 18.474373,
+      "tele_station_long": 99.46628,
+      "tele_station_oldcode": "MOU325",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0704",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองลำปาง",
+        "en": "Mueang Lampang District"
+      },
+      "tumbon_name": {
+        "th": "บ้านเอื้อม",
+        "en": "Ban Ueam"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 385580,
+      "tele_station_name": {
+        "en": "Huai Mae Kiang",
+        "th": "อ่างเก็บน้ำแม่เกี๋ยง"
+      },
+      "tele_station_lat": 18.43277,
+      "tele_station_long": 99.49828,
+      "tele_station_oldcode": "TBW009",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0704",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เมืองลำปาง",
+        "en": "Mueang Lampang District"
+      },
+      "tumbon_name": {
+        "th": "บ้านเอื้อม",
+        "en": "Ban Ueam"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1556912,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Liang Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่เลียง "
+      },
+      "tele_station_lat": 18.169743,
+      "tele_station_long": 99.18275,
+      "tele_station_oldcode": "MOU308",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0708",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เสริมงาม",
+        "en": "Soem Ngam District"
+      },
+      "tumbon_name": {
+        "th": "เสริมขวา",
+        "en": "Soem Khwa"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1481101,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Serm Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่เสริม"
+      },
+      "tele_station_lat": 18.1331,
+      "tele_station_long": 99.1106,
+      "tele_station_oldcode": "MOU331",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0708",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "เสริมงาม",
+        "en": "Soem Ngam District"
+      },
+      "tumbon_name": {
+        "th": "เสริมกลาง",
+        "en": "Soem Klang"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 385578,
+      "tele_station_name": {
+        "en": "Pethlanna Farm",
+        "th": "สวนเพชรล้านนา"
+      },
+      "tele_station_lat": 18.80307,
+      "tele_station_long": 99.58371,
+      "tele_station_oldcode": "TBR015",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom District"
+      },
+      "tumbon_name": {
+        "th": "แม่สุก",
+        "en": "Mae Suk"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476456,
+      "tele_station_name": {
+        "en": "Khlong Mae Soi Bridge",
+        "th": "สะพานน้ำคลองแม่สอย"
+      },
+      "tele_station_lat": 18.784391,
+      "tele_station_long": 99.56949,
+      "tele_station_oldcode": "MOU322",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0702",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom District"
+      },
+      "tumbon_name": {
+        "th": "แม่สุก",
+        "en": "Mae Suk"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121237,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Chae Fa Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่แจ้ฟ้า"
+      },
+      "tele_station_lat": 18.8129,
+      "tele_station_long": 99.7737,
+      "tele_station_oldcode": "MOU330",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom District"
+      },
+      "tumbon_name": {
+        "th": "ปงดอน",
+        "en": "Pong Don"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1476442,
+      "tele_station_name": {
+        "en": "Pha Thai National Park Protection Unit, Unit 5 (Tat Noi Waterfall)",
+        "th": "หน่วยพิทักษ์อุทยานแห่งชาติถ้ำผาไท หน่วยที่ 5 (น้ำตกตาดน้อย)"
+      },
+      "tele_station_lat": 18.8137,
+      "tele_station_long": 99.7046,
+      "tele_station_oldcode": "MOU316",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom District"
+      },
+      "tumbon_name": {
+        "th": "ปงดอน",
+        "en": "Pong Don"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 460,
+      "tele_station_name": {
+        "en": "Chae Hom",
+        "th": "อบต.แจ้ห่ม"
+      },
+      "tele_station_lat": 18.71225,
+      "tele_station_long": 99.58207,
+      "tele_station_oldcode": "CEHM",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom District"
+      },
+      "tumbon_name": {
+        "th": "แจ้ห่ม",
+        "en": "Chae Hom"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601358,
+      "tele_station_name": {
+        "en": "Ang Mae Yon Santonkaew",
+        "th": "อ่างฯแม่ยอนสันดอนแก้ว"
+      },
+      "tele_station_lat": 17.97243,
+      "tele_station_long": 99.48753,
+      "tele_station_oldcode": "RES036",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0706",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": "Mae Tha District"
+      },
+      "tumbon_name": {
+        "th": "สันดอนแก้ว",
+        "en": "San Don Kaeo"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601356,
+      "tele_station_name": {
+        "en": "Huai Mae Pan Noi Reservoir",
+        "th": "อ่างเก็บน้ำห้วยแม่แพนน้อย "
+      },
+      "tele_station_lat": 18.0676,
+      "tele_station_long": 99.52639,
+      "tele_station_oldcode": "RES034",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0706",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": "Mae Tha District"
+      },
+      "tumbon_name": {
+        "th": "บ้านบอม",
+        "en": "Ban Bom"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1601357,
+      "tele_station_name": {
+        "en": "Mae Kong Reservoir",
+        "th": "อ่างเก็บน้ำแม่กอง"
+      },
+      "tele_station_lat": 18.05428,
+      "tele_station_long": 99.45685,
+      "tele_station_oldcode": "RES035",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0706",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": "Mae Tha District"
+      },
+      "tumbon_name": {
+        "th": "บ้านบอม",
+        "en": "Ban Bom"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 464,
+      "tele_station_name": {
+        "en": "Wang 2",
+        "th": "แม่พริก"
+      },
+      "tele_station_lat": 17.44521,
+      "tele_station_long": 99.12897,
+      "tele_station_oldcode": "WAN002",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0709",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่พริก",
+        "en": "Mae Phrik District"
+      },
+      "tumbon_name": {
+        "th": "แม่พริก",
+        "en": "Mae Phrik"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 453,
+      "tele_station_name": {
+        "en": "Mae Mo",
+        "th": "ทต.แม่เมาะ"
+      },
+      "tele_station_lat": 18.27293,
+      "tele_station_long": 99.65159,
+      "tele_station_oldcode": "MMMO",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0706",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่เมาะ",
+        "en": "Mae Mo District"
+      },
+      "tumbon_name": {
+        "th": "แม่เมาะ",
+        "en": "Mae Mo"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1121236,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Jang Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่จาง"
+      },
+      "tele_station_lat": 18.385023,
+      "tele_station_long": 99.82247,
+      "tele_station_oldcode": "MOU329",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0706",
+      "sub_basin_name": null,
+      "sponsor_by": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่เมาะ",
+        "en": "Mae Mo District"
+      },
+      "tumbon_name": {
+        "th": "นาสัก",
+        "en": "Na Sak"
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": "Lampang"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1556826,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Nga Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่งา"
+      },
+      "tele_station_lat": 19.483288,
+      "tele_station_long": 99.59807,
+      "tele_station_oldcode": "MOU177",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "พาน",
+        "en": "Phan District"
+      },
+      "tumbon_name": {
+        "th": "ป่าหุ่ง",
+        "en": "Pa Hung"
+      },
+      "province_code": "57",
+      "province_name": {
+        "th": "เชียงราย",
+        "en": "Chiang Rai"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1475131,
+      "tele_station_name": {
+        "en": "Watershed Management and Community Development Unit in the Mae Hom Conservation Forest Area",
+        "th": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์แม่ห้อม"
+      },
+      "tele_station_lat": 19.3907,
+      "tele_station_long": 99.622,
+      "tele_station_oldcode": "MOU315",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "0701",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท ไทยเบฟเวอเรจ จำกัด (มหาชน) "
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "03",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "พาน",
+        "en": "Phan District"
+      },
+      "tumbon_name": {
+        "th": "ป่าหุ่ง",
+        "en": "Pa Hung"
+      },
+      "province_code": "57",
+      "province_name": {
+        "th": "เชียงราย",
+        "en": "Chiang Rai"
+      }
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  }
+]

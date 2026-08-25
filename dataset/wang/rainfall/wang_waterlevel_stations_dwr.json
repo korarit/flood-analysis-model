@@ -1,0 +1,2522 @@
+[
+  {
+    "station": {
+      "id": 5419,
+      "tele_station_name": {
+        "th": "บ้านเด่นไม้ซุง",
+        "en": ""
+      },
+      "tele_station_lat": 17.239535,
+      "tele_station_long": 99.249512,
+      "tele_station_oldcode": "G09006-STN1172",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สลิด",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5496,
+      "tele_station_name": {
+        "th": "บ้านใหม่สามัคคี",
+        "en": ""
+      },
+      "tele_station_lat": 17.284697,
+      "tele_station_long": 99.056294,
+      "tele_station_oldcode": "G09006-STN1253",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ยกกระบัตร",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2403,
+      "tele_station_name": {
+        "th": "บ้านตึงเหนือ",
+        "en": ""
+      },
+      "tele_station_lat": 19.039207,
+      "tele_station_long": 99.708485,
+      "tele_station_oldcode": "G09006-STN0882",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8868,
+      "tele_station_name": {
+        "th": "บ้านต้นฮ่าง*",
+        "en": ""
+      },
+      "tele_station_lat": 19.056799,
+      "tele_station_long": 99.640113,
+      "tele_station_oldcode": "G09006-STN2014",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังทรายคำ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520708",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5299,
+      "tele_station_name": {
+        "th": "บ้านทัพป่าเส้า",
+        "en": ""
+      },
+      "tele_station_lat": 19.191428,
+      "tele_station_long": 99.615416,
+      "tele_station_oldcode": "G09006-STN1256",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520702",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268511,
+      "tele_station_name": {
+        "th": "บ้านน้ำหลง*",
+        "en": ""
+      },
+      "tele_station_lat": 19.17489,
+      "tele_station_long": 99.659674,
+      "tele_station_oldcode": "G09006-STN2176",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังซ้าย",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2402,
+      "tele_station_name": {
+        "th": "บ้านปงถ้ำ",
+        "en": ""
+      },
+      "tele_station_lat": 19.119505,
+      "tele_station_long": 99.702894,
+      "tele_station_oldcode": "G09006-STN0883",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8869,
+      "tele_station_name": {
+        "th": "บ้านป่าฝาง*",
+        "en": ""
+      },
+      "tele_station_lat": 19.065157,
+      "tele_station_long": 99.638035,
+      "tele_station_oldcode": "G09006-STN2015",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังทรายคำ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520708",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5510,
+      "tele_station_name": {
+        "th": "บ้านห้วยก้อด",
+        "en": ""
+      },
+      "tele_station_lat": 19.036747,
+      "tele_station_long": 99.61032,
+      "tele_station_oldcode": "G09006-STN1269",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ร่องเคาะ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520704",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8866,
+      "tele_station_name": {
+        "th": "บ้านห้วยป้าย*",
+        "en": ""
+      },
+      "tele_station_lat": 19.296164,
+      "tele_station_long": 99.616463,
+      "tele_station_oldcode": "G09006-STN2012",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังแก้ว",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520707",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5497,
+      "tele_station_name": {
+        "th": "บ้านฮ่าง",
+        "en": ""
+      },
+      "tele_station_lat": 19.286858,
+      "tele_station_long": 99.63232,
+      "tele_station_oldcode": "G09006-STN1254",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังแก้ว",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520707",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5467,
+      "tele_station_name": {
+        "th": "บ้านแม่สงเหนือ",
+        "en": ""
+      },
+      "tele_station_lat": 18.974856,
+      "tele_station_long": 99.586337,
+      "tele_station_oldcode": "G09006-STN1223",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ร่องเคาะ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520704",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8867,
+      "tele_station_name": {
+        "th": "บ้านแม่สุขเหนือ*",
+        "en": ""
+      },
+      "tele_station_lat": 19.131933,
+      "tele_station_long": 99.627375,
+      "tele_station_oldcode": "G09006-STN2013",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังซ้าย",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8667,
+      "tele_station_name": {
+        "th": "บ้านใหม่หล่ายท่า*",
+        "en": ""
+      },
+      "tele_station_lat": 19.17154,
+      "tele_station_long": 99.622608,
+      "tele_station_oldcode": "G09006-STN1813",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเหนือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังซ้าย",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2416,
+      "tele_station_name": {
+        "th": "บ้านสวนป่าทุ่งเกวียน",
+        "en": ""
+      },
+      "tele_station_lat": 18.332701,
+      "tele_station_long": 99.249899,
+      "tele_station_oldcode": "G09006-STN0533",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ห้างฉัตร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เวียงตาล",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521205",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8855,
+      "tele_station_name": {
+        "th": "บ้านนาแก้วตะวันตก*",
+        "en": ""
+      },
+      "tele_station_lat": 18.112375,
+      "tele_station_long": 99.347773,
+      "tele_station_oldcode": "G09006-STN2001",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เกาะคา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาแส่ง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520307",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8856,
+      "tele_station_name": {
+        "th": "บ้านไหล่หินตะวันตก*",
+        "en": ""
+      },
+      "tele_station_lat": 18.20979,
+      "tele_station_long": 99.337733,
+      "tele_station_oldcode": "G09006-STN2002",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เกาะคา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไหล่หิน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5565,
+      "tele_station_name": {
+        "th": "บ้านท่าอุดม",
+        "en": ""
+      },
+      "tele_station_lat": 17.680154,
+      "tele_station_long": 99.312242,
+      "tele_station_oldcode": "G09006-STN1330",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ปะ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520803",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2408,
+      "tele_station_name": {
+        "th": "บ้านแม่ถอด",
+        "en": ""
+      },
+      "tele_station_lat": 17.757825,
+      "tele_station_long": 99.225892,
+      "tele_station_oldcode": "G09006-STN0877",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ถอด",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520807",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5577,
+      "tele_station_name": {
+        "th": "บ้านแม่แก่ง",
+        "en": ""
+      },
+      "tele_station_lat": 17.700725,
+      "tele_station_long": 99.163618,
+      "tele_station_oldcode": "G09006-STN1343",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ถอด",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520807",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8863,
+      "tele_station_name": {
+        "th": "บ้านขอใต้*",
+        "en": ""
+      },
+      "tele_station_lat": 18.65129,
+      "tele_station_long": 99.47465,
+      "tele_station_oldcode": "G09006-STN2009",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตุ๋ย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านขอ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8861,
+      "tele_station_name": {
+        "th": "บ้านทุ่ง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.839804,
+      "tele_station_long": 99.511887,
+      "tele_station_oldcode": "G09006-STN2007",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8864,
+      "tele_station_name": {
+        "th": "บ้านทุ่งสะแกง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.699913,
+      "tele_station_long": 99.483582,
+      "tele_station_oldcode": "G09006-STN2010",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตุ๋ย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านขอ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8669,
+      "tele_station_name": {
+        "th": "บ้านทุ่งโป่ง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.774213,
+      "tele_station_long": 99.486707,
+      "tele_station_oldcode": "G09006-STN1815",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8862,
+      "tele_station_name": {
+        "th": "บ้านศรีดอนมูล*",
+        "en": ""
+      },
+      "tele_station_lat": 18.810419,
+      "tele_station_long": 99.5032,
+      "tele_station_oldcode": "G09006-STN2008",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5641,
+      "tele_station_name": {
+        "th": "บ้านแม่แจ๋ม",
+        "en": ""
+      },
+      "tele_station_lat": 18.918987,
+      "tele_station_long": 99.423498,
+      "tele_station_oldcode": "G09006-STN1412",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5495,
+      "tele_station_name": {
+        "th": "บ้านใหม่พัฒนา",
+        "en": ""
+      },
+      "tele_station_lat": 18.85746,
+      "tele_station_long": 99.50298,
+      "tele_station_oldcode": "G09006-STN1252",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แจ้ซ้อน",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5564,
+      "tele_station_name": {
+        "th": "บ้านต้นต้อง",
+        "en": ""
+      },
+      "tele_station_lat": 18.338258,
+      "tele_station_long": 99.566892,
+      "tele_station_oldcode": "G09006-STN1329",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลำปาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พิชัย",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520111",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5578,
+      "tele_station_name": {
+        "th": "บ้านห้วยน้ำเค็ม",
+        "en": ""
+      },
+      "tele_station_lat": 18.385754,
+      "tele_station_long": 99.615819,
+      "tele_station_oldcode": "G09006-STN1344",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลำปาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านเสด็จ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520110",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5502,
+      "tele_station_name": {
+        "th": "บ้านปงป่าป๋อ",
+        "en": ""
+      },
+      "tele_station_lat": 18.130482,
+      "tele_station_long": 99.207081,
+      "tele_station_oldcode": "G09006-STN1260",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต่ำ",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสริมงาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เสริมขวา",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520402",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2394,
+      "tele_station_name": {
+        "th": "บ้านสันโป่ง",
+        "en": ""
+      },
+      "tele_station_lat": 18.076908,
+      "tele_station_long": 99.152528,
+      "tele_station_oldcode": "G09006-STN0879",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต่ำ",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสริมงาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เสริมกลาง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520404",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5463,
+      "tele_station_name": {
+        "th": "บ้านแม่กึ๊ด",
+        "en": ""
+      },
+      "tele_station_lat": 18.093353,
+      "tele_station_long": 99.271891,
+      "tele_station_oldcode": "G09006-STN1219",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต่ำ",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสริมงาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งงาม",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5625,
+      "tele_station_name": {
+        "th": "บ้านทุ่งฮ้าง",
+        "en": ""
+      },
+      "tele_station_lat": 18.88286,
+      "tele_station_long": 99.670438,
+      "tele_station_oldcode": "G09006-STN1396",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งผึ้ง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8858,
+      "tele_station_name": {
+        "th": "บ้านปงคอบ*",
+        "en": ""
+      },
+      "tele_station_lat": 18.759017,
+      "tele_station_long": 99.562078,
+      "tele_station_oldcode": "G09006-STN2004",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วิเชตนคร",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520607",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5645,
+      "tele_station_name": {
+        "th": "บ้านศรีบุญเรือง",
+        "en": ""
+      },
+      "tele_station_lat": 18.826529,
+      "tele_station_long": 99.576168,
+      "tele_station_oldcode": "G09006-STN1416",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำสวย",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สุก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520604",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5626,
+      "tele_station_name": {
+        "th": "บ้านแม่ช่อฟ้า",
+        "en": ""
+      },
+      "tele_station_lat": 18.863594,
+      "tele_station_long": 99.730043,
+      "tele_station_oldcode": "G09006-STN1397",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แจ้ห่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งผึ้ง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5442,
+      "tele_station_name": {
+        "th": "บ้านด่าน",
+        "en": ""
+      },
+      "tele_station_lat": 17.996171,
+      "tele_station_long": 99.509398,
+      "tele_station_oldcode": "G09006-STN1195",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่จาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สันดอนแก้ว",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521011",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5553,
+      "tele_station_name": {
+        "th": "บ้านผาลาด",
+        "en": ""
+      },
+      "tele_station_lat": 18.241118,
+      "tele_station_long": 99.596513,
+      "tele_station_oldcode": "G09006-STN1318",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่จาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ทะ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521001",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2411,
+      "tele_station_name": {
+        "th": "บ้านหลุกใต้*",
+        "en": ""
+      },
+      "tele_station_lat": 18.130707,
+      "tele_station_long": 99.532341,
+      "tele_station_oldcode": "G09006-STN0937",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่จาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทะ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาครัว",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "521002",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2410,
+      "tele_station_name": {
+        "th": "บ้านสันขี้เหล็ก",
+        "en": ""
+      },
+      "tele_station_lat": 17.480736,
+      "tele_station_long": 99.086995,
+      "tele_station_oldcode": "G09006-STN0535",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่พริก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่พริก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520901",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5466,
+      "tele_station_name": {
+        "th": "บ้านแม่เชียงรายบน",
+        "en": ""
+      },
+      "tele_station_lat": 17.361821,
+      "tele_station_long": 99.145232,
+      "tele_station_oldcode": "G09006-STN1222",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่พริก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พระบาทวังตวง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520904",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5423,
+      "tele_station_name": {
+        "th": "บ้านปงแท่น",
+        "en": ""
+      },
+      "tele_station_lat": 18.359534,
+      "tele_station_long": 99.890464,
+      "tele_station_oldcode": "G09006-STN1176",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่จาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่เมาะ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "จางเหนือ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 7,
+      "basin_code": 7,
+      "basin_name": {
+        "th": "ลุ่มน้ำวัง",
+        "en": "Wang River Basin"
+      }
+    }
+  }
+]

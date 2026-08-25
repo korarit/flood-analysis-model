@@ -1,0 +1,1622 @@
+[
+  {
+    "station": {
+      "id": 3863,
+      "tele_station_name": {
+        "th": "วัดเกยไชยเหนือ",
+        "en": ""
+      },
+      "tele_station_lat": 15.86918,
+      "tele_station_long": 100.264732,
+      "tele_station_oldcode": "G07003-N.67",
+      "tele_station_type": "waterlevel",
+      "ground_level": 12.54,
+      "qmax": 1435,
+      "min_bank": 28.21,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชุมแสง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกยไชย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600304",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4308,
+      "tele_station_name": {
+        "th": "บ้านปางสา",
+        "en": ""
+      },
+      "tele_station_lat": 19.23041,
+      "tele_station_long": 100.754089,
+      "tele_station_oldcode": "G07003-N.65",
+      "tele_station_type": "waterlevel",
+      "ground_level": 248.951,
+      "qmax": 210.39999389648438,
+      "min_bank": 253.89,
+      "river_name": "ห้วยน้ำยาว (1)",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าวังผา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ผาทอง",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550610",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4286,
+      "tele_station_name": {
+        "th": "บ้านน้ำยาว",
+        "en": ""
+      },
+      "tele_station_lat": 18.99374,
+      "tele_station_long": 100.940102,
+      "tele_station_oldcode": "G07003-N.49",
+      "tele_station_type": "waterlevel",
+      "ground_level": 264.333,
+      "qmax": 331.5,
+      "min_bank": 268.48,
+      "river_name": "น้ำยาว (2)",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปัว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อวน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550506",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4260,
+      "tele_station_name": {
+        "th": "หน้าสำนักงานป่าไม้",
+        "en": ""
+      },
+      "tele_station_lat": 18.774879,
+      "tele_station_long": 100.779694,
+      "tele_station_oldcode": "G07003-N.1",
+      "tele_station_type": "waterlevel",
+      "ground_level": 188.9,
+      "qmax": 1066,
+      "min_bank": 199.2,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ภูเพียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ฝายแก้ว",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "551407",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4287,
+      "tele_station_name": {
+        "th": "บ้านผาขวาง",
+        "en": ""
+      },
+      "tele_station_lat": 19.015169,
+      "tele_station_long": 100.780212,
+      "tele_station_oldcode": "G07003-N.64",
+      "tele_station_type": "waterlevel",
+      "ground_level": 210.81,
+      "qmax": 1028,
+      "min_bank": 220.4,
+      "river_name": "แม่น้ำน่านส่วนที่ 2/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองน่าน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ่อ",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550102",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4262,
+      "tele_station_name": {
+        "th": "สะพานท่าลี่",
+        "en": ""
+      },
+      "tele_station_lat": 18.548229,
+      "tele_station_long": 100.808617,
+      "tele_station_oldcode": "G07003-N.75",
+      "tele_station_type": "waterlevel",
+      "ground_level": 181.325,
+      "qmax": 745.0499877929688,
+      "min_bank": 192.8,
+      "river_name": "น้ำว้า",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงสา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไหล่น่าน",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550703",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10101,
+      "tele_station_name": {
+        "th": "บางมูลนาก",
+        "en": ""
+      },
+      "tele_station_lat": 16.009411,
+      "tele_station_long": 100.369202,
+      "tele_station_oldcode": "G07003-N.8B",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 1228,
+      "min_bank": 30.59,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางมูลนาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เนินมะกอก",
+        "en": ""
+      },
+      "province_code": "66",
+      "province_name": {
+        "th": "พิจิตร",
+        "en": ""
+      },
+      "geo_code": "660504",
+      "rid_code": "",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3937,
+      "tele_station_name": {
+        "th": "บ้านราชช้างขวัญ",
+        "en": ""
+      },
+      "tele_station_lat": 16.4695,
+      "tele_station_long": 100.330872,
+      "tele_station_oldcode": "G07003-N.7A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 23.14,
+      "qmax": 997,
+      "min_bank": 35.87,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองพิจิตร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากทาง",
+        "en": ""
+      },
+      "province_code": "66",
+      "province_name": {
+        "th": "พิจิตร",
+        "en": ""
+      },
+      "geo_code": "660105",
+      "rid_code": "",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4070,
+      "tele_station_name": {
+        "th": "บ้านท่าสะแก",
+        "en": ""
+      },
+      "tele_station_lat": 17.25317,
+      "tele_station_long": 100.628242,
+      "tele_station_oldcode": "G07003-N.55",
+      "tele_station_type": "waterlevel",
+      "ground_level": 183.03,
+      "qmax": 297,
+      "min_bank": 191.2,
+      "river_name": "น้ำภาค",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชาติตระการ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าสะแก",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650306",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6119,
+      "tele_station_name": {
+        "th": "บ้านแก่งบัวคำ",
+        "en": ""
+      },
+      "tele_station_lat": 17.12855,
+      "tele_station_long": 100.588066,
+      "tele_station_oldcode": "G07003-N.81",
+      "tele_station_type": "waterlevel",
+      "ground_level": 160,
+      "qmax": 602,
+      "min_bank": 167.08,
+      "river_name": "แม่น้ำแควน้อยส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชาติตระการ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สวนเมี่ยง",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4044,
+      "tele_station_name": {
+        "th": "บ้านหนองกระท้าว",
+        "en": ""
+      },
+      "tele_station_lat": 17.0851,
+      "tele_station_long": 100.824669,
+      "tele_station_oldcode": "G07003-N.36",
+      "tele_station_type": "waterlevel",
+      "ground_level": 189.324,
+      "qmax": 112.19999694824219,
+      "min_bank": 200.38,
+      "river_name": "แม่น้ำแควน้อยส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นครไทย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครไทย",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4034,
+      "tele_station_name": {
+        "th": "ท้ายเขื่อนนเรศวร",
+        "en": ""
+      },
+      "tele_station_lat": 17.033621,
+      "tele_station_long": 100.197968,
+      "tele_station_oldcode": "G07003-N.27A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 34.16,
+      "qmax": 1116,
+      "min_bank": 48.23,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พรหมพิราม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พรหมพิราม",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 17587037,
+      "tele_station_name": {
+        "th": "น้ำเข็ก",
+        "en": ""
+      },
+      "tele_station_lat": 16.8223,
+      "tele_station_long": 100.431717,
+      "tele_station_oldcode": "G07003-N.90",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 192.4199981689453,
+      "min_bank": 48.46,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ดินทอง",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650811",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4336,
+      "tele_station_name": {
+        "th": "บ้านวังนกแอ่น",
+        "en": ""
+      },
+      "tele_station_lat": 16.84712,
+      "tele_station_long": 100.512093,
+      "tele_station_oldcode": "G07003-N.24A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 41.156,
+      "qmax": 328.79998779296875,
+      "min_bank": 52.21,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังนกแอ่น",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650808",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4333,
+      "tele_station_name": {
+        "th": "บ้านท่างาม",
+        "en": ""
+      },
+      "tele_station_lat": 16.998871,
+      "tele_station_long": 100.32663,
+      "tele_station_oldcode": "G07003-N.22A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 39.689,
+      "qmax": 408,
+      "min_bank": 49.16,
+      "river_name": "แม่น้ำแควน้อยส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วัดโบสถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วัดโบสถ์",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5892,
+      "tele_station_name": {
+        "th": "บ้านชมพู",
+        "en": ""
+      },
+      "tele_station_lat": 16.69232,
+      "tele_station_long": 100.670921,
+      "tele_station_oldcode": "G07003-N.43A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 50.288,
+      "qmax": 280.3999938964844,
+      "min_bank": 59.72,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เนินมะปราง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ชมพู",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650901",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3995,
+      "tele_station_name": {
+        "th": "สะพานสุพรรณกัลยา ",
+        "en": ""
+      },
+      "tele_station_lat": 16.80608,
+      "tele_station_long": 100.245827,
+      "tele_station_oldcode": "G07003-N.5A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 31.13,
+      "qmax": 1365,
+      "min_bank": 44.87,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองพิษณุโลก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วัดจันทร์",
+        "en": ""
+      },
+      "province_code": "65",
+      "province_name": {
+        "th": "พิษณุโลก",
+        "en": ""
+      },
+      "geo_code": "650103",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4106,
+      "tele_station_name": {
+        "th": "บ้านเด่นสำโรง",
+        "en": ""
+      },
+      "tele_station_lat": 17.418329,
+      "tele_station_long": 100.130913,
+      "tele_station_oldcode": "G07003-N.60",
+      "tele_station_type": "waterlevel",
+      "ground_level": 44.67,
+      "qmax": 1305,
+      "min_bank": 56.5,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตรอน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หาดสองแคว",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4115,
+      "tele_station_name": {
+        "th": "",
+        "en": ""
+      },
+      "tele_station_lat": 17.456667,
+      "tele_station_long": 100.2775,
+      "tele_station_oldcode": "G07003-N.72",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองตรอน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทองแสนขัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าคาย",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530903",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4148,
+      "tele_station_name": {
+        "th": "บ้านหาดไผ่",
+        "en": ""
+      },
+      "tele_station_lat": 17.73687,
+      "tele_station_long": 100.531586,
+      "tele_station_oldcode": "G07003-N.12A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 68.16,
+      "qmax": 3000,
+      "min_bank": 81.46,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าปลา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ผาเลือด",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4130,
+      "tele_station_name": {
+        "th": "",
+        "en": ""
+      },
+      "tele_station_lat": 17.583334,
+      "tele_station_long": 100.49167,
+      "tele_station_oldcode": "G07003-N.28A",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองตรอน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "น้ำปาด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "น้ำไคร้",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530404",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6120,
+      "tele_station_name": {
+        "th": "ต.น้ำปาด",
+        "en": ""
+      },
+      "tele_station_lat": 17.74103,
+      "tele_station_long": 100.679276,
+      "tele_station_oldcode": "G07003-N.84",
+      "tele_station_type": "waterlevel",
+      "ground_level": 136.477,
+      "qmax": 285,
+      "min_bank": 141.5,
+      "river_name": "น้ำปาด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "น้ำปาด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แสนตอ",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4175,
+      "tele_station_name": {
+        "th": "บ้านฟากท่า",
+        "en": ""
+      },
+      "tele_station_lat": 17.997021,
+      "tele_station_long": 100.879089,
+      "tele_station_oldcode": "G07003-N.39",
+      "tele_station_type": "waterlevel",
+      "ground_level": 208.587,
+      "qmax": null,
+      "min_bank": 214.05,
+      "river_name": "น้ำปาด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ฟากท่า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ฟากท่า",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530501",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10102,
+      "tele_station_name": {
+        "th": "ต.หาดงิ้ว",
+        "en": ""
+      },
+      "tele_station_lat": 17.69908,
+      "tele_station_long": 100.315544,
+      "tele_station_oldcode": "G07003-N.89",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 74.490005,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอุตรดิตถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หาดงิ้ว",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530115",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4136,
+      "tele_station_name": {
+        "th": "ต.ในเมือง",
+        "en": ""
+      },
+      "tele_station_lat": 17.609871,
+      "tele_station_long": 100.099609,
+      "tele_station_oldcode": "G07003-N.2B",
+      "tele_station_type": "waterlevel",
+      "ground_level": 48.65,
+      "qmax": 1910,
+      "min_bank": 59.3,
+      "river_name": "แม่น้ำน่านส่วนที่ 4/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอุตรดิตถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าเซ่า",
+        "en": ""
+      },
+      "province_code": "53",
+      "province_name": {
+        "th": "อุตรดิตถ์",
+        "en": ""
+      },
+      "geo_code": "530104",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3911,
+      "tele_station_name": {
+        "th": "บ้านวังโป่ง",
+        "en": ""
+      },
+      "tele_station_lat": 16.327471,
+      "tele_station_long": 100.801727,
+      "tele_station_oldcode": "G07003-N.54",
+      "tele_station_type": "waterlevel",
+      "ground_level": 103.481,
+      "qmax": 300,
+      "min_bank": 109.43,
+      "river_name": "แม่น้ำน่านตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังโป่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังโป่ง",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "671001",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3957,
+      "tele_station_name": {
+        "th": "บ้านทานตะวัน",
+        "en": ""
+      },
+      "tele_station_lat": 16.56912,
+      "tele_station_long": 100.891792,
+      "tele_station_oldcode": "G07003-N.73",
+      "tele_station_type": "waterlevel",
+      "ground_level": 684.281,
+      "qmax": 184,
+      "min_bank": 693.74005,
+      "river_name": "แม่น้ำวังทอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาค้อ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองแม่นา",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "671106",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 9,
+      "basin_code": 9,
+      "basin_name": {
+        "th": "ลุ่มน้ำน่าน",
+        "en": "Nan River Basin"
+      }
+    }
+  }
+]

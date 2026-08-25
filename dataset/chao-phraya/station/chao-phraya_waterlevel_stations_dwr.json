@@ -1,0 +1,422 @@
+[
+  {
+    "station": {
+      "id": 2722,
+      "tele_station_name": {
+        "th": "บ้านโค้งสง่า",
+        "en": ""
+      },
+      "tele_station_lat": 15.304897,
+      "tele_station_long": 100.610502,
+      "tele_station_oldcode": "G09006-STN0558",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตากฟ้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลำพยนต์",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "601202",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8730,
+      "tele_station_name": {
+        "th": "บ้านอุดมพัฒนา*",
+        "en": ""
+      },
+      "tele_station_lat": 15.829543,
+      "tele_station_long": 100.767315,
+      "tele_station_oldcode": "G09006-STN1875",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600401",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5743,
+      "tele_station_name": {
+        "th": "บ้านซับสมบูรณ์",
+        "en": ""
+      },
+      "tele_station_lat": 15.566287,
+      "tele_station_long": 100.778566,
+      "tele_station_oldcode": "G09006-STN1526",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5462,
+      "tele_station_name": {
+        "th": "บ้านพุฝรั่ง",
+        "en": ""
+      },
+      "tele_station_lat": 15.62993,
+      "tele_station_long": 100.798017,
+      "tele_station_oldcode": "G09006-STN1217",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5492,
+      "tele_station_name": {
+        "th": "บ้านหัวพุ",
+        "en": ""
+      },
+      "tele_station_lat": 15.564188,
+      "tele_station_long": 100.705829,
+      "tele_station_oldcode": "G09006-STN1249",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268530,
+      "tele_station_name": {
+        "th": "บ้านคลอง*",
+        "en": ""
+      },
+      "tele_station_lat": 15.285471,
+      "tele_station_long": 100.822001,
+      "tele_station_oldcode": "G09006-STN2195",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สระโบสถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "มหาโพธิ",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160802",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5741,
+      "tele_station_name": {
+        "th": "บ้านพุม่วง",
+        "en": ""
+      },
+      "tele_station_lat": 15.015938,
+      "tele_station_long": 100.863294,
+      "tele_station_oldcode": "G09006-STN1524",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "โคกสำโรง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังเพลิง",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160309",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  }
+]

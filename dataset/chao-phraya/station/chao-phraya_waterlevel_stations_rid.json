@@ -1,0 +1,902 @@
+[
+  {
+    "station": {
+      "id": 3641,
+      "tele_station_name": {
+        "th": "กรมชลประทานสามเสน",
+        "en": ""
+      },
+      "tele_station_lat": 13.78815,
+      "tele_station_long": 100.509148,
+      "tele_station_oldcode": "G07003-C.12",
+      "tele_station_type": "waterlevel",
+      "ground_level": -14.52,
+      "qmax": null,
+      "min_bank": 2.26,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดุสิต",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ถนนนครไชยศรี",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "100206",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3786,
+      "tele_station_name": {
+        "th": "ท้ายเขื่อนเจ้าพระยา",
+        "en": ""
+      },
+      "tele_station_lat": 15.16384,
+      "tele_station_long": 100.18792,
+      "tele_station_oldcode": "G07003-C.13",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.08,
+      "qmax": 2720,
+      "min_bank": 16.34,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สรรพยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหลวง",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180406",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3837,
+      "tele_station_name": {
+        "th": "ค่ายจิรประวัติ",
+        "en": ""
+      },
+      "tele_station_lat": 15.67059,
+      "tele_station_long": 100.10936,
+      "tele_station_oldcode": "G07003-C.2",
+      "tele_station_type": "waterlevel",
+      "ground_level": 13.32,
+      "qmax": 3735,
+      "min_bank": 25.7,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองนครสวรรค์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากน้ำโพ",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600101",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268754,
+      "tele_station_name": {
+        "th": "กรมชลประทานปากเกร็ด",
+        "en": ""
+      },
+      "tele_station_lat": 13.89474,
+      "tele_station_long": 100.491989,
+      "tele_station_oldcode": "G07003-C.22A",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 2.9,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปากเกร็ด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางตลาด",
+        "en": ""
+      },
+      "province_code": "12",
+      "province_name": {
+        "th": "นนทบุรี",
+        "en": ""
+      },
+      "geo_code": "120602",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 201266,
+      "tele_station_name": {
+        "th": "วัดกร่าง",
+        "en": ""
+      },
+      "tele_station_lat": 14.11658,
+      "tele_station_long": 100.53743,
+      "tele_station_oldcode": "G07003-C.29B",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 3600,
+      "min_bank": 3,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามโคก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท้ายเกาะ",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130711",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3645,
+      "tele_station_name": {
+        "th": "โรงเรียนคณะราษฎร์บำรุง",
+        "en": ""
+      },
+      "tele_station_lat": 14.01987,
+      "tele_station_long": 100.537376,
+      "tele_station_oldcode": "G07003-C.38",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 3.45,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปทุมธานี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านกลาง",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130103",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3650,
+      "tele_station_name": {
+        "th": "บ้านบางบาล",
+        "en": ""
+      },
+      "tele_station_lat": 14.36319,
+      "tele_station_long": 100.484833,
+      "tele_station_oldcode": "G07003-C.37",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.04,
+      "qmax": 97,
+      "min_bank": 4.14,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะพานไทย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140504",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3653,
+      "tele_station_name": {
+        "th": "บ้านบางหลวงโดด",
+        "en": ""
+      },
+      "tele_station_lat": 14.41588,
+      "tele_station_long": 100.440804,
+      "tele_station_oldcode": "G07003-C.36",
+      "tele_station_type": "waterlevel",
+      "ground_level": -5.95,
+      "qmax": 441,
+      "min_bank": 4.36,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหลวงโดด",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140513",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3651,
+      "tele_station_name": {
+        "th": "บ้านป้อม",
+        "en": ""
+      },
+      "tele_station_lat": 14.3691,
+      "tele_station_long": 100.528732,
+      "tele_station_oldcode": "G07003-C.35",
+      "tele_station_type": "waterlevel",
+      "ground_level": -9.25,
+      "qmax": 1159,
+      "min_bank": 4.35,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านป้อม",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140120",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3649,
+      "tele_station_name": {
+        "th": "สะพานปรีดี-ธำรง",
+        "en": ""
+      },
+      "tele_station_lat": 14.35872,
+      "tele_station_long": 100.580452,
+      "tele_station_oldcode": "G07003-S.5",
+      "tele_station_type": "waterlevel",
+      "ground_level": -8.59,
+      "qmax": 1400,
+      "min_bank": 4.7,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หอรัตนไชย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140103",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7577,
+      "tele_station_name": {
+        "th": "ตลาดเสนา",
+        "en": ""
+      },
+      "tele_station_lat": 14.32779,
+      "tele_station_long": 100.405434,
+      "tele_station_oldcode": "G07003-C.68",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.65,
+      "qmax": null,
+      "min_bank": 3.2,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141201",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7576,
+      "tele_station_name": {
+        "th": "สะพานหัวเวียง",
+        "en": ""
+      },
+      "tele_station_lat": 14.36851,
+      "tele_station_long": 100.414391,
+      "tele_station_oldcode": "G07003-C.67",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.58,
+      "qmax": null,
+      "min_bank": 2.75,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวเวียง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141206",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3770,
+      "tele_station_name": {
+        "th": "",
+        "en": ""
+      },
+      "tele_station_lat": 15.005,
+      "tele_station_long": 100.33,
+      "tele_station_oldcode": "G07003-C.44",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170601",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3765,
+      "tele_station_name": {
+        "th": "บ้านบางพุทรา",
+        "en": ""
+      },
+      "tele_station_lat": 14.89868,
+      "tele_station_long": 100.401863,
+      "tele_station_oldcode": "G07003-C.3",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.29,
+      "qmax": 2997,
+      "min_bank": 13.2,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสิงห์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางพุทรา",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3668,
+      "tele_station_name": {
+        "th": "บ้านบางแก้ว",
+        "en": ""
+      },
+      "tele_station_lat": 14.59044,
+      "tele_station_long": 100.453293,
+      "tele_station_oldcode": "G07003-C.7A",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.73,
+      "qmax": 2880,
+      "min_bank": 9.9,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอ่างทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตลาดหลวง",
+        "en": ""
+      },
+      "province_code": "15",
+      "province_name": {
+        "th": "อ่างทอง",
+        "en": ""
+      },
+      "geo_code": "150101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "yom",
+    "basin_name_th": "ลุ่มน้ำยม",
+    "basin_code": "08",
+    "rain_total": 284,
+    "rain_hii_mou": 108,
+    "rain_dwr": 120,
+    "wl_total": 145,
+    "wl_hii_mou": 38,
+    "wl_dwr": 69,
+    "wl_rid": 25
+  },
+  {
+    "slug": "nan",
+    "basin_name_th": "ลุ่มน้ำน่าน",
+    "basin_code": "09",
+    "rain_total": 394,
+    "rain_hii_mou": 107,
+    "rain_dwr": 186,
+    "wl_total": 176,
+    "wl_hii_mou": 27,
+    "wl_dwr": 95,
+    "wl_rid": 27
+  },
+  {
+    "slug": "ping",
+    "basin_name_th": "ลุ่มน้ำปิง",
+    "basin_code": "06",
+    "rain_total": 440,
+    "rain_hii_mou": 127,
+    "rain_dwr": 230,
+    "wl_total": 171,
+    "wl_hii_mou": 35,
+    "wl_dwr": 74,
+    "wl_rid": 37
+  },
+  {
+    "slug": "wang",
+    "basin_name_th": "ลุ่มน้ำวัง",
+    "basin_code": "07",
+    "rain_total": 158,
+    "rain_hii_mou": 43,
+    "rain_dwr": 81,
+    "wl_total": 77,
+    "wl_hii_mou": 14,
+    "wl_dwr": 42,
+    "wl_rid": 15
+  },
+  {
+    "slug": "chao-phraya",
+    "basin_name_th": "ลุ่มน้ำเจ้าพระยา",
+    "basin_code": "10",
+    "rain_total": 246,
+    "rain_hii_mou": 98,
+    "rain_dwr": 15,
+    "wl_total": 95,
+    "wl_hii_mou": 73,
+    "wl_dwr": 7,
+    "wl_rid": 15
+  }
+]

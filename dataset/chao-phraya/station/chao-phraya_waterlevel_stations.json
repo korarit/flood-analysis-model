@@ -1,0 +1,5702 @@
+[
+  {
+    "station": {
+      "id": 10065,
+      "tele_station_name": {
+        "th": "อาคารเลขที่ ๙๐๑",
+        "en": ""
+      },
+      "tele_station_lat": 13.85604,
+      "tele_station_long": 100.57558,
+      "tele_station_oldcode": "G23069-HII001",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จตุจักร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลาดยาว",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "103001",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3641,
+      "tele_station_name": {
+        "th": "กรมชลประทานสามเสน",
+        "en": ""
+      },
+      "tele_station_lat": 13.78815,
+      "tele_station_long": 100.509148,
+      "tele_station_oldcode": "G07003-C.12",
+      "tele_station_type": "waterlevel",
+      "ground_level": -14.52,
+      "qmax": null,
+      "min_bank": 2.26,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดุสิต",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ถนนนครไชยศรี",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "100206",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1111,
+      "tele_station_name": {
+        "th": "คลองมหาสวัสดิ บางกรวย-สวนผัก",
+        "en": ""
+      },
+      "tele_station_lat": 13.79965,
+      "tele_station_long": 100.43863,
+      "tele_station_oldcode": "G23069-BKK003",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.101,
+      "qmax": null,
+      "min_bank": 2.069,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตลิ่งชัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตลิ่งชัน",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "101902",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1110,
+      "tele_station_name": {
+        "th": "สะพานกรุงเทพ",
+        "en": ""
+      },
+      "tele_station_lat": 13.700301,
+      "tele_station_long": 100.49277,
+      "tele_station_oldcode": "G23069-CPY015",
+      "tele_station_type": "waterlevel",
+      "ground_level": -15.697,
+      "qmax": null,
+      "min_bank": 2.161,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ธนบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ดาวคะนอง",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "101506",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1107,
+      "tele_station_name": {
+        "th": "คลองลาดพร้าว วัดบางบัว",
+        "en": ""
+      },
+      "tele_station_lat": 13.85402,
+      "tele_station_long": 100.58746,
+      "tele_station_oldcode": "G23069-BKK021",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.33,
+      "qmax": null,
+      "min_bank": 2.2,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางเขน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อนุสาวรีย์",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "100502",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1116,
+      "tele_station_name": {
+        "th": "คลองภาษีเจริญ เพชรเกษม69",
+        "en": ""
+      },
+      "tele_station_lat": 13.69158,
+      "tele_station_long": 100.38127,
+      "tele_station_oldcode": "G23069-BKK005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.605,
+      "qmax": null,
+      "min_bank": 1.415,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางแค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หลักสอง",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "104004",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7170,
+      "tele_station_name": {
+        "th": "อโศก",
+        "en": ""
+      },
+      "tele_station_lat": 13.74325,
+      "tele_station_long": 100.562164,
+      "tele_station_oldcode": "G23069-AIT001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.5,
+      "qmax": null,
+      "min_bank": 2.39,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วัฒนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คลองเตยเหนือ",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "103901",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1117,
+      "tele_station_name": {
+        "th": "คลองลาดพร้าว ท้ายปตร.คลอง2",
+        "en": ""
+      },
+      "tele_station_lat": 13.92245,
+      "tele_station_long": 100.63438,
+      "tele_station_oldcode": "G23069-BKK001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.9,
+      "qmax": null,
+      "min_bank": 2.563,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สายไหม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สายไหม",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "104201",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1170,
+      "tele_station_name": {
+        "th": "ปตร.มโนรมย์",
+        "en": ""
+      },
+      "tele_station_lat": 15.3277,
+      "tele_station_long": 100.10913,
+      "tele_station_oldcode": "G23069-CPY003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 11.11,
+      "qmax": null,
+      "min_bank": 19.607,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "มโนรมย์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วัดโคก",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180202",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5251,
+      "tele_station_name": {
+        "th": "เหนือ ปตร.มโนรมย์",
+        "en": ""
+      },
+      "tele_station_lat": 15.33046,
+      "tele_station_long": 100.10331,
+      "tele_station_oldcode": "G23069-ATG021",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "มโนรมย์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วัดโคก",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180202",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3786,
+      "tele_station_name": {
+        "th": "ท้ายเขื่อนเจ้าพระยา",
+        "en": ""
+      },
+      "tele_station_lat": 15.16384,
+      "tele_station_long": 100.18792,
+      "tele_station_oldcode": "G07003-C.13",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.08,
+      "qmax": 2720,
+      "min_bank": 16.34,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สรรพยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหลวง",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180406",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1173,
+      "tele_station_name": {
+        "th": "สรรพยา",
+        "en": ""
+      },
+      "tele_station_lat": 15.10907,
+      "tele_station_long": 100.26785,
+      "tele_station_oldcode": "G23069-CPY005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 3.011,
+      "qmax": null,
+      "min_bank": 15.277,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สรรพยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โพนางดำออก",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180405",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5254,
+      "tele_station_name": {
+        "th": "ท้ายปตร.บรมธาตุ",
+        "en": ""
+      },
+      "tele_station_lat": 15.15785,
+      "tele_station_long": 100.15282,
+      "tele_station_oldcode": "G23069-ATG032",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180104",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5266,
+      "tele_station_name": {
+        "th": "ท้ายปตร.มหาราช",
+        "en": ""
+      },
+      "tele_station_lat": 15.16144,
+      "tele_station_long": 100.17268,
+      "tele_station_oldcode": "G23069-ATG112",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านกล้วย",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180102",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5231,
+      "tele_station_name": {
+        "th": "ปตร.พลเทพ",
+        "en": ""
+      },
+      "tele_station_lat": 15.21593,
+      "tele_station_long": 100.07285,
+      "tele_station_oldcode": "G23069-ATG011",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หาดท่าเสา",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180106",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1167,
+      "tele_station_name": {
+        "th": "สะพานคง-ศุข ศรีสวัสดิ์",
+        "en": ""
+      },
+      "tele_station_lat": 15.225,
+      "tele_station_long": 100.07824,
+      "tele_station_oldcode": "G23069-THA001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 10.034,
+      "qmax": null,
+      "min_bank": 19.418,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หาดท่าเสา",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180106",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1168,
+      "tele_station_name": {
+        "th": "สะพานธรรมจักร(วัดธรรมามูล)",
+        "en": ""
+      },
+      "tele_station_lat": 15.25029,
+      "tele_station_long": 100.08347,
+      "tele_station_oldcode": "G23069-CPY004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 3.115,
+      "qmax": null,
+      "min_bank": 17.541,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ธรรมามูล",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180107",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5253,
+      "tele_station_name": {
+        "th": "เหนือปตร.บรมธาตุ",
+        "en": ""
+      },
+      "tele_station_lat": 15.15816,
+      "tele_station_long": 100.15352,
+      "tele_station_oldcode": "G23069-ATG031",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180104",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5265,
+      "tele_station_name": {
+        "th": "เหนือปตร.มหาราช",
+        "en": ""
+      },
+      "tele_station_lat": 15.15892,
+      "tele_station_long": 100.17329,
+      "tele_station_oldcode": "G23069-ATG111",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองชัยนาท",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านกล้วย",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180102",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1821,
+      "tele_station_name": {
+        "th": "คลองนราภิรมย์ (บางเลน)",
+        "en": ""
+      },
+      "tele_station_lat": 13.88207,
+      "tele_station_long": 100.29086,
+      "tele_station_oldcode": "G23069-BKK019",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.59,
+      "qmax": null,
+      "min_bank": 3.96,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นราภิรมย์",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730513",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2722,
+      "tele_station_name": {
+        "th": "บ้านโค้งสง่า",
+        "en": ""
+      },
+      "tele_station_lat": 15.304897,
+      "tele_station_long": 100.610502,
+      "tele_station_oldcode": "G09006-STN0558",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตากฟ้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลำพยนต์",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "601202",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5280,
+      "tele_station_name": {
+        "th": "ท้ายปตร.ช่องแค",
+        "en": ""
+      },
+      "tele_station_lat": 15.14554,
+      "tele_station_long": 100.41321,
+      "tele_station_oldcode": "G23069-ATG182",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตาคลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พรหมนิมิต",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600710",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7553,
+      "tele_station_name": {
+        "th": "บ่อดินขาว",
+        "en": ""
+      },
+      "tele_station_lat": 15.169044,
+      "tele_station_long": 100.41471,
+      "tele_station_oldcode": "G23069-CHK001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 16.8115,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตาคลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ช่องแค",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600702",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7567,
+      "tele_station_name": {
+        "th": "เขาวง",
+        "en": ""
+      },
+      "tele_station_lat": 15.181774,
+      "tele_station_long": 100.41453,
+      "tele_station_oldcode": "G23069-CHK002",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.281,
+      "qmax": null,
+      "min_bank": 17.719,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตาคลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ช่องแค",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600702",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5279,
+      "tele_station_name": {
+        "th": "เหนือปตร.ช่องแค",
+        "en": ""
+      },
+      "tele_station_lat": 15.14624,
+      "tele_station_long": 100.41298,
+      "tele_station_oldcode": "G23069-ATG181",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ตาคลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พรหมนิมิต",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600710",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1662,
+      "tele_station_name": {
+        "th": "พยุหะคีรี",
+        "en": ""
+      },
+      "tele_station_lat": 15.42655,
+      "tele_station_long": 100.13471,
+      "tele_station_oldcode": "G23069-CPY002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 10.176,
+      "qmax": null,
+      "min_bank": 21.33,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พยุหะคีรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าน้ำอ้อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "601008",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8730,
+      "tele_station_name": {
+        "th": "บ้านอุดมพัฒนา*",
+        "en": ""
+      },
+      "tele_station_lat": 15.829543,
+      "tele_station_long": 100.767315,
+      "tele_station_oldcode": "G09006-STN1875",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600401",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3837,
+      "tele_station_name": {
+        "th": "ค่ายจิรประวัติ",
+        "en": ""
+      },
+      "tele_station_lat": 15.67059,
+      "tele_station_long": 100.10936,
+      "tele_station_oldcode": "G07003-C.2",
+      "tele_station_type": "waterlevel",
+      "ground_level": 13.32,
+      "qmax": 3735,
+      "min_bank": 25.7,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองนครสวรรค์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากน้ำโพ",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600101",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1648,
+      "tele_station_name": {
+        "th": "สะพานเดชาติวงศ์",
+        "en": ""
+      },
+      "tele_station_lat": 15.68849,
+      "tele_station_long": 100.12381,
+      "tele_station_oldcode": "G23069-CPY001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 7.878,
+      "qmax": null,
+      "min_bank": 26.06,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองนครสวรรค์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากน้ำโพ",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600101",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5743,
+      "tele_station_name": {
+        "th": "บ้านซับสมบูรณ์",
+        "en": ""
+      },
+      "tele_station_lat": 15.566287,
+      "tele_station_long": 100.778566,
+      "tele_station_oldcode": "G09006-STN1526",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5462,
+      "tele_station_name": {
+        "th": "บ้านพุฝรั่ง",
+        "en": ""
+      },
+      "tele_station_lat": 15.62993,
+      "tele_station_long": 100.798017,
+      "tele_station_oldcode": "G09006-STN1217",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5492,
+      "tele_station_name": {
+        "th": "บ้านหัวพุ",
+        "en": ""
+      },
+      "tele_station_lat": 15.564188,
+      "tele_station_long": 100.705829,
+      "tele_station_oldcode": "G09006-STN1249",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "บึงบรเพ็ด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไพศาลี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังข่อย",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600906",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268754,
+      "tele_station_name": {
+        "th": "กรมชลประทานปากเกร็ด",
+        "en": ""
+      },
+      "tele_station_lat": 13.89474,
+      "tele_station_long": 100.491989,
+      "tele_station_oldcode": "G07003-C.22A",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 2.9,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปากเกร็ด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางตลาด",
+        "en": ""
+      },
+      "province_code": "12",
+      "province_name": {
+        "th": "นนทบุรี",
+        "en": ""
+      },
+      "geo_code": "120602",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1132,
+      "tele_station_name": {
+        "th": "สะพานนวลฉวี",
+        "en": ""
+      },
+      "tele_station_lat": 13.94749,
+      "tele_station_long": 100.53507,
+      "tele_station_oldcode": "G23069-CPY014",
+      "tele_station_type": "waterlevel",
+      "ground_level": -13.306,
+      "qmax": null,
+      "min_bank": 2.5,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปากเกร็ด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านใหม่",
+        "en": ""
+      },
+      "province_code": "12",
+      "province_name": {
+        "th": "นนทบุรี",
+        "en": ""
+      },
+      "geo_code": "120603",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1130,
+      "tele_station_name": {
+        "th": "คลองพระพิมล (ไทรน้อย)",
+        "en": ""
+      },
+      "tele_station_lat": 13.97396,
+      "tele_station_long": 100.31901,
+      "tele_station_oldcode": "G23069-BKK018",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.04,
+      "qmax": null,
+      "min_bank": 4.05,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรน้อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทรน้อย",
+        "en": ""
+      },
+      "province_code": "12",
+      "province_name": {
+        "th": "นนทบุรี",
+        "en": ""
+      },
+      "geo_code": "120501",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1135,
+      "tele_station_name": {
+        "th": "คลองระพีพัฒน์แยกตก",
+        "en": ""
+      },
+      "tele_station_lat": 14.20612,
+      "tele_station_long": 100.74476,
+      "tele_station_oldcode": "G23069-CAN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.641,
+      "qmax": null,
+      "min_bank": 4.56,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "คลองหลวง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คลองเจ็ด",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130207",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5262,
+      "tele_station_name": {
+        "th": "ท้ายปตร.พระธรรมราชา",
+        "en": ""
+      },
+      "tele_station_lat": 14.07636,
+      "tele_station_long": 100.89392,
+      "tele_station_oldcode": "G23069-ATG082",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ธัญบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บึงน้ำรักษ์",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130306",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5239,
+      "tele_station_name": {
+        "th": "ปตร.จุฬาลงกรณ์",
+        "en": ""
+      },
+      "tele_station_lat": 13.98135,
+      "tele_station_long": 100.6057,
+      "tele_station_oldcode": "G23069-ATG101",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ธัญบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ประชาธิปัตย์",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130301",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5261,
+      "tele_station_name": {
+        "th": "เหนือปตร.พระธรรมราชา",
+        "en": ""
+      },
+      "tele_station_lat": 14.07771,
+      "tele_station_long": 100.89208,
+      "tele_station_oldcode": "G23069-ATG081",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ธัญบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บึงน้ำรักษ์",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130306",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 201266,
+      "tele_station_name": {
+        "th": "วัดกร่าง",
+        "en": ""
+      },
+      "tele_station_lat": 14.11658,
+      "tele_station_long": 100.53743,
+      "tele_station_oldcode": "G07003-C.29B",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 3600,
+      "min_bank": 3,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามโคก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท้ายเกาะ",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130711",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1139,
+      "tele_station_name": {
+        "th": "คลองระพีพัฒน์แยกใต้ หนองเสือ",
+        "en": ""
+      },
+      "tele_station_lat": 14.2206,
+      "tele_station_long": 100.89168,
+      "tele_station_oldcode": "G23069-BKK013",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.58,
+      "qmax": null,
+      "min_bank": 3.96,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หนองเสือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นพรัตน์",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130407",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1133,
+      "tele_station_name": {
+        "th": "คลองเปรมประชากร หลักหก",
+        "en": ""
+      },
+      "tele_station_lat": 13.96562,
+      "tele_station_long": 100.60262,
+      "tele_station_oldcode": "G23069-BKK002",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.372,
+      "qmax": null,
+      "min_bank": 1.292,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปทุมธานี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หลักหก",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130114",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3645,
+      "tele_station_name": {
+        "th": "โรงเรียนคณะราษฎร์บำรุง",
+        "en": ""
+      },
+      "tele_station_lat": 14.01987,
+      "tele_station_long": 100.537376,
+      "tele_station_oldcode": "G07003-C.38",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 3.45,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองปทุมธานี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านกลาง",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130103",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1148,
+      "tele_station_name": {
+        "th": "คลองบางบาล",
+        "en": ""
+      },
+      "tele_station_lat": 14.42303,
+      "tele_station_long": 100.48186,
+      "tele_station_oldcode": "G23069-CPY010",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.178,
+      "qmax": null,
+      "min_bank": 5.841,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทรน้อย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140503",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1149,
+      "tele_station_name": {
+        "th": "คลองบางหลวง",
+        "en": ""
+      },
+      "tele_station_lat": 14.4158,
+      "tele_station_long": 100.44071,
+      "tele_station_oldcode": "G23069-CPY009",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.397,
+      "qmax": null,
+      "min_bank": 4.311,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหลวงโดด",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140513",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3650,
+      "tele_station_name": {
+        "th": "บ้านบางบาล",
+        "en": ""
+      },
+      "tele_station_lat": 14.36319,
+      "tele_station_long": 100.484833,
+      "tele_station_oldcode": "G07003-C.37",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.04,
+      "qmax": 97,
+      "min_bank": 4.14,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะพานไทย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140504",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3653,
+      "tele_station_name": {
+        "th": "บ้านบางหลวงโดด",
+        "en": ""
+      },
+      "tele_station_lat": 14.41588,
+      "tele_station_long": 100.440804,
+      "tele_station_oldcode": "G07003-C.36",
+      "tele_station_type": "waterlevel",
+      "ground_level": -5.95,
+      "qmax": 441,
+      "min_bank": 4.36,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางบาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหลวงโดด",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140513",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1151,
+      "tele_station_name": {
+        "th": "บางปะหัน",
+        "en": ""
+      },
+      "tele_station_lat": 14.42731,
+      "tele_station_long": 100.55605,
+      "tele_station_oldcode": "G23069-LBI001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.415,
+      "qmax": null,
+      "min_bank": 4.691,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางปะหัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โพธิ์สามต้น",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140714",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1150,
+      "tele_station_name": {
+        "th": "บางปะอิน",
+        "en": ""
+      },
+      "tele_station_lat": 14.30455,
+      "tele_station_long": 100.56645,
+      "tele_station_oldcode": "G23069-CPY012",
+      "tele_station_type": "waterlevel",
+      "ground_level": -8.585,
+      "qmax": null,
+      "min_bank": 2.617,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางปะอิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ขนอนหลวง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140618",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5205,
+      "tele_station_name": {
+        "th": "วัดขนอนใต้",
+        "en": ""
+      },
+      "tele_station_lat": 14.288251,
+      "tele_station_long": 100.61132,
+      "tele_station_oldcode": "G23069-HDA005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.967,
+      "qmax": null,
+      "min_bank": 2.537,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางปะอิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านกรด",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140604",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7988,
+      "tele_station_name": {
+        "th": "ปตร กุฎิ (ทุ่งป่าโมก)",
+        "en": ""
+      },
+      "tele_station_lat": 14.412405,
+      "tele_station_long": 100.40116,
+      "tele_station_oldcode": "G23069-TCP006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.5,
+      "qmax": null,
+      "min_bank": 7,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ผักไห่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าดินแดง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140806",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7990,
+      "tele_station_name": {
+        "th": "ปตร.ลาดชะโด (ทุ่งผักไห่)",
+        "en": ""
+      },
+      "tele_station_lat": 14.464408,
+      "tele_station_long": 100.366005,
+      "tele_station_oldcode": "G23069-TCP003",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.8,
+      "qmax": null,
+      "min_bank": 5,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ผักไห่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อมฤต",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140802",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7991,
+      "tele_station_name": {
+        "th": "ปตร.ลาดชิด (ทุ่งผักไห่)",
+        "en": ""
+      },
+      "tele_station_lat": 14.440615,
+      "tele_station_long": 100.35738,
+      "tele_station_oldcode": "G23069-TCP004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 5,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ผักไห่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "จักราช",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140812",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7999,
+      "tele_station_name": {
+        "th": "สะพานข้ามแม่น้ำน้อย (ทุ่งผักไห่)",
+        "en": ""
+      },
+      "tele_station_lat": 14.498449,
+      "tele_station_long": 100.36825,
+      "tele_station_oldcode": "G23069-TCP013",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ผักไห่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หน้าโคก",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140815",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5277,
+      "tele_station_name": {
+        "th": "เหนือปตร.ผักไห่-เจ้าเจ็ด",
+        "en": ""
+      },
+      "tele_station_lat": 14.43643,
+      "tele_station_long": 100.37562,
+      "tele_station_oldcode": "G23069-ATG171",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ผักไห่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านใหญ่",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140816",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3651,
+      "tele_station_name": {
+        "th": "บ้านป้อม",
+        "en": ""
+      },
+      "tele_station_lat": 14.3691,
+      "tele_station_long": 100.528732,
+      "tele_station_oldcode": "G07003-C.35",
+      "tele_station_type": "waterlevel",
+      "ground_level": -9.25,
+      "qmax": 1159,
+      "min_bank": 4.35,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านป้อม",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140120",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5249,
+      "tele_station_name": {
+        "th": "ปตร.กระมัง (ปากคลองข้าวเม่า)",
+        "en": ""
+      },
+      "tele_station_lat": 14.355084,
+      "tele_station_long": 100.58359,
+      "tele_station_oldcode": "G23069-HDA002",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวรอ",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140104",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5250,
+      "tele_station_name": {
+        "th": "ปตร.กลางคลองข้าวเม่า (วัดกระสังข์)",
+        "en": ""
+      },
+      "tele_station_lat": 14.357343,
+      "tele_station_long": 100.60565,
+      "tele_station_oldcode": "G23069-HDA003",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หันตรา",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140113",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1142,
+      "tele_station_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tele_station_lat": 14.36913,
+      "tele_station_long": 100.52861,
+      "tele_station_oldcode": "G23069-CPY011",
+      "tele_station_type": "waterlevel",
+      "ground_level": -5.521,
+      "qmax": null,
+      "min_bank": 5.064,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ภูเขาทอง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140108",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3649,
+      "tele_station_name": {
+        "th": "สะพานปรีดี-ธำรง",
+        "en": ""
+      },
+      "tele_station_lat": 14.35872,
+      "tele_station_long": 100.580452,
+      "tele_station_oldcode": "G07003-S.5",
+      "tele_station_type": "waterlevel",
+      "ground_level": -8.59,
+      "qmax": 1400,
+      "min_bank": 4.7,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หอรัตนไชย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140103",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1153,
+      "tele_station_name": {
+        "th": "คลองพระยาบรรลือ",
+        "en": ""
+      },
+      "tele_station_lat": 14.16476,
+      "tele_station_long": 100.30725,
+      "tele_station_oldcode": "G23069-CPY016",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.487,
+      "qmax": null,
+      "min_bank": 3.511,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลาดบัวหลวง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามเมือง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141003",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5264,
+      "tele_station_name": {
+        "th": "ท้ายปตร.พระอินทราชา",
+        "en": ""
+      },
+      "tele_station_lat": 14.14378,
+      "tele_station_long": 100.62075,
+      "tele_station_oldcode": "G23069-ATG092",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังน้อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พยอม",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141106",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5263,
+      "tele_station_name": {
+        "th": "เหนือปตร.พระอินทราชา",
+        "en": ""
+      },
+      "tele_station_lat": 14.14407,
+      "tele_station_long": 100.62136,
+      "tele_station_oldcode": "G23069-ATG091",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังน้อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังน้อย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141103",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5204,
+      "tele_station_name": {
+        "th": "คลองช่องสะเดา",
+        "en": ""
+      },
+      "tele_station_lat": 14.344762,
+      "tele_station_long": 100.670105,
+      "tele_station_oldcode": "G23069-HDA004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.227,
+      "qmax": null,
+      "min_bank": 3.027,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อุทัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อุทัย",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141406",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7577,
+      "tele_station_name": {
+        "th": "ตลาดเสนา",
+        "en": ""
+      },
+      "tele_station_lat": 14.32779,
+      "tele_station_long": 100.405434,
+      "tele_station_oldcode": "G07003-C.68",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.65,
+      "qmax": null,
+      "min_bank": 3.2,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141201",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7576,
+      "tele_station_name": {
+        "th": "สะพานหัวเวียง",
+        "en": ""
+      },
+      "tele_station_lat": 14.36851,
+      "tele_station_long": 100.414391,
+      "tele_station_oldcode": "G07003-C.67",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.58,
+      "qmax": null,
+      "min_bank": 2.75,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวเวียง",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141206",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1154,
+      "tele_station_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tele_station_lat": 14.31976,
+      "tele_station_long": 100.37952,
+      "tele_station_oldcode": "G23069-CPY017",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.647,
+      "qmax": null,
+      "min_bank": 3.587,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เจ้าเสด็จ",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141217",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7998,
+      "tele_station_name": {
+        "th": "เสนา (ทุ่งบางบาล-บ้านแพน)",
+        "en": ""
+      },
+      "tele_station_lat": 14.327773,
+      "tele_station_long": 100.405464,
+      "tele_station_oldcode": "G23069-TCP012",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 3,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เสนา",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "141201",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7995,
+      "tele_station_name": {
+        "th": "สถานีสูบน้ำปากคลองสระตาแวว (ทุ่งซ้ายคลองชัยนาท)",
+        "en": ""
+      },
+      "tele_station_lat": 14.940776,
+      "tele_station_long": 100.5929,
+      "tele_station_oldcode": "G23069-TCP009",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 15.22,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านหมี่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พุคา",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160606",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7994,
+      "tele_station_name": {
+        "th": "สถานีสูบน้ำปากคลองสายห้วยแก้ว (ทุ่งซ้ายคลองชัยนาท)",
+        "en": ""
+      },
+      "tele_station_lat": 15.082774,
+      "tele_station_long": 100.55449,
+      "tele_station_oldcode": "G23069-TCP008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 15.44,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านหมี่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองเมือง",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160621",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268530,
+      "tele_station_name": {
+        "th": "บ้านคลอง*",
+        "en": ""
+      },
+      "tele_station_lat": 15.285471,
+      "tele_station_long": 100.822001,
+      "tele_station_oldcode": "G09006-STN2195",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สระโบสถ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "มหาโพธิ",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160802",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7996,
+      "tele_station_name": {
+        "th": "ทรบ. ปากคลองห้าวา (ทุ่งท่าวุ้ง)",
+        "en": ""
+      },
+      "tele_station_lat": 14.818604,
+      "tele_station_long": 100.57653,
+      "tele_station_oldcode": "G23069-TCP010",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 8,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลพบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางขันหมาก",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160117",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5224,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยซับเหล็ก",
+        "en": ""
+      },
+      "tele_station_lat": 14.814826,
+      "tele_station_long": 100.77581,
+      "tele_station_oldcode": "G23069-TBW034",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลพบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โคกตูม",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160109",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1158,
+      "tele_station_name": {
+        "th": "เมืองลพบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 14.76049,
+      "tele_station_long": 100.5996,
+      "tele_station_oldcode": "G23069-LBI002",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.828,
+      "qmax": null,
+      "min_bank": 6.523,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลพบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โพธิ์เก้าต้น",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160122",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5741,
+      "tele_station_name": {
+        "th": "บ้านพุม่วง",
+        "en": ""
+      },
+      "tele_station_lat": 15.015938,
+      "tele_station_long": 100.863294,
+      "tele_station_oldcode": "G09006-STN1524",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "โคกสำโรง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังเพลิง",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160309",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6087,
+      "tele_station_name": {
+        "th": "ปตร. คลองตาสด",
+        "en": ""
+      },
+      "tele_station_lat": 13.664821,
+      "tele_station_long": 100.571236,
+      "tele_station_oldcode": "G23069-BKC005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.23,
+      "qmax": null,
+      "min_bank": 1.33,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระประแดง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางกระสอบ",
+        "en": ""
+      },
+      "province_code": "11",
+      "province_name": {
+        "th": "สมุทรปราการ",
+        "en": ""
+      },
+      "geo_code": "110411",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6085,
+      "tele_station_name": {
+        "th": "ปตร. คลองลัดบางยอ 1",
+        "en": ""
+      },
+      "tele_station_lat": 13.676162,
+      "tele_station_long": 100.553085,
+      "tele_station_oldcode": "G23069-BKC003",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.907,
+      "qmax": null,
+      "min_bank": 1.513,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระประแดง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางยอ",
+        "en": ""
+      },
+      "province_code": "11",
+      "province_name": {
+        "th": "สมุทรปราการ",
+        "en": ""
+      },
+      "geo_code": "110408",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6086,
+      "tele_station_name": {
+        "th": "ปตร. คลองลัดบางยอ 2",
+        "en": ""
+      },
+      "tele_station_lat": 13.661021,
+      "tele_station_long": 100.56727,
+      "tele_station_oldcode": "G23069-BKC004",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.63,
+      "qmax": null,
+      "min_bank": 0.905,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระประแดง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางกระสอบ",
+        "en": ""
+      },
+      "province_code": "11",
+      "province_name": {
+        "th": "สมุทรปราการ",
+        "en": ""
+      },
+      "geo_code": "110411",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6084,
+      "tele_station_name": {
+        "th": "ปตร.วัดบางกระเจ้านอก",
+        "en": ""
+      },
+      "tele_station_lat": 13.689612,
+      "tele_station_long": 100.554886,
+      "tele_station_oldcode": "G23069-BKC002",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.41,
+      "qmax": null,
+      "min_bank": 1.26,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พระประแดง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางกะเจ้า",
+        "en": ""
+      },
+      "province_code": "11",
+      "province_name": {
+        "th": "สมุทรปราการ",
+        "en": ""
+      },
+      "geo_code": "110409",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1183,
+      "tele_station_name": {
+        "th": "คลองแม่น้ำใน",
+        "en": ""
+      },
+      "tele_station_lat": 14.30168,
+      "tele_station_long": 100.94521,
+      "tele_station_oldcode": "G23069-TB0004",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วิหารแดง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองหมู",
+        "en": ""
+      },
+      "province_code": "19",
+      "province_name": {
+        "th": "สระบุรี",
+        "en": ""
+      },
+      "geo_code": "190401",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5260,
+      "tele_station_name": {
+        "th": "ท้ายปตร.พระศรีศิลป์",
+        "en": ""
+      },
+      "tele_station_lat": 14.32729,
+      "tele_station_long": 100.87117,
+      "tele_station_oldcode": "G23069-ATG072",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หนองแค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองแค",
+        "en": ""
+      },
+      "province_code": "19",
+      "province_name": {
+        "th": "สระบุรี",
+        "en": ""
+      },
+      "geo_code": "190301",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 245997,
+      "tele_station_name": {
+        "th": "สะพานค่ายบางระจัน",
+        "en": ""
+      },
+      "tele_station_lat": 14.815273,
+      "tele_station_long": 100.36446,
+      "tele_station_oldcode": "G23069-HDA007",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.005,
+      "qmax": null,
+      "min_bank": 9.789,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ค่ายบางระจัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าข้าม",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170304",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5276,
+      "tele_station_name": {
+        "th": "ท้ายปตร.ยางมณี",
+        "en": ""
+      },
+      "tele_station_lat": 14.75033,
+      "tele_station_long": 100.41498,
+      "tele_station_oldcode": "G23069-ATG162",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พิกุลทอง",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170504",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5274,
+      "tele_station_name": {
+        "th": "ท้ายปตร.บางระจัน",
+        "en": ""
+      },
+      "tele_station_lat": 14.92539,
+      "tele_station_long": 100.27912,
+      "tele_station_oldcode": "G23069-ATG152",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางระจัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชิงกลัด",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170203",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5273,
+      "tele_station_name": {
+        "th": "เหนือปตร.บางระจัน",
+        "en": ""
+      },
+      "tele_station_lat": 14.92594,
+      "tele_station_long": 100.27585,
+      "tele_station_oldcode": "G23069-ATG151",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางระจัน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชิงกลัด",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170203",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1163,
+      "tele_station_name": {
+        "th": "พรหมบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 14.79091,
+      "tele_station_long": 100.45184,
+      "tele_station_oldcode": "G23069-CPY007",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.317,
+      "qmax": null,
+      "min_bank": 10.364,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พรหมบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พรหมบุรี",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170402",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3770,
+      "tele_station_name": {
+        "th": "",
+        "en": ""
+      },
+      "tele_station_lat": 15.005,
+      "tele_station_long": 100.33,
+      "tele_station_oldcode": "G07003-C.44",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170601",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7997,
+      "tele_station_name": {
+        "th": "สถานีสูบน้ำคลองระบายชัยนาท-ป่าสัก 2 (ทุ่งเชียงราก)",
+        "en": ""
+      },
+      "tele_station_lat": 15.055055,
+      "tele_station_long": 100.32081,
+      "tele_station_oldcode": "G23069-TCP011",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 12.3,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ชีน้ำร้าย",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170605",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1164,
+      "tele_station_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "tele_station_lat": 15.00602,
+      "tele_station_long": 100.33088,
+      "tele_station_oldcode": "G23069-CPY006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 1.423,
+      "qmax": null,
+      "min_bank": 15.1,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อินทร์บุรี",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170601",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3765,
+      "tele_station_name": {
+        "th": "บ้านบางพุทรา",
+        "en": ""
+      },
+      "tele_station_lat": 14.89868,
+      "tele_station_long": 100.401863,
+      "tele_station_oldcode": "G07003-C.3",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.29,
+      "qmax": 2997,
+      "min_bank": 13.2,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสิงห์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางพุทรา",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 245996,
+      "tele_station_name": {
+        "th": "สะพานอนุสรณ์ 100 ปีสิงห์หบุรี (สะพานหลวงพ่อแพ 89)",
+        "en": ""
+      },
+      "tele_station_lat": 14.870226,
+      "tele_station_long": 100.4086,
+      "tele_station_oldcode": "G23069-HDA006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 12.727,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสิงห์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ต้นโพธิ์",
+        "en": ""
+      },
+      "province_code": "17",
+      "province_name": {
+        "th": "สิงห์บุรี",
+        "en": ""
+      },
+      "geo_code": "170106",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 245999,
+      "tele_station_name": {
+        "th": "สะพานป่าโมก",
+        "en": ""
+      },
+      "tele_station_lat": 14.498097,
+      "tele_station_long": 100.44969,
+      "tele_station_oldcode": "G23069-HDA009",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.31,
+      "qmax": null,
+      "min_bank": 7.972,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ป่าโมก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางปลากด",
+        "en": ""
+      },
+      "province_code": "15",
+      "province_name": {
+        "th": "อ่างทอง",
+        "en": ""
+      },
+      "geo_code": "150301",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 245998,
+      "tele_station_name": {
+        "th": "สะพานคลองส่งน้ำชลประทาน บ้านตลาดใหม่",
+        "en": ""
+      },
+      "tele_station_lat": 14.553482,
+      "tele_station_long": 100.31676,
+      "tele_station_oldcode": "G23069-HDA008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.748,
+      "qmax": null,
+      "min_bank": 4.973,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วิเศษชัยชาญ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตลาดใหม่",
+        "en": ""
+      },
+      "province_code": "15",
+      "province_name": {
+        "th": "อ่างทอง",
+        "en": ""
+      },
+      "geo_code": "150615",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3668,
+      "tele_station_name": {
+        "th": "บ้านบางแก้ว",
+        "en": ""
+      },
+      "tele_station_lat": 14.59044,
+      "tele_station_long": 100.453293,
+      "tele_station_oldcode": "G07003-C.7A",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.73,
+      "qmax": 2880,
+      "min_bank": 9.9,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอ่างทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตลาดหลวง",
+        "en": ""
+      },
+      "province_code": "15",
+      "province_name": {
+        "th": "อ่างทอง",
+        "en": ""
+      },
+      "geo_code": "150101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1155,
+      "tele_station_name": {
+        "th": "เมืองอ่างทอง",
+        "en": ""
+      },
+      "tele_station_lat": 14.5765,
+      "tele_station_long": 100.44852,
+      "tele_station_oldcode": "G23069-CPY008",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.4,
+      "qmax": null,
+      "min_bank": 8.777,
+      "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองอ่างทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางแก้ว",
+        "en": ""
+      },
+      "province_code": "15",
+      "province_name": {
+        "th": "อ่างทอง",
+        "en": ""
+      },
+      "geo_code": "150102",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 10,
+      "basin_code": 10,
+      "basin_name": {
+        "th": "ลุ่มน้ำเจ้าพระยา",
+        "en": "Chao Phraya Basin"
+      }
+    }
+  }
+]

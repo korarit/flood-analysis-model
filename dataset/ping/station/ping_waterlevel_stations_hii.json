@@ -1,0 +1,2102 @@
+[
+  {
+    "station": {
+      "id": 1694,
+      "tele_station_name": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 16.06475,
+      "tele_station_long": 99.8603,
+      "tele_station_oldcode": "G23069-PIN004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 38.988,
+      "qmax": null,
+      "min_bank": 45.331,
+      "river_name": "แม่น้ำปิงตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าพุทรา",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620404",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1689,
+      "tele_station_name": {
+        "th": "ท่อทองแดง1",
+        "en": ""
+      },
+      "tele_station_lat": 16.49714,
+      "tele_station_long": 99.51958,
+      "tele_station_oldcode": "G23069-DIV005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 72.549,
+      "qmax": null,
+      "min_bank": 77.712,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/5",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกำแพงเพชร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองปลิง",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620110",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1688,
+      "tele_station_name": {
+        "th": "สะพานลานดอกไม้",
+        "en": ""
+      },
+      "tele_station_lat": 16.6282,
+      "tele_station_long": 99.43257,
+      "tele_station_oldcode": "G23069-PIN003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 80.145,
+      "qmax": null,
+      "min_bank": 84.642,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/5",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกำแพงเพชร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลานดอกไม้",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620107",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1687,
+      "tele_station_name": {
+        "th": "เมืองกำแพงเพชร (P7A)",
+        "en": ""
+      },
+      "tele_station_lat": 16.47816,
+      "tele_station_long": 99.51866,
+      "tele_station_oldcode": "G23069-PIN006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 70.252,
+      "qmax": null,
+      "min_bank": 78.165,
+      "river_name": "แม่น้ำปิงตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกำแพงเพชร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครชุม",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620105",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1706,
+      "tele_station_name": {
+        "th": "บ้านตาก",
+        "en": ""
+      },
+      "tele_station_lat": 17.04066,
+      "tele_station_long": 99.06628,
+      "tele_station_oldcode": "G23069-PIN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 117.722,
+      "qmax": null,
+      "min_bank": 121.603,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตากตก",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630204",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1716,
+      "tele_station_name": {
+        "th": "เมืองตาก",
+        "en": ""
+      },
+      "tele_station_lat": 16.78657,
+      "tele_station_long": 99.18398,
+      "tele_station_oldcode": "G23069-PIN002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 98.699,
+      "qmax": null,
+      "min_bank": 101.325,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเจ้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ประดาง",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630903",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268814,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำตลุกหิน",
+        "en": ""
+      },
+      "tele_station_lat": 16.81018,
+      "tele_station_long": 99.08733,
+      "tele_station_oldcode": "G23069-RES056",
+      "tele_station_type": "waterlevel",
+      "ground_level": 157.4,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ห้วยแม่ท้อ",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัวใต้",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630113",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1657,
+      "tele_station_name": {
+        "th": "เก้าเลี้ยว",
+        "en": ""
+      },
+      "tele_station_lat": 15.85051,
+      "tele_station_long": 100.05206,
+      "tele_station_oldcode": "G23069-PIN005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 26.293,
+      "qmax": null,
+      "min_bank": 31.533,
+      "river_name": "แม่น้ำปิงตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เก้าเลี้ยว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวดง",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "600605",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268781,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยหินฝน",
+        "en": ""
+      },
+      "tele_station_lat": 18.00469,
+      "tele_station_long": 99.00955,
+      "tele_station_oldcode": "G23069-RES023",
+      "tele_station_type": "waterlevel",
+      "ground_level": 563.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทุ่งหัวช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งหัวช้าง",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510501",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268782,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำแม่แพม",
+        "en": ""
+      },
+      "tele_station_lat": 17.86006,
+      "tele_station_long": 99.13616,
+      "tele_station_oldcode": "G23069-RES024",
+      "tele_station_type": "waterlevel",
+      "ground_level": 561.4,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทุ่งหัวช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านปวง",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510502",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268776,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำทุ่งม่าน",
+        "en": ""
+      },
+      "tele_station_lat": 18.25546,
+      "tele_station_long": 98.84405,
+      "tele_station_oldcode": "G23069-RES018",
+      "tele_station_type": "waterlevel",
+      "ground_level": 336.6,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าพลู",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268777,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยหนองสูน",
+        "en": ""
+      },
+      "tele_station_lat": 18.3069,
+      "tele_station_long": 98.70883,
+      "tele_station_oldcode": "G23069-RES019",
+      "tele_station_type": "waterlevel",
+      "ground_level": 299.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/2",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองปลาสะวาย",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268778,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยเขียวตอนล่าง",
+        "en": ""
+      },
+      "tele_station_lat": 18.29841,
+      "tele_station_long": 98.69497,
+      "tele_station_oldcode": "G23069-RES020",
+      "tele_station_type": "waterlevel",
+      "ground_level": 290.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/2",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองปลาสะวาย",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268775,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยแทง",
+        "en": ""
+      },
+      "tele_station_lat": 18.29177,
+      "tele_station_long": 98.86272,
+      "tele_station_oldcode": "G23069-RES017",
+      "tele_station_type": "waterlevel",
+      "ground_level": 407,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10123,
+      "tele_station_name": {
+        "th": "แม่น้ำลี้ บ้านโฮ่ง",
+        "en": ""
+      },
+      "tele_station_lat": 18.310793,
+      "tele_station_long": 98.82355,
+      "tele_station_oldcode": "G23069-PIN009",
+      "tele_station_type": "waterlevel",
+      "ground_level": 306.3054,
+      "qmax": null,
+      "min_bank": 310.8359,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268771,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยลากไม้ตอนบน",
+        "en": ""
+      },
+      "tele_station_lat": 18.39674,
+      "tele_station_long": 98.8642,
+      "tele_station_oldcode": "G23069-RES013",
+      "tele_station_type": "waterlevel",
+      "ground_level": 329,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 2/4",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ป่าซาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "น้ำดิบ",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510608",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268772,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยลึก",
+        "en": ""
+      },
+      "tele_station_lat": 18.38092,
+      "tele_station_long": 98.83209,
+      "tele_station_oldcode": "G23069-RES014",
+      "tele_station_type": "waterlevel",
+      "ground_level": 319.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 2/4",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ป่าซาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "น้ำดิบ",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510608",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268774,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำแม่อาวใหญ่ตอนบน",
+        "en": ""
+      },
+      "tele_station_lat": 18.29082,
+      "tele_station_long": 98.93266,
+      "tele_station_oldcode": "G23069-RES016",
+      "tele_station_type": "waterlevel",
+      "ground_level": 480.6,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 2/4",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ป่าซาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครเจดีย์",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510611",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10122,
+      "tele_station_name": {
+        "th": "แม่น้ำทา",
+        "en": ""
+      },
+      "tele_station_lat": 18.471687,
+      "tele_station_long": 98.95513,
+      "tele_station_oldcode": "G23069-PIN008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 302.6263,
+      "qmax": null,
+      "min_bank": 305.711,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ป่าซาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าตุ้ม",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510607",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10125,
+      "tele_station_name": {
+        "th": "น้ำก้อ",
+        "en": ""
+      },
+      "tele_station_lat": 17.636518,
+      "tele_station_long": 98.77956,
+      "tele_station_oldcode": "G23069-PIN011",
+      "tele_station_type": "waterlevel",
+      "ground_level": 257.6763,
+      "qmax": null,
+      "min_bank": 259.8008,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/4",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ก้อ",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10124,
+      "tele_station_name": {
+        "th": "ห้วยแม่ลี้",
+        "en": ""
+      },
+      "tele_station_lat": 17.805399,
+      "tele_station_long": 98.953316,
+      "tele_station_oldcode": "G23069-PIN010",
+      "tele_station_type": "waterlevel",
+      "ground_level": 439.5131,
+      "qmax": null,
+      "min_bank": 445.5231,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268779,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยแม่ปาง",
+        "en": ""
+      },
+      "tele_station_lat": 18.10623,
+      "tele_station_long": 98.84675,
+      "tele_station_oldcode": "G23069-RES021",
+      "tele_station_type": "waterlevel",
+      "ground_level": 528.2,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ศรีวิชัย",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510409",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268780,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำแม่ตืน",
+        "en": ""
+      },
+      "tele_station_lat": 18.0204,
+      "tele_station_long": 98.83142,
+      "tele_station_oldcode": "G23069-RES022",
+      "tele_station_type": "waterlevel",
+      "ground_level": 481.4,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ตืน",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510402",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10121,
+      "tele_station_name": {
+        "th": "สะพานแม่น้ำทา",
+        "en": ""
+      },
+      "tele_station_lat": 18.546852,
+      "tele_station_long": 99.25007,
+      "tele_station_oldcode": "G23069-PIN007",
+      "tele_station_type": "waterlevel",
+      "ground_level": 437.7019,
+      "qmax": null,
+      "min_bank": 441.5951,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาปลาดุก",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268769,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยแม่ป่าข่า",
+        "en": ""
+      },
+      "tele_station_lat": 18.5359,
+      "tele_station_long": 99.28488,
+      "tele_station_oldcode": "G23069-RES011",
+      "tele_station_type": "waterlevel",
+      "ground_level": 516.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาปลาดุก",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268773,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยโป่ง",
+        "en": ""
+      },
+      "tele_station_lat": 18.34001,
+      "tele_station_long": 98.93681,
+      "tele_station_oldcode": "G23069-RES015",
+      "tele_station_type": "waterlevel",
+      "ground_level": 410.2,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาขุมเงิน",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510204",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268770,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำห้วยไคร้",
+        "en": ""
+      },
+      "tele_station_lat": 18.50746,
+      "tele_station_long": 99.22739,
+      "tele_station_oldcode": "G23069-RES012",
+      "tele_station_type": "waterlevel",
+      "ground_level": 441.8,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาปลาดุก",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268768,
+      "tele_station_name": {
+        "th": "อ่างเก็บน้ำโฮ่งฮ่างอันเนื่องมาจากพระราขดำริ",
+        "en": ""
+      },
+      "tele_station_lat": 18.56854,
+      "tele_station_long": 99.24858,
+      "tele_station_oldcode": "G23069-RES010",
+      "tele_station_type": "waterlevel",
+      "ground_level": 485.7,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาปลาดุก",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4855,
+      "tele_station_name": {
+        "th": "ฝ่ายส่งน้ำและบำรุงรักษาที่ 2",
+        "en": ""
+      },
+      "tele_station_lat": 18.88353,
+      "tele_station_long": 99.08182,
+      "tele_station_oldcode": "G23069-TBW008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 318.75,
+      "qmax": null,
+      "min_bank": 322.227,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันทราย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองเล็น",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501411",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1510,
+      "tele_station_name": {
+        "th": "สันทราย",
+        "en": ""
+      },
+      "tele_station_lat": 19.00979,
+      "tele_station_long": 98.95975,
+      "tele_station_oldcode": "G23069-CHM001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 313.105,
+      "qmax": null,
+      "min_bank": 321.268,
+      "river_name": "แม่น้ำปิงส่วนที่ 2/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันทราย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่แฝก",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501409",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1507,
+      "tele_station_name": {
+        "th": "สะพานโยธาอำนวยพัฒนา",
+        "en": ""
+      },
+      "tele_station_lat": 18.57391,
+      "tele_station_long": 98.86222,
+      "tele_station_oldcode": "G23069-TB0006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 289.139,
+      "qmax": null,
+      "min_bank": 292.182,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันป่าตอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งสะโตก",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501208",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1514,
+      "tele_station_name": {
+        "th": "ฮอด",
+        "en": ""
+      },
+      "tele_station_lat": 18.17859,
+      "tele_station_long": 98.63017,
+      "tele_station_oldcode": "G23069-CHM002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 254.507,
+      "qmax": null,
+      "min_bank": 260.835,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ฮอด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หางดง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 18437043,
+      "tele_station_name": {
+        "th": "CHD004",
+        "en": ""
+      },
+      "tele_station_lat": 19.39339,
+      "tele_station_long": 98.92826,
+      "tele_station_oldcode": "G23069-CHD004",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1494,
+      "tele_station_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tele_station_lat": 19.36728,
+      "tele_station_long": 98.96884,
+      "tele_station_oldcode": "G23069-CHM004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 378.034,
+      "qmax": null,
+      "min_bank": 381.718,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1498,
+      "tele_station_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tele_station_lat": 19.12207,
+      "tele_station_long": 98.94447,
+      "tele_station_oldcode": "G23069-CHM005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 329.087,
+      "qmax": null,
+      "min_bank": 335.811,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สันมหาพน",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  }
+]

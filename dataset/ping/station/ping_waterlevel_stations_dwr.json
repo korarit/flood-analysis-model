@@ -1,0 +1,4442 @@
+[
+  {
+    "station": {
+      "id": 2749,
+      "tele_station_name": {
+        "th": "บ้านกะเหรี่ยงน้ำตก*",
+        "en": ""
+      },
+      "tele_station_lat": 16.126938,
+      "tele_station_long": 99.306881,
+      "tele_station_oldcode": "G09006-STN0913",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "คลองลาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คลองลานพัฒนา",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2750,
+      "tele_station_name": {
+        "th": "บ้านโป่งน้ำร้อน*",
+        "en": ""
+      },
+      "tele_station_lat": 16.328463,
+      "tele_station_long": 99.298103,
+      "tele_station_oldcode": "G09006-STN0442",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองสวนหมาก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "คลองลาน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โป่งน้ำร้อน",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2754,
+      "tele_station_name": {
+        "th": "บ้านปางเหนือ*",
+        "en": ""
+      },
+      "tele_station_lat": 16.062207,
+      "tele_station_long": 99.314654,
+      "tele_station_oldcode": "G09006-STN0912",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปางศิลาทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปางตาไว",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620903",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5519,
+      "tele_station_name": {
+        "th": "บ้านหนองชะลาบ",
+        "en": ""
+      },
+      "tele_station_lat": 17.001791,
+      "tele_station_long": 99.101539,
+      "tele_station_oldcode": "G09006-STN1279",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตากตก",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630204",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2744,
+      "tele_station_name": {
+        "th": "บ้านท่าทองแดง",
+        "en": ""
+      },
+      "tele_station_lat": 16.6737,
+      "tele_station_long": 99.141673,
+      "tele_station_oldcode": "G09006-STN0539",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเจ้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาโบสถ์",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630902",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2785,
+      "tele_station_name": {
+        "th": "บ้านใหม่พรสวรรค์",
+        "en": ""
+      },
+      "tele_station_lat": 16.725504,
+      "tele_station_long": 99.099402,
+      "tele_station_oldcode": "G09006-STN0538",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังเจ้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาโบสถ์",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630902",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5692,
+      "tele_station_name": {
+        "th": "บ้านท่าปุยตก",
+        "en": ""
+      },
+      "tele_station_lat": 17.238224,
+      "tele_station_long": 99.021362,
+      "tele_station_oldcode": "G09006-STN1469",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 4/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามเงา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ย่านรี",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5521,
+      "tele_station_name": {
+        "th": "บ้านหนองนกปีกกา",
+        "en": ""
+      },
+      "tele_station_lat": 17.130709,
+      "tele_station_long": 99.250871,
+      "tele_station_oldcode": "G09006-STN1281",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองแม่ระกา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โป่งแดง",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630107",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5764,
+      "tele_station_name": {
+        "th": "บ้านแก่งหิน*",
+        "en": ""
+      },
+      "tele_station_lat": 16.896385,
+      "tele_station_long": 99.335101,
+      "tele_station_oldcode": "G09006-STN1552",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองแม่ระกา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังประจบ",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630114",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5459,
+      "tele_station_name": {
+        "th": "บ้านโป่งแดง",
+        "en": ""
+      },
+      "tele_station_lat": 17.061694,
+      "tele_station_long": 99.271171,
+      "tele_station_oldcode": "G09006-STN1214",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองแม่ระกา",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตาก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โป่งแดง",
+        "en": ""
+      },
+      "province_code": "63",
+      "province_name": {
+        "th": "ตาก",
+        "en": ""
+      },
+      "geo_code": "630107",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8670,
+      "tele_station_name": {
+        "th": "บ้านปวง*",
+        "en": ""
+      },
+      "tele_station_lat": 17.865614,
+      "tele_station_long": 99.066791,
+      "tele_station_oldcode": "G09006-STN1816",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทุ่งหัวช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านปวง",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510502",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2387,
+      "tele_station_name": {
+        "th": "บ้านแม่แสม",
+        "en": ""
+      },
+      "tele_station_lat": 18.053798,
+      "tele_station_long": 99.039799,
+      "tele_station_oldcode": "G09006-STN0537",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทุ่งหัวช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตะเคียนปม",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510503",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2372,
+      "tele_station_name": {
+        "th": "บ้านเกาะทุ่งม่าน*",
+        "en": ""
+      },
+      "tele_station_lat": 18.276021,
+      "tele_station_long": 98.822322,
+      "tele_station_oldcode": "G09006-STN0938",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าพลู",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268512,
+      "tele_station_name": {
+        "th": "บ้านแม่ลอบ*",
+        "en": ""
+      },
+      "tele_station_lat": 18.241493,
+      "tele_station_long": 98.864337,
+      "tele_station_oldcode": "G09006-STN2177",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าพลู",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2373,
+      "tele_station_name": {
+        "th": "บ้านแม่หาด*",
+        "en": ""
+      },
+      "tele_station_lat": 18.166337,
+      "tele_station_long": 98.891556,
+      "tele_station_oldcode": "G09006-STN0841",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโฮ่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าพลู",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510302",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5412,
+      "tele_station_name": {
+        "th": "บ้านก้อทุ่ง",
+        "en": ""
+      },
+      "tele_station_lat": 17.62713,
+      "tele_station_long": 98.78962,
+      "tele_station_oldcode": "G09006-STN1161",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ก้อ",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2376,
+      "tele_station_name": {
+        "th": "บ้านป่าหก*",
+        "en": ""
+      },
+      "tele_station_lat": 17.776736,
+      "tele_station_long": 98.971282,
+      "tele_station_oldcode": "G09006-STN0939",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5392,
+      "tele_station_name": {
+        "th": "บ้านป่าไผ่",
+        "en": ""
+      },
+      "tele_station_lat": 17.877175,
+      "tele_station_long": 98.925711,
+      "tele_station_oldcode": "G09006-STN1140",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าไผ่",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510408",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8871,
+      "tele_station_name": {
+        "th": "บ้านสันวิไลพัฒนา*",
+        "en": ""
+      },
+      "tele_station_lat": 17.955891,
+      "tele_station_long": 98.905798,
+      "tele_station_oldcode": "G09006-STN2017",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ลี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ตืน",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510402",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5605,
+      "tele_station_name": {
+        "th": "บ้านแม่กองวะ",
+        "en": ""
+      },
+      "tele_station_lat": 17.784715,
+      "tele_station_long": 98.805124,
+      "tele_station_oldcode": "G09006-STN1375",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลี้",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ลาน",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510406",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5772,
+      "tele_station_name": {
+        "th": "บ้านศรีบัวบาน",
+        "en": ""
+      },
+      "tele_station_lat": 18.526176,
+      "tele_station_long": 99.097646,
+      "tele_station_oldcode": "G09006-STN1130",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองลำพูน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ศรีบัวบาน",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510116",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5751,
+      "tele_station_name": {
+        "th": "บ้านทาทุ่งไผ่*",
+        "en": ""
+      },
+      "tele_station_lat": 18.528099,
+      "tele_station_long": 99.234264,
+      "tele_station_oldcode": "G09006-STN1535",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทาปลาดุก",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8870,
+      "tele_station_name": {
+        "th": "บ้านป่าเลา*",
+        "en": ""
+      },
+      "tele_station_lat": 18.379484,
+      "tele_station_long": 99.012032,
+      "tele_station_oldcode": "G09006-STN2016",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทากาศ",
+        "en": ""
+      },
+      "province_code": "51",
+      "province_name": {
+        "th": "ลำพูน",
+        "en": ""
+      },
+      "geo_code": "510203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8831,
+      "tele_station_name": {
+        "th": "บ้านวัดจันทร์*",
+        "en": ""
+      },
+      "tele_station_lat": 19.06953,
+      "tele_station_long": 98.304398,
+      "tele_station_oldcode": "G09006-STN1977",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "กัลยาณิวัฒนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านจันทร์",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502501",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5773,
+      "tele_station_name": {
+        "th": "บ้านแม่แดดน้อย",
+        "en": ""
+      },
+      "tele_station_lat": 18.964641,
+      "tele_station_long": 98.415808,
+      "tele_station_oldcode": "G09006-STN1143",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "กัลยาณิวัฒนา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่แดด",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502502",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2246,
+      "tele_station_name": {
+        "th": "บ้านขุนแปะ",
+        "en": ""
+      },
+      "tele_station_lat": 18.311521,
+      "tele_station_long": 98.479789,
+      "tele_station_oldcode": "G09006-STN0253",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านแปะ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500206",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8832,
+      "tele_station_name": {
+        "th": "บ้านน้ำตกแม่กลาง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.48915,
+      "tele_station_long": 98.672086,
+      "tele_station_oldcode": "G09006-STN1978",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กลาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8664,
+      "tele_station_name": {
+        "th": "บ้านน้ำลัด*",
+        "en": ""
+      },
+      "tele_station_lat": 18.430578,
+      "tele_station_long": 98.66912,
+      "tele_station_oldcode": "G09006-STN1810",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กลาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268507,
+      "tele_station_name": {
+        "th": "บ้านหัวเสือ*",
+        "en": ""
+      },
+      "tele_station_lat": 18.453265,
+      "tele_station_long": 98.640097,
+      "tele_station_oldcode": "G09006-STN2172",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กลาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5667,
+      "tele_station_name": {
+        "th": "บ้านห้วยสะแพด",
+        "en": ""
+      },
+      "tele_station_lat": 18.188109,
+      "tele_station_long": 98.701759,
+      "tele_station_oldcode": "G09006-STN1440",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สอย",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500209",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268510,
+      "tele_station_name": {
+        "th": "บ้านอ่างกาน้อย (สบหาด)*",
+        "en": ""
+      },
+      "tele_station_lat": 18.541897,
+      "tele_station_long": 98.593349,
+      "tele_station_oldcode": "G09006-STN2175",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กลาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2247,
+      "tele_station_name": {
+        "th": "บ้านแปะ*",
+        "en": ""
+      },
+      "tele_station_lat": 18.248958,
+      "tele_station_long": 98.595039,
+      "tele_station_oldcode": "G09006-STN0922",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านแปะ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500206",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5530,
+      "tele_station_name": {
+        "th": "บ้านแม่หอย",
+        "en": ""
+      },
+      "tele_station_lat": 18.485818,
+      "tele_station_long": 98.668225,
+      "tele_station_oldcode": "G09006-STN1292",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กลาง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "จอมทอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5359,
+      "tele_station_name": {
+        "th": "บ้านป่าสักงาม",
+        "en": ""
+      },
+      "tele_station_lat": 18.98908,
+      "tele_station_long": 99.127441,
+      "tele_station_oldcode": "G09006-STN1104",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดอยสะเก็ด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลวงเหนือ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500503",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268509,
+      "tele_station_name": {
+        "th": "บ้านห้วยผาตืน (ปางแฟน)*",
+        "en": ""
+      },
+      "tele_station_lat": 18.996693,
+      "tele_station_long": 99.279927,
+      "tele_station_oldcode": "G09006-STN2174",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดอยสะเก็ด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าเมี่ยง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500513",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5320,
+      "tele_station_name": {
+        "th": "บ้านดอยเต่าใต้*",
+        "en": ""
+      },
+      "tele_station_lat": 17.890087,
+      "tele_station_long": 98.729695,
+      "tele_station_oldcode": "G09006-STN1540",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดอยเต่า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ดอยเต่า",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5468,
+      "tele_station_name": {
+        "th": "บ้านแม่บวนใต้",
+        "en": ""
+      },
+      "tele_station_lat": 17.893466,
+      "tele_station_long": 98.803741,
+      "tele_station_oldcode": "G09006-STN1224",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ดอยเต่า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โปงทุ่ง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5368,
+      "tele_station_name": {
+        "th": "บ้านป่าฮิ้น",
+        "en": ""
+      },
+      "tele_station_lat": 19.385599,
+      "tele_station_long": 99.150983,
+      "tele_station_oldcode": "G09006-STN1113",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่งัด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พร้าว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านโป่ง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501106",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2298,
+      "tele_station_name": {
+        "th": "บ้านกองขากหลวง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.915366,
+      "tele_station_long": 98.721861,
+      "tele_station_oldcode": "G09006-STN0923",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สะเมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเมิงใต้",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500801",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8848,
+      "tele_station_name": {
+        "th": "บ้านหาดส้มป่อย*",
+        "en": ""
+      },
+      "tele_station_lat": 18.876148,
+      "tele_station_long": 98.613513,
+      "tele_station_oldcode": "G09006-STN1994",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สะเมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สาบ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500803",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5369,
+      "tele_station_name": {
+        "th": "บ้านแม่แพะ",
+        "en": ""
+      },
+      "tele_station_lat": 19.013729,
+      "tele_station_long": 98.699764,
+      "tele_station_oldcode": "G09006-STN1114",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สะเมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเมิงเหนือ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500802",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268505,
+      "tele_station_name": {
+        "th": "บ้านต้นแหนน้อย*",
+        "en": ""
+      },
+      "tele_station_lat": 18.547291,
+      "tele_station_long": 98.862174,
+      "tele_station_oldcode": "G09006-STN2170",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันป่าตอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าวังพร้าว",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8849,
+      "tele_station_name": {
+        "th": "บ้านเหมืองฟู*",
+        "en": ""
+      },
+      "tele_station_lat": 18.663346,
+      "tele_station_long": 98.82618,
+      "tele_station_oldcode": "G09006-STN1995",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สันป่าตอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านแม",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501206",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2340,
+      "tele_station_name": {
+        "th": "บ้านนาไคร้",
+        "en": ""
+      },
+      "tele_station_lat": 17.602828,
+      "tele_station_long": 98.48199,
+      "tele_station_oldcode": "G09006-STN0309",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตื่น",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ยางเปียง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501802",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2343,
+      "tele_station_name": {
+        "th": "บ้านมูเซอ",
+        "en": ""
+      },
+      "tele_station_lat": 17.568899,
+      "tele_station_long": 98.522465,
+      "tele_station_oldcode": "G09006-STN0310",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตื่น",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ม่อนจอง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501804",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2339,
+      "tele_station_name": {
+        "th": "บ้านยางครก",
+        "en": ""
+      },
+      "tele_station_lat": 17.795877,
+      "tele_station_long": 98.462839,
+      "tele_station_oldcode": "G09006-STN0308",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตื่น",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ยางเปียง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501802",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8852,
+      "tele_station_name": {
+        "th": "บ้านหลิม*",
+        "en": ""
+      },
+      "tele_station_lat": 17.799893,
+      "tele_station_long": 98.364069,
+      "tele_station_oldcode": "G09006-STN1998",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตื่น",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501801",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8851,
+      "tele_station_name": {
+        "th": "บ้านห้วยหล่อดูก*",
+        "en": ""
+      },
+      "tele_station_lat": 17.422119,
+      "tele_station_long": 98.459433,
+      "tele_station_oldcode": "G09006-STN1997",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ตื่น",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "อมก๋อย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ม่อนจอง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501804",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5437,
+      "tele_station_name": {
+        "th": "บ้านช่างเคิ่ง",
+        "en": ""
+      },
+      "tele_station_lat": 18.09823,
+      "tele_station_long": 98.689093,
+      "tele_station_oldcode": "G09006-STN1190",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ฮอด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านตาล",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501603",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5674,
+      "tele_station_name": {
+        "th": "บ้านตีนตก",
+        "en": ""
+      },
+      "tele_station_lat": 18.066294,
+      "tele_station_long": 98.490107,
+      "tele_station_oldcode": "G09006-STN1448",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ฮอด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาคอเรือ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5675,
+      "tele_station_name": {
+        "th": "บ้านแม่ทัง",
+        "en": ""
+      },
+      "tele_station_lat": 18.155676,
+      "tele_station_long": 98.604793,
+      "tele_station_oldcode": "G09006-STN1449",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 3/3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ฮอด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หางดง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "501601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8834,
+      "tele_station_name": {
+        "th": "บ้านวังมะริว*",
+        "en": ""
+      },
+      "tele_station_lat": 19.378589,
+      "tele_station_long": 98.721217,
+      "tele_station_oldcode": "G09006-STN1980",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองคอง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2273,
+      "tele_station_name": {
+        "th": "บ้านหลวงเมืองคอง*",
+        "en": ""
+      },
+      "tele_station_lat": 19.382972,
+      "tele_station_long": 98.712097,
+      "tele_station_oldcode": "G09006-STN0084",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองคอง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8833,
+      "tele_station_name": {
+        "th": "บ้านออน*",
+        "en": ""
+      },
+      "tele_station_lat": 19.499074,
+      "tele_station_long": 99.0736,
+      "tele_station_oldcode": "G09006-STN1979",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปิงโค้ง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500406",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2266,
+      "tele_station_name": {
+        "th": "บ้านแม่ก๊ะ*",
+        "en": ""
+      },
+      "tele_station_lat": 19.358993,
+      "tele_station_long": 98.97056,
+      "tele_station_oldcode": "G09006-STN0919",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2271,
+      "tele_station_name": {
+        "th": "บ้านแม่อ้อใน",
+        "en": ""
+      },
+      "tele_station_lat": 19.298099,
+      "tele_station_long": 98.996602,
+      "tele_station_oldcode": "G09006-STN0522",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองนะ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500402",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5407,
+      "tele_station_name": {
+        "th": "บ้านใหม่สามัคคี",
+        "en": ""
+      },
+      "tele_station_lat": 19.51898,
+      "tele_station_long": 99.055452,
+      "tele_station_oldcode": "G09006-STN1156",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปิงโค้ง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500406",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2347,
+      "tele_station_name": {
+        "th": "บ้านกองลม*",
+        "en": ""
+      },
+      "tele_station_lat": 19.576641,
+      "tele_station_long": 98.615075,
+      "tele_station_oldcode": "G09006-STN0918",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงแหง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองแหง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502001",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2349,
+      "tele_station_name": {
+        "th": "บ้านเปียงหลวง",
+        "en": ""
+      },
+      "tele_station_lat": 19.683727,
+      "tele_station_long": 98.627156,
+      "tele_station_oldcode": "G09006-STN0893",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เวียงแหง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เปียงหลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502002",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2297,
+      "tele_station_name": {
+        "th": "บ้านกองแหะ",
+        "en": ""
+      },
+      "tele_station_lat": 18.859268,
+      "tele_station_long": 98.809246,
+      "tele_station_oldcode": "G09006-STN0182",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงส่วนที่ 2/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ริม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โป่งแยง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500708",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2293,
+      "tele_station_name": {
+        "th": "บ้านสะลวงนอก*",
+        "en": ""
+      },
+      "tele_station_lat": 19.01637,
+      "tele_station_long": 98.880501,
+      "tele_station_oldcode": "G09006-STN0838",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ริม",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ริม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะลวง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2357,
+      "tele_station_name": {
+        "th": "บ้านขุนป๋วย",
+        "en": ""
+      },
+      "tele_station_lat": 18.603013,
+      "tele_station_long": 98.607522,
+      "tele_station_oldcode": "G09006-STN0520",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่วาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่วิน",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502204",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268506,
+      "tele_station_name": {
+        "th": "บ้านห้วยโป่ง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.658259,
+      "tele_station_long": 98.661228,
+      "tele_station_oldcode": "G09006-STN2171",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่วาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่วิน",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502204",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5769,
+      "tele_station_name": {
+        "th": "บ้านใหม่ปางเติม*",
+        "en": ""
+      },
+      "tele_station_lat": 18.614812,
+      "tele_station_long": 98.767551,
+      "tele_station_oldcode": "G09006-STN1557",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ขาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่วาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งปี๊",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502202",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5717,
+      "tele_station_name": {
+        "th": "บ้านดอนทราย*",
+        "en": ""
+      },
+      "tele_station_lat": 18.783243,
+      "tele_station_long": 99.259893,
+      "tele_station_oldcode": "G09006-STN1498",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ออน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ออนเหนือ",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2363,
+      "tele_station_name": {
+        "th": "บ้านท่าข้าม*",
+        "en": ""
+      },
+      "tele_station_lat": 18.602301,
+      "tele_station_long": 99.274436,
+      "tele_station_oldcode": "G09006-STN0230",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่กวง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่ออน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ทา",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "502305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8839,
+      "tele_station_name": {
+        "th": "บ้านกองกาน*",
+        "en": ""
+      },
+      "tele_station_lat": 18.546353,
+      "tele_station_long": 98.353798,
+      "tele_station_oldcode": "G09006-STN1985",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แจ่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ช่างเคิ่ง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8838,
+      "tele_station_name": {
+        "th": "บ้านแม่ซา*",
+        "en": ""
+      },
+      "tele_station_lat": 18.814779,
+      "tele_station_long": 98.333695,
+      "tele_station_oldcode": "G09006-STN1984",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แจ่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่นาจร",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5754,
+      "tele_station_name": {
+        "th": "บ้านแม่นาจร*",
+        "en": ""
+      },
+      "tele_station_lat": 18.684451,
+      "tele_station_long": 98.376045,
+      "tele_station_oldcode": "G09006-STN1538",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แจ่ม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่นาจร",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8842,
+      "tele_station_name": {
+        "th": "บ้านทับเดื่อ*",
+        "en": ""
+      },
+      "tele_station_lat": 19.248526,
+      "tele_station_long": 98.968513,
+      "tele_station_oldcode": "G09006-STN1988",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปิงตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "อินทขิล",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500613",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8841,
+      "tele_station_name": {
+        "th": "บ้านผาแด่น*",
+        "en": ""
+      },
+      "tele_station_lat": 19.063675,
+      "tele_station_long": 98.77619,
+      "tele_station_oldcode": "G09006-STN1987",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ริม",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สันป่ายาง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500608",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8840,
+      "tele_station_name": {
+        "th": "บ้านสบก๋าย*",
+        "en": ""
+      },
+      "tele_station_lat": 19.234728,
+      "tele_station_long": 98.783885,
+      "tele_station_oldcode": "G09006-STN1986",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "กื้ดช้าง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500612",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2292,
+      "tele_station_name": {
+        "th": "บ้านห้วยป่าซาง*",
+        "en": ""
+      },
+      "tele_station_lat": 19.179077,
+      "tele_station_long": 98.914786,
+      "tele_station_oldcode": "G09006-STN0027",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำแม่แตง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่แตง",
+        "en": ""
+      },
+      "province_code": "50",
+      "province_name": {
+        "th": "เชียงใหม่",
+        "en": ""
+      },
+      "geo_code": "500602",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2700,
+      "tele_station_name": {
+        "th": "บ้านอมพาย",
+        "en": ""
+      },
+      "tele_station_lat": 18.298251,
+      "tele_station_long": 98.171916,
+      "tele_station_oldcode": "G09006-STN0208",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่แจ่มตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่สะเรียง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าแป๋",
+        "en": ""
+      },
+      "province_code": "58",
+      "province_name": {
+        "th": "แม่ฮ่องสอน",
+        "en": ""
+      },
+      "geo_code": "580408",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 6,
+      "basin_code": 6,
+      "basin_name": {
+        "th": "ลุ่มน้ำปิง",
+        "en": "Ping River Basin"
+      }
+    }
+  }
+]

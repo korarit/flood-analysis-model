@@ -1,0 +1,4142 @@
+[
+  {
+    "station": {
+      "id": 2477,
+      "tele_station_name": {
+        "th": "บ้านโปร่งศรี",
+        "en": ""
+      },
+      "tele_station_lat": 18.782298,
+      "tele_station_long": 100.4556,
+      "tele_station_oldcode": "G09006-STN0354",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำปี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านหลวง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านฟ้า",
+        "en": ""
+      },
+      "province_code": "55",
+      "province_name": {
+        "th": "น่าน",
+        "en": ""
+      },
+      "geo_code": "550301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2545,
+      "tele_station_name": {
+        "th": "บ้านขุนกำลัง",
+        "en": ""
+      },
+      "tele_station_lat": 19.107895,
+      "tele_station_long": 100.390588,
+      "tele_station_oldcode": "G09006-STN0852",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำควน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ขุนควร",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560607",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8943,
+      "tele_station_name": {
+        "th": "บ้านค่าไพบูลย์*",
+        "en": ""
+      },
+      "tele_station_lat": 19.119745,
+      "tele_station_long": 100.27518,
+      "tele_station_oldcode": "G09006-STN2090",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8940,
+      "tele_station_name": {
+        "th": "บ้านตุ่น*",
+        "en": ""
+      },
+      "tele_station_lat": 19.294227,
+      "tele_station_long": 100.357574,
+      "tele_station_oldcode": "G09006-STN2087",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "งิม",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560604",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2547,
+      "tele_station_name": {
+        "th": "บ้านสบขาม*",
+        "en": ""
+      },
+      "tele_station_lat": 19.150395,
+      "tele_station_long": 100.389803,
+      "tele_station_oldcode": "G09006-STN0932",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำควน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ขุนควร",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560607",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8942,
+      "tele_station_name": {
+        "th": "บ้านหนองท่าควาย*",
+        "en": ""
+      },
+      "tele_station_lat": 19.187359,
+      "tele_station_long": 100.306189,
+      "tele_station_oldcode": "G09006-STN2089",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ออย",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560603",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8941,
+      "tele_station_name": {
+        "th": "บ้านหนองบัว*",
+        "en": ""
+      },
+      "tele_station_lat": 19.283917,
+      "tele_station_long": 100.380564,
+      "tele_station_oldcode": "G09006-STN2088",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "งิม",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560604",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5681,
+      "tele_station_name": {
+        "th": "บ้านห้วยคอกหมู",
+        "en": ""
+      },
+      "tele_station_lat": 19.216015,
+      "tele_station_long": 100.255061,
+      "tele_station_oldcode": "G09006-STN1455",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาปรัง",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5544,
+      "tele_station_name": {
+        "th": "บ้านแสะ",
+        "en": ""
+      },
+      "tele_station_lat": 19.155619,
+      "tele_station_long": 100.307051,
+      "tele_station_oldcode": "G09006-STN1306",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำควน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ควร",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560602",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 268526,
+      "tele_station_name": {
+        "th": "บ้านใหม่ปางค่า*",
+        "en": ""
+      },
+      "tele_station_lat": 19.337223,
+      "tele_station_long": 100.431249,
+      "tele_station_oldcode": "G09006-STN2191",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ปง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ผาช้างน้อย",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560605",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2544,
+      "tele_station_name": {
+        "th": "บ้านกลาง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.891162,
+      "tele_station_long": 100.309257,
+      "tele_station_oldcode": "G09006-STN0931",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำปี้",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงม่วน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เชียงม่วน",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560401",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5750,
+      "tele_station_name": {
+        "th": "บ้านท่าฟ้าเหนือ*",
+        "en": ""
+      },
+      "tele_station_lat": 19.015725,
+      "tele_station_long": 100.287363,
+      "tele_station_oldcode": "G09006-STN1534",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เชียงม่วน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สระ",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560403",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5608,
+      "tele_station_name": {
+        "th": "บ้านแม่กานาไร่เดียว",
+        "en": ""
+      },
+      "tele_station_lat": 18.985695,
+      "tele_station_long": 99.906155,
+      "tele_station_oldcode": "G09006-STN1378",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองพะเยา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่กา",
+        "en": ""
+      },
+      "province_code": "56",
+      "province_name": {
+        "th": "พะเยา",
+        "en": ""
+      },
+      "geo_code": "560110",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5656,
+      "tele_station_name": {
+        "th": "บ้านขุนแหง",
+        "en": ""
+      },
+      "tele_station_lat": 18.845999,
+      "tele_station_long": 99.998732,
+      "tele_station_oldcode": "G09006-STN1429",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปงเตา",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520505",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8857,
+      "tele_station_name": {
+        "th": "บ้านข่อย*",
+        "en": ""
+      },
+      "tele_station_lat": 18.889093,
+      "tele_station_long": 99.94023,
+      "tele_station_oldcode": "G09006-STN2003",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านร้อง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5654,
+      "tele_station_name": {
+        "th": "บ้านงิ้วงาม*",
+        "en": ""
+      },
+      "tele_station_lat": 18.551374,
+      "tele_station_long": 100.011349,
+      "tele_station_oldcode": "G09006-STN1427",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่ตีบ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520510",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2397,
+      "tele_station_name": {
+        "th": "บ้านบ่อสี่เหลี่ยม",
+        "en": ""
+      },
+      "tele_station_lat": 18.880018,
+      "tele_station_long": 99.813558,
+      "tele_station_oldcode": "G09006-STN0347",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปงเตา",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520505",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5676,
+      "tele_station_name": {
+        "th": "บ้านแม่งาวใต้",
+        "en": ""
+      },
+      "tele_station_lat": 18.970813,
+      "tele_station_long": 99.810119,
+      "tele_station_oldcode": "G09006-STN1450",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านร้อง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2396,
+      "tele_station_name": {
+        "th": "บ้านใหม่พัฒนา",
+        "en": ""
+      },
+      "tele_station_lat": 19.034013,
+      "tele_station_long": 99.786146,
+      "tele_station_oldcode": "G09006-STN0888",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "งาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านร้อง",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5575,
+      "tele_station_name": {
+        "th": "บ้านกุ่มเนิ้งใต้",
+        "en": ""
+      },
+      "tele_station_lat": 17.598383,
+      "tele_station_long": 99.338439,
+      "tele_station_oldcode": "G09006-STN1341",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่มอก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่มอก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520804",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8860,
+      "tele_station_name": {
+        "th": "บ้านปางอ้า*",
+        "en": ""
+      },
+      "tele_station_lat": 17.428228,
+      "tele_station_long": 99.361444,
+      "tele_station_oldcode": "G09006-STN2006",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่มอก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เวียงมอก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520805",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2405,
+      "tele_station_name": {
+        "th": "บ้านหัวน้ำพัฒนา",
+        "en": ""
+      },
+      "tele_station_lat": 17.645938,
+      "tele_station_long": 99.381117,
+      "tele_station_oldcode": "G09006-STN0876",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่มอก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่มอก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520804",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8859,
+      "tele_station_name": {
+        "th": "บ้านแม่มอกใต้*",
+        "en": ""
+      },
+      "tele_station_lat": 17.623949,
+      "tele_station_long": 99.370664,
+      "tele_station_oldcode": "G09006-STN2005",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่มอก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เถิน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่มอก",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520804",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8865,
+      "tele_station_name": {
+        "th": "บ้านวังตม*",
+        "en": ""
+      },
+      "tele_station_lat": 18.4913,
+      "tele_station_long": 99.972921,
+      "tele_station_oldcode": "G09006-STN2011",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำงาว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่เมาะ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "จางเหนือ",
+        "en": ""
+      },
+      "province_code": "52",
+      "province_name": {
+        "th": "ลำปาง",
+        "en": ""
+      },
+      "geo_code": "520203",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5752,
+      "tele_station_name": {
+        "th": "บ้านสามพวง 1*",
+        "en": ""
+      },
+      "tele_station_lat": 16.79757,
+      "tele_station_long": 99.787305,
+      "tele_station_oldcode": "G09006-STN1536",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "คีรีมาศ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามพวง",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5494,
+      "tele_station_name": {
+        "th": "บ้านใหม่เจริญผล",
+        "en": ""
+      },
+      "tele_station_lat": 16.755429,
+      "tele_station_long": 99.699664,
+      "tele_station_oldcode": "G09006-STN1251",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "คีรีมาศ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองจิก",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640306",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8891,
+      "tele_station_name": {
+        "th": "บ้านแม่ทุเลา*",
+        "en": ""
+      },
+      "tele_station_lat": 17.336284,
+      "tele_station_long": 99.592397,
+      "tele_station_oldcode": "G09006-STN2037",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่มอก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ทุ่งเสลี่ยม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทยชนะศึก",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640902",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2791,
+      "tele_station_name": {
+        "th": "บ้านนาต้นจั่น*",
+        "en": ""
+      },
+      "tele_station_lat": 17.619717,
+      "tele_station_long": 99.829077,
+      "tele_station_oldcode": "G09006-STN0229",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีสัชนาลัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านตึก",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640505",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2788,
+      "tele_station_name": {
+        "th": "บ้านฟากท่า*",
+        "en": ""
+      },
+      "tele_station_lat": 17.571233,
+      "tele_station_long": 99.73619,
+      "tele_station_oldcode": "G09006-STN1038",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีสัชนาลัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สำ",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640503",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5762,
+      "tele_station_name": {
+        "th": "บ้านห้วยโป้*",
+        "en": ""
+      },
+      "tele_station_lat": 17.728371,
+      "tele_station_long": 99.714987,
+      "tele_station_oldcode": "G09006-STN1550",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ห้วยแม่สิน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีสัชนาลัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สิน",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5770,
+      "tele_station_name": {
+        "th": "บ้านแม่รากกลาง*",
+        "en": ""
+      },
+      "tele_station_lat": 17.584356,
+      "tele_station_long": 99.810257,
+      "tele_station_oldcode": "G09006-STN1558",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีสัชนาลัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านตึก",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640505",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8892,
+      "tele_station_name": {
+        "th": "บ้านโป่งวัว*",
+        "en": ""
+      },
+      "tele_station_lat": 17.661658,
+      "tele_station_long": 99.684676,
+      "tele_station_oldcode": "G09006-STN2038",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีสัชนาลัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่สิน",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5720,
+      "tele_station_name": {
+        "th": "บ้านมนต์คีรี",
+        "en": ""
+      },
+      "tele_station_lat": 16.966364,
+      "tele_station_long": 99.694937,
+      "tele_station_oldcode": "G09006-STN1501",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 4",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสุโขทัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เมืองเก่า",
+        "en": ""
+      },
+      "province_code": "64",
+      "province_name": {
+        "th": "สุโขทัย",
+        "en": ""
+      },
+      "geo_code": "640103",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5430,
+      "tele_station_name": {
+        "th": "บ้านครกหนานทา",
+        "en": ""
+      },
+      "tele_station_lat": 18.481138,
+      "tele_station_long": 100.409021,
+      "tele_station_oldcode": "G09006-STN1183",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่คำมี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยโรง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540213",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5726,
+      "tele_station_name": {
+        "th": "บ้านจำวาย",
+        "en": ""
+      },
+      "tele_station_lat": 18.331959,
+      "tele_station_long": 100.436023,
+      "tele_station_oldcode": "G09006-STN1507",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่คำมี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไผ่โทน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540210",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2445,
+      "tele_station_name": {
+        "th": "บ้านบุญแจ่ม",
+        "en": ""
+      },
+      "tele_station_lat": 18.267415,
+      "tele_station_long": 100.333578,
+      "tele_station_oldcode": "G09006-STN0911",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "น้ำเลา",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540205",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5456,
+      "tele_station_name": {
+        "th": "บ้านป่ากล้วย",
+        "en": ""
+      },
+      "tele_station_lat": 18.223637,
+      "tele_station_long": 100.273272,
+      "tele_station_oldcode": "G09006-STN1211",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านเวียง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540206",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5460,
+      "tele_station_name": {
+        "th": "บ้านผาราง",
+        "en": ""
+      },
+      "tele_station_lat": 18.316285,
+      "tele_station_long": 100.324273,
+      "tele_station_oldcode": "G09006-STN1215",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่คำมี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งศรี",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540207",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8982,
+      "tele_station_name": {
+        "th": "บ้านวังโป่ง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.330513,
+      "tele_station_long": 100.327475,
+      "tele_station_oldcode": "G09006-STN2129",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่คำมี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540201",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5749,
+      "tele_station_name": {
+        "th": "บ้านห้วยเอียด",
+        "en": ""
+      },
+      "tele_station_lat": 18.284968,
+      "tele_station_long": 100.417124,
+      "tele_station_oldcode": "G09006-STN1533",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไผ่โทน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540210",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5487,
+      "tele_station_name": {
+        "th": "บ้านห้วยโรงนอก",
+        "en": ""
+      },
+      "tele_station_lat": 18.416457,
+      "tele_station_long": 100.479245,
+      "tele_station_oldcode": "G09006-STN1244",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่คำมี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ร้องกวาง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยโรง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540213",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8983,
+      "tele_station_name": {
+        "th": "บ้านปากกาง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.051556,
+      "tele_station_long": 99.811634,
+      "tele_station_oldcode": "G09006-STN2130",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากกาง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540305",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5755,
+      "tele_station_name": {
+        "th": "บ้านศรีดอนไชย*",
+        "en": ""
+      },
+      "tele_station_lat": 18.000687,
+      "tele_station_long": 99.772636,
+      "tele_station_oldcode": "G09006-STN1539",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งแล้ง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540307",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2452,
+      "tele_station_name": {
+        "th": "บ้านสันติสุข",
+        "en": ""
+      },
+      "tele_station_lat": 18.252471,
+      "tele_station_long": 99.978555,
+      "tele_station_oldcode": "G09006-STN0907",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต้า",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เวียงต้า",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2450,
+      "tele_station_name": {
+        "th": "บ้านเกี๋ยงพา",
+        "en": ""
+      },
+      "tele_station_lat": 18.164938,
+      "tele_station_long": 99.949071,
+      "tele_station_oldcode": "G09006-STN0908",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต้า",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ต้าผามอก",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5435,
+      "tele_station_name": {
+        "th": "บ้านเค็ม",
+        "en": ""
+      },
+      "tele_station_lat": 18.108142,
+      "tele_station_long": 99.789806,
+      "tele_station_oldcode": "G09006-STN1188",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวทุ่ง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540306",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2453,
+      "tele_station_name": {
+        "th": "บ้านแม่จอก",
+        "en": ""
+      },
+      "tele_station_lat": 18.081108,
+      "tele_station_long": 99.774443,
+      "tele_station_oldcode": "G09006-STN0832",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หัวทุ่ง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540306",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5464,
+      "tele_station_name": {
+        "th": "บ้านแม่เกี่ยม",
+        "en": ""
+      },
+      "tele_station_lat": 18.15379,
+      "tele_station_long": 99.824678,
+      "tele_station_oldcode": "G09006-STN1220",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยอ้อ",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540301",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2451,
+      "tele_station_name": {
+        "th": "บ้านแสนทอง*",
+        "en": ""
+      },
+      "tele_station_lat": 18.30051,
+      "tele_station_long": 100.025666,
+      "tele_station_oldcode": "G09006-STN0849",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "น้ำแม่ต้า",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เวียงต้า",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540304",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2466,
+      "tele_station_name": {
+        "th": "บ้านขุนห้วย",
+        "en": ""
+      },
+      "tele_station_lat": 17.903802,
+      "tele_station_long": 99.541516,
+      "tele_station_oldcode": "G09006-STN0905",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่พุง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5317,
+      "tele_station_name": {
+        "th": "บ้านนาเวียง",
+        "en": ""
+      },
+      "tele_station_lat": 17.900911,
+      "tele_station_long": 99.605797,
+      "tele_station_oldcode": "G09006-STN1496",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5715,
+      "tele_station_name": {
+        "th": "บ้านป่าคา",
+        "en": ""
+      },
+      "tele_station_lat": 17.822465,
+      "tele_station_long": 99.551282,
+      "tele_station_oldcode": "G09006-STN1494",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่พุง",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540705",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5316,
+      "tele_station_name": {
+        "th": "บ้านหาดรั่ว",
+        "en": ""
+      },
+      "tele_station_lat": 17.79514,
+      "tele_station_long": 99.673173,
+      "tele_station_oldcode": "G09006-STN1495",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540701",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5714,
+      "tele_station_name": {
+        "th": "บ้านแม่กระต๋อม",
+        "en": ""
+      },
+      "tele_station_lat": 17.789991,
+      "tele_station_long": 99.478629,
+      "tele_station_oldcode": "G09006-STN1493",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าสัก",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540706",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5713,
+      "tele_station_name": {
+        "th": "บ้านแม่สิน",
+        "en": ""
+      },
+      "tele_station_lat": 17.802291,
+      "tele_station_long": 99.857683,
+      "tele_station_oldcode": "G09006-STN1492",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ห้วยแม่สิน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาพูน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540704",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5712,
+      "tele_station_name": {
+        "th": "บ้านแม่แปง",
+        "en": ""
+      },
+      "tele_station_lat": 17.861845,
+      "tele_station_long": 99.69331,
+      "tele_station_oldcode": "G09006-STN1491",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วังชิ้น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นาพูน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540704",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2460,
+      "tele_station_name": {
+        "th": "บ้านข่วงชมภู",
+        "en": ""
+      },
+      "tele_station_lat": 18.574699,
+      "tele_station_long": 100.203708,
+      "tele_station_oldcode": "G09006-STN0909",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เตาปูน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540604",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5445,
+      "tele_station_name": {
+        "th": "บ้านท่อสมาน",
+        "en": ""
+      },
+      "tele_station_lat": 18.497578,
+      "tele_station_long": 100.208519,
+      "tele_station_oldcode": "G09006-STN1198",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เตาปูน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540604",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2463,
+      "tele_station_name": {
+        "th": "บ้านท่าวะ",
+        "en": ""
+      },
+      "tele_station_lat": 18.681022,
+      "tele_station_long": 100.326985,
+      "tele_station_oldcode": "G09006-STN0910",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเอียบ",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2461,
+      "tele_station_name": {
+        "th": "บ้านนาหลวง",
+        "en": ""
+      },
+      "tele_station_lat": 18.742005,
+      "tele_station_long": 100.309278,
+      "tele_station_oldcode": "G09006-STN0543",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเอียบ",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2462,
+      "tele_station_name": {
+        "th": "บ้านป่าเลา",
+        "en": ""
+      },
+      "tele_station_lat": 18.636704,
+      "tele_station_long": 100.239103,
+      "tele_station_oldcode": "G09006-STN0546",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนบนส่วนที่ 3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะเอียบ",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540606",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5474,
+      "tele_station_name": {
+        "th": "บ้านวังดิน",
+        "en": ""
+      },
+      "tele_station_lat": 18.508692,
+      "tele_station_long": 100.132687,
+      "tele_station_oldcode": "G09006-STN1230",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านหนุน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540601",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5443,
+      "tele_station_name": {
+        "th": "บ้านแดนชุมพล",
+        "en": ""
+      },
+      "tele_station_lat": 18.367695,
+      "tele_station_long": 100.205709,
+      "tele_station_oldcode": "G09006-STN1196",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แดนชุมพล",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540607",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5422,
+      "tele_station_name": {
+        "th": "บ้านน้ำฮอก",
+        "en": ""
+      },
+      "tele_station_lat": 18.051848,
+      "tele_station_long": 100.153986,
+      "tele_station_oldcode": "G09006-STN1175",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สูงเม่น",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านเหล่า",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540405",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5727,
+      "tele_station_name": {
+        "th": "บ้านดงสุระ",
+        "en": ""
+      },
+      "tele_station_lat": 17.999057,
+      "tele_station_long": 100.0974,
+      "tele_station_oldcode": "G09006-STN1508",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เด่นชัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่จั๊วะ",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540502",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2457,
+      "tele_station_name": {
+        "th": "บ้านบ่อแก้ว",
+        "en": ""
+      },
+      "tele_station_lat": 17.913996,
+      "tele_station_long": 99.896699,
+      "tele_station_oldcode": "G09006-STN0545",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ห้วยแม่สิน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เด่นชัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทรย้อย",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540503",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 2459,
+      "tele_station_name": {
+        "th": "บ้านแม่พวก*",
+        "en": ""
+      },
+      "tele_station_lat": 17.939392,
+      "tele_station_long": 100.060039,
+      "tele_station_oldcode": "G09006-STN1037",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เด่นชัย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยไร่",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540504",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8981,
+      "tele_station_name": {
+        "th": "บ้านวังหงส์*",
+        "en": ""
+      },
+      "tele_station_lat": 18.217791,
+      "tele_station_long": 100.178461,
+      "tele_station_oldcode": "G09006-STN2128",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองแพร่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าข้าม",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540116",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5465,
+      "tele_station_name": {
+        "th": "บ้านแม่แคม",
+        "en": ""
+      },
+      "tele_station_lat": 18.133808,
+      "tele_station_long": 100.254701,
+      "tele_station_oldcode": "G09006-STN1221",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำยมตอนกลางส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      },
+      "agency_code": "G09006"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองแพร่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สวนเขื่อน",
+        "en": ""
+      },
+      "province_code": "54",
+      "province_name": {
+        "th": "แพร่",
+        "en": ""
+      },
+      "geo_code": "540112",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 8,
+      "basin_code": 8,
+      "basin_name": {
+        "th": "ลุ่มน้ำยม",
+        "en": "Yom River Basin"
+      }
+    }
+  }
+]
