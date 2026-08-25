@@ -27,6 +27,38 @@ D8_DELTAS = {
 }
 
 
+def clip_dem_to_polygon(
+    dem_path: str,
+    polygon_geom: Any,
+    buffer_deg: float = 0.01
+) -> Tuple[np.ndarray, Affine, Any, float]:
+    """
+    Clips DEM raster directly to a specific sub-basin polygon at native 12.5m resolution.
+    Returns (clipped_elev, clipped_transform, crs, nodata).
+    Uses tiny RAM (~10-20 MB) per sub-basin!
+    """
+    from rasterio.mask import mask
+    from shapely.geometry import shape, mapping
+
+    if isinstance(polygon_geom, dict):
+        poly_obj = shape(polygon_geom)
+    else:
+        poly_obj = polygon_geom
+
+    if buffer_deg > 0:
+        poly_buffered = poly_obj.buffer(buffer_deg)
+    else:
+        poly_buffered = poly_obj
+
+    with rasterio.open(dem_path) as src:
+        nodata = src.nodata if src.nodata is not None else -9999.0
+        crs = src.crs
+        out_image, out_transform = mask(src, [mapping(poly_buffered)], crop=True, nodata=nodata)
+        clipped_elev = out_image[0].astype(np.float32)
+
+    return clipped_elev, out_transform, crs, nodata
+
+
 def read_dem_geotiff(
     dem_path: str,
     max_cells: int = 150_000_000

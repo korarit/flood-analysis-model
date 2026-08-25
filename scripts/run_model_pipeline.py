@@ -54,8 +54,12 @@ def run_pipeline_for_basin(
         print(f"❌ ERROR: No stations found in {basin_dir}/station/", file=sys.stderr)
         return
 
+    from scripts.fetch_basin_gis import fetch_subbasins_boundary
+
     boundary_path = os.path.join(basin_dir, "gis", f"{basin}_boundary.geojson")
+    subbasins_path = os.path.join(basin_dir, "gis", f"{basin}_subbasins.geojson")
     fetch_basin_boundary(basin, boundary_path, all_st)
+    fetch_subbasins_boundary(basin, subbasins_path, all_st)
     download_alos_palsar_dem(terrain_basin_dir, all_st, username, password)
     t1_elapsed = time.time() - t0
     print(f"  ⏱️ Step 1 completed in {t1_elapsed:.1f}s")

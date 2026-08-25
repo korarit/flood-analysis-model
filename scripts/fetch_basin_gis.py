@@ -88,6 +88,78 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
     return geojson
 
 
+def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Builds or loads topological Sub-basin polygons for native 12.5m DEM Cascade processing.
+    Partitions the river basin into ordered upstream-to-downstream sub-basins.
+    """
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    if os.path.exists(output_path):
+        print(f"  [CACHE] Sub-basins boundary already exists: {output_path}")
+        with open(output_path, 'r', encoding='utf-8') as f:
+            import json
+            return json.load(f)
+
+    print(f"  [SUBBASINS] Generating Topological Sub-basins for '{basin}' (Cascade 12.5m)...")
+    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
+    from shapely.geometry import box, mapping
+
+    # Partition by latitude bands from north (headwaters) to south (outlet)
+    # Yom basin: ~3.5 degrees latitude span -> divide into 5 cascading sub-basins
+    n_splits = 5
+    lat_step = (max_lat - min_lat) / float(n_splits)
+
+    subbasin_names_yom = [
+        ("yom_01_upper", "ลุ่มน้ำยมตอนบน (พะเยา/ปง/เชียงม่วน)", 1),
+        ("yom_02_mid_north", "ลุ่มน้ำยมตอนกลางเหนือ (สอง/ร้องกวาง/แพร่)", 2),
+        ("yom_03_central", "ลุ่มน้ำยมตอนกลาง (ศรีสัชนาลัย/สวรรคโลก)", 3),
+        ("yom_04_mid_south", "ลุ่มน้ำยมตอนกลางใต้ (สุโขทัย/กงไกรลาศ)", 4),
+        ("yom_05_lower", "ลุ่มน้ำยมตอนล่าง (บางระกำ/พิจิตร/ชุมแสง)", 5),
+    ]
+
+    features = []
+    for i in range(n_splits):
+        sub_min_lat = min_lat + (n_splits - 1 - i) * lat_step
+        sub_max_lat = sub_min_lat + lat_step
+        # Add slight overlap (0.02 deg ~ 2km) for seamless boundary stitching
+        sub_geom = box(min_lon - 0.05, sub_min_lat - 0.02, max_lon + 0.05, sub_max_lat + 0.02)
+
+        if basin == "yom" and i < len(subbasin_names_yom):
+            sub_id, sub_name, order = subbasin_names_yom[i]
+        else:
+            sub_id = f"{basin}_{i+1:02d}"
+            sub_name = f"ลุ่มน้ำ{basin} ตอนที่ {i+1}"
+            order = i + 1
+
+        downstream_id = f"{basin}_{i+2:02d}" if (i + 1 < n_splits) else None
+        if basin == "yom" and i + 1 < len(subbasin_names_yom):
+            downstream_id = subbasin_names_yom[i+1][0]
+
+        features.append({
+            "type": "Feature",
+            "properties": {
+                "subbasin_id": sub_id,
+                "subbasin_name_th": sub_name,
+                "basin_slug": basin,
+                "order": order,
+                "downstream_subbasin": downstream_id,
+                "min_lat": sub_min_lat,
+                "max_lat": sub_max_lat,
+                "min_lon": min_lon,
+                "max_lon": max_lon
+            },
+            "geometry": mapping(sub_geom)
+        })
+
+    geojson = {
+        "type": "FeatureCollection",
+        "features": features
+    }
+    save_geojson(geojson, output_path)
+    print(f"  [OK] Saved {len(features)} sub-basins: {output_path}")
+    return geojson
+
+
 def download_alos_palsar_dem(
     terrain_dir: str,
     stations: List[Dict[str, Any]],
@@ -227,7 +299,11 @@ def main():
         boundary_path = os.path.join(basin_dir, "gis", f"{b}_boundary.geojson")
         fetch_basin_boundary(b, boundary_path, all_st)
 
-        # 2. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
+        # 2. Sub-basins Boundary for 12.5m Cascade Processing
+        subbasins_path = os.path.join(basin_dir, "gis", f"{b}_subbasins.geojson")
+        fetch_subbasins_boundary(b, subbasins_path, all_st)
+
+        # 3. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
         download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password)
 
 

@@ -13,8 +13,11 @@ from typing import Dict, Any
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from scripts.modules.gis_utils import save_geojson, save_json
+import json
+from shapely.geometry import shape
+
 from scripts.modules.terrain_engine import (
-    read_dem_geotiff,
+    clip_dem_to_polygon,
     fill_depressions_priority_flood,
     compute_d8_flow_direction,
     compute_flow_accumulation,
@@ -22,12 +25,20 @@ from scripts.modules.terrain_engine import (
     save_geotiff_raster
 )
 from scripts.modules.graph_topology import detect_confluences
+from scripts.fetch_basin_gis import fetch_subbasins_boundary, load_stations_for_basin
 
 
 def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_threshold: int = 300):
-    """Processes DEM to extract river reaches, slope profiles, and confluences."""
+    """
+    Processes DEM using Sub-basin Topological Cascade at native 12.5m resolution.
+    Runs each sub-basin in order with minimal RAM footprint (~200-400 MB),
+    extracting high-resolution river reaches, slope profiles, and confluences.
+    """
+    gis_dir = os.path.join(basin_dir, "gis")
     river_dir = os.path.join(basin_dir, "river")
+    processed_dir = os.path.join(basin_dir, "processed")
     os.makedirs(river_dir, exist_ok=True)
+    os.makedirs(processed_dir, exist_ok=True)
     os.makedirs(terrain_dir, exist_ok=True)
 
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
@@ -35,72 +46,109 @@ def process_basin_terrain(basin: str, basin_dir: str, terrain_dir: str, stream_t
         print(f"❌ ERROR: raw_dem.tif not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
         sys.exit(1)
 
-    print(f"\n🏔️ [STEP 2] Processing Terrain & River Network for Basin: {basin.upper()}")
-    
-    # 1. Read DEM
-    print("  [1/5] Reading raw DEM GeoTIFF...")
-    elev, transform, crs, nodata = read_dem_geotiff(raw_dem_path)
-    print(f"        Grid shape: {elev.shape[0]} rows x {elev.shape[1]} cols (Total {elev.size:,} cells)")
-
-    # 2. Pit Filling / Conditioning & Flow Routing
-    cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
-    fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
-    acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
-
-    flw_obj = None
-    if os.path.exists(cond_dem_path):
-        print("  [2/5] [CACHE] Loading existing conditioned_dem.tif...")
-        filled_dem, _, _, _ = read_dem_geotiff(cond_dem_path)
+    # 1. Load Sub-basins (Topological Order 1 -> N)
+    subbasins_path = os.path.join(gis_dir, f"{basin}_subbasins.geojson")
+    if not os.path.exists(subbasins_path):
+        water_st, rain_st = load_stations_for_basin(basin_dir)
+        subbasins_geojson = fetch_subbasins_boundary(basin, subbasins_path, water_st + rain_st)
     else:
-        print("  [2/5] Running C-accelerated Priority-Flood hydrological pit filling...")
-        filled_dem, flw_obj = fill_depressions_priority_flood(elev, transform=transform, nodata=nodata)
-        save_geotiff_raster(filled_dem, transform, crs, cond_dem_path, nodata=nodata)
-        print(f"        Saved conditioned DEM: {cond_dem_path}")
+        with open(subbasins_path, 'r', encoding='utf-8') as f:
+            subbasins_geojson = json.load(f)
 
-    # 3. D8 Flow Direction
-    if os.path.exists(fdir_path):
-        print("  [3/5] [CACHE] Loading existing flow_direction.tif...")
-        fdir, _, _, _ = read_dem_geotiff(fdir_path)
-    else:
-        print("  [3/5] Computing D8 Flow Direction grid...")
-        fdir = compute_d8_flow_direction(filled_dem, transform, flw_obj=flw_obj, nodata=nodata)
-        save_geotiff_raster(fdir, transform, crs, fdir_path, nodata=0)
-        print(f"        Saved D8 flow direction: {fdir_path}")
-
-    # 4. Flow Accumulation
-    if os.path.exists(acc_path):
-        print("  [4/5] [CACHE] Loading existing flow_accumulation.tif...")
-        acc, _, _, _ = read_dem_geotiff(acc_path)
-    else:
-        print("  [4/5] Computing Flow Accumulation grid...")
-        acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
-        save_geotiff_raster(acc, transform, crs, acc_path, nodata=0)
-        print(f"        Saved flow accumulation: {acc_path}")
-
-    # 5. Extract River Network & Confluences
-    print(f"  [5/5] Extracting vectorized river reaches (Stream threshold >= {stream_threshold} cells)...")
-    river_geojson, river_segments = extract_river_network_reaches(
-        filled_dem, fdir, acc, transform, min_stream_acc_cells=stream_threshold
+    subbasin_features = sorted(
+        subbasins_geojson['features'],
+        key=lambda x: x['properties'].get('order', 1)
     )
+
+    print(f"\n🏔️ [STEP 2] Sub-basin Cascade Engine (Native 12.5m DEM) for Basin: {basin.upper()}")
+    print(f"        Processing {len(subbasin_features)} sub-basins from headwaters to outlet...")
+
+    all_river_features = []
+    all_river_segments = []
+    all_confluences = []
+    reach_counter = 0
+
+    for idx, sub_feat in enumerate(subbasin_features, 1):
+        props = sub_feat['properties']
+        sub_id = props['subbasin_id']
+        sub_name = props['subbasin_name_th']
+        sub_order = props.get('order', idx)
+        print(f"\n  [{idx}/{len(subbasin_features)}] Processing Sub-basin ({sub_order}): {sub_name}")
+
+        # 2. Clip native 12.5m DEM for this sub-basin
+        print(f"        Clipping 12.5m DEM for sub-basin...")
+        sub_elev, sub_transform, crs, nodata = clip_dem_to_polygon(
+            raw_dem_path,
+            sub_feat['geometry'],
+            buffer_deg=0.015
+        )
+        print(f"        Grid shape: {sub_elev.shape[0]} rows x {sub_elev.shape[1]} cols (Total {sub_elev.size:,} cells at 12.5m)")
+
+        # 3. Flow Routing & Accumulation in C
+        print("        Running C-accelerated Pit-filling & D8 Flow Routing...")
+        filled_dem, flw_obj = fill_depressions_priority_flood(sub_elev, transform=sub_transform, nodata=nodata)
+        fdir = compute_d8_flow_direction(filled_dem, sub_transform, flw_obj=flw_obj, nodata=nodata)
+        acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
+
+        # 4. Extract River Reaches at 12.5m resolution
+        print(f"        Extracting river reaches (Threshold >= {stream_threshold} cells)...")
+        sub_river_geojson, sub_segments = extract_river_network_reaches(
+            filled_dem, fdir, acc, sub_transform, min_stream_acc_cells=stream_threshold
+        )
+        
+        # Tag reach features with subbasin_id
+        for feat in sub_river_geojson['features']:
+            reach_counter += 1
+            feat['id'] = f"REACH_{reach_counter:05d}"
+            feat['properties']['reach_id'] = feat['id']
+            feat['properties']['subbasin_id'] = sub_id
+            feat['properties']['subbasin_name'] = sub_name
+            all_river_features.append(feat)
+
+        for seg in sub_segments:
+            seg['subbasin_id'] = sub_id
+            all_river_segments.append(seg)
+
+        # 5. Detect Confluences
+        sub_confluences = detect_confluences(fdir, acc, sub_transform, min_acc_cells=stream_threshold)
+        for conf in sub_confluences['features']:
+            conf['properties']['subbasin_id'] = sub_id
+            all_confluences.append(conf)
+
+        print(f"        [OK] Extracted {len(sub_segments)} reaches in {sub_name}.")
+
+    # 6. Save Merged Native 12.5m River Network
+    merged_river_geojson = {
+        "type": "FeatureCollection",
+        "features": all_river_features
+    }
+    merged_confluences_geojson = {
+        "type": "FeatureCollection",
+        "features": all_confluences
+    }
+
     river_geojson_path = os.path.join(river_dir, "river_network.geojson")
     river_segments_path = os.path.join(river_dir, "river_segments.json")
-    save_geojson(river_geojson, river_geojson_path)
-    save_json(river_segments, river_segments_path)
-    print(f"        Extracted {len(river_segments)} river reach segments.")
-    print(f"        Saved: {river_geojson_path}")
-
-    # 6. Confluence Junctions
-    print("  [+] Detecting River Confluences (In-degree >= 2)...")
-    confluences_geojson = detect_confluences(fdir, acc, transform, min_acc_cells=stream_threshold)
     confluences_path = os.path.join(river_dir, "confluences.geojson")
-    save_geojson(confluences_geojson, confluences_path)
-    print(f"        Found {len(confluences_geojson['features'])} river junctions/confluences.")
-    print(f"        Saved: {confluences_path}")
+    processed_river_path = os.path.join(processed_dir, "river_network.geojson")
+
+    save_geojson(merged_river_geojson, river_geojson_path)
+    save_geojson(merged_river_geojson, processed_river_path)
+    save_json(all_river_segments, river_segments_path)
+    save_geojson(merged_confluences_geojson, confluences_path)
+
+    print("\n" + "═" * 70)
+    print(f"  ✅ [SUCCESS] Native 12.5m River Network Extracted:")
+    print(f"     • Total River Reaches : {len(all_river_features)} segments")
+    print(f"     • Total Confluences   : {len(all_confluences)} junctions")
+    print(f"     • Saved: {river_geojson_path}")
+    print(f"     • Saved: {processed_river_path}")
+    print("═" * 70)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Process DEM to extract flow network and river lines")
-    parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, all)")
+    parser = argparse.ArgumentParser(description="Process DEM using Sub-basin Cascade to extract 12.5m river lines")
+    parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, wang, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--threshold", type=int, default=300, help="Stream accumulation threshold in cells")
