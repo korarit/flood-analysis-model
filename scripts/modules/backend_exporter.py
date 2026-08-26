@@ -84,8 +84,8 @@ def export_backend_station_relations(
         lag_hours = float(rel.get('response_lag_hours', 4.0))
         dist_km = float(rel.get('total_distance_km', 0.0))
         weight_pct = float(rel.get('influence_weight_percent', 30.0))
-        lag_min = round(max(0.3, lag_hours * 0.75), 1)
-        lag_max = round(lag_hours * 1.35, 1)
+        lag_min = float(rel.get('response_lag_hours_min', lag_hours))
+        lag_max = float(rel.get('response_lag_hours_max', lag_hours))
 
         record = {
             "stationId": target_water_id,

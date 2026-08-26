@@ -218,36 +218,41 @@ def trace_downstream_path(
     return coords, stop_data
 
 
-def compute_rainfall_lag_hours(dist_km: float, slope: float, dz_m: float) -> float:
+def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tuple[float, float, float]:
     """
-    Computes hydrological runoff response lag time (hours) from a rainfall telemetry station
-    down the mountain catchment to the destination water level monitoring station.
+    Computes hydrological runoff response lag time bounds (avg, min, max in hours)
+    from a rainfall telemetry station down the mountain catchment to the destination water station.
 
     Hydrological Modeling Basis & References:
     1. US Army Corps of Engineers (USACE) HEC-HMS Technical Reference Manual:
-       - Chapter 6: Hydrograph Transform Methods (Lag Time & Time of Concentration Tc).
+       - Hydrograph Transform Methods (Lag Time & Time of Concentration Tc).
        - Hydrological Lag Time T_lag ≈ 0.6 * Tc for peak flood response.
     2. USDA NRCS National Engineering Handbook (Part 630: Hydrology, Chapter 15 / TR-55):
        - Segmented Velocity Method: Overland hill slope runoff + Open channel river routing.
-    3. Kirpich Equation (1940 / NRCS Metric Formulation):
-       - Tc = 0.00013 * (L_meters / sqrt(Slope))^0.77 (hours) for overland catchment flow.
-    4. Kinematic Wave Celerity (Chow, 1959 / Lighthill & Whitham):
-       - Wave speed v = v0 * (S / S0)^alpha (bounded physically between 2.0 and 8.5 km/h).
+    3. Flash Flood / Saturated Catchment (Min Lag):
+       - Rapid rill formation, lower Manning n (0.035), higher flood wave speed.
+    4. Baseflow / Initial Abstraction / Dry Soil (Max Lag):
+       - Slower initial overland sheet flow, vegetative resistance, lower channel stage.
     """
-    # 1. Hydraulic Slope (m/m) with safety clamp to avoid flat division
     s_safe = max(0.0005, slope)
     l_m = max(100.0, dist_km * 1000.0)
 
-    # 2. Overland Time of Concentration (Kirpich / NRCS NEH-630 Metric Equation)
-    tc_kirpich = 0.00013 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    # 1. Min Lag (Saturated Catchment / High Intensity Flash Flood)
+    tc_min = 0.000095 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    v_max = max(3.5, min(10.0, 5.5 * (s_safe / 0.005) ** 0.25))
+    t_min = round(max(0.3, 0.4 * tc_min + 0.6 * (dist_km / v_max)), 1)
 
-    # 3. Kinematic Channel Wave Velocity (HEC-HMS / Chow 1959: 2.0 km/h in plains to 8.5 km/h in mountain slopes)
-    v_kmh = max(2.0, min(8.5, 4.0 * (s_safe / 0.005) ** 0.22))
-    t_kinematic = dist_km / v_kmh
+    # 2. Average Lag (Typical Antecedent Soil Moisture)
+    tc_avg = 0.00013 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    v_avg = max(2.0, min(8.0, 4.0 * (s_safe / 0.005) ** 0.22))
+    t_avg = round(max(0.5, 0.5 * tc_avg + 0.5 * (dist_km / v_avg)), 1)
 
-    # 4. Blended Runoff Response Lag Time (Overland concentration + Channel routing)
-    t_lag = 0.5 * tc_kirpich + 0.5 * t_kinematic
-    return round(max(0.5, min(72.0, t_lag)), 1)
+    # 3. Max Lag (Dry Antecedent Soil / Low Intensity Runoff)
+    tc_max = 0.000185 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    v_min = max(1.2, min(5.0, 2.5 * (s_safe / 0.005) ** 0.20))
+    t_max = round(max(t_avg + 0.3, 0.6 * tc_max + 0.4 * (dist_km / v_min)), 1)
+
+    return t_avg, t_min, t_max
 
 
 def build_flow_paths_and_relations(
@@ -396,7 +401,7 @@ def build_flow_paths_and_relations(
             z_water = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st and target_st.get('grid_row') is not None else z_rain
             dz = max(0.0, z_rain - z_water)
             slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
-            lag_hours = compute_rainfall_lag_hours(dist_km, slope, dz)
+            lag_avg, lag_min, lag_max = compute_rainfall_lag_bounds(dist_km, slope, dz)
             feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
 
             feature = {
@@ -409,7 +414,9 @@ def build_flow_paths_and_relations(
                     "to_station_id": target_water_id,
                     "to_station_name": target_st.get('station_name', '') if target_st else '',
                     "total_distance_km": round(dist_km, 2),
-                    "response_lag_hours": lag_hours,
+                    "response_lag_hours": lag_avg,
+                    "response_lag_hours_min": lag_min,
+                    "response_lag_hours_max": lag_max,
                     "elevation_diff_m": round(dz, 2),
                     "slope": round(slope, 6),
                     "upstream_elev_m": round(z_rain, 2),

@@ -227,19 +227,25 @@ def train_estimated_response_model(
             # Predict using model or hydraulic formula (wave speed ~ 5-8 km/h typical)
             dist = float(pair_data.get('distance_km', 15.0))
             slope = float(pair_data.get('river_slope', 0.0008))
-            dz = float(pair_data.get('elevation_diff_m', 5.0))
+            # Hydraulic Manning wave speed approximation across flow stages
+            s_safe = max(0.0001, slope)
+            v_bankfull = max(3.8, min(11.5, 7.2 * (s_safe / 0.001) ** 0.22))
+            v_lowflow = max(1.8, min(5.5, 3.6 * (s_safe / 0.001) ** 0.18))
+            v_mean = max(2.5, min(9.0, 5.2 * (s_safe / 0.001) ** 0.20))
 
             if model:
-                pred_y = float(model.predict([[dist, math.sqrt(max(0.00001, slope)), dz]])[0])
+                pred_y = float(model.predict([[dist, math.sqrt(s_safe), dz]])[0])
                 pred_y = max(0.5, pred_y)
+                t_min = max(0.3, round(dist / v_bankfull, 2))
+                t_max = max(pred_y + 0.5, round(dist / v_lowflow, 2))
             else:
-                # Hydraulic Manning approximation: V = 1.8 * S^0.25 (m/s) -> km/h
-                v_kmh = max(2.5, min(12.0, 5.5 * (slope / 0.001) ** 0.2))
-                pred_y = dist / v_kmh
+                pred_y = dist / v_mean
+                t_min = max(0.3, round(dist / v_bankfull, 2))
+                t_max = max(pred_y + 0.5, round(dist / v_lowflow, 2))
 
             pair_data['travel_time_hours'] = round(pred_y, 2)
-            pair_data['travel_time_hours_min'] = round(pred_y * 0.85, 2)
-            pair_data['travel_time_hours_max'] = round(pred_y * 1.25, 2)
+            pair_data['travel_time_hours_min'] = round(min(pred_y, t_min), 2)
+            pair_data['travel_time_hours_max'] = round(max(pred_y, t_max), 2)
             pair_data['avg_holding_duration_hours'] = 6.0
             pair_data['response_type'] = 'ESTIMATED'
             pair_data['confidence'] = 'MEDIUM' if dist <= 50.0 else 'LOW'
