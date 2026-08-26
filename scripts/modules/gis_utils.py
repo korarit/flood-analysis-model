@@ -79,21 +79,46 @@ def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[
     """Loads water level and rainfall stations from dataset/{basin}/station/."""
     import csv
     import glob
-    water_stations = []
-    rain_stations = []
 
-    st_dir = os.path.join(basin_dir, "station")
-    for csv_file in glob.glob(os.path.join(st_dir, "*waterlevel*.csv")):
-        with open(csv_file, 'r', encoding='utf-8-sig') as f:
-            for row in csv.DictReader(f):
-                if row.get('latitude') and row.get('longitude'):
-                    water_stations.append(row)
+    def _load_and_dedup(pattern: str) -> List[Dict[str, Any]]:
+        st_dir = os.path.join(basin_dir, "station")
+        unique_stations: Dict[str, Dict[str, Any]] = {}
+        for csv_file in sorted(glob.glob(os.path.join(st_dir, pattern))):
+            with open(csv_file, 'r', encoding='utf-8-sig') as f:
+                for row in csv.DictReader(f):
+                    lat = row.get('latitude')
+                    lon = row.get('longitude')
+                    if lat and lon:
+                        st_id = (
+                            row.get('station_id') or
+                            row.get('station_code') or
+                            row.get('code') or
+                            row.get('id') or
+                            ''
+                        ).strip()
+                        if not st_id:
+                            st_id = f"{float(lat):.4f}_{float(lon):.4f}"
+                        row['station_id'] = st_id
 
-    for csv_file in glob.glob(os.path.join(st_dir, "*rain*.csv")):
-        with open(csv_file, 'r', encoding='utf-8-sig') as f:
-            for row in csv.DictReader(f):
-                if row.get('latitude') and row.get('longitude'):
-                    rain_stations.append(row)
+                        st_name = (
+                            row.get('station_name_th') or
+                            row.get('station_name_en') or
+                            row.get('station_name') or
+                            row.get('name') or
+                            ''
+                        ).strip()
+                        row['station_name'] = st_name
 
+                        if st_id not in unique_stations:
+                            unique_stations[st_id] = row
+                        else:
+                            for k, v in row.items():
+                                if v and not unique_stations[st_id].get(k):
+                                    unique_stations[st_id][k] = v
+
+        return list(unique_stations.values())
+
+    water_stations = _load_and_dedup("*waterlevel*.csv")
+    rain_stations = _load_and_dedup("*rain*.csv")
     return water_stations, rain_stations
 

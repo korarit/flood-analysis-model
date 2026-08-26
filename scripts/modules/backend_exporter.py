@@ -26,8 +26,10 @@ def export_backend_station_relations(
 
     # 1. Process Gauge-to-Gauge Relations
     for rel in gauge_relations:
-        st_id = str(rel['station_id'])
-        target_id = str(rel['target_station_id'])
+        st_id = str(rel.get('station_id', rel.get('from_station_id', ''))).strip()
+        target_id = str(rel.get('target_station_id', rel.get('to_station_id', ''))).strip()
+        if not st_id or not target_id:
+            continue
 
         record = {
             "stationId": st_id,
@@ -68,8 +70,10 @@ def export_backend_station_relations(
 
     # 2. Process Rainfall-to-Gauge Relations
     for rel in rainfall_relations:
-        r_id = str(rel['from_station_id'])
-        target_water_id = str(rel['to_station_id'])
+        r_id = str(rel.get('from_station_id', rel.get('station_id', ''))).strip()
+        target_water_id = str(rel.get('to_station_id', rel.get('target_station_id', ''))).strip()
+        if not r_id or not target_water_id:
+            continue
 
         record = {
             "stationId": target_water_id,

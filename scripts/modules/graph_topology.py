@@ -239,11 +239,12 @@ def build_flow_paths_and_relations(
     water_grid_map = {}
     for st in water_stations:
         r, c = st.get('grid_row'), st.get('grid_col')
-        if r is not None and c is not None:
+        st_id = str(st.get('station_id', '')).strip()
+        if r is not None and c is not None and st_id:
             # Also register a 3x3 neighborhood around station to ensure intersection
             for dr in (-1, 0, 1):
                 for dc in (-1, 0, 1):
-                    water_grid_map[(r + dr, c + dc)] = st['station_id']
+                    water_grid_map[(r + dr, c + dc)] = st_id
 
     features = []
     gauge_relations = []
@@ -251,10 +252,10 @@ def build_flow_paths_and_relations(
 
     # 1. Trace Gauge-to-Gauge Flow Paths (Upstream -> Downstream)
     for st in water_stations:
-        st_id = st['station_id']
+        st_id = str(st.get('station_id', '')).strip()
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
-        if start_r is None or start_c is None:
+        if start_r is None or start_c is None or not st_id:
             continue
 
         # Trace downstream until hitting the next water station
@@ -323,7 +324,9 @@ def build_flow_paths_and_relations(
             inv_transformer = None
 
     for r_st in rain_stations:
-        r_id = r_st['station_id']
+        r_id = str(r_st.get('station_id', '')).strip()
+        if not r_id:
+            continue
         lat, lon = float(r_st['latitude']), float(r_st['longitude'])
         if inv_transformer is not None:
             proj_x, proj_y = inv_transformer.transform(lon, lat)
@@ -427,7 +430,7 @@ def delineate_station_catchments(
     )
 
     for st in pbar:
-        st_id = st['station_id']
+        st_id = str(st.get('station_id', '')).strip()
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
         if start_r is None or start_c is None:

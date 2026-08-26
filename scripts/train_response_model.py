@@ -10,7 +10,7 @@ import argparse
 import csv
 import os
 import sys
-from typing import Dict, List, Tuple, Any, Optional
+from typing import Dict, List, Tuple, Any, Optional, Set
 from datetime import datetime
 
 # Add parent directory to sys.path
@@ -24,26 +24,94 @@ from scripts.modules.hydrology_model import (
 )
 
 
-def load_hourly_waterlevel_series(csv_path: str) -> Dict[str, Tuple[List[datetime], List[float]]]:
-    """Loads waterlevel time-series grouped by station_id."""
+def build_station_alias_map(basin_dir: str) -> Dict[str, Set[str]]:
+    """Builds a bidirectional alias mapping between station_id, station_oldcode, and station_code."""
+    water_st, _ = load_stations_for_basin(basin_dir)
+    alias_map: Dict[str, Set[str]] = {}
+    for st in water_st:
+        sid = str(st.get('station_id') or '').strip()
+        old = str(st.get('station_oldcode') or '').strip()
+        code = str(st.get('station_code') or '').strip()
+        aliases = {a for a in (sid, old, code) if a}
+        if old and '-' in old:
+            aliases.add(old.split('-', 1)[1].strip())
+        for a in aliases:
+            if a not in alias_map:
+                alias_map[a] = set()
+            alias_map[a].update(aliases)
+    return alias_map
+
+
+def load_hourly_waterlevel_series(
+    csv_path: str,
+    station_aliases: Optional[Dict[str, Set[str]]] = None
+) -> Dict[str, Tuple[List[datetime], List[float]]]:
+    """Loads waterlevel time-series grouped by station_id / station_code with alias support."""
     data = {}
     print(f"  [LOAD] Reading hourly waterlevel data from {csv_path}...")
     with open(csv_path, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            st_id = row['station_id']
+            # 1. Flexible station identifier column lookup
+            st_id = (
+                row.get('station_id') or
+                row.get('station_code') or
+                row.get('code') or
+                row.get('id') or
+                row.get('stn_code') or
+                ''
+            ).strip()
+            if not st_id:
+                continue
+
+            # 2. Flexible datetime column lookup
+            dt_str = (
+                row.get('datetime') or
+                row.get('measure_datetime') or
+                row.get('timestamp') or
+                row.get('date_time') or
+                row.get('time') or
+                ''
+            ).strip()
+            if not dt_str:
+                continue
+
+            # 3. Flexible water level value column lookup
+            val_str = (
+                row.get('waterlevel_msl') or
+                row.get('water_level_m') or
+                row.get('water_level') or
+                row.get('waterlevel') or
+                row.get('wl') or
+                row.get('value') or
+                ''
+            )
+            if isinstance(val_str, str):
+                val_str = val_str.strip()
+            if val_str == '' or val_str is None:
+                continue
+
             try:
-                ts = parse_timestamp(row['datetime'])
-                val = float(row['water_level_m'])
+                ts = parse_timestamp(dt_str)
+                val = float(val_str)
                 if val <= -90.0:  # nodata
                     continue
-                if st_id not in data:
-                    data[st_id] = ([], [])
-                data[st_id][0].append(ts)
-                data[st_id][1].append(val)
+
+                # Register data point under station ID and all mapped aliases
+                keys_to_register = {st_id}
+                if station_aliases and st_id in station_aliases:
+                    keys_to_register.update(station_aliases[st_id])
+
+                for key in keys_to_register:
+                    if key not in data:
+                        data[key] = ([], [])
+                    data[key][0].append(ts)
+                    data[key][1].append(val)
             except (ValueError, KeyError):
                 continue
-    print(f"        Loaded time-series for {len(data)} stations.")
+
+    unique_count = len({station_aliases[k].copy().pop() if (station_aliases and k in station_aliases) else k for k in data.keys()}) if data else 0
+    print(f"        Loaded time-series for {unique_count} stations ({len(data)} indexed keys).")
     return data
 
 
@@ -71,7 +139,8 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
         import json
         station_relations = json.load(f)
 
-    wl_series = load_hourly_waterlevel_series(hourly_wl_path)
+    alias_map = build_station_alias_map(basin_dir)
+    wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)
 
     # 2. Detect Flood Events for each station
     print("  [1/4] Detecting 4-hour continuous rise events and plateau holding periods...")
@@ -83,17 +152,20 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
             station_events[st_id] = events
             total_events += len(events)
 
-    print(f"        Detected {total_events} flood events across {len(station_events)} active stations.")
+    print(f"        Detected flood events across active stations.")
 
     # 3. Calculate Observed Travel Times for connected station pairs
     print("  [2/4] Calculating Observed Travel Times for connected station pairs...")
     observed_pairs = []
     for rel in station_relations:
-        st_up = rel['from_station_id']
-        st_down = rel['to_station_id']
+        st_up = str(rel.get('from_station_id', '')).strip()
+        st_down = str(rel.get('to_station_id', '')).strip()
 
-        if st_up in station_events and st_down in station_events:
-            obs_res = calculate_observed_travel_time(station_events[st_up], station_events[st_down])
+        ev_up = station_events.get(st_up)
+        ev_down = station_events.get(st_down)
+
+        if ev_up and ev_down:
+            obs_res = calculate_observed_travel_time(ev_up, ev_down)
             if obs_res:
                 obs_data = dict(rel)
                 obs_data['station_id'] = st_up
@@ -110,11 +182,13 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
     formatted_all_pairs = []
     for rel in station_relations:
         formatted_all_pairs.append({
-            "station_id": rel['from_station_id'],
-            "target_station_id": rel['to_station_id'],
-            "distance_km": rel.get('distance_km', 15.0),
-            "river_slope": rel.get('river_slope', 0.0008),
-            "elevation_diff_m": rel.get('elevation_diff_m', 5.0)
+            "station_id": str(rel.get('from_station_id', '')).strip(),
+            "target_station_id": str(rel.get('to_station_id', '')).strip(),
+            "from_station_name": rel.get('from_station_name', ''),
+            "to_station_name": rel.get('to_station_name', ''),
+            "distance_km": float(rel.get('distance_km', 15.0)),
+            "river_slope": float(rel.get('river_slope', 0.0008)),
+            "elevation_diff_m": float(rel.get('elevation_diff_m', 5.0))
         })
 
     estimated_results = train_estimated_response_model(observed_pairs, formatted_all_pairs)
