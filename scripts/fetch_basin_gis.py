@@ -19,7 +19,13 @@ from rasterio.merge import merge
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from scripts.modules.gis_utils import get_station_bbox, bbox_to_wkt, save_geojson, save_json
+from scripts.modules.gis_utils import (
+    get_station_bbox,
+    bbox_to_wkt,
+    save_geojson,
+    save_json,
+    linestring_length_km
+)
 
 # Official Thailand 22 Basin Boundaries Open GeoJSON Source
 THAI_BASINS_GEOJSON_URL = (
@@ -393,10 +399,17 @@ def fetch_osm_waterways(
     out body geom;
     """
 
+    headers = {
+        "User-Agent": "FloodAnalysisModel/1.0 (Hydrological Research; https://github.com/flood-analysis-project)"
+    }
+
     mirrors = [
         "https://overpass-api.de/api/interpreter",
         "https://overpass.kumi.systems/api/interpreter",
-        "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
+        "https://lz4.overpass-api.de/api/interpreter",
+        "https://z.overpass-api.de/api/interpreter",
+        "https://overpass.private.coffee/api/interpreter",
+        "https://overpass.nchc.org.tw/api/interpreter"
     ]
 
     osm_data = None
@@ -404,22 +417,26 @@ def fetch_osm_waterways(
     for mirror_url in mirrors:
         try:
             print(f"        Querying Overpass mirror: {mirror_url} ...")
-            resp = requests.post(mirror_url, data={"data": overpass_query}, timeout=95)
+            resp = requests.post(mirror_url, data={"data": overpass_query}, headers=headers, timeout=60)
             if resp.status_code == 200:
-                osm_data = resp.json()
-                break
+                data_json = resp.json()
+                if "elements" in data_json:
+                    osm_data = data_json
+                    break
+                else:
+                    last_err = "No elements in JSON response"
             else:
                 last_err = f"HTTP {resp.status_code}: {resp.text[:100]}"
         except Exception as ex:
             last_err = str(ex)
 
     if not osm_data or "elements" not in osm_data:
-        print(f"  [WARN] Failed to fetch OSM waterways ({last_err}). Creating empty placeholder GeoJSON.")
+        print(f"  [WARN] Failed to fetch OSM waterways ({last_err}). Creating placeholder GeoJSON.")
         empty_geojson = {"type": "FeatureCollection", "features": []}
         save_geojson(empty_geojson, output_path)
         return empty_geojson
 
-    from .gis_utils import linestring_length_km
+    from scripts.modules.gis_utils import linestring_length_km
 
     features = []
     for elem in osm_data.get("elements", []):
