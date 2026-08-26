@@ -15,7 +15,7 @@ from datetime import datetime
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from scripts.modules.gis_utils import save_json, load_geojson
+from scripts.modules.gis_utils import save_json, load_geojson, load_stations_for_basin
 from scripts.modules.hydrology_model import (
     parse_timestamp,
     detect_flood_rise_and_plateau_events,
