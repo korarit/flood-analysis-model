@@ -69,7 +69,11 @@ class DirectedRiverGraph:
         sample_elev_fn=None,
         river_name: str = ""
     ):
-        """Adds a river LineString segment into the directed graph with downstream elevation enforcement."""
+        """
+        Adds an OSM waterway LineString into the directed graph with full-vertex granular noding.
+        Every consecutive vertex pair (C_i, C_{i+1}) becomes a discrete directed edge,
+        enabling 100% topological connectivity for all tributaries, stations, and overland entries.
+        """
         if len(coords) < 2:
             return
 
@@ -83,36 +87,39 @@ class DirectedRiverGraph:
         segment_coords = list(coords)
         if z_start < z_end - 0.5:
             segment_coords.reverse()
-            z_start, z_end = z_end, z_start
-            lon_start, lat_start = segment_coords[0][0], segment_coords[0][1]
-            lon_end, lat_end = segment_coords[-1][0], segment_coords[-1][1]
 
-        u = self._get_or_create_node(lon_start, lat_start, z_start)
-        v = self._get_or_create_node(lon_end, lat_end, z_end)
+        # Connect vertex-by-vertex
+        prev_node = None
+        for i in range(len(segment_coords)):
+            p_lon, p_lat = segment_coords[i][0], segment_coords[i][1]
+            p_elev = sample_elev_fn(p_lon, p_lat) if sample_elev_fn else 100.0
+            curr_node = self._get_or_create_node(p_lon, p_lat, p_elev)
 
-        if u == v:
-            return
+            if prev_node is not None and prev_node != curr_node:
+                p_prev_lon, p_prev_lat, z_p = self.nodes[prev_node]
+                p_curr_lon, p_curr_lat, z_c = self.nodes[curr_node]
+                sub_coords = [[p_prev_lon, p_prev_lat], [p_curr_lon, p_curr_lat]]
+                length_km = linestring_length_km(sub_coords)
 
-        length_km = linestring_length_km(segment_coords)
-        edge_data = {
-            "coords": segment_coords,
-            "length_km": max(0.01, length_km),
-            "z_start": z_start,
-            "z_end": z_end,
-            "dz": max(0.0, z_start - z_end),
-            "river_name": river_name
-        }
+                edge_data = {
+                    "coords": sub_coords,
+                    "length_km": max(0.001, length_km),
+                    "z_start": z_p,
+                    "z_end": z_c,
+                    "dz": max(0.0, z_p - z_c),
+                    "river_name": river_name
+                }
 
-        # Primary downstream edge
-        self.adj[u].append((v, edge_data))
+                # Primary downstream edge
+                self.adj[prev_node].append((curr_node, edge_data))
 
-        # Secondary reverse edge with higher penalty for topology bridging fallback
-        rev_edge = dict(edge_data)
-        rev_coords = list(segment_coords)
-        rev_coords.reverse()
-        rev_edge["coords"] = rev_coords
-        rev_edge["length_km"] = length_km * 2.5
-        self.adj[v].append((u, rev_edge))
+                # Secondary reverse edge with penalty for topological bridging fallback
+                rev_edge = dict(edge_data)
+                rev_edge["coords"] = [[p_curr_lon, p_curr_lat], [p_prev_lon, p_prev_lat]]
+                rev_edge["length_km"] = length_km * 3.0
+                self.adj[curr_node].append((prev_node, rev_edge))
+
+            prev_node = curr_node
 
     def find_nearest_node(self, lon: float, lat: float, max_dist_deg: float = 0.05) -> Tuple[Optional[int], float]:
         """Finds the nearest graph node to a given coordinate using expanding grid search."""
@@ -499,8 +506,8 @@ def compute_rainfall_lag_bounds(
     1. Overland Hillslope Travel Time (Kirpich/SCS Tc on steep mountain slopes)
     2. Channel Kinematic Wave Travel Time (on river network)
     """
-    s_overland = max(0.001, overland_slope)
-    s_channel = max(0.0002, channel_slope)
+    s_overland = max(0.0005, overland_slope)
+    s_channel = max(0.0001, channel_slope)
     l_overland_m = max(50.0, overland_dist_km * 1000.0)
 
     # 1. Overland Time of Concentration Tc (minutes)
@@ -756,29 +763,39 @@ def build_flow_paths_and_relations(
             overland_dist_km = linestring_length_km(overland_coords)
             channel_dist_km = 0.0
 
-            # 3. Try to splice OSM River Vector segment if clean graph route exists
+            # 3. Dynamic OSM Channel Entry: Scan along D8 path for intersection with OSM River Backbone
             if target_st and len(overland_coords) >= 2:
-                # Find entry point to OSM river network along the D8 path
-                mid_idx = len(overland_coords) // 2
-                mid_pt = overland_coords[mid_idx]
-                mid_node, d_mid = river_graph.find_nearest_node(mid_pt[0], mid_pt[1], max_dist_deg=0.015)
                 tgt_node = water_node_map.get(target_water_id)
+                entry_idx = None
+                entry_node = None
 
-                if mid_node and tgt_node and mid_node != tgt_node and d_mid <= 0.015:
-                    backbone_coords, b_dist = river_graph.shortest_path(mid_node, tgt_node)
+                # Scan from start to end of D8 trace to find first valid intersection with OSM graph
+                for p_idx in range(len(overland_coords)):
+                    pt = overland_coords[p_idx]
+                    nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=0.008)  # ~800m
+                    if nid and nid != tgt_node:
+                        # Validate that this node can reach target water station on OSM graph
+                        backbone_coords, b_dist = river_graph.shortest_path(nid, tgt_node)
+                        if backbone_coords and len(backbone_coords) >= 2:
+                            entry_idx = p_idx
+                            entry_node = nid
+                            break
+
+                if entry_idx is not None and entry_node is not None:
+                    backbone_coords, b_dist = river_graph.shortest_path(entry_node, tgt_node)
                     if backbone_coords and len(backbone_coords) >= 2:
                         d_end = math.hypot(tgt_lon - backbone_coords[-1][0], tgt_lat - backbone_coords[-1][1])
                         if d_end <= 0.02:  # Valid continuous vector path
                             coords = merge_coordinates(
                                 [[lon, lat]],
-                                overland_coords[:mid_idx],
+                                overland_coords[:entry_idx + 1],
                                 backbone_coords,
                                 [[tgt_lon, tgt_lat]]
                             )
                             channel_dist_km = b_dist
-                            overland_dist_km = linestring_length_km(overland_coords[:mid_idx])
+                            overland_dist_km = linestring_length_km(overland_coords[:entry_idx + 1])
 
-            # 4. Fallback: Pure 12.5m DEM D8 Continuous Topographic Valley Path (ZERO STRAIGHT LINES)
+            # 4. Fallback: Pure 12.5m DEM D8 Continuous Topographic Valley/Plain Path (ZERO STRAIGHT LINES)
             if not coords or len(coords) < 2:
                 coords = merge_coordinates([[lon, lat]], overland_coords)
                 if target_st:
