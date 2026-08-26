@@ -58,7 +58,7 @@ def export_basin_model_dataset(basin: str, basin_dir: str):
     out_frontend_path = os.path.join(processed_dir, "relations_frontend.json")
     export_backend_station_relations(gauge_relations, rain_relations, out_db_path, out_frontend_path)
 
-    print(f"  [OK] Exported PostgreSQL Table Payload: {out_db_path}")
+    print(f"  [OK] Exported PostgreSQL Table Payload: {out_db_path} ({len(gauge_relations) + len(rain_relations)} total records: {len(gauge_relations)} gauge + {len(rain_relations)} rainfall)")
     print(f"  [OK] Exported Frontend StationRelations: {out_frontend_path}")
 
     # 3. Synchronize Map GeoJSON Layers

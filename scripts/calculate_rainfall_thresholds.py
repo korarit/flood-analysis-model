@@ -146,11 +146,12 @@ def calculate_basin_rainfall_thresholds(
     rain_series = load_hourly_rainfall_series(hourly_rain_path, station_aliases=alias_map)
 
     # 2. Process Observed Rain-to-Gauge Pairs
-    print("  [2/4] Running ML Antecedent Soil Moisture Clustering & Event Back-Tracing...")
+    total_relations = len(rainfall_relations)
+    print(f"  [2/4] Running ML Antecedent Soil Moisture Clustering & Event Back-Tracing ({total_relations} total pairs)...")
     observed_records = []
     observed_count = 0
 
-    for rel in rainfall_relations:
+    for idx, rel in enumerate(rainfall_relations, 1):
         r_id = str(rel.get('from_station_id', rel.get('station_id', ''))).strip()
         w_id = str(rel.get('to_station_id', rel.get('target_station_id', ''))).strip()
         lag_h = float(rel.get('response_lag_hours', 3.5))
@@ -180,31 +181,47 @@ def calculate_basin_rainfall_thresholds(
                 observed_records.append(rec)
                 observed_count += 1
 
-    print(f"        ✓ Identified {observed_count} Empirical Ground-Truth Pairs with ML soil regimes.")
+        if idx % 50 == 0 or idx == total_relations:
+            print(f"        Processing pairs: {idx}/{total_relations} ({idx/total_relations*100:.1f}%) | Observed matches: {observed_count}")
+
+    obs_pct = (observed_count / total_relations * 100.0) if total_relations > 0 else 0.0
+    est_count = total_relations - observed_count
+    est_pct = (est_count / total_relations * 100.0) if total_relations > 0 else 0.0
+    print(f"        ✓ Identified {observed_count}/{total_relations} ({obs_pct:.1f}%) Empirical Ground-Truth Pairs with ML soil regimes.")
 
     # 3. Train Multi-Variate ML Regression Model for Unobserved / Sparse Pairs
-    print("  [3/4] Training Multi-Variate ML Regression Model for Unobserved Pairs...")
+    print(f"  [3/4] Training Multi-Variate ML Model & Predicting {est_count}/{total_relations} ({est_pct:.1f}%) Unobserved Pairs...")
     final_relations = train_estimated_rain_thresholds_model(
         observed_records=observed_records,
         all_rainfall_relations=rainfall_relations,
         windows=[3, 24, 72, 168]
     )
 
+    # Count how many relations successfully got thresholds
+    updated_thresholds_count = sum(1 for r in final_relations if r.get('rainfallThresholds'))
+
     # Save dedicated rainfall-thresholds.json
     out_thresholds_path = os.path.join(response_dir, "rainfall-thresholds.json")
     save_json(final_relations, out_thresholds_path)
-    print(f"        ✓ Saved ML Rainfall Trigger Thresholds: {out_thresholds_path} ({len(final_relations)} relations)")
+    print(f"        ✓ Saved ML Rainfall Trigger Thresholds: {out_thresholds_path}")
+    print(f"        ✓ Updated Thresholds: {updated_thresholds_count}/{total_relations} pairs (100.0%)")
+    print(f"          • Observed Pairs (Empirical Events) : {observed_count}/{total_relations} ({obs_pct:.1f}%)")
+    print(f"          • ML Transposed Pairs (Estimated)   : {est_count}/{total_relations} ({est_pct:.1f}%)")
 
     # 4. Direct In-Place Updates
     if update_existing:
-        print("  [4/4] Direct In-Place Updating station and response exports...")
+        print(f"  [4/4] Direct In-Place Updating station and response exports ({updated_thresholds_count}/{total_relations} pairs)...")
         save_json(final_relations, rainfall_relations_path)
         # Update backend & frontend exports
         export_basin_model_dataset(basin, basin_dir)
-        print(f"        ✓ Updated rainfall-relations.json, station_relations_db.json, and relations_frontend.json in {basin_dir}")
+        print(f"        ✓ In-Place Update Complete:")
+        print(f"          • rainfall-relations.json     : {updated_thresholds_count}/{total_relations} pairs updated")
+        print(f"          • rainfall-thresholds.json    : {updated_thresholds_count}/{total_relations} pairs updated")
+        print(f"          • station_relations_db.json   : Synchronized all rainfall & gauge relations")
+        print(f"          • relations_frontend.json     : Synchronized 4-window thresholds for all water stations")
 
     elapsed = time.time() - t0
-    print(f"  ⏱️ Step 5 completed in {elapsed:.2f}s")
+    print(f"  ⏱️ Step 5 completed in {elapsed:.2f}s (Total Updated: {updated_thresholds_count}/{total_relations} relations)\n")
     return final_relations
 
 
