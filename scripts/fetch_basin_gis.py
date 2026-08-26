@@ -57,18 +57,27 @@ def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[
 
 def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Downloads or builds the basin boundary polygon for the target river basin.
+    Downloads or builds the basin boundary rectangle polygon for the target river basin.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    if os.path.exists(output_path):
-        print(f"  [CACHE] Basin boundary already exists: {output_path}")
-        with open(output_path, 'r', encoding='utf-8') as f:
-            import json
-            return json.load(f)
-
-    print(f"  [FETCH] Generating basin boundary for '{basin}'...")
     min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.3)
 
+    if os.path.exists(output_path):
+        try:
+            with open(output_path, 'r', encoding='utf-8') as f:
+                import json
+                data = json.load(f)
+                props = data.get('features', [{}])[0].get('properties', {})
+                c_min_lat = props.get('min_lat')
+                # Cache is valid if min_lat matches within 0.5 degrees
+                if c_min_lat is not None and abs(c_min_lat - min_lat) <= 0.5:
+                    print(f"  [CACHE] Basin boundary already exists: {output_path}")
+                    return data
+                print(f"  [CACHE INVALID] Cached boundary has outdated bounds ({c_min_lat} vs {min_lat:.4f}). Regenerating...")
+        except Exception:
+            pass
+
+    print(f"  [FETCH] Generating basin boundary for '{basin}'...")
     from shapely.geometry import box, mapping
     basin_geom = box(min_lon, min_lat, max_lon, max_lat)
 
@@ -96,19 +105,41 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
 
 def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Builds or loads topological Sub-basin polygons for native 12.5m DEM Cascade processing.
-    Partitions the river basin into ordered upstream-to-downstream sub-basins.
+    Builds or loads topological Sub-basin rectangle polygons for native 12.5m DEM Cascade processing.
+    Partitions the river basin into ordered upstream-to-downstream rectangular sub-basins.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
+
     if os.path.exists(output_path):
-        print(f"  [CACHE] Sub-basins boundary already exists: {output_path}")
-        with open(output_path, 'r', encoding='utf-8') as f:
-            import json
-            return json.load(f)
+        try:
+            with open(output_path, 'r', encoding='utf-8') as f:
+                import json
+                data = json.load(f)
+                features = data.get('features', [])
+                if features:
+                    first_min_lat = features[0].get('properties', {}).get('min_lat')
+                    # Validate that cached sub-basins don't have corrupted coordinates
+                    if first_min_lat is not None and abs(first_min_lat - min_lat) <= 1.5:
+                        print(f"  [CACHE] Sub-basins boundary already exists: {output_path}")
+                        return data
+                print(f"  [CACHE INVALID] Cached subbasins have outdated bounds. Regenerating...")
+        except Exception:
+            pass
 
     print(f"  [SUBBASINS] Generating Topological Sub-basins for '{basin}' (Cascade 12.5m)...")
-    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
     from shapely.geometry import box, mapping
+
+    # Collect station coordinate pairs
+    st_pairs = []
+    for s in stations:
+        try:
+            lat = float(s['latitude']) if s.get('latitude') is not None else None
+            lon = float(s['longitude']) if s.get('longitude') is not None else None
+            if lat is not None and lon is not None:
+                st_pairs.append((lat, lon))
+        except (ValueError, TypeError):
+            continue
 
     # Comprehensive Sub-basin Registry for all Thai River Basins
     SUBBASIN_REGISTRY = {
@@ -178,7 +209,6 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
     if subbasin_defs:
         n_splits = len(subbasin_defs)
     else:
-        # Dynamic generic generator for ANY other basin slug
         n_splits = max(3, min(6, int(round((max_lat - min_lat) / 0.7))))
         subbasin_defs = []
         for i in range(n_splits):
@@ -203,8 +233,18 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
     for i, (sub_id, sub_name, order) in enumerate(subbasin_defs):
         sub_min_lat = min_lat + (n_splits - 1 - i) * lat_step
         sub_max_lat = sub_min_lat + lat_step
+
+        # Find longitude range of stations within this latitude slice
+        slice_lons = [lon for lat, lon in st_pairs if (sub_min_lat - 0.05) <= lat <= (sub_max_lat + 0.05)]
+        if slice_lons:
+            sub_min_lon = max(min_lon, min(slice_lons) - 0.12)
+            sub_max_lon = min(max_lon, max(slice_lons) + 0.12)
+        else:
+            sub_min_lon = min_lon
+            sub_max_lon = max_lon
+
         # Add slight overlap (0.02 deg ~ 2.2km) for seamless boundary hydrological connection
-        sub_geom = box(min_lon - 0.05, sub_min_lat - 0.02, max_lon + 0.05, sub_max_lat + 0.02)
+        sub_geom = box(sub_min_lon - 0.03, sub_min_lat - 0.02, sub_max_lon + 0.03, sub_max_lat + 0.02)
 
         downstream_id = subbasin_defs[i + 1][0] if (i + 1 < len(subbasin_defs)) else None
 
@@ -218,8 +258,8 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
                 "downstream_subbasin": downstream_id,
                 "min_lat": sub_min_lat,
                 "max_lat": sub_max_lat,
-                "min_lon": min_lon,
-                "max_lon": max_lon
+                "min_lon": sub_min_lon,
+                "max_lon": sub_max_lon
             },
             "geometry": mapping(sub_geom)
         })

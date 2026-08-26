@@ -43,11 +43,53 @@ def linestring_length_km(coordinates: List[List[float]]) -> float:
 def get_station_bbox(stations: List[Dict[str, Any]], buffer_deg: float = 0.25) -> Tuple[float, float, float, float]:
     """
     Returns (min_lat, min_lon, max_lat, max_lon) with buffer.
+    Filters out spatial coordinate outliers using robust IQR filtering.
     """
-    lats = [float(s['latitude']) for s in stations if s.get('latitude')]
-    lons = [float(s['longitude']) for s in stations if s.get('longitude')]
-    if not lats or not lons:
+    pairs = []
+    for s in stations:
+        try:
+            lat = float(s['latitude']) if s.get('latitude') is not None else None
+            lon = float(s['longitude']) if s.get('longitude') is not None else None
+            if lat is not None and lon is not None:
+                # Basic sanity filter for Thailand bounding region
+                if 5.0 <= lat <= 22.0 and 96.0 <= lon <= 107.0:
+                    pairs.append((lat, lon))
+        except (ValueError, TypeError):
+            continue
+
+    if not pairs:
         raise ValueError("No valid station coordinates found to calculate bounding box.")
+
+    lats = [p[0] for p in pairs]
+    lons = [p[1] for p in pairs]
+
+    if len(pairs) >= 5:
+        sorted_lats = sorted(lats)
+        sorted_lons = sorted(lons)
+        n = len(pairs)
+        q25_idx = int(0.25 * n)
+        q75_idx = int(0.75 * n)
+
+        lat_q25, lat_q75 = sorted_lats[q25_idx], sorted_lats[q75_idx]
+        lon_q25, lon_q75 = sorted_lons[q25_idx], sorted_lons[q75_idx]
+
+        lat_iqr = max(lat_q75 - lat_q25, 0.3)
+        lon_iqr = max(lon_q75 - lon_q25, 0.3)
+
+        min_valid_lat = lat_q25 - 2.5 * lat_iqr
+        max_valid_lat = lat_q75 + 2.5 * lat_iqr
+        min_valid_lon = lon_q25 - 2.5 * lon_iqr
+        max_valid_lon = lon_q75 + 2.5 * lon_iqr
+
+        clean_lats = [lat for lat in lats if min_valid_lat <= lat <= max_valid_lat]
+        clean_lons = [lon for lon in lons if min_valid_lon <= lon <= max_valid_lon]
+
+        if len(clean_lats) < len(lats) or len(clean_lons) < len(lons):
+            outlier_count = len(lats) - min(len(clean_lats), len(clean_lons))
+            print(f"  [BBOX] Filtered {outlier_count} coordinate outlier(s) when calculating basin bbox.")
+            lats = clean_lats if clean_lats else lats
+            lons = clean_lons if clean_lons else lons
+
     return (
         max(-90.0, min(lats) - buffer_deg),
         max(-180.0, min(lons) - buffer_deg),
