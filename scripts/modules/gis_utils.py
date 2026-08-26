@@ -67,18 +67,24 @@ def load_geojson(filepath: str) -> Dict[str, Any]:
         return json.load(f)
 
 
-def save_geojson(data: Dict[str, Any], filepath: str, indent: int = 2):
+def save_geojson(data: Dict[str, Any], filepath: str, indent: Optional[int] = 2):
     """Save dictionary as a GeoJSON file ensuring directory exists."""
     os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=indent)
+        if indent is None:
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+        else:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
 
 
-def save_json(data: Any, filepath: str, indent: int = 2):
+def save_json(data: Any, filepath: str, indent: Optional[int] = 2):
     """Save data as JSON file ensuring directory exists."""
     os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=indent)
+        if indent is None:
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+        else:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
 
 
 def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:

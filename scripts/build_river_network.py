@@ -174,18 +174,37 @@ def process_basin_terrain(
     river_segments_path = os.path.join(river_dir, "river_segments.json")
     confluences_path = os.path.join(river_dir, "confluences.geojson")
     processed_river_path = os.path.join(processed_dir, "river_network.geojson")
+    raw_river_path = os.path.join(river_dir, "river_network_raw.geojson")
 
-    save_geojson(merged_river_geojson, river_geojson_path)
-    save_geojson(merged_river_geojson, processed_river_path)
+    # Save compact raw backup and confluences
+    save_geojson(merged_river_geojson, raw_river_path, indent=None)
     save_json(all_river_segments, river_segments_path)
     save_geojson(merged_confluences_geojson, confluences_path)
 
+    # Automatically optimize and simplify river network for web GIS (< 25 MB)
+    try:
+        from scripts.simplify_river_network import simplify_river_geojson
+        simplify_river_geojson(
+            input_path=raw_river_path,
+            output_path=processed_river_path,
+            tolerance_deg=0.0001,
+            min_length_km=0.1,
+            precision=5,
+            create_backup=False
+        )
+        import shutil
+        shutil.copy2(processed_river_path, river_geojson_path)
+    except Exception as opt_err:
+        print(f"⚠️ Warning: Auto-simplification failed ({opt_err}), falling back to direct save.")
+        save_geojson(merged_river_geojson, river_geojson_path, indent=None)
+        save_geojson(merged_river_geojson, processed_river_path, indent=None)
+
     print("\n" + "═" * 70)
-    print(f"  ✅ [SUCCESS] Native 12.5m River Network Extracted:")
+    print(f"  ✅ [SUCCESS] Native 12.5m River Network Extracted & Optimized:")
     print(f"     • Total River Reaches : {len(all_river_features)} segments")
     print(f"     • Total Confluences   : {len(all_confluences)} junctions")
-    print(f"     • Saved: {river_geojson_path}")
-    print(f"     • Saved: {processed_river_path}")
+    print(f"     • Saved (Optimized)   : {processed_river_path}")
+    print(f"     • Saved (Raw Backup)  : {raw_river_path}")
     print("═" * 70)
 
 
