@@ -11,10 +11,15 @@
       "tele_station_oldcode": "G07003-W.24",
       "tele_station_type": "waterlevel",
       "ground_level": 135.881,
-      "qmax": 463,
+      "qmax": 463.0,
       "min_bank": 143.93,
       "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 143.93,
+      "warning_level_msl": 143.43,
+      "critical_level_msl": 143.93,
+      "zero_gauge_msl": 135.42999267578125,
+      "bank_level_relative_m": 8.5
     },
     "agency": {
       "agency_name": {
@@ -71,10 +76,15 @@
       "tele_station_oldcode": "G07003-W.4A",
       "tele_station_type": "waterlevel",
       "ground_level": 129.46,
-      "qmax": 530,
-      "min_bank": 137,
+      "qmax": 530.0,
+      "min_bank": 137.0,
       "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 137.0,
+      "warning_level_msl": 136.5,
+      "critical_level_msl": 137.0,
+      "zero_gauge_msl": 130.0,
+      "bank_level_relative_m": 7.0
     },
     "agency": {
       "agency_name": {
@@ -371,10 +381,15 @@
       "tele_station_oldcode": "G07003-W.3A",
       "tele_station_type": "waterlevel",
       "ground_level": 159.1,
-      "qmax": 850,
+      "qmax": 850.0,
       "min_bank": 165.8,
       "river_name": "แม่น้ำวังตอนล่างส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 165.8,
+      "warning_level_msl": 165.3,
+      "critical_level_msl": 165.8,
+      "zero_gauge_msl": 161.0,
+      "bank_level_relative_m": 4.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -551,10 +566,15 @@
       "tele_station_oldcode": "G07003-W.10B",
       "tele_station_type": "waterlevel",
       "ground_level": 257.311,
-      "qmax": 436,
+      "qmax": 436.0,
       "min_bank": 263.9,
       "river_name": "แม่น้ำวังตอนกลางส่วนที่ 1",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 263.9,
+      "warning_level_msl": 263.4,
+      "critical_level_msl": 263.9,
+      "zero_gauge_msl": 257.29998779296875,
+      "bank_level_relative_m": 6.599999904632568
     },
     "agency": {
       "agency_name": {
@@ -611,10 +631,15 @@
       "tele_station_oldcode": "G07003-W.1C",
       "tele_station_type": "waterlevel",
       "ground_level": 226.89,
-      "qmax": 487,
+      "qmax": 487.0,
       "min_bank": 234.5,
       "river_name": "แม่น้ำวังตอนกลางส่วนที่ 1",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 234.5,
+      "warning_level_msl": 234.0,
+      "critical_level_msl": 234.5,
+      "zero_gauge_msl": 229.3000030517578,
+      "bank_level_relative_m": 5.199999809265137
     },
     "agency": {
       "agency_name": {
@@ -851,10 +876,15 @@
       "tele_station_oldcode": "G07003-W.23",
       "tele_station_type": "waterlevel",
       "ground_level": 140.28,
-      "qmax": 475,
+      "qmax": 475.0,
       "min_bank": 147.59,
       "river_name": "แม่น้ำวังตอนล่างส่วนที่ 4",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 147.59,
+      "warning_level_msl": 147.09,
+      "critical_level_msl": 147.59,
+      "zero_gauge_msl": 141.2899932861328,
+      "bank_level_relative_m": 6.300000190734863
     },
     "agency": {
       "agency_name": {

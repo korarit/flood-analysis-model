@@ -14,7 +14,8 @@
       "qmax": null,
       "min_bank": 2.26,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 2.259999990463257
     },
     "agency": {
       "agency_name": {
@@ -71,10 +72,14 @@
       "tele_station_oldcode": "G07003-C.13",
       "tele_station_type": "waterlevel",
       "ground_level": 2.08,
-      "qmax": 2720,
+      "qmax": 2720.0,
       "min_bank": 16.34,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 16.34,
+      "warning_level_msl": 15.84,
+      "critical_level_msl": 16.34,
+      "bank_level_relative_m": 16.34000015258789
     },
     "agency": {
       "agency_name": {
@@ -131,10 +136,14 @@
       "tele_station_oldcode": "G07003-C.2",
       "tele_station_type": "waterlevel",
       "ground_level": 13.32,
-      "qmax": 3735,
+      "qmax": 3735.0,
       "min_bank": 25.7,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 25.7,
+      "warning_level_msl": 25.2,
+      "critical_level_msl": 25.7,
+      "bank_level_relative_m": 25.700000762939453
     },
     "agency": {
       "agency_name": {
@@ -194,7 +203,8 @@
       "qmax": null,
       "min_bank": 2.9,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 2.9000000953674316
     },
     "agency": {
       "agency_name": {
@@ -251,10 +261,11 @@
       "tele_station_oldcode": "G07003-C.29B",
       "tele_station_type": "waterlevel",
       "ground_level": null,
-      "qmax": 3600,
+      "qmax": 3600.0,
       "min_bank": 3,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 3.0
     },
     "agency": {
       "agency_name": {
@@ -314,7 +325,8 @@
       "qmax": null,
       "min_bank": 3.45,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 3.450000047683716
     },
     "agency": {
       "agency_name": {
@@ -371,10 +383,11 @@
       "tele_station_oldcode": "G07003-C.37",
       "tele_station_type": "waterlevel",
       "ground_level": -3.04,
-      "qmax": 97,
+      "qmax": 97.0,
       "min_bank": 4.14,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 4.139999866485596
     },
     "agency": {
       "agency_name": {
@@ -431,10 +444,11 @@
       "tele_station_oldcode": "G07003-C.36",
       "tele_station_type": "waterlevel",
       "ground_level": -5.95,
-      "qmax": 441,
+      "qmax": 441.0,
       "min_bank": 4.36,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 4.300000190734863
     },
     "agency": {
       "agency_name": {
@@ -491,10 +505,11 @@
       "tele_station_oldcode": "G07003-C.35",
       "tele_station_type": "waterlevel",
       "ground_level": -9.25,
-      "qmax": 1159,
+      "qmax": 1159.0,
       "min_bank": 4.35,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 4.349999904632568
     },
     "agency": {
       "agency_name": {
@@ -551,10 +566,11 @@
       "tele_station_oldcode": "G07003-S.5",
       "tele_station_type": "waterlevel",
       "ground_level": -8.59,
-      "qmax": 1400,
+      "qmax": 1400.0,
       "min_bank": 4.7,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 4.699999809265137
     },
     "agency": {
       "agency_name": {
@@ -614,7 +630,8 @@
       "qmax": null,
       "min_bank": 3.2,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 3.200000047683716
     },
     "agency": {
       "agency_name": {
@@ -674,7 +691,8 @@
       "qmax": null,
       "min_bank": 2.75,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 2.75
     },
     "agency": {
       "agency_name": {
@@ -732,9 +750,13 @@
       "tele_station_type": "waterlevel",
       "ground_level": null,
       "qmax": null,
-      "min_bank": null,
+      "min_bank": 15.3,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 15.3,
+      "warning_level_msl": 14.8,
+      "critical_level_msl": 15.3,
+      "bank_level_relative_m": 15.300000190734863
     },
     "agency": {
       "agency_name": {
@@ -791,10 +813,14 @@
       "tele_station_oldcode": "G07003-C.3",
       "tele_station_type": "waterlevel",
       "ground_level": -2.29,
-      "qmax": 2997,
+      "qmax": 2997.0,
       "min_bank": 13.2,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 13.2,
+      "warning_level_msl": 12.7,
+      "critical_level_msl": 13.2,
+      "bank_level_relative_m": 13.199999809265137
     },
     "agency": {
       "agency_name": {
@@ -851,10 +877,11 @@
       "tele_station_oldcode": "G07003-C.7A",
       "tele_station_type": "waterlevel",
       "ground_level": -6.73,
-      "qmax": 2880,
+      "qmax": 2880.0,
       "min_bank": 9.9,
       "river_name": "ที่ราบแม่น้ำเจ้าพระยา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_relative_m": 9.899999618530273
     },
     "agency": {
       "agency_name": {

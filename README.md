@@ -9,6 +9,7 @@
 | Script | หน้าที่ | แหล่งข้อมูล | ความสามารถพิเศษ |
 | :--- | :--- | :--- | :--- |
 | [`generate_station_dataset.py`](generate_station_dataset.py) | แยกรายการสถานีตาม 5 ลุ่มน้ำ และกลุ่มหน่วยงาน (HII, DWR, RID) | `response-api-rainstation.json`<br>`reqponse-api-waterlevel.json` | สร้าง JSON & CSV สำหรับ Metadata |
+| [`scrape_rid_station_metadata.py`](scrape_rid_station_metadata.py) | ดึงค่าระดับศูนย์เสา (ZG), ตลิ่ง (braelevel), ความจุลำน้ำ (QMax) จากชลประทาน สำนัก 1-8 | `hyd-app-db.rid.go.th` | คำนวณ `bank_level_msl`, `warning_level_msl` และอัปเดตสถานีทันที |
 | [`fetch_hii_data.py`](fetch_hii_data.py) | ดาวน์โหลดข้อมูลฝนและระดับน้ำของ สสน. + MOU ย้อนหลัง 01/2025 – 07/2026 | HII Open Data Catalog | โหลดตรงจาก Catalog รายเดือน |
 | [`scrape_dwr_rain.py`](scrape_dwr_rain.py) | Web Scraper ดึงข้อมูลฝนย้อนหลังของกรมทรัพยากรน้ำ (DWR) | `ews.dwr.go.th/ews/show-rain` | **Multi-Threading** + **Auto-Resume** + **`--dir`** |
 | [`scrape_rid_waterlevel.py`](scrape_rid_waterlevel.py) | Web Scraper ดึงข้อมูลระดับน้ำย้อนหลังของกรมชลประทาน (RID) | `hyd-app-db.rid.go.th` | ดึงผ่าน WCF Service แยกรายลุ่มน้ำ + **`--dir`** |
@@ -23,9 +24,14 @@
 python generate_station_dataset.py
 ```
 
+### 2.2 ดึงและคำนวณค่าระดับตลิ่ง (Bank MSL), ศูนย์เสา (ZG), QMax ของกรมชลประทาน (สำนัก 1-8)
+```bash
+python scrape_rid_station_metadata.py --basin all
+```
+
 ---
 
-### 2.2 ดึงข้อมูล HII (สสน. และ MOU) — ฝน & ระดับน้ำ
+### 2.3 ดึงข้อมูล HII (สสน. และ MOU) — ฝน & ระดับน้ำ
 ```bash
 # ทดสอบแบบ Smoke Test (1 เดือนแรก)
 python fetch_hii_data.py --smoke-test --basin yom
