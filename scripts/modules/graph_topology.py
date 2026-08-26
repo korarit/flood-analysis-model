@@ -218,6 +218,20 @@ def trace_downstream_path(
     return coords, stop_data
 
 
+def compute_rainfall_lag_hours(dist_km: float, slope: float, dz_m: float) -> float:
+    """
+    Computes hydrological runoff response lag time (hours) from rain gauge to water station
+    combining Kirpich overland time of concentration and Kinematic Wave channel velocity.
+    """
+    s_safe = max(0.0005, slope)
+    l_m = max(100.0, dist_km * 1000.0)
+    tc_kirpich = 0.00013 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    v_kmh = max(2.0, min(8.5, 4.0 * (s_safe / 0.005) ** 0.22))
+    t_kinematic = dist_km / v_kmh
+    t_lag = 0.5 * tc_kirpich + 0.5 * t_kinematic
+    return round(max(0.5, min(72.0, t_lag)), 1)
+
+
 def build_flow_paths_and_relations(
     water_stations: List[Dict[str, Any]],
     rain_stations: List[Dict[str, Any]],
@@ -360,6 +374,11 @@ def build_flow_paths_and_relations(
         if target_water_id and len(coords) >= 2:
             dist_km = linestring_length_km(coords)
             target_st = next((s for s in water_stations if s['station_id'] == target_water_id), None)
+            z_rain = float(filled_dem[r, c])
+            z_water = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st and target_st.get('grid_row') is not None else z_rain
+            dz = max(0.0, z_rain - z_water)
+            slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
+            lag_hours = compute_rainfall_lag_hours(dist_km, slope, dz)
             feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
 
             feature = {
@@ -372,6 +391,12 @@ def build_flow_paths_and_relations(
                     "to_station_id": target_water_id,
                     "to_station_name": target_st.get('station_name', '') if target_st else '',
                     "total_distance_km": round(dist_km, 2),
+                    "response_lag_hours": lag_hours,
+                    "elevation_diff_m": round(dz, 2),
+                    "slope": round(slope, 6),
+                    "upstream_elev_m": round(z_rain, 2),
+                    "downstream_elev_m": round(z_water, 2),
+                    "influence_weight_percent": 30.0  # Initial default, updated below via IDW
                 },
                 "geometry": {
                     "type": "LineString",
@@ -380,6 +405,18 @@ def build_flow_paths_and_relations(
             }
             features.append(feature)
             rainfall_relations.append(feature["properties"])
+
+    # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW) per Target Water Station
+    target_groups: Dict[str, List[Dict[str, Any]]] = {}
+    for r_prop in rainfall_relations:
+        target_groups.setdefault(r_prop['to_station_id'], []).append(r_prop)
+
+    for target_id, group in target_groups.items():
+        inv_dists = [1.0 / max(0.5, float(r.get('total_distance_km', 5.0))) for r in group]
+        sum_inv = sum(inv_dists)
+        for r_prop, inv_d in zip(group, inv_dists):
+            pct = round((inv_d / sum_inv) * 100.0, 1) if sum_inv > 0 else round(100.0 / len(group), 1)
+            r_prop['influence_weight_percent'] = pct
 
     flow_paths_geojson = {
         "type": "FeatureCollection",

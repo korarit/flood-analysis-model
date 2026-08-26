@@ -75,19 +75,25 @@ def export_backend_station_relations(
         if not r_id or not target_water_id:
             continue
 
+        lag_hours = float(rel.get('response_lag_hours', 4.0))
+        dist_km = float(rel.get('total_distance_km', 0.0))
+        weight_pct = float(rel.get('influence_weight_percent', 30.0))
+
         record = {
             "stationId": target_water_id,
             "targetStationId": r_id,
             "relationType": "rainfall_influence",
-            "distanceKm": float(rel.get('total_distance_km', 0.0)),
-            "travelTimeHours": float(rel.get('response_lag_hours', 4.0)),
-            "travelTimeHoursMin": float(rel.get('response_lag_hours', 4.0) * 0.8),
-            "travelTimeHoursMax": float(rel.get('response_lag_hours', 4.0) * 1.3),
-            "influenceWeightPercent": float(rel.get('influence_weight_percent', 30.0)),
+            "distanceKm": dist_km,
+            "travelTimeHours": lag_hours,
+            "travelTimeHoursMin": round(max(0.3, lag_hours * 0.75), 1),
+            "travelTimeHoursMax": round(lag_hours * 1.35, 1),
+            "influenceWeightPercent": weight_pct,
             "responseType": "ESTIMATED",
-            "confidenceLevel": "MEDIUM",
+            "confidenceLevel": "HIGH" if dist_km <= 20.0 else "MEDIUM",
             "metadata": {
                 "typicalRainThresholdMm": rel.get('typical_rain_threshold_mm', 45.0),
+                "elevationDiffM": rel.get('elevation_diff_m', 0.0),
+                "slope": rel.get('slope', 0.0),
                 "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
             }
         }
@@ -100,9 +106,9 @@ def export_backend_station_relations(
             "stationId": r_id,
             "stationName": rel.get('from_station_name', ''),
             "stationType": "rainfall",
-            "distanceKm": rel.get('total_distance_km', 0.0),
-            "travelTimeHours": rel.get('response_lag_hours', 4.0),
-            "influenceWeightPercent": rel.get('influence_weight_percent', 30.0)
+            "distanceKm": dist_km,
+            "travelTimeHours": lag_hours,
+            "influenceWeightPercent": weight_pct
         })
 
     save_json(db_records, output_db_path)
