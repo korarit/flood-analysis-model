@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """
-River Network Optimization & Simplification Engine
-Reduces massive 2GB+ DEM 12.5m River GeoJSON files down to lightweight (5-20MB)
+River Network Optimization & Multi-Tier Simplification Engine
+Reduces massive DEM 12.5m River GeoJSON files down to lightweight
 web-ready GeoJSON assets for Leaflet/Mapbox frontend rendering.
 
-Techniques applied:
-1. Ramer-Douglas-Peucker (RDP) geometric simplification (removes ~80-95% redundant vertices).
-2. Coordinate precision truncation (5 decimal places ~ 1.1m resolution).
-3. Compact serialization (removes multi-gigabyte whitespace & indentation overhead).
-4. Stream processing (< 50MB RAM usage even on 5GB+ input files).
-5. Optional micro-creek filtering & multi-tier generation (main rivers vs full network).
+Tiers:
+- main     : Major rivers & primary tributaries (Catchment >= 6 km2, ~2-4 MB)
+- standard : Full navigable river & tributary network (Catchment >= 1.2 km2, ~10-18 MB)
+- detail   : Dense local stream network (Catchment >= 0.2 km2, ~45-60 MB)
 """
 
 import argparse
@@ -19,6 +17,8 @@ import os
 import sys
 import time
 from typing import List, Tuple, Generator, Dict, Any
+
+CELL_AREA_KM2_12_5M = (12.5 * 12.5) / 1_000_000.0  # 0.00015625 km2
 
 
 def perpendicular_distance(pt: List[float], line_start: List[float], line_end: List[float]) -> float:
@@ -107,8 +107,8 @@ def simplify_river_geojson(
     input_path: str,
     output_path: str,
     tolerance_deg: float = 0.0001,  # ~11 meters in Thailand
-    min_length_km: float = 0.1,    # Filter out tiny sub-100m artifacts
-    min_acc_cells: int = 0,         # Optional accumulation filter
+    min_length_km: float = 0.3,    # Minimum reach length
+    min_acc_cells: int = 8000,      # Accumulation threshold (~1.25 km2)
     precision: int = 5,             # 5 decimals (~1.1m precision)
     create_backup: bool = True
 ) -> Dict[str, Any]:
@@ -119,11 +119,13 @@ def simplify_river_geojson(
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
     orig_size_mb = os.path.getsize(input_path) / (1024.0 * 1024.0)
+    acc_km2 = min_acc_cells * CELL_AREA_KM2_12_5M
     print(f"\n🌊 [RIVER OPTIMIZER] Processing: {input_path}")
-    print(f"   • Original File Size   : {orig_size_mb:.2f} MB")
+    print(f"   • Input File Size      : {orig_size_mb:.2f} MB")
     print(f"   • Simplification Tol   : {tolerance_deg}° (~{tolerance_deg*111320:.1f} m)")
     print(f"   • Coordinate Precision : {precision} decimal places")
-    print(f"   • Min Length Filter    : {min_length_km} km")
+    print(f"   • Min Length Filter    : {min_length_km:.2f} km")
+    print(f"   • Min Catchment Filter : {min_acc_cells:,} cells (~{acc_km2:.2f} km²)")
 
     # Backup original if overwriting same path
     if create_backup and os.path.abspath(input_path) == os.path.abspath(output_path):
@@ -150,13 +152,13 @@ def simplify_river_geojson(
             geom = feat.get("geometry", {})
             gtype = geom.get("type", "")
 
-            # Filter by minimum length or accumulation if specified
+            # Filter by minimum length or accumulation
             length_km = float(props.get("length_km", props.get("distance_km", 0.0)))
             start_acc = int(props.get("start_acc_cells", 0))
 
-            if min_length_km > 0 and length_km < min_length_km and length_km > 0:
+            if min_length_km > 0 and 0.0 < length_km < min_length_km:
                 continue
-            if min_acc_cells > 0 and start_acc < min_acc_cells:
+            if min_acc_cells > 0 and 0 < start_acc < min_acc_cells:
                 continue
 
             if gtype == "LineString":
@@ -187,12 +189,30 @@ def simplify_river_geojson(
             else:
                 first_feature = False
 
+            # Minify properties to essential GIS keys for map rendering
+            clean_props = {
+                "reach_id": props.get("reach_id", f"R_{total_out_features}"),
+                "length_km": round(length_km, 2),
+                "river_slope": round(float(props.get("river_slope", 0.0)), 5),
+                "elev_diff_m": round(float(props.get("elevation_diff_m", 0.0)), 1),
+                "acc_km2": round(start_acc * CELL_AREA_KM2_12_5M, 2)
+            }
+            if props.get("river_name"):
+                clean_props["river_name"] = props["river_name"]
+
+            out_feat = {
+                "type": "Feature",
+                "id": feat.get("id", clean_props["reach_id"]),
+                "properties": clean_props,
+                "geometry": geom
+            }
+
             # Compact JSON output for this feature
-            out_f.write(json.dumps(feat, separators=(',', ':'), ensure_ascii=False))
+            out_f.write(json.dumps(out_feat, separators=(',', ':'), ensure_ascii=False))
             total_out_features += 1
 
-            if total_in_features % 10000 == 0:
-                print(f"     ... processed {total_in_features} features ({orig_total_vertices} vertices -> {simplified_total_vertices} vertices)")
+            if total_in_features % 25000 == 0:
+                print(f"     ... scanned {total_in_features:,} features -> kept {total_out_features:,} ({orig_total_vertices:,} -> {simplified_total_vertices:,} vertices)")
 
         out_f.write('\n]}')
 
@@ -209,7 +229,7 @@ def simplify_river_geojson(
     print(f"\n   ✅ [OPTIMIZATION COMPLETE] in {elapsed:.1f}s")
     print(f"      • Original Size      : {orig_size_mb:.2f} MB")
     print(f"      • Optimized Size     : {new_size_mb:.2f} MB ({reduction_pct:.1f}% reduction!)")
-    print(f"      • Total Features     : {total_in_features} -> {total_out_features} kept")
+    print(f"      • Total Features     : {total_in_features:,} -> {total_out_features:,} kept")
     print(f"      • Total Vertices     : {orig_total_vertices:,} -> {simplified_total_vertices:,} ({vertex_reduction_pct:.1f}% reduction)")
     print(f"      • Output Saved       : {output_path}")
 
@@ -230,13 +250,40 @@ def main():
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset root directory")
     parser.add_argument("--input", type=str, default=None, help="Custom input GeoJSON path")
     parser.add_argument("--output", type=str, default=None, help="Custom output GeoJSON path")
-    parser.add_argument("--tolerance", type=float, default=0.0001, help="RDP tolerance in degrees (0.0001 ~ 11m, 0.0002 ~ 22m)")
-    parser.add_argument("--min-length", type=float, default=0.1, help="Minimum river reach length in km to keep (default: 0.1 km)")
-    parser.add_argument("--min-acc", type=int, default=0, help="Minimum accumulation cells threshold (0 = keep all)")
+    parser.add_argument("--tier", type=str, choices=["main", "standard", "detail"], default="standard",
+                        help="Preset tier: main (~3MB), standard (~12MB), detail (~45MB)")
+    parser.add_argument("--tolerance", type=float, default=None, help="RDP tolerance in degrees (default: 0.0001 ~ 11m)")
+    parser.add_argument("--min-length", type=float, default=None, help="Minimum river reach length in km (default by tier)")
+    parser.add_argument("--min-acc", type=int, default=None, help="Minimum accumulation cells threshold")
+    parser.add_argument("--min-acc-km2", type=float, default=None, help="Minimum catchment area in km2 (e.g. 5.0 km2)")
     parser.add_argument("--precision", type=int, default=5, help="Coordinate decimal places (default: 5)")
     parser.add_argument("--no-backup", action="store_true", help="Skip creating _raw.geojson backup")
-    parser.add_argument("--create-main-tier", action="store_true", help="Also generate river_network_main.geojson for major rivers only")
+    parser.add_argument("--create-main-tier", action="store_true", help="Also generate river_network_main.geojson (~2-4MB) for major rivers")
     args = parser.parse_args()
+
+    # Tier Configuration Defaults
+    if args.tier == "main":
+        def_tolerance = 0.00015
+        def_min_length = 0.8
+        def_min_acc = 40000  # ~6.25 km2
+    elif args.tier == "detail":
+        def_tolerance = 0.00008
+        def_min_length = 0.1
+        def_min_acc = 1500   # ~0.23 km2
+    else:  # standard
+        def_tolerance = 0.0001
+        def_min_length = 0.3
+        def_min_acc = 8000   # ~1.25 km2
+
+    tolerance = args.tolerance if args.tolerance is not None else def_tolerance
+    min_length = args.min_length if args.min_length is not None else def_min_length
+
+    if args.min_acc_km2 is not None:
+        min_acc = int(args.min_acc_km2 / CELL_AREA_KM2_12_5M)
+    elif args.min_acc is not None:
+        min_acc = args.min_acc
+    else:
+        min_acc = def_min_acc
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
 
@@ -245,21 +292,31 @@ def main():
         processed_dir = os.path.join(basin_dir, "processed")
         river_dir = os.path.join(basin_dir, "river")
 
-        in_file = args.input or os.path.join(processed_dir, "river_network.geojson")
-        if not os.path.exists(in_file):
-            in_file = os.path.join(river_dir, "river_network.geojson")
+        in_file = args.input
+        if not in_file:
+            # Check raw backup first, then processed
+            candidates = [
+                os.path.join(river_dir, "river_network_raw.geojson"),
+                os.path.join(processed_dir, "river_network_raw.geojson"),
+                os.path.join(processed_dir, "river_network.geojson"),
+                os.path.join(river_dir, "river_network.geojson")
+            ]
+            for cand in candidates:
+                if os.path.exists(cand):
+                    in_file = cand
+                    break
 
-        if not os.path.exists(in_file):
-            print(f"⚠️ Warning: river_network.geojson not found in {in_file}. Skipping basin '{b}'.")
+        if not in_file or not os.path.exists(in_file):
+            print(f"⚠️ Warning: river_network.geojson not found for basin '{b}'.")
             continue
 
         out_file = args.output or os.path.join(processed_dir, "river_network.geojson")
         simplify_river_geojson(
             input_path=in_file,
             output_path=out_file,
-            tolerance_deg=args.tolerance,
-            min_length_km=args.min_length,
-            min_acc_cells=args.min_acc,
+            tolerance_deg=tolerance,
+            min_length_km=min_length,
+            min_acc_cells=min_acc,
             precision=args.precision,
             create_backup=not args.no_backup
         )
@@ -277,9 +334,9 @@ def main():
             simplify_river_geojson(
                 input_path=in_file,
                 output_path=main_out,
-                tolerance_deg=args.tolerance * 1.5,
-                min_length_km=max(0.5, args.min_length * 2),
-                min_acc_cells=1500,  # Only significant tributary flow
+                tolerance_deg=0.00015,
+                min_length_km=0.8,
+                min_acc_cells=40000,  # ~6.25 km2 Catchment (Major Tributaries & Main River)
                 precision=args.precision,
                 create_backup=False
             )
