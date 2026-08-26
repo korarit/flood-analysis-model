@@ -433,12 +433,12 @@ def fetch_osm_waterways(
             return json.load(f)
 
     print(f"  [OSM] Fetching OpenStreetMap Waterway Network for '{basin}'...")
-    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.25)
+    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.35)
 
     overpass_query = f"""
-    [out:json][timeout:90];
+    [out:json][timeout:120];
     (
-      way["waterway"~"river|stream|canal"]({min_lat},{min_lon},{max_lat},{max_lon});
+      way["waterway"~"river|stream|canal|drain|ditch"]({min_lat},{min_lon},{max_lat},{max_lon});
     );
     out body geom;
     """

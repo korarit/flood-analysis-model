@@ -639,24 +639,33 @@ def build_flow_paths_and_relations(
         raster_coords, target_station_id = trace_downstream_path(
             first_r, first_c, fdir, transform, crs=crs,
             stop_condition_fn=make_stop_fn(st_id),
-            max_steps=2000
+            max_steps=5000
         )
 
         if target_station_id:
             target_st = next((s for s in water_stations if s['station_id'] == target_station_id), None)
             coords = None
 
-            # Attempt clean OSM Directed Graph Route first
+            # 1. Attempt clean OSM Directed Graph Route first
             u_node = water_node_map.get(st_id)
             v_node = water_node_map.get(target_station_id)
             if u_node and v_node and u_node != v_node:
                 graph_coords, _ = river_graph.shortest_path(u_node, v_node)
                 if graph_coords and len(graph_coords) >= 2:
-                    coords = merge_coordinates([[st_lon, st_lat]], graph_coords, [[target_st['longitude'], target_st['latitude']]])
+                    # Validate that the start and end of graph_coords are close to stations
+                    d_start = math.hypot(st_lon - graph_coords[0][0], st_lat - graph_coords[0][1])
+                    d_end = math.hypot(target_st['longitude'] - graph_coords[-1][0], target_st['latitude'] - graph_coords[-1][1])
+                    if d_start <= 0.03 and d_end <= 0.03:
+                        coords = merge_coordinates([[st_lon, st_lat]], graph_coords, [[target_st['longitude'], target_st['latitude']]])
 
-            # Fallback to raster D8 coordinates if graph path is disconnected
+            # 2. Fallback to continuous 12.5m DEM D8 raster coordinates (zero straight lines)
             if not coords or len(coords) < 2:
                 coords = merge_coordinates([[st_lon, st_lat]], raster_coords)
+                if target_st:
+                    # Snap the final vertex to the target station if within 500m
+                    last_dist = math.hypot(coords[-1][0] - target_st['longitude'], coords[-1][1] - target_st['latitude'])
+                    if last_dist <= 0.005:  # ~500m
+                        coords[-1] = [round(float(target_st['longitude']), 6), round(float(target_st['latitude']), 6)]
 
             dist_km = linestring_length_km(coords)
             z_up = sample_elevation(st_lon, st_lat)
@@ -691,7 +700,7 @@ def build_flow_paths_and_relations(
     # =========================================================================
     # LAYER 2: Rain-to-Gauge Overland Connectors (Overland -> River Backbone)
     # =========================================================================
-    # Define stop condition once outside the loop for maximum efficiency
+    # Stop condition: stops when encountering any water level station on the 12.5m grid
     def stop_at_water_station(curr_r, curr_c):
         t_id = water_grid_map.get((curr_r, curr_c))
         if t_id:
@@ -712,24 +721,23 @@ def build_flow_paths_and_relations(
         if not (0 <= r < nrows and 0 <= c < ncols):
             continue
 
-        # Trace Overland flow from mountain station
+        # 1. Trace Continuous 12.5m DEM D8 flow path downstream from rain station
         overland_coords, direct_target_water_id = trace_downstream_path(
             r, c, fdir, transform, crs=crs,
             stop_condition_fn=stop_at_water_station,
-            max_steps=2200
+            max_steps=5000
         )
 
         z_rain = sample_elevation(lon, lat)
         target_water_id = direct_target_water_id
 
-        # Downstream-aware Fallback: If D8 trace did not directly hit a station grid
+        # 2. Downstream-aware Fallback if trace didn't directly intersect a station cell
         if not target_water_id:
             last_pt = overland_coords[-1] if overland_coords else [lon, lat]
             downstream_candidates = []
             for wst in water_stations:
                 w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
                 w_elev = sample_elevation(w_lon, w_lat)
-                # Elevation-aware: candidate must be downstream (lower or near elevation)
                 if w_elev <= z_rain + 2.0:
                     d = math.hypot(last_pt[0] - w_lon, last_pt[1] - w_lat)
                     downstream_candidates.append((d, str(wst.get('station_id', '')).strip()))
@@ -744,31 +752,47 @@ def build_flow_paths_and_relations(
             tgt_lat = float(target_st.get('latitude', 0.0)) if target_st else lat
             z_water = sample_elevation(tgt_lon, tgt_lat) if target_st else z_rain
 
-            coords = overland_coords
+            coords = None
             overland_dist_km = linestring_length_km(overland_coords)
             channel_dist_km = 0.0
 
-            # Stitch to OSM River Backbone if possible
-            if target_st:
-                last_pt = overland_coords[-1]
-                mid_node, _ = river_graph.find_nearest_node(last_pt[0], last_pt[1], max_dist_deg=0.03)
+            # 3. Try to splice OSM River Vector segment if clean graph route exists
+            if target_st and len(overland_coords) >= 2:
+                # Find entry point to OSM river network along the D8 path
+                mid_idx = len(overland_coords) // 2
+                mid_pt = overland_coords[mid_idx]
+                mid_node, d_mid = river_graph.find_nearest_node(mid_pt[0], mid_pt[1], max_dist_deg=0.015)
                 tgt_node = water_node_map.get(target_water_id)
 
-                if mid_node and tgt_node and mid_node != tgt_node:
+                if mid_node and tgt_node and mid_node != tgt_node and d_mid <= 0.015:
                     backbone_coords, b_dist = river_graph.shortest_path(mid_node, tgt_node)
                     if backbone_coords and len(backbone_coords) >= 2:
-                        coords = merge_coordinates(overland_coords, backbone_coords, [[tgt_lon, tgt_lat]])
-                        channel_dist_km = b_dist
-                    else:
-                        coords = merge_coordinates(overland_coords, [[tgt_lon, tgt_lat]])
-                else:
-                    coords = merge_coordinates(overland_coords, [[tgt_lon, tgt_lat]])
+                        d_end = math.hypot(tgt_lon - backbone_coords[-1][0], tgt_lat - backbone_coords[-1][1])
+                        if d_end <= 0.02:  # Valid continuous vector path
+                            coords = merge_coordinates(
+                                [[lon, lat]],
+                                overland_coords[:mid_idx],
+                                backbone_coords,
+                                [[tgt_lon, tgt_lat]]
+                            )
+                            channel_dist_km = b_dist
+                            overland_dist_km = linestring_length_km(overland_coords[:mid_idx])
+
+            # 4. Fallback: Pure 12.5m DEM D8 Continuous Topographic Valley Path (ZERO STRAIGHT LINES)
+            if not coords or len(coords) < 2:
+                coords = merge_coordinates([[lon, lat]], overland_coords)
+                if target_st:
+                    last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
+                    if last_dist <= 0.005:  # Close enough to snap endpoint
+                        coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
+                overland_dist_km = linestring_length_km(coords)
+                channel_dist_km = 0.0
 
             dist_km = linestring_length_km(coords)
             dz = max(0.0, z_rain - z_water)
 
             # Decomposed hillslope vs channel slopes for accurate lag times
-            overland_dz = max(0.0, z_rain - sample_elevation(overland_coords[-1][0], overland_coords[-1][1])) if len(overland_coords) > 1 else dz
+            overland_dz = max(0.0, z_rain - sample_elevation(coords[-1][0], coords[-1][1])) if len(coords) > 1 else dz
             overland_slope = (overland_dz / (overland_dist_km * 1000.0)) if overland_dist_km > 0.001 else 0.01
             channel_slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
 
