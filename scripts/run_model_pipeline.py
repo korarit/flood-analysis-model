@@ -26,16 +26,19 @@ from scripts.export_backend_dataset import export_basin_model_dataset
 
 def run_pipeline_for_basin(
     basin: str,
-    dataset_dir: str,
+    dataset_dir: str = "./dataset",
     terrain_dir: str = "./terrain",
-    username: str = None,
-    password: str = None,
-    stream_threshold: int = 300
+    username: Optional[str] = None,
+    password: Optional[str] = None,
+    stream_threshold: int = 300,
+    chunk_size: int = 10
 ):
-    """Runs all 5 pipeline steps for a single river basin."""
+    """Executes the full 6-step pipeline for a single river basin."""
+    start_total_time = time.time()
     basin_dir = os.path.join(dataset_dir, basin)
     terrain_basin_dir = os.path.join(terrain_dir, basin)
-    start_total_time = time.time()
+    os.makedirs(basin_dir, exist_ok=True)
+    os.makedirs(terrain_basin_dir, exist_ok=True)
 
     print("\n" + "═" * 70)
     print(f"🚀 [PIPELINE START] River Basin: {basin.upper()}")
@@ -47,7 +50,7 @@ def run_pipeline_for_basin(
     # Step 1: Automated GIS & ALOS PALSAR 12.5m DEM Fetcher
     # -------------------------------------------------------------
     t0 = time.time()
-    print(f"\n[Step 1/5] Fetching GIS Boundaries & ALOS PALSAR 12.5m DEM...")
+    print(f"\n[Step 1/5] Fetching GIS Boundaries & ALOS PALSAR 12.5m DEM (Chunk size: {chunk_size})...")
     water_st, rain_st = load_stations_for_basin(basin_dir)
     all_st = water_st + rain_st
     if not all_st:
@@ -62,7 +65,7 @@ def run_pipeline_for_basin(
     fetch_basin_boundary(basin, boundary_path, all_st)
     fetch_subbasins_boundary(basin, subbasins_path, all_st)
     fetch_osm_waterways(basin, osm_waterways_path, all_st)
-    download_alos_palsar_dem(terrain_basin_dir, all_st, username, password)
+    download_alos_palsar_dem(terrain_basin_dir, all_st, username, password, chunk_size=chunk_size)
     t1_elapsed = time.time() - t0
     print(f"  ⏱️ Step 1 completed in {t1_elapsed:.1f}s")
 
@@ -131,6 +134,7 @@ def main():
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username for ALOS PALSAR 12.5m DEM")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password for ALOS PALSAR 12.5m DEM")
+    parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--threshold", type=int, default=300, help="Stream delineation cell accumulation threshold")
     args = parser.parse_args()
 
@@ -143,7 +147,8 @@ def main():
             terrain_dir=args.terrain_dir,
             username=args.username,
             password=args.password,
-            stream_threshold=args.threshold
+            stream_threshold=args.threshold,
+            chunk_size=args.chunk_size
         )
 
 

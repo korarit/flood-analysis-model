@@ -231,11 +231,13 @@ def download_alos_palsar_dem(
     terrain_dir: str,
     stations: List[Dict[str, Any]],
     username: Optional[str],
-    password: Optional[str]
+    password: Optional[str],
+    chunk_size: int = 10
 ) -> str:
     """
     Searches and downloads ALOS PALSAR RTC 12.5m DEM tiles from NASA ASF DAAC into terrain_dir.
-    Enforces strict credential validation.
+    Downloads in manageable chunks (default: 10 tiles/batch), unzips immediately, and deletes
+    .zip archives after extraction to prevent filling up disk storage.
     """
     import zipfile
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
@@ -282,30 +284,52 @@ def download_alos_palsar_dem(
             if key not in unique_granules:
                 unique_granules[key] = g
 
-        unique_results = asf.ASFSearchResults(list(unique_granules.values()))
-        print(f"  [DEM] Found {len(results)} total granules -> filtered to {len(unique_results)} unique spatial tiles covering the basin.")
-        print(f"  [DEM] Downloading {len(unique_results)} ALOS PALSAR 12.5m DEM tiles (parallel)...")
-        unique_results.download(path=tiles_dir, session=session, processes=4)
+        granules_list = list(unique_granules.values())
+        total_granules = len(granules_list)
+        print(f"  [DEM] Found {len(results)} total granules -> filtered to {total_granules} unique spatial tiles.")
+
+        # Process in chunks of chunk_size to optimize disk space
+        num_chunks = math.ceil(total_granules / float(chunk_size)) if chunk_size > 0 else 1
+        print(f"  [DEM] Chunked Download & Extraction: {num_chunks} batches (Batch size: {chunk_size} tiles/batch)...")
+
+        for chunk_idx in range(num_chunks):
+            start_i = chunk_idx * chunk_size
+            end_i = min(total_granules, (chunk_idx + 1) * chunk_size)
+            chunk_granules = granules_list[start_i:end_i]
+            chunk_results = asf.ASFSearchResults(chunk_granules)
+
+            print(f"\n  ┌─ [Chunk {chunk_idx + 1}/{num_chunks}] Downloading {len(chunk_granules)} tiles ({start_i + 1}-{end_i} of {total_granules})...")
+            chunk_results.download(path=tiles_dir, session=session, processes=4)
+
+            # Unzip each downloaded .zip immediately and delete .zip to reclaim disk space
+            zip_files = glob.glob(os.path.join(tiles_dir, "*.zip"))
+            extracted_count = 0
+            freed_bytes = 0
+
+            for zf_path in zip_files:
+                try:
+                    file_size = os.path.getsize(zf_path)
+                    with zipfile.ZipFile(zf_path, 'r') as zf:
+                        for member in zf.namelist():
+                            if member.endswith(".dem.tif") or member.endswith("_dem.tif"):
+                                filename = os.path.basename(member)
+                                target_dest = os.path.join(extracted_dir, filename)
+                                if not os.path.exists(target_dest):
+                                    with zf.open(member) as source, open(target_dest, "wb") as target:
+                                        target.write(source.read())
+                                extracted_count += 1
+                    # Remove .zip archive to save disk space
+                    os.remove(zf_path)
+                    freed_bytes += file_size
+                except Exception as ex:
+                    print(f"  │  [WARN] Failed to extract/cleanup {zf_path}: {ex}")
+
+            freed_mb = freed_bytes / (1024 * 1024)
+            print(f"  └─ ✅ [Chunk {chunk_idx + 1}/{num_chunks}] Extracted {extracted_count} DEM files, deleted .zip archives (Freed {freed_mb:.1f} MB disk space)")
+
     except Exception as e:
         print(f"❌ ERROR: Failed to download ALOS PALSAR DEM from ASF: {e}", file=sys.stderr)
         sys.exit(1)
-
-    # Extract *.dem.tif from downloaded .zip files
-    zip_files = glob.glob(os.path.join(tiles_dir, "*.zip"))
-    if zip_files:
-        print(f"  [EXTRACT] Unzipping {len(zip_files)} DEM tiles...")
-        for zf_path in zip_files:
-            try:
-                with zipfile.ZipFile(zf_path, 'r') as zf:
-                    for member in zf.namelist():
-                        if member.endswith(".dem.tif") or member.endswith("_dem.tif"):
-                            filename = os.path.basename(member)
-                            target_dest = os.path.join(extracted_dir, filename)
-                            if not os.path.exists(target_dest):
-                                with zf.open(member) as source, open(target_dest, "wb") as target:
-                                    target.write(source.read())
-            except Exception as ex:
-                print(f"  [WARN] Failed to extract {zf_path}: {ex}")
 
     # Find and mosaic all downloaded/extracted *.dem.tif files
     dem_files = glob.glob(os.path.join(extracted_dir, "**", "*dem.tif"), recursive=True) + \
@@ -316,7 +340,7 @@ def download_alos_palsar_dem(
         print(f"❌ ERROR: No DEM GeoTIFF files found in {tiles_dir}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"  [MOSAIC] Merging {len(dem_files)} DEM tiles into {raw_dem_path}...")
+    print(f"\n  [MOSAIC] Merging {len(dem_files)} DEM tiles into {raw_dem_path}...")
     src_files_to_mosaic = [rasterio.open(f) for f in dem_files]
     mosaic, out_trans = merge(src_files_to_mosaic)
 
@@ -442,6 +466,7 @@ def main():
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
+    parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--force-osm", action="store_true", help="Force re-download OSM waterways")
     args = parser.parse_args()
 
@@ -471,8 +496,8 @@ def main():
         osm_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
         fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm)
 
-        # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
-        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password)
+        # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
+        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password, chunk_size=args.chunk_size)
 
 
 if __name__ == "__main__":
