@@ -776,11 +776,11 @@ def build_flow_paths_and_relations(
                 downstream_candidates.sort(key=lambda x: x[0])
                 target_water_id = downstream_candidates[0][1]
 
-        if target_water_id and (len(overland_coords) >= 1):
-            target_st = next((s for s in water_stations if s['station_id'] == target_water_id), None)
-            tgt_lon = float(target_st.get('longitude', 0.0)) if target_st else lon
-            tgt_lat = float(target_st.get('latitude', 0.0)) if target_st else lat
-            z_water = sample_elevation(tgt_lon, tgt_lat) if target_st else z_rain
+        if len(overland_coords) >= 1:
+            target_st = next((s for s in water_stations if s['station_id'] == target_water_id), None) if target_water_id else None
+            tgt_lon = float(target_st.get('longitude', 0.0)) if target_st else (overland_coords[-1][0] if overland_coords else lon)
+            tgt_lat = float(target_st.get('latitude', 0.0)) if target_st else (overland_coords[-1][1] if overland_coords else lat)
+            z_water = sample_elevation(tgt_lon, tgt_lat) if target_st else sample_elevation(overland_coords[-1][0], overland_coords[-1][1])
 
             coords = None
             overland_dist_km = linestring_length_km(overland_coords)
@@ -829,6 +829,12 @@ def build_flow_paths_and_relations(
                 channel_dist_km = 0.0
 
             dist_km = linestring_length_km(coords)
+
+            # 5. Rule: Connected paths are always kept; standalone/unconnected paths are only kept if length >= 1.0 km
+            is_connected_to_river_or_gauge = bool(target_st or channel_dist_km > 0)
+            if not is_connected_to_river_or_gauge and dist_km < 1.0:
+                continue
+
             dz = max(0.0, z_rain - z_water)
 
             # Decomposed hillslope vs channel slopes for accurate lag times
@@ -843,7 +849,8 @@ def build_flow_paths_and_relations(
                 channel_slope=channel_slope,
                 total_dz_m=dz
             )
-            feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
+            to_id_str = target_water_id if target_water_id else "drainage_outlet"
+            feature_id = f"flow_rain_{r_id}_to_{to_id_str}"
 
             feature = {
                 "type": "Feature",
@@ -852,8 +859,8 @@ def build_flow_paths_and_relations(
                     "feature_type": "rainfall_to_gauge_flowpath",
                     "from_station_id": r_id,
                     "from_station_name": r_st.get('station_name', ''),
-                    "to_station_id": target_water_id,
-                    "to_station_name": target_st.get('station_name', '') if target_st else '',
+                    "to_station_id": target_water_id if target_water_id else '',
+                    "to_station_name": target_st.get('station_name', '') if target_st else 'Local Drainage / River',
                     "total_distance_km": round(dist_km, 2),
                     "distance_km": round(dist_km, 2),
                     "response_lag_minutes": lag_avg_m,
@@ -874,7 +881,8 @@ def build_flow_paths_and_relations(
                 }
             }
             features.append(feature)
-            rainfall_relations.append(feature["properties"])
+            if target_water_id:
+                rainfall_relations.append(feature["properties"])
 
     # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}
