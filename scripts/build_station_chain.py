@@ -26,8 +26,40 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     station_dir = os.path.join(basin_dir, "station")
     catchment_dir = os.path.join(basin_dir, "catchment")
     processed_dir = os.path.join(basin_dir, "processed")
+    os.makedirs(station_dir, exist_ok=True)
     os.makedirs(catchment_dir, exist_ok=True)
     os.makedirs(processed_dir, exist_ok=True)
+
+    station_mapping_path = os.path.join(station_dir, "station-mapping.json")
+    flow_paths_path = os.path.join(processed_dir, "flow_paths.geojson")
+    gauge_relations_path = os.path.join(station_dir, "station-relations.json")
+    rain_relations_path = os.path.join(station_dir, "rainfall-relations.json")
+    catchments_path = os.path.join(catchment_dir, "catchments.geojson")
+    processed_catchments_path = os.path.join(processed_dir, "catchments.geojson")
+
+    # -------------------------------------------------------------
+    # Top-Level CACHE Check: Skip entire Step 3 if all artifacts exist
+    # -------------------------------------------------------------
+    all_cached = (
+        os.path.exists(station_mapping_path) and os.path.getsize(station_mapping_path) > 100 and
+        os.path.exists(flow_paths_path) and os.path.getsize(flow_paths_path) > 100 and
+        os.path.exists(gauge_relations_path) and os.path.getsize(gauge_relations_path) > 100 and
+        os.path.exists(rain_relations_path) and os.path.getsize(rain_relations_path) > 100 and
+        os.path.exists(catchments_path) and os.path.getsize(catchments_path) > 100
+    )
+
+    if all_cached:
+        print(f"\n🔗 [STEP 3] [CACHE] Station chain, flow paths, and catchments already exist for basin: {basin.upper()}")
+        print(f"        • Station Mapping   : {station_mapping_path}")
+        print(f"        • Flow Paths GeoJSON: {flow_paths_path}")
+        print(f"        • Station Relations : {gauge_relations_path}")
+        print(f"        • Rainfall Relations: {rain_relations_path}")
+        print(f"        • Catchments GeoJSON: {catchments_path}")
+        print("        Loaded cached Step 3 outputs (skipping re-computation).")
+        if not os.path.exists(processed_catchments_path) or os.path.getsize(processed_catchments_path) <= 100:
+            import shutil
+            shutil.copy2(catchments_path, processed_catchments_path)
+        return
 
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
@@ -69,43 +101,54 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
         fdir = flw.to_array(ftype='d8')
         acc = flw.upstream_area(unit='cell')
 
-    # 2. Load Stations
+    # 2. Load and Snap Stations
     water_st, rain_st = load_stations_for_basin(basin_dir)
-    print(f"  [2/4] Loaded {len(water_st)} water stations and {len(rain_st)} rain stations.")
+    if os.path.exists(station_mapping_path) and os.path.getsize(station_mapping_path) > 100:
+        import json
+        with open(station_mapping_path, 'r', encoding='utf-8') as f:
+            snapped_water_st = json.load(f)
+        print(f"  [2/4] [CACHE] Loaded {len(snapped_water_st)} cached snapped stations: {station_mapping_path}")
+    else:
+        print(f"  [2/4] Loaded {len(water_st)} water stations and {len(rain_st)} rain stations.")
+        print("        Snapping water level stations to stream channel...")
+        snapped_water_st = snap_stations_to_stream(water_st, fdir, acc, transform, crs=crs)
+        save_json(snapped_water_st, station_mapping_path)
+        print(f"        Saved station mapping: {station_mapping_path}")
 
-    # 3. Snap Water Stations to stream channel
-    print("        Snapping water level stations to stream channel...")
-    snapped_water_st = snap_stations_to_stream(water_st, fdir, acc, transform, crs=crs)
-    station_mapping_path = os.path.join(station_dir, "station-mapping.json")
-    save_json(snapped_water_st, station_mapping_path)
-    print(f"        Saved station mapping: {station_mapping_path}")
-
-    # 4. Build Flow Paths (Gauge-to-Gauge & Rain-to-Gauge)
-    print("  [3/4] Tracing Gauge-to-Gauge & Overland Rain-to-Gauge Flow Paths...")
-    flow_paths_geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
-        snapped_water_st, rain_st, fdir, acc, filled_dem, transform, crs=crs
+    # 3. Build Flow Paths (Gauge-to-Gauge & Rain-to-Gauge)
+    flow_paths_cached = (
+        os.path.exists(flow_paths_path) and os.path.getsize(flow_paths_path) > 100 and
+        os.path.exists(gauge_relations_path) and os.path.getsize(gauge_relations_path) > 100 and
+        os.path.exists(rain_relations_path) and os.path.getsize(rain_relations_path) > 100
     )
-    flow_paths_path = os.path.join(processed_dir, "flow_paths.geojson")
-    gauge_relations_path = os.path.join(station_dir, "station-relations.json")
-    rain_relations_path = os.path.join(station_dir, "rainfall-relations.json")
+    if flow_paths_cached:
+        print(f"  [3/4] [CACHE] Flow paths and relations already exist (skipping tracing).")
+    else:
+        print("  [3/4] Tracing Gauge-to-Gauge & Overland Rain-to-Gauge Flow Paths...")
+        flow_paths_geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
+            snapped_water_st, rain_st, fdir, acc, filled_dem, transform, crs=crs
+        )
+        save_geojson(flow_paths_geojson, flow_paths_path)
+        save_json(gauge_relations, gauge_relations_path)
+        save_json(rain_relations, rain_relations_path)
 
-    save_geojson(flow_paths_geojson, flow_paths_path)
-    save_json(gauge_relations, gauge_relations_path)
-    save_json(rain_relations, rain_relations_path)
+        print(f"        Generated {len(gauge_relations)} Gauge-to-Gauge relations.")
+        print(f"        Generated {len(rain_relations)} Rainfall-to-Gauge relations.")
+        print(f"        Saved Flow Paths GeoJSON: {flow_paths_path}")
 
-    print(f"        Generated {len(gauge_relations)} Gauge-to-Gauge relations.")
-    print(f"        Generated {len(rain_relations)} Rainfall-to-Gauge relations.")
-    print(f"        Saved Flow Paths GeoJSON: {flow_paths_path}")
-
-    # 5. Delineate Sub-catchments
-    print("  [4/4] Delineating Sub-Catchment Polygons for station outlets...")
-    catchments_geojson = delineate_station_catchments(snapped_water_st, fdir, transform, crs=crs)
-    catchments_path = os.path.join(catchment_dir, "catchments.geojson")
-    processed_catchments_path = os.path.join(processed_dir, "catchments.geojson")
-    save_geojson(catchments_geojson, catchments_path)
-    save_geojson(catchments_geojson, processed_catchments_path)
-    print(f"        Generated {len(catchments_geojson['features'])} catchment polygons.")
-    print(f"        Saved Catchments GeoJSON: {catchments_path}")
+    # 4. Delineate Sub-catchments
+    if os.path.exists(catchments_path) and os.path.getsize(catchments_path) > 100:
+        print(f"  [4/4] [CACHE] Catchments GeoJSON already exists: {catchments_path} (skipping delineation).")
+        if not os.path.exists(processed_catchments_path) or os.path.getsize(processed_catchments_path) <= 100:
+            import shutil
+            shutil.copy2(catchments_path, processed_catchments_path)
+    else:
+        print("  [4/4] Delineating Sub-Catchment Polygons for station outlets...")
+        catchments_geojson = delineate_station_catchments(snapped_water_st, fdir, transform, crs=crs)
+        save_geojson(catchments_geojson, catchments_path)
+        save_geojson(catchments_geojson, processed_catchments_path)
+        print(f"        Generated {len(catchments_geojson['features'])} catchment polygons.")
+        print(f"        Saved Catchments GeoJSON: {catchments_path}")
 
 
 def main():
