@@ -761,128 +761,175 @@ def build_flow_paths_and_relations(
         z_rain = sample_elevation(lon, lat)
         target_water_id = direct_target_water_id
 
-        # 2. Downstream-aware Fallback if trace didn't directly intersect a station cell
-        if not target_water_id:
-            last_pt = overland_coords[-1] if overland_coords else [lon, lat]
-            downstream_candidates = []
+        # 2. Trace and stitch paths to all reachable downstream water stations / river channels
+        downstream_targets = []
+        entry_idx = None
+        entry_node = None
+
+        if len(overland_coords) >= 2:
+            # Scan along D8 path to find first valid intersection with OSM river network
+            for p_idx in range(len(overland_coords)):
+                pt = overland_coords[p_idx]
+                nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=0.008)  # ~800m
+                if nid:
+                    entry_idx = p_idx
+                    entry_node = nid
+                    break
+
+        # If connected to OSM river graph, discover all reachable downstream gauges
+        if entry_node is not None:
             for wst in water_stations:
-                w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
-                w_elev = sample_elevation(w_lon, w_lat)
-                if w_elev <= z_rain + 2.0:
-                    d = math.hypot(last_pt[0] - w_lon, last_pt[1] - w_lat)
-                    downstream_candidates.append((d, str(wst.get('station_id', '')).strip()))
-
-            if downstream_candidates:
-                downstream_candidates.sort(key=lambda x: x[0])
-                target_water_id = downstream_candidates[0][1]
-
-        if len(overland_coords) >= 1:
-            target_st = next((s for s in water_stations if s['station_id'] == target_water_id), None) if target_water_id else None
-            tgt_lon = float(target_st.get('longitude', 0.0)) if target_st else (overland_coords[-1][0] if overland_coords else lon)
-            tgt_lat = float(target_st.get('latitude', 0.0)) if target_st else (overland_coords[-1][1] if overland_coords else lat)
-            z_water = sample_elevation(tgt_lon, tgt_lat) if target_st else sample_elevation(overland_coords[-1][0], overland_coords[-1][1])
-
-            coords = None
-            overland_dist_km = linestring_length_km(overland_coords)
-            channel_dist_km = 0.0
-
-            # 3. Dynamic OSM Channel Entry: Scan along D8 path for intersection with OSM River Backbone
-            if target_st and len(overland_coords) >= 2:
-                tgt_node = water_node_map.get(target_water_id)
-                entry_idx = None
-                entry_node = None
-
-                # Scan from start to end of D8 trace to find first valid intersection with OSM graph
-                for p_idx in range(len(overland_coords)):
-                    pt = overland_coords[p_idx]
-                    nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=0.008)  # ~800m
-                    if nid and nid != tgt_node:
-                        # Validate that this node can reach target water station on OSM graph
-                        backbone_coords, b_dist = river_graph.shortest_path(nid, tgt_node)
-                        if backbone_coords and len(backbone_coords) >= 2:
-                            entry_idx = p_idx
-                            entry_node = nid
-                            break
-
-                if entry_idx is not None and entry_node is not None:
-                    backbone_coords, b_dist = river_graph.shortest_path(entry_node, tgt_node)
+                w_id = str(wst.get('station_id', '')).strip()
+                v_node = water_node_map.get(w_id)
+                if v_node and v_node != entry_node:
+                    backbone_coords, b_dist = river_graph.shortest_path(entry_node, v_node)
                     if backbone_coords and len(backbone_coords) >= 2:
-                        d_end = math.hypot(tgt_lon - backbone_coords[-1][0], tgt_lat - backbone_coords[-1][1])
-                        if d_end <= 0.02:  # Valid continuous vector path
-                            coords = merge_coordinates(
-                                [[lon, lat]],
-                                overland_coords[:entry_idx + 1],
-                                backbone_coords,
-                                [[tgt_lon, tgt_lat]]
-                            )
-                            channel_dist_km = b_dist
-                            overland_dist_km = linestring_length_km(overland_coords[:entry_idx + 1])
+                        w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
+                        w_elev = sample_elevation(w_lon, w_lat)
+                        if w_elev <= z_rain + 2.0:  # Downstream elevation check
+                            downstream_targets.append((b_dist, w_id, wst, backbone_coords))
 
-            # 4. Fallback: Pure 12.5m DEM D8 Continuous Topographic Valley/Plain Path (ZERO STRAIGHT LINES)
-            if not coords or len(coords) < 2:
-                coords = merge_coordinates([[lon, lat]], overland_coords)
+            downstream_targets.sort(key=lambda x: x[0])
+
+        # If not connected via graph, fallback to D8 direct water station or closest downstream candidate
+        if not downstream_targets:
+            fallback_target_id = direct_target_water_id
+            if not fallback_target_id:
+                last_pt = overland_coords[-1] if overland_coords else [lon, lat]
+                candidates = []
+                for wst in water_stations:
+                    w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
+                    w_elev = sample_elevation(w_lon, w_lat)
+                    if w_elev <= z_rain + 2.0:
+                        d = math.hypot(last_pt[0] - w_lon, last_pt[1] - w_lat)
+                        candidates.append((d, str(wst.get('station_id', '')).strip(), wst))
+                if candidates:
+                    candidates.sort(key=lambda x: x[0])
+                    fallback_target_id = candidates[0][1]
+                    target_st = candidates[0][2]
+                    downstream_targets.append((0.0, fallback_target_id, target_st, None))
+            elif direct_target_water_id:
+                target_st = next((s for s in water_stations if s['station_id'] == direct_target_water_id), None)
                 if target_st:
+                    downstream_targets.append((0.0, direct_target_water_id, target_st, None))
+
+        # Generate paths for all discovered downstream receiving stations (unlocked multi-path)
+        if downstream_targets:
+            for b_dist, target_water_id, target_st, backbone_coords in downstream_targets:
+                tgt_lon = float(target_st.get('longitude', 0.0))
+                tgt_lat = float(target_st.get('latitude', 0.0))
+                z_water = sample_elevation(tgt_lon, tgt_lat)
+
+                overland_dist_km = linestring_length_km(overland_coords)
+                channel_dist_km = b_dist
+
+                if backbone_coords and entry_idx is not None:
+                    coords = merge_coordinates(
+                        [[lon, lat]],
+                        overland_coords[:entry_idx + 1],
+                        backbone_coords,
+                        [[tgt_lon, tgt_lat]]
+                    )
+                    overland_dist_km = linestring_length_km(overland_coords[:entry_idx + 1])
+                else:
+                    coords = merge_coordinates([[lon, lat]], overland_coords)
                     last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
-                    if last_dist <= 0.005:  # Close enough to snap endpoint
+                    if last_dist <= 0.005:  # ~500m snap
                         coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
-                overland_dist_km = linestring_length_km(coords)
-                channel_dist_km = 0.0
 
-            dist_km = linestring_length_km(coords)
+                dist_km = linestring_length_km(coords)
+                dz = max(0.0, z_rain - z_water)
 
-            # 5. Rule: Connected paths are always kept; standalone/unconnected paths are only kept if length >= 1.0 km
-            is_connected_to_river_or_gauge = bool(target_st or channel_dist_km > 0)
-            if not is_connected_to_river_or_gauge and dist_km < 1.0:
-                continue
+                overland_dz = max(0.0, z_rain - sample_elevation(coords[-1][0], coords[-1][1])) if len(coords) > 1 else dz
+                overland_slope = (overland_dz / (overland_dist_km * 1000.0)) if overland_dist_km > 0.001 else 0.01
+                channel_slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
 
-            dz = max(0.0, z_rain - z_water)
+                lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
+                    overland_dist_km=overland_dist_km,
+                    overland_slope=overland_slope,
+                    channel_dist_km=channel_dist_km,
+                    channel_slope=channel_slope,
+                    total_dz_m=dz
+                )
+                feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
 
-            # Decomposed hillslope vs channel slopes for accurate lag times
-            overland_dz = max(0.0, z_rain - sample_elevation(coords[-1][0], coords[-1][1])) if len(coords) > 1 else dz
-            overland_slope = (overland_dz / (overland_dist_km * 1000.0)) if overland_dist_km > 0.001 else 0.01
-            channel_slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
-
-            lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
-                overland_dist_km=overland_dist_km,
-                overland_slope=overland_slope,
-                channel_dist_km=channel_dist_km,
-                channel_slope=channel_slope,
-                total_dz_m=dz
-            )
-            to_id_str = target_water_id if target_water_id else "drainage_outlet"
-            feature_id = f"flow_rain_{r_id}_to_{to_id_str}"
-
-            feature = {
-                "type": "Feature",
-                "id": feature_id,
-                "properties": {
-                    "feature_type": "rainfall_to_gauge_flowpath",
-                    "from_station_id": r_id,
-                    "from_station_name": r_st.get('station_name', ''),
-                    "to_station_id": target_water_id if target_water_id else '',
-                    "to_station_name": target_st.get('station_name', '') if target_st else 'Local Drainage / River',
-                    "total_distance_km": round(dist_km, 2),
-                    "distance_km": round(dist_km, 2),
-                    "response_lag_minutes": lag_avg_m,
-                    "response_lag_minutes_min": lag_min_m,
-                    "response_lag_minutes_max": lag_max_m,
-                    "response_lag_hours": lag_avg_h,
-                    "response_lag_hours_min": lag_min_h,
-                    "response_lag_hours_max": lag_max_h,
-                    "elevation_diff_m": round(dz, 2),
-                    "slope": round(channel_slope, 6),
-                    "upstream_elev_m": round(z_rain, 2),
-                    "downstream_elev_m": round(z_water, 2),
-                    "influence_weight_percent": 30.0
-                },
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.0001)
+                feature = {
+                    "type": "Feature",
+                    "id": feature_id,
+                    "properties": {
+                        "feature_type": "rainfall_to_gauge_flowpath",
+                        "from_station_id": r_id,
+                        "from_station_name": r_st.get('station_name', ''),
+                        "to_station_id": target_water_id,
+                        "to_station_name": target_st.get('station_name', ''),
+                        "total_distance_km": round(dist_km, 2),
+                        "distance_km": round(dist_km, 2),
+                        "response_lag_minutes": lag_avg_m,
+                        "response_lag_minutes_min": lag_min_m,
+                        "response_lag_minutes_max": lag_max_m,
+                        "response_lag_hours": lag_avg_h,
+                        "response_lag_hours_min": lag_min_h,
+                        "response_lag_hours_max": lag_max_h,
+                        "elevation_diff_m": round(dz, 2),
+                        "slope": round(channel_slope, 6),
+                        "upstream_elev_m": round(z_rain, 2),
+                        "downstream_elev_m": round(z_water, 2),
+                        "influence_weight_percent": 30.0
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.0001)
+                    }
                 }
-            }
-            features.append(feature)
-            if target_water_id:
+                features.append(feature)
                 rainfall_relations.append(feature["properties"])
+        else:
+            # Standalone un-connected path (only kept if length >= 1.0 km)
+            if len(overland_coords) >= 2:
+                coords = merge_coordinates([[lon, lat]], overland_coords)
+                dist_km = linestring_length_km(coords)
+                if dist_km >= 1.0:  # 1km rule for unconnected standalone paths
+                    z_end = sample_elevation(coords[-1][0], coords[-1][1])
+                    dz = max(0.0, z_rain - z_end)
+                    slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.01
+
+                    lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
+                        overland_dist_km=dist_km,
+                        overland_slope=slope,
+                        channel_dist_km=0.0,
+                        channel_slope=slope,
+                        total_dz_m=dz
+                    )
+                    feature_id = f"flow_rain_{r_id}_overland"
+                    feature = {
+                        "type": "Feature",
+                        "id": feature_id,
+                        "properties": {
+                            "feature_type": "rainfall_to_gauge_flowpath",
+                            "from_station_id": r_id,
+                            "from_station_name": r_st.get('station_name', ''),
+                            "to_station_id": "",
+                            "to_station_name": "Local Overland Drainage",
+                            "total_distance_km": round(dist_km, 2),
+                            "distance_km": round(dist_km, 2),
+                            "response_lag_minutes": lag_avg_m,
+                            "response_lag_minutes_min": lag_min_m,
+                            "response_lag_minutes_max": lag_max_m,
+                            "response_lag_hours": lag_avg_h,
+                            "response_lag_hours_min": lag_min_h,
+                            "response_lag_hours_max": lag_max_h,
+                            "elevation_diff_m": round(dz, 2),
+                            "slope": round(slope, 6),
+                            "upstream_elev_m": round(z_rain, 2),
+                            "downstream_elev_m": round(z_end, 2),
+                            "influence_weight_percent": 100.0
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.0001)
+                        }
+                    }
+                    features.append(feature)
 
     # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}
