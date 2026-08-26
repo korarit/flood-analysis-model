@@ -58,12 +58,18 @@ def export_backend_station_relations(
         if target_id not in frontend_map:
             frontend_map[target_id] = {"stationId": target_id, "influencingStations": [], "downstreamStations": []}
 
+        tt_hours = float(rel.get('travel_time_hours', 0.0))
+        tt_min = float(rel.get('travel_time_hours_min', round(tt_hours * 0.85, 1)))
+        tt_max = float(rel.get('travel_time_hours_max', round(tt_hours * 1.25, 1)))
+
         frontend_map[st_id]["downstreamStations"].append({
             "stationId": target_id,
             "stationName": rel.get('to_station_name', ''),
             "stationType": "water_level",
-            "distanceKm": rel.get('distance_km', 0.0),
-            "travelTimeHours": rel.get('travel_time_hours', 0.0),
+            "distanceKm": float(rel.get('distance_km', 0.0)),
+            "travelTimeHours": tt_hours,
+            "travelTimeHoursMin": tt_min,
+            "travelTimeHoursMax": tt_max,
             "confidence": rel.get('confidence', 'MEDIUM'),
             "responseType": rel.get('response_type', 'ESTIMATED')
         })
@@ -78,6 +84,8 @@ def export_backend_station_relations(
         lag_hours = float(rel.get('response_lag_hours', 4.0))
         dist_km = float(rel.get('total_distance_km', 0.0))
         weight_pct = float(rel.get('influence_weight_percent', 30.0))
+        lag_min = round(max(0.3, lag_hours * 0.75), 1)
+        lag_max = round(lag_hours * 1.35, 1)
 
         record = {
             "stationId": target_water_id,
@@ -85,8 +93,8 @@ def export_backend_station_relations(
             "relationType": "rainfall_influence",
             "distanceKm": dist_km,
             "travelTimeHours": lag_hours,
-            "travelTimeHoursMin": round(max(0.3, lag_hours * 0.75), 1),
-            "travelTimeHoursMax": round(lag_hours * 1.35, 1),
+            "travelTimeHoursMin": lag_min,
+            "travelTimeHoursMax": lag_max,
             "influenceWeightPercent": weight_pct,
             "responseType": "ESTIMATED",
             "confidenceLevel": "HIGH" if dist_km <= 20.0 else "MEDIUM",
@@ -108,6 +116,8 @@ def export_backend_station_relations(
             "stationType": "rainfall",
             "distanceKm": dist_km,
             "travelTimeHours": lag_hours,
+            "travelTimeHoursMin": lag_min,
+            "travelTimeHoursMax": lag_max,
             "influenceWeightPercent": weight_pct
         })
 
