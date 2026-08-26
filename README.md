@@ -142,20 +142,43 @@ flood-analysis-model/
 
 ชุดสคริปต์ในโฟลเดอร์ `scripts/` สำหรับสร้างโมเดลโครงข่ายแม่น้ำ (Chain Water) และคำนวณเวลาน้ำหลากเดินทาง (Travel Time) ตามข้อกำหนดใน [`req-make-model.md`](req-make-model.md) และ [`backend-req.md`](backend-req.md)
 
-### 4.1 รายการสคริปต์ใน `scripts/`
+### 4.1 รายการสคริปต์ใน `scripts/` (6-Step Pipeline)
 
 | สคริปต์ | หน้าที่หลัก |
 | :--- | :--- |
-| [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 5 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
+| [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 6 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
 | [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata ลงใน `terrain/` |
 | [`scripts/build_river_network.py`](scripts/build_river_network.py) | Step 2: ทำ Pit Filling, คำนวณ D8 Flow Direction, Flow Accumulation, และสกัด `river_network.geojson` |
 | [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานี, ลากเส้นทางน้ำไหล (Overland Flow Paths), และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
 | [`scripts/train_response_model.py`](scripts/train_response_model.py) | Step 4: ตรวจจับน้ำขึ้นต่อเนื่อง $\ge 4$ ชม., วิเคราะห์ช่วงน้ำนิ่งแช่, คำนวณ Observed Travel Time, และเทรน ML Model |
-| [`scripts/export_backend_dataset.py`](scripts/export_backend_dataset.py) | Step 5: Export ข้อมูลลงตาราง Database `station_relations` และสร้าง `relations_frontend.json` |
+| [`scripts/calculate_rainfall_thresholds.py`](scripts/calculate_rainfall_thresholds.py) | **Step 5 (ใหม่)**: ใช้ ML เรียนรู้สภาวะดิน (Wet/Normal/Dry) และคำนวณปริมาณฝนสะสมกระตุ้นน้ำหลาก & เตือนภัย 4 ช่วงเวลา (`3h`, `24h`, `72h`, `168h`) |
+| [`scripts/export_backend_dataset.py`](scripts/export_backend_dataset.py) | Step 6: Export ข้อมูลลงตาราง Database `station_relations` และสร้าง `relations_frontend.json` |
 
 ---
 
-### 4.2 ตัวอย่างคำสั่งการรัน Master Script (Single-Command Run)
+### 4.2 การอัปเดตเกณฑ์ฝนสะสมแบบ Direct In-Place Update (ไม่ง้อ Full Pipeline)
+
+หากต้องการคำนวณและอัปเดตเฉพาะเกณฑ์ฝนสะสมกระตุ้นน้ำหลากลงในไฟล์ข้อมูลเดิม โดยไม่ต้องเสียเวลารัน GIS/DEM ใหม่:
+
+```bash
+# 1. อัปเดตเฉพาะลุ่มน้ำยม (ใช้เวลาเพียง 2-5 วินาที)
+./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin yom --update-existing
+
+# 2. อัปเดตครบทุก 5 ลุ่มน้ำหลัก
+./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin all --update-existing
+```
+
+#### เกณฑ์ฝนที่คำนวณได้ในแต่ละคู่สถานี (4 ช่วงเวลา $\times$ 4 สภาวะดิน):
+* **4 ช่วงเวลาหลัก**: `3h` (ฝนฉับพลัน), `24h` (ฝน 1 วัน), `72h` (ฝนมรสุม 3 วัน), `168h` (ดินอิ่มตัว 7 วัน)
+* **4 ตัวชี้วัดสภาวะดิน (Zero Hardcoding - ML Clustering)**:
+  * `inceptionRainMm`: ฝนที่เริ่มทำให้น้ำในลำน้ำเริ่มขยับขึ้น ($\ge 0.20$ ม.) ในสภาวะดินปกติ
+  * `warningRainMm`: ฝนที่ทำให้น้ำแตะระดับเตือนภัย ($BankLevel - 0.50$ ม. หรือ $P_{85}$) ในสภาวะดินปกติ
+  * `wetSoilWarningRainMm`: เกณฑ์ฝนเตือนภัยเมื่อ **ดินอิ่มน้ำ** (ฝน 7 วันก่อนหน้าสูง) *(Worst-Case / เตือนภัยเร็ว)*
+  * `drySoilWarningRainMm`: เกณฑ์ฝนเตือนภัยเมื่อ **ดินแห้งแล้ง** *(ดินช่วยดูดซับน้ำ)*
+
+---
+
+### 4.3 ตัวอย่างคำสั่งการรัน Master Script (Full 6-Step Pipeline)
 
 ```bash
 # 1. รันลุ่มน้ำยม (ระบุ NASA Earthdata Login สำหรับโหลด ALOS PALSAR 12.5m DEM)
@@ -175,8 +198,11 @@ export EARTHDATA_PASS="your_password"
 
 ---
 
-### 4.3 ไฟล์ผลลัพธ์โมเดลสำหรับ Backend & แผนที่ Frontend
+### 4.4 ไฟล์ผลลัพธ์โมเดลสำหรับ Backend & แผนที่ Frontend
 
+* `dataset/{basin}/response/rainfall-thresholds.json` — เกณฑ์ฝนสะสมกระตุ้นน้ำหลากและเตือนภัยแยกรายคู่สถานีฝน-น้ำ
+* `dataset/{basin}/processed/station_relations_db.json` — Payload สำหรับตาราง `station_relations` ใน PostgreSQL
+* `dataset/{basin}/processed/relations_frontend.json` — โครงสร้างข้อมูลสำหรับหน้า `StationRelations.tsx` บน Frontend
 * `dataset/{basin}/processed/flow_paths.geojson` — เส้นทางเวกเตอร์การไหลของน้ำ (Rain-to-Gauge และ Gauge-to-Gauge) สำหรับแสดงผลบน `LeafletWaterMap.tsx`
 * `dataset/{basin}/processed/river_network.geojson` — เส้นโครงข่ายลำน้ำสายหลักและสายรองทั้งหมด พร้อมความชัน
 * `dataset/{basin}/processed/station_relations_db.json` — ข้อมูลสำหรับบันทึกลงตาราง `station_relations` ของ PostgreSQL

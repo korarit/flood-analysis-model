@@ -1,0 +1,12 @@
+{
+  "basin": "yom",
+  "total_database_relations": 284,
+  "gauge_to_gauge_relations": 0,
+  "rainfall_to_gauge_relations": 284,
+  "files_exported": [
+    "./dataset/yom/processed/station_relations_db.json",
+    "./dataset/yom/processed/relations_frontend.json",
+    "./dataset/yom/processed/flow_paths.geojson",
+    "./dataset/yom/processed/river_network.geojson"
+  ]
+}

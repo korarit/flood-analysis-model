@@ -28,22 +28,28 @@ def export_basin_model_dataset(basin: str, basin_dir: str):
     os.makedirs(processed_dir, exist_ok=True)
 
     estimated_response_path = os.path.join(response_dir, "estimated-response.json")
+    station_relations_path = os.path.join(station_dir, "station-relations.json")
     rainfall_relations_path = os.path.join(station_dir, "rainfall-relations.json")
     flow_paths_src = os.path.join(processed_dir, "flow_paths.geojson")
     river_network_src = os.path.join(river_dir, "river_network.geojson")
 
-    if not os.path.exists(estimated_response_path):
-        print(f"❌ ERROR: estimated-response.json not found in {response_dir}. Run 04_train_response_model.py first!", file=sys.stderr)
-        sys.exit(1)
-
-    print(f"\n📦 [STEP 5] Exporting Backend & Frontend Artifacts for Basin: {basin.upper()}")
+    print(f"\n📦 [STEP 6] Exporting Backend & Frontend Artifacts for Basin: {basin.upper()}")
 
     # 1. Load Response Model Results & Rainfall Relations
-    with open(estimated_response_path, 'r', encoding='utf-8') as f:
-        gauge_relations = json.load(f)
+    gauge_relations = []
+    if os.path.exists(estimated_response_path):
+        with open(estimated_response_path, 'r', encoding='utf-8') as f:
+            gauge_relations = json.load(f)
+    elif os.path.exists(station_relations_path):
+        with open(station_relations_path, 'r', encoding='utf-8') as f:
+            gauge_relations = json.load(f)
 
+    rain_thresholds_path = os.path.join(response_dir, "rainfall-thresholds.json")
     rain_relations = []
-    if os.path.exists(rainfall_relations_path):
+    if os.path.exists(rain_thresholds_path):
+        with open(rain_thresholds_path, 'r', encoding='utf-8') as f:
+            rain_relations = json.load(f)
+    elif os.path.exists(rainfall_relations_path):
         with open(rainfall_relations_path, 'r', encoding='utf-8') as f:
             rain_relations = json.load(f)
 

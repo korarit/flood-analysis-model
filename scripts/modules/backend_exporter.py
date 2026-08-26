@@ -99,8 +99,16 @@ def export_backend_station_relations(
         lag_min_m = int(rel.get('response_lag_minutes_min', int(round(lag_min_h * 60))))
         lag_max_m = int(rel.get('response_lag_minutes_max', int(round(lag_max_h * 60))))
 
-        dist_km = float(rel.get('total_distance_km', 0.0))
+        dist_km = float(rel.get('total_distance_km', rel.get('distance_km', 0.0)))
         weight_pct = float(rel.get('influence_weight_percent', 30.0))
+        thresholds = rel.get('rainfallThresholds')
+        if not thresholds:
+            thresholds = {
+                "3h": {"inceptionRainMm": 32.0, "warningRainMm": 65.0, "wetSoilWarningRainMm": 40.0, "drySoilWarningRainMm": 95.0},
+                "24h": {"inceptionRainMm": 68.0, "warningRainMm": 120.0, "wetSoilWarningRainMm": 80.0, "drySoilWarningRainMm": 175.0},
+                "72h": {"inceptionRainMm": 115.0, "warningRainMm": 190.0, "wetSoilWarningRainMm": 135.0, "drySoilWarningRainMm": 260.0},
+                "168h": {"inceptionRainMm": 165.0, "warningRainMm": 230.0, "wetSoilWarningRainMm": 160.0, "drySoilWarningRainMm": 320.0}
+            }
 
         record = {
             "stationId": target_water_id,
@@ -114,10 +122,11 @@ def export_backend_station_relations(
             "travelTimeHoursMin": lag_min_h,
             "travelTimeHoursMax": lag_max_h,
             "influenceWeightPercent": weight_pct,
-            "responseType": "ESTIMATED",
-            "confidenceLevel": "HIGH" if dist_km <= 20.0 else "MEDIUM",
+            "responseType": rel.get('thresholdConfidence', 'ESTIMATED'),
+            "confidenceLevel": rel.get('thresholdConfidence', 'HIGH' if dist_km <= 20.0 else "MEDIUM"),
             "metadata": {
-                "typicalRainThresholdMm": rel.get('typical_rain_threshold_mm', 45.0),
+                "typicalRainThresholdMm": thresholds.get("24h", {}).get("warningRainMm", 120.0),
+                "rainfallThresholds": thresholds,
                 "elevationDiffM": rel.get('elevation_diff_m', 0.0),
                 "slope": rel.get('slope', 0.0),
                 "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
@@ -139,8 +148,10 @@ def export_backend_station_relations(
             "travelTimeHours": lag_hours,
             "travelTimeHoursMin": lag_min_h,
             "travelTimeHoursMax": lag_max_h,
-            "influenceWeightPercent": weight_pct
+            "influenceWeightPercent": weight_pct,
+            "rainfallThresholds": thresholds
         })
 
     save_json(db_records, output_db_path)
     save_json(list(frontend_map.values()), output_frontend_path)
+

@@ -86,28 +86,39 @@ def run_pipeline_for_basin(
     # Step 4: Travel Time & Hydrological Response Model
     # -------------------------------------------------------------
     t0 = time.time()
-    print(f"\n[Step 4/5] Detecting 4h Rises, Computing Observed Times, and Training ML Model...")
+    print(f"\n[Step 4/6] Detecting 4h Rises, Computing Observed Times, and Training ML Model...")
     run_response_model_pipeline(basin, basin_dir)
     t4_elapsed = time.time() - t0
     print(f"  ⏱️ Step 4 completed in {t4_elapsed:.1f}s")
 
     # -------------------------------------------------------------
-    # Step 5: Backend & Frontend Export Engine
+    # Step 5: Empirical ML Rainfall Trigger Thresholds
     # -------------------------------------------------------------
     t0 = time.time()
-    print(f"\n[Step 5/5] Exporting Database Schema and Map GeoJSON Layers...")
-    export_basin_model_dataset(basin, basin_dir)
+    print(f"\n[Step 5/6] Learning Soil Regimes & Calculating Rainfall Trigger Thresholds...")
+    from scripts.calculate_rainfall_thresholds import calculate_basin_rainfall_thresholds
+    calculate_basin_rainfall_thresholds(basin, basin_dir, update_existing=False)
     t5_elapsed = time.time() - t0
     print(f"  ⏱️ Step 5 completed in {t5_elapsed:.1f}s")
+
+    # -------------------------------------------------------------
+    # Step 6: Backend & Frontend Export Engine
+    # -------------------------------------------------------------
+    t0 = time.time()
+    print(f"\n[Step 6/6] Exporting Database Schema and Map GeoJSON Layers...")
+    export_basin_model_dataset(basin, basin_dir)
+    t6_elapsed = time.time() - t0
+    print(f"  ⏱️ Step 6 completed in {t6_elapsed:.1f}s")
 
     total_elapsed = time.time() - start_total_time
     print("\n" + "═" * 70)
     print(f"✅ [PIPELINE FINISHED] Basin: {basin.upper()} in {total_elapsed:.1f}s")
-    print(f"   • Step 1 (GIS/DEM Fetch)    : {t1_elapsed:.1f}s")
-    print(f"   • Step 2 (Terrain/Rivers)   : {t2_elapsed:.1f}s")
-    print(f"   • Step 3 (Station Chain)    : {t3_elapsed:.1f}s")
-    print(f"   • Step 4 (Response Model)   : {t4_elapsed:.1f}s")
-    print(f"   • Step 5 (Backend Export)   : {t5_elapsed:.1f}s")
+    print(f"   • Step 1 (GIS/DEM Fetch)        : {t1_elapsed:.1f}s")
+    print(f"   • Step 2 (Terrain/Rivers)       : {t2_elapsed:.1f}s")
+    print(f"   • Step 3 (Station Chain)        : {t3_elapsed:.1f}s")
+    print(f"   • Step 4 (Response Travel Time) : {t4_elapsed:.1f}s")
+    print(f"   • Step 5 (Rain Trigger Engine)  : {t5_elapsed:.1f}s")
+    print(f"   • Step 6 (Backend Export)       : {t6_elapsed:.1f}s")
     print("═" * 70 + "\n")
 
 

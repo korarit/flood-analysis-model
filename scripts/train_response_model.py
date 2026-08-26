@@ -26,9 +26,10 @@ from scripts.modules.hydrology_model import (
 
 def build_station_alias_map(basin_dir: str) -> Dict[str, Set[str]]:
     """Builds a bidirectional alias mapping between station_id, station_oldcode, and station_code."""
-    water_st, _ = load_stations_for_basin(basin_dir)
+    water_st, rain_st = load_stations_for_basin(basin_dir)
+    all_st = (water_st or []) + (rain_st or [])
     alias_map: Dict[str, Set[str]] = {}
-    for st in water_st:
+    for st in all_st:
         sid = str(st.get('station_id') or '').strip()
         old = str(st.get('station_oldcode') or '').strip()
         code = str(st.get('station_code') or '').strip()
