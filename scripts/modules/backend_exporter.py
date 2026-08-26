@@ -31,14 +31,20 @@ def export_backend_station_relations(
         if not st_id or not target_id:
             continue
 
+        tt_hours = float(rel.get('travel_time_hours', 0.0))
+        tt_min_raw = float(rel.get('travel_time_hours_min', tt_hours))
+        # Apply -30% Safety Factor (SF) for early warning minimum threshold
+        tt_min = round(max(0.3, min(tt_min_raw, tt_hours * 0.70)), 1)
+        tt_max = float(rel.get('travel_time_hours_max', round(tt_hours * 1.25, 1)))
+
         record = {
             "stationId": st_id,
             "targetStationId": target_id,
             "relationType": "downstream_gauge",
             "distanceKm": float(rel.get('distance_km', 0.0)),
-            "travelTimeHours": float(rel.get('travel_time_hours', 0.0)),
-            "travelTimeHoursMin": float(rel.get('travel_time_hours_min', 0.0)),
-            "travelTimeHoursMax": float(rel.get('travel_time_hours_max', 0.0)),
+            "travelTimeHours": tt_hours,
+            "travelTimeHoursMin": tt_min,
+            "travelTimeHoursMax": tt_max,
             "influenceWeightPercent": 100.0,
             "responseType": rel.get('response_type', 'ESTIMATED'),
             "confidenceLevel": rel.get('confidence', 'MEDIUM'),
@@ -57,10 +63,6 @@ def export_backend_station_relations(
             frontend_map[st_id] = {"stationId": st_id, "influencingStations": [], "downstreamStations": []}
         if target_id not in frontend_map:
             frontend_map[target_id] = {"stationId": target_id, "influencingStations": [], "downstreamStations": []}
-
-        tt_hours = float(rel.get('travel_time_hours', 0.0))
-        tt_min = float(rel.get('travel_time_hours_min', round(tt_hours * 0.85, 1)))
-        tt_max = float(rel.get('travel_time_hours_max', round(tt_hours * 1.25, 1)))
 
         frontend_map[st_id]["downstreamStations"].append({
             "stationId": target_id,
@@ -84,7 +86,9 @@ def export_backend_station_relations(
         lag_hours = float(rel.get('response_lag_hours', 4.0))
         dist_km = float(rel.get('total_distance_km', 0.0))
         weight_pct = float(rel.get('influence_weight_percent', 30.0))
-        lag_min = float(rel.get('response_lag_hours_min', lag_hours))
+        lag_min_raw = float(rel.get('response_lag_hours_min', lag_hours))
+        # Apply -30% Safety Factor (SF) for early warning minimum threshold
+        lag_min = round(max(0.3, min(lag_min_raw, lag_hours * 0.70)), 1)
         lag_max = float(rel.get('response_lag_hours_max', lag_hours))
 
         record = {
