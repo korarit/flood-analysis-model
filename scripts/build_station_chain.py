@@ -48,8 +48,8 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
                     first_dist = data[0].get('distance_km', 0.0) or data[0].get('total_distance_km', 0.0)
                     if first_dist > 2000.0:  # Invalidated corrupted distance from old bug
                         return False
-                    # Ensure rainfall relations have calculated response_lag_hours
-                    if "rainfall-relations" in path and "response_lag_hours" not in data[0]:
+                    # Ensure rainfall relations have calculated response_lag_minutes
+                    if "rainfall-relations" in path and "response_lag_minutes" not in data[0]:
                         return False
         except Exception:
             return False

@@ -172,10 +172,17 @@ def calculate_observed_travel_time(
     min_h = min(min_h, typical_h * 0.9)
     max_h = max(max_h, typical_h * 1.1)
 
+    typical_m = int(round(typical_h * 60.0))
+    min_m = int(round(max(10.0, min_h * 60.0 * 0.70)))  # Apply -30% Early Warning SF
+    max_m = int(round(max_h * 60.0))
+
     return {
-        "travel_time_hours": round(typical_h, 2),
-        "travel_time_hours_min": round(min_h, 2),
-        "travel_time_hours_max": round(max_h, 2),
+        "travel_time_minutes": typical_m,
+        "travel_time_minutes_min": min_m,
+        "travel_time_minutes_max": max_m,
+        "travel_time_hours": round(typical_m / 60.0, 2),
+        "travel_time_hours_min": round(min_m / 60.0, 2),
+        "travel_time_hours_max": round(max_m / 60.0, 2),
         "avg_holding_duration_hours": round(avg_hold, 1),
         "matched_event_count": len(matched_mid_lags),
         "detection_rule": "continuous_rise_4h_with_plateau_midpoint"
@@ -216,6 +223,9 @@ def train_estimated_response_model(
         # Check if already observed
         obs = next((o for o in valid_train if o['station_id'] == st_up and o['target_station_id'] == st_down), None)
         if obs:
+            pair_data['travel_time_minutes'] = obs.get('travel_time_minutes', int(round(obs['travel_time_hours'] * 60.0)))
+            pair_data['travel_time_minutes_min'] = obs.get('travel_time_minutes_min', int(round(obs['travel_time_hours_min'] * 60.0)))
+            pair_data['travel_time_minutes_max'] = obs.get('travel_time_minutes_max', int(round(obs['travel_time_hours_max'] * 60.0)))
             pair_data['travel_time_hours'] = obs['travel_time_hours']
             pair_data['travel_time_hours_min'] = obs['travel_time_hours_min']
             pair_data['travel_time_hours_max'] = obs['travel_time_hours_max']
@@ -227,6 +237,7 @@ def train_estimated_response_model(
             # Predict using model or hydraulic formula (wave speed ~ 5-8 km/h typical)
             dist = float(pair_data.get('distance_km', 15.0))
             slope = float(pair_data.get('river_slope', 0.0008))
+            dz = float(pair_data.get('elevation_diff_m', 5.0))
             # Hydraulic Manning wave speed approximation across flow stages
             s_safe = max(0.0001, slope)
             v_bankfull = max(3.8, min(11.5, 7.2 * (s_safe / 0.001) ** 0.22))
@@ -234,18 +245,20 @@ def train_estimated_response_model(
             v_mean = max(2.5, min(9.0, 5.2 * (s_safe / 0.001) ** 0.20))
 
             if model:
-                pred_y = float(model.predict([[dist, math.sqrt(s_safe), dz]])[0])
-                pred_y = max(0.5, pred_y)
-                t_min = max(0.3, round(dist / v_bankfull, 2))
-                t_max = max(pred_y + 0.5, round(dist / v_lowflow, 2))
+                pred_y_h = float(model.predict([[dist, math.sqrt(s_safe), dz]])[0])
+                pred_y_m = int(round(max(0.5, pred_y_h) * 60.0))
             else:
-                pred_y = dist / v_mean
-                t_min = max(0.3, round(dist / v_bankfull, 2))
-                t_max = max(pred_y + 0.5, round(dist / v_lowflow, 2))
+                pred_y_m = int(round((dist / v_mean) * 60.0))
 
-            pair_data['travel_time_hours'] = round(pred_y, 2)
-            pair_data['travel_time_hours_min'] = round(min(pred_y, t_min), 2)
-            pair_data['travel_time_hours_max'] = round(max(pred_y, t_max), 2)
+            t_min_m = int(round(max(15, min((dist / v_bankfull) * 60.0, pred_y_m * 0.70))))
+            t_max_m = int(round(max(pred_y_m + 30, (dist / v_lowflow) * 60.0)))
+
+            pair_data['travel_time_minutes'] = pred_y_m
+            pair_data['travel_time_minutes_min'] = t_min_m
+            pair_data['travel_time_minutes_max'] = t_max_m
+            pair_data['travel_time_hours'] = round(pred_y_m / 60.0, 2)
+            pair_data['travel_time_hours_min'] = round(t_min_m / 60.0, 2)
+            pair_data['travel_time_hours_max'] = round(t_max_m / 60.0, 2)
             pair_data['avg_holding_duration_hours'] = 6.0
             pair_data['response_type'] = 'ESTIMATED'
             pair_data['confidence'] = 'MEDIUM' if dist <= 50.0 else 'LOW'

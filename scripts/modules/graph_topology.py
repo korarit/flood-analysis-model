@@ -218,9 +218,9 @@ def trace_downstream_path(
     return coords, stop_data
 
 
-def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tuple[float, float, float]:
+def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tuple[int, int, int, float, float, float]:
     """
-    Computes hydrological runoff response lag time bounds (avg, min, max in hours)
+    Computes hydrological runoff response lag time directly in minutes (and hours)
     from a rainfall telemetry station down the mountain catchment to the destination water station.
 
     Hydrological Modeling Basis & References:
@@ -229,7 +229,7 @@ def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tu
        - Hydrological Lag Time T_lag ≈ 0.6 * Tc for peak flood response.
     2. USDA NRCS National Engineering Handbook (Part 630: Hydrology, Chapter 15 / TR-55):
        - Segmented Velocity Method: Overland hill slope runoff + Open channel river routing.
-    3. Flash Flood / Saturated Catchment (Min Lag):
+    3. Flash Flood / Saturated Catchment (Min Lag with -30% Early Warning SF):
        - Rapid rill formation, lower Manning n (0.035), higher flood wave speed.
     4. Baseflow / Initial Abstraction / Dry Soil (Max Lag):
        - Slower initial overland sheet flow, vegetative resistance, lower channel stage.
@@ -237,22 +237,33 @@ def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tu
     s_safe = max(0.0005, slope)
     l_m = max(100.0, dist_km * 1000.0)
 
-    # 1. Min Lag (Saturated Catchment / High Intensity Flash Flood)
-    tc_min = 0.000095 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    # 1. Overland Time of Concentration Tc directly in minutes
+    tc_avg_min = 0.0078 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    tc_min_min = 0.0057 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+    tc_max_min = 0.0111 * ((l_m / math.sqrt(s_safe)) ** 0.77)
+
+    # 2. Kinematic Channel Wave Velocity (km/h) -> travel time in minutes
     v_max = max(3.5, min(10.0, 5.5 * (s_safe / 0.005) ** 0.25))
-    t_min = round(max(0.3, 0.4 * tc_min + 0.6 * (dist_km / v_max)), 1)
-
-    # 2. Average Lag (Typical Antecedent Soil Moisture)
-    tc_avg = 0.00013 * ((l_m / math.sqrt(s_safe)) ** 0.77)
     v_avg = max(2.0, min(8.0, 4.0 * (s_safe / 0.005) ** 0.22))
-    t_avg = round(max(0.5, 0.5 * tc_avg + 0.5 * (dist_km / v_avg)), 1)
-
-    # 3. Max Lag (Dry Antecedent Soil / Low Intensity Runoff)
-    tc_max = 0.000185 * ((l_m / math.sqrt(s_safe)) ** 0.77)
     v_min = max(1.2, min(5.0, 2.5 * (s_safe / 0.005) ** 0.20))
-    t_max = round(max(t_avg + 0.3, 0.6 * tc_max + 0.4 * (dist_km / v_min)), 1)
 
-    return t_avg, t_min, t_max
+    t_kin_max_min = (dist_km / v_max) * 60.0
+    t_kin_avg_min = (dist_km / v_avg) * 60.0
+    t_kin_min_min = (dist_km / v_min) * 60.0
+
+    # 3. Blended Lag Time directly in Minutes
+    lag_avg_m = int(round(max(15, 0.5 * tc_avg_min + 0.5 * t_kin_avg_min)))
+    t_min_phys = 0.4 * tc_min_min + 0.6 * t_kin_max_min
+    # Apply -30% early warning safety margin to minimum lag time
+    lag_min_m = int(round(max(10, min(t_min_phys, lag_avg_m * 0.70))))
+    lag_max_m = int(round(max(lag_avg_m + 15, 0.6 * tc_max_min + 0.4 * t_kin_min_min)))
+
+    # Derived hours
+    lag_avg_h = round(lag_avg_m / 60.0, 1)
+    lag_min_h = round(lag_min_m / 60.0, 1)
+    lag_max_h = round(lag_max_m / 60.0, 1)
+
+    return lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h
 
 
 def build_flow_paths_and_relations(
@@ -401,7 +412,7 @@ def build_flow_paths_and_relations(
             z_water = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st and target_st.get('grid_row') is not None else z_rain
             dz = max(0.0, z_rain - z_water)
             slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
-            lag_avg, lag_min, lag_max = compute_rainfall_lag_bounds(dist_km, slope, dz)
+            lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(dist_km, slope, dz)
             feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
 
             feature = {
@@ -414,9 +425,12 @@ def build_flow_paths_and_relations(
                     "to_station_id": target_water_id,
                     "to_station_name": target_st.get('station_name', '') if target_st else '',
                     "total_distance_km": round(dist_km, 2),
-                    "response_lag_hours": lag_avg,
-                    "response_lag_hours_min": lag_min,
-                    "response_lag_hours_max": lag_max,
+                    "response_lag_minutes": lag_avg_m,
+                    "response_lag_minutes_min": lag_min_m,
+                    "response_lag_minutes_max": lag_max_m,
+                    "response_lag_hours": lag_avg_h,
+                    "response_lag_hours_min": lag_min_h,
+                    "response_lag_hours_max": lag_max_h,
                     "elevation_diff_m": round(dz, 2),
                     "slope": round(slope, 6),
                     "upstream_elev_m": round(z_rain, 2),

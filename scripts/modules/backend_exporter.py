@@ -32,14 +32,12 @@ def export_backend_station_relations(
             continue
 
         tt_hours = float(rel.get('travel_time_hours', 0.0))
-        tt_min_raw = float(rel.get('travel_time_hours_min', tt_hours))
-        # Apply -30% Safety Factor (SF) for early warning minimum threshold
-        tt_min = round(max(0.3, min(tt_min_raw, tt_hours * 0.70)), 1)
-        tt_max = float(rel.get('travel_time_hours_max', round(tt_hours * 1.25, 1)))
+        tt_min_h = float(rel.get('travel_time_hours_min', tt_hours))
+        tt_max_h = float(rel.get('travel_time_hours_max', tt_hours))
 
-        tt_min_m = int(round(tt_min * 60))
-        tt_avg_m = int(round(tt_hours * 60))
-        tt_max_m = int(round(tt_max * 60))
+        tt_avg_m = int(rel.get('travel_time_minutes', int(round(tt_hours * 60))))
+        tt_min_m = int(rel.get('travel_time_minutes_min', int(round(tt_min_h * 60))))
+        tt_max_m = int(rel.get('travel_time_minutes_max', int(round(tt_max_h * 60))))
 
         record = {
             "stationId": st_id,
@@ -50,8 +48,8 @@ def export_backend_station_relations(
             "travelTimeMinutesMin": tt_min_m,
             "travelTimeMinutesMax": tt_max_m,
             "travelTimeHours": tt_hours,
-            "travelTimeHoursMin": tt_min,
-            "travelTimeHoursMax": tt_max,
+            "travelTimeHoursMin": tt_min_h,
+            "travelTimeHoursMax": tt_max_h,
             "influenceWeightPercent": 100.0,
             "responseType": rel.get('response_type', 'ESTIMATED'),
             "confidenceLevel": rel.get('confidence', 'MEDIUM'),
@@ -80,8 +78,8 @@ def export_backend_station_relations(
             "travelTimeMinutesMin": tt_min_m,
             "travelTimeMinutesMax": tt_max_m,
             "travelTimeHours": tt_hours,
-            "travelTimeHoursMin": tt_min,
-            "travelTimeHoursMax": tt_max,
+            "travelTimeHoursMin": tt_min_h,
+            "travelTimeHoursMax": tt_max_h,
             "confidence": rel.get('confidence', 'MEDIUM'),
             "responseType": rel.get('response_type', 'ESTIMATED')
         })
@@ -94,16 +92,15 @@ def export_backend_station_relations(
             continue
 
         lag_hours = float(rel.get('response_lag_hours', 4.0))
+        lag_min_h = float(rel.get('response_lag_hours_min', lag_hours))
+        lag_max_h = float(rel.get('response_lag_hours_max', lag_hours))
+
+        lag_avg_m = int(rel.get('response_lag_minutes', int(round(lag_hours * 60))))
+        lag_min_m = int(rel.get('response_lag_minutes_min', int(round(lag_min_h * 60))))
+        lag_max_m = int(rel.get('response_lag_minutes_max', int(round(lag_max_h * 60))))
+
         dist_km = float(rel.get('total_distance_km', 0.0))
         weight_pct = float(rel.get('influence_weight_percent', 30.0))
-        lag_min_raw = float(rel.get('response_lag_hours_min', lag_hours))
-        # Apply -30% Safety Factor (SF) for early warning minimum threshold
-        lag_min = round(max(0.3, min(lag_min_raw, lag_hours * 0.70)), 1)
-        lag_max = float(rel.get('response_lag_hours_max', lag_hours))
-
-        lag_min_m = int(round(lag_min * 60))
-        lag_avg_m = int(round(lag_hours * 60))
-        lag_max_m = int(round(lag_max * 60))
 
         record = {
             "stationId": target_water_id,
@@ -114,8 +111,8 @@ def export_backend_station_relations(
             "travelTimeMinutesMin": lag_min_m,
             "travelTimeMinutesMax": lag_max_m,
             "travelTimeHours": lag_hours,
-            "travelTimeHoursMin": lag_min,
-            "travelTimeHoursMax": lag_max,
+            "travelTimeHoursMin": lag_min_h,
+            "travelTimeHoursMax": lag_max_h,
             "influenceWeightPercent": weight_pct,
             "responseType": "ESTIMATED",
             "confidenceLevel": "HIGH" if dist_km <= 20.0 else "MEDIUM",
@@ -140,8 +137,8 @@ def export_backend_station_relations(
             "travelTimeMinutesMin": lag_min_m,
             "travelTimeMinutesMax": lag_max_m,
             "travelTimeHours": lag_hours,
-            "travelTimeHoursMin": lag_min,
-            "travelTimeHoursMax": lag_max,
+            "travelTimeHoursMin": lag_min_h,
+            "travelTimeHoursMax": lag_max_h,
             "influenceWeightPercent": weight_pct
         })
 
