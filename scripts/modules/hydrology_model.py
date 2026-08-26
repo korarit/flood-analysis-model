@@ -37,6 +37,14 @@ def detect_flood_rise_and_plateau_events(
     1. Continuous Rise >= min_rise_hours (without arbitrary height threshold).
     2. Plateau Holding Period and Plateau Midpoint calculation.
     """
+    if not times or not values or len(times) != len(values):
+        return []
+
+    # Ensure time-series is sorted chronologically
+    paired = sorted(zip(times, values), key=lambda x: x[0])
+    times = [p[0] for p in paired]
+    values = [p[1] for p in paired]
+
     n = len(values)
     if n < min_rise_hours:
         return []
@@ -62,16 +70,15 @@ def detect_flood_rise_and_plateau_events(
             
             peak_val = max(values[rise_start_idx:curr + 1])
             
-            # Detect plateau at peak
+            # Step backward from curr to find start of plateau at peak level
             plateau_start_idx = curr
-            while plateau_start_idx > rise_start_idx and abs(values[plateau_start_idx] - peak_val) <= plateau_diff_threshold:
+            while plateau_start_idx > rise_start_idx and abs(values[plateau_start_idx - 1] - peak_val) <= plateau_diff_threshold:
                 plateau_start_idx -= 1
-            plateau_start_idx = max(rise_start_idx, plateau_start_idx + 1)
 
+            # Step forward from curr to find end of plateau at peak level
             plateau_end_idx = curr
-            while plateau_end_idx < n - 1 and abs(values[plateau_end_idx] - peak_val) <= plateau_diff_threshold:
+            while plateau_end_idx < n - 1 and abs(values[plateau_end_idx + 1] - peak_val) <= plateau_diff_threshold:
                 plateau_end_idx += 1
-            plateau_end_idx = min(n - 1, plateau_end_idx - 1)
 
             hold_hours = max(1.0, (times[plateau_end_idx] - times[plateau_start_idx]).total_seconds() / 3600.0)
             
