@@ -37,11 +37,18 @@ def export_backend_station_relations(
         tt_min = round(max(0.3, min(tt_min_raw, tt_hours * 0.70)), 1)
         tt_max = float(rel.get('travel_time_hours_max', round(tt_hours * 1.25, 1)))
 
+        tt_min_m = int(round(tt_min * 60))
+        tt_avg_m = int(round(tt_hours * 60))
+        tt_max_m = int(round(tt_max * 60))
+
         record = {
             "stationId": st_id,
             "targetStationId": target_id,
             "relationType": "downstream_gauge",
             "distanceKm": float(rel.get('distance_km', 0.0)),
+            "travelTimeMinutes": tt_avg_m,
+            "travelTimeMinutesMin": tt_min_m,
+            "travelTimeMinutesMax": tt_max_m,
             "travelTimeHours": tt_hours,
             "travelTimeHoursMin": tt_min,
             "travelTimeHoursMax": tt_max,
@@ -69,6 +76,9 @@ def export_backend_station_relations(
             "stationName": rel.get('to_station_name', ''),
             "stationType": "water_level",
             "distanceKm": float(rel.get('distance_km', 0.0)),
+            "travelTimeMinutes": tt_avg_m,
+            "travelTimeMinutesMin": tt_min_m,
+            "travelTimeMinutesMax": tt_max_m,
             "travelTimeHours": tt_hours,
             "travelTimeHoursMin": tt_min,
             "travelTimeHoursMax": tt_max,
@@ -91,11 +101,18 @@ def export_backend_station_relations(
         lag_min = round(max(0.3, min(lag_min_raw, lag_hours * 0.70)), 1)
         lag_max = float(rel.get('response_lag_hours_max', lag_hours))
 
+        lag_min_m = int(round(lag_min * 60))
+        lag_avg_m = int(round(lag_hours * 60))
+        lag_max_m = int(round(lag_max * 60))
+
         record = {
             "stationId": target_water_id,
             "targetStationId": r_id,
             "relationType": "rainfall_influence",
             "distanceKm": dist_km,
+            "travelTimeMinutes": lag_avg_m,
+            "travelTimeMinutesMin": lag_min_m,
+            "travelTimeMinutesMax": lag_max_m,
             "travelTimeHours": lag_hours,
             "travelTimeHoursMin": lag_min,
             "travelTimeHoursMax": lag_max,
@@ -119,6 +136,9 @@ def export_backend_station_relations(
             "stationName": rel.get('from_station_name', ''),
             "stationType": "rainfall",
             "distanceKm": dist_km,
+            "travelTimeMinutes": lag_avg_m,
+            "travelTimeMinutesMin": lag_min_m,
+            "travelTimeMinutesMax": lag_max_m,
             "travelTimeHours": lag_hours,
             "travelTimeHoursMin": lag_min,
             "travelTimeHoursMax": lag_max,
