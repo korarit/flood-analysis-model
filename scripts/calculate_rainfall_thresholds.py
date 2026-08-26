@@ -238,6 +238,8 @@ def main():
         basin_dir = os.path.join(args.dir, b)
         if os.path.exists(basin_dir):
             calculate_basin_rainfall_thresholds(b, basin_dir, update_existing=args.update_existing)
+        else:
+            print(f"❌ ERROR: Basin directory not found: {basin_dir} (Check --dir path)")
 
 
 if __name__ == "__main__":
