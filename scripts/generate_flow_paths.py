@@ -162,6 +162,11 @@ def generate_basin_flow_paths(
         except Exception as ex:
             print(f"  [WARN] Could not sync final_station_data.json: {ex}")
 
+    # Free memory buffers immediately
+    import gc
+    del filled_dem, flw, fdir, acc
+    gc.collect()
+
     elapsed = time.time() - t_start
     print(f"\n✅ [DONE] Generated {len(flow_paths_geojson['features'])} Flow Paths in {elapsed:.1f}s:")
     print(f"        • Flow Paths GeoJSON : {flow_paths_path}")

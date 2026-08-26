@@ -180,6 +180,11 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
         print(f"        Generated {len(catchments_geojson['features'])} catchment polygons.")
         print(f"        Saved Catchments GeoJSON: {catchments_path}")
 
+    # Free memory buffers immediately
+    import gc
+    del filled_dem, flw, fdir, acc
+    gc.collect()
+
 
 def main():
     parser = argparse.ArgumentParser(description="Snap stations, generate flow paths, and delineate catchments")

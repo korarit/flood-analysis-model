@@ -73,14 +73,21 @@ def clip_dem_to_polygon(
 
 def read_dem_geotiff(
     dem_path: str,
-    max_cells: int = 150_000_000
+    max_cells: int = 25_000_000
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
     Read DEM raster with memory-adaptive scaling.
-    If grid size exceeds max_cells (e.g. 1.1 Billion cells), downsamples adaptively
+    If grid size exceeds max_cells (default 25 Million cells, ~100 MB RAM), downsamples adaptively
     to fit comfortably within RAM while preserving full hydrological fidelity.
     """
     from rasterio.enums import Resampling
+
+    env_max = os.environ.get("MAX_DEM_CELLS")
+    if env_max:
+        try:
+            max_cells = int(env_max)
+        except Exception:
+            pass
 
     with rasterio.open(dem_path) as src:
         nodata = src.nodata if src.nodata is not None else -9999.0
@@ -92,7 +99,7 @@ def read_dem_geotiff(
             new_h = max(100, int(orig_h * scale))
             new_w = max(100, int(orig_w * scale))
             print(f"  [RAM OPT] Large DEM detected ({total_cells:,} cells).")
-            print(f"            Scaling adaptively to {new_h:,} x {new_w:,} ({new_h * new_w:,} cells) to fit RAM...")
+            print(f"            Scaling adaptively to {new_h:,} x {new_w:,} ({new_h * new_w:,} cells, Low-RAM)...")
             
             elev = src.read(
                 1,
@@ -554,10 +561,12 @@ def burn_stream_network_into_dem(
             all_touched=True
         )
 
-        burned_dem = dem.copy()
         valid_mask = (dem != nodata) & ~np.isnan(dem)
-        burned_dem[valid_mask & (burn_mask > 0)] -= burn_depth_m
-        return burned_dem
+        dem[valid_mask & (burn_mask > 0)] -= burn_depth_m
+        del shapes, burn_mask, valid_mask
+        import gc
+        gc.collect()
+        return dem
     except Exception as ex:
         print(f"  [WARN] Stream burning failed: {ex}. Using original DEM.")
         return dem

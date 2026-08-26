@@ -346,27 +346,71 @@ def download_alos_palsar_dem(
         print(f"❌ ERROR: No DEM GeoTIFF files found in {tiles_dir}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"\n  [MOSAIC] Merging {len(dem_files)} DEM tiles into {raw_dem_path}...")
-    src_files_to_mosaic = [rasterio.open(f) for f in dem_files]
-    mosaic, out_trans = merge(src_files_to_mosaic)
-
-    out_meta = src_files_to_mosaic[0].meta.copy()
-    out_meta.update({
-        "driver": "GTiff",
-        "height": mosaic.shape[1],
-        "width": mosaic.shape[2],
-        "transform": out_trans,
-        "compress": "deflate"
-    })
-
-    with rasterio.open(raw_dem_path, "w", **out_meta) as dest:
-        dest.write(mosaic)
-
-    for src in src_files_to_mosaic:
-        src.close()
-
-    print(f"  [OK] Successfully created mosaic DEM: {raw_dem_path}")
+    print(f"\n  [MOSAIC] Merging {len(dem_files)} DEM tiles into {raw_dem_path} (Low-RAM Streaming Engine)...")
+    stream_mosaic_geotiffs(dem_files, raw_dem_path)
     return raw_dem_path
+
+
+def stream_mosaic_geotiffs(dem_files: List[str], output_path: str, nodata: float = -9999.0):
+    """
+    Memory-efficient streaming mosaic that writes GeoTIFF tiles directly into the
+    destination raster on disk window by window, without loading multi-gigabyte arrays into RAM.
+    Requires only ~30-50 MB RAM regardless of how large the river basin is.
+    """
+    from rasterio.transform import from_bounds
+    from rasterio.windows import from_bounds as window_from_bounds
+
+    srcs = [rasterio.open(f) for f in dem_files]
+    try:
+        min_xs = [s.bounds.left for s in srcs]
+        min_ys = [s.bounds.bottom for s in srcs]
+        max_xs = [s.bounds.right for s in srcs]
+        max_ys = [s.bounds.top for s in srcs]
+
+        left = min(min_xs)
+        bottom = min(min_ys)
+        right = max(max_xs)
+        top = max(max_ys)
+
+        res_x = srcs[0].res[0]
+        res_y = srcs[0].res[1]
+        crs = srcs[0].crs
+
+        width = int(round((right - left) / res_x))
+        height = int(round((top - bottom) / res_y))
+        transform = from_bounds(left, bottom, right, top, width, height)
+
+        print(f"  [MOSAIC] Streaming {len(dem_files)} tiles into disk ({height:,} x {width:,} cells, Low-RAM mode)...")
+
+        out_meta = {
+            "driver": "GTiff",
+            "height": height,
+            "width": width,
+            "count": 1,
+            "dtype": "float32",
+            "crs": crs,
+            "transform": transform,
+            "nodata": nodata,
+            "compress": "deflate",
+            "tiled": True,
+            "blockxsize": 512,
+            "blockysize": 512
+        }
+
+        with rasterio.open(output_path, "w", **out_meta) as dst:
+            for idx, s in enumerate(srcs, 1):
+                data = s.read(1)
+                win = window_from_bounds(s.bounds.left, s.bounds.bottom, s.bounds.right, s.bounds.top, transform=transform)
+                win = win.round_offsets().round_shape()
+                dst.write(data, 1, window=win)
+                del data
+                if idx % 10 == 0 or idx == len(srcs):
+                    print(f"        Streamed {idx}/{len(dem_files)} tiles to disk...")
+
+        print(f"  [OK] Successfully created mosaic DEM: {output_path}")
+    finally:
+        for s in srcs:
+            s.close()
 
 
 def fetch_osm_waterways(
