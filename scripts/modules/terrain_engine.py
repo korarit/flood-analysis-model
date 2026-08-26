@@ -491,3 +491,73 @@ def save_geotiff_raster(data: np.ndarray, transform: Affine, crs: Any, output_pa
         compress='deflate',
     ) as dst:
         dst.write(data, 1)
+
+
+def burn_stream_network_into_dem(
+    dem: np.ndarray,
+    transform: Affine,
+    osm_waterways_geojson: Dict[str, Any],
+    crs: Any = None,
+    burn_depth_m: float = 15.0,
+    nodata: float = -9999.0
+) -> np.ndarray:
+    """
+    Applies Hydro-Enforcement (Stream Burning / AGREE technique) to DEM.
+    Carves vector river/stream channels from OpenStreetMap into the DEM surface by lowering
+    elevation along river channels by `burn_depth_m`.
+    This forces D8 hydrological flow directions to strictly follow natural river beds in flat terrain.
+    """
+    if not osm_waterways_geojson or not osm_waterways_geojson.get("features"):
+        return dem
+
+    from rasterio.features import rasterize
+    from shapely.geometry import shape
+
+    nrows, ncols = dem.shape
+    shapes = []
+
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            inv_transformer = None
+
+    for feat in osm_waterways_geojson.get("features", []):
+        geom = feat.get("geometry")
+        if not geom or geom.get("type") not in ("LineString", "MultiLineString"):
+            continue
+        try:
+            if inv_transformer is not None:
+                from shapely.ops import transform as shp_transform
+                geom_obj = shape(geom)
+                geom_proj = shp_transform(lambda x, y: inv_transformer.transform(x, y), geom_obj)
+                shapes.append((geom_proj, 1))
+            else:
+                shapes.append((shape(geom), 1))
+        except Exception:
+            continue
+
+    if not shapes:
+        return dem
+
+    print(f"  [STREAM BURN] Hydro-enforcing {len(shapes):,} OSM river lines into DEM (-{burn_depth_m}m)...")
+    try:
+        burn_mask = rasterize(
+            shapes,
+            out_shape=(nrows, ncols),
+            transform=transform,
+            fill=0,
+            dtype=np.uint8,
+            all_touched=True
+        )
+
+        burned_dem = dem.copy()
+        valid_mask = (dem != nodata) & ~np.isnan(dem)
+        burned_dem[valid_mask & (burn_mask > 0)] -= burn_depth_m
+        return burned_dem
+    except Exception as ex:
+        print(f"  [WARN] Stream burning failed: {ex}. Using original DEM.")
+        return dem

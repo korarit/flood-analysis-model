@@ -147,24 +147,30 @@ flood-analysis-model/
 | สคริปต์ | หน้าที่หลัก |
 | :--- | :--- |
 | [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 6 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
-| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata ลงใน `terrain/` |
+| [`scripts/generate_flow_paths.py`](scripts/generate_flow_paths.py) | **Standalone Flow Path Generator**: รันสร้าง/อัปเดตเฉพาะ `flow_paths.geojson` และ Station Relations ด้วยโมเดล Hybrid (OSM + D8) จบในไม่กี่วินาที |
+| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, OpenStreetMap Waterways, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata ลงใน `terrain/` |
 | [`scripts/build_river_network.py`](scripts/build_river_network.py) | Step 2: ทำ Pit Filling, คำนวณ D8 Flow Direction, Flow Accumulation, และสกัด `river_network.geojson` |
-| [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานี, ลากเส้นทางน้ำไหล (Overland Flow Paths), และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
+| [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานีเข้าแนวแม่น้ำ OSM, ลากเส้นทางน้ำไหล Hybrid Flow Paths, และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
 | [`scripts/train_response_model.py`](scripts/train_response_model.py) | Step 4: ตรวจจับน้ำขึ้นต่อเนื่อง $\ge 4$ ชม., วิเคราะห์ช่วงน้ำนิ่งแช่, คำนวณ Observed Travel Time, และเทรน ML Model |
-| [`scripts/calculate_rainfall_thresholds.py`](scripts/calculate_rainfall_thresholds.py) | **Step 5 (ใหม่)**: ใช้ ML เรียนรู้สภาวะดิน (Wet/Normal/Dry) และคำนวณปริมาณฝนสะสมกระตุ้นน้ำหลาก & เตือนภัย 4 ช่วงเวลา (`3h`, `24h`, `72h`, `168h`) |
+| [`scripts/calculate_rainfall_thresholds.py`](scripts/calculate_rainfall_thresholds.py) | Step 5: ใช้ ML เรียนรู้สภาวะดิน (Wet/Normal/Dry) และคำนวณปริมาณฝนสะสมกระตุ้นน้ำหลาก & เตือนภัย 4 ช่วงเวลา (`3h`, `24h`, `72h`, `168h`) |
 | [`scripts/export_backend_dataset.py`](scripts/export_backend_dataset.py) | Step 6: Export ข้อมูลลงตาราง Database `station_relations` และสร้าง `relations_frontend.json` |
 
 ---
 
-### 4.2 การอัปเดตเกณฑ์ฝนสะสมแบบ Direct In-Place Update (ไม่ง้อ Full Pipeline)
+### 4.2 สคริปต์ด่วนเฉพาะจุด (Standalone Fast Utilities)
 
-หากต้องการคำนวณและอัปเดตเฉพาะเกณฑ์ฝนสะสมกระตุ้นน้ำหลากลงในไฟล์ข้อมูลเดิม โดยไม่ต้องเสียเวลารัน GIS/DEM ใหม่:
-
+#### 🌊 (1) สร้าง/อัปเดตเฉพาะ Flow Paths & ความสัมพันธ์แม่น้ำ (`generate_flow_paths.py`):
 ```bash
-# 1. อัปเดตเฉพาะลุ่มน้ำยม (ใช้เวลาเพียง 2-5 วินาที)
+# รันอัปเดตเส้นทางน้ำ Hybrid (OSM River Lines + D8 Hydrology)
+./venv/bin/python scripts/generate_flow_paths.py --basin yom --force
+```
+
+#### 🌧️ (2) อัปเดตเฉพาะเกณฑ์ฝนสะสมกระตุ้นน้ำหลาก (`calculate_rainfall_thresholds.py`):
+```bash
+# อัปเดตเฉพาะลุ่มน้ำยม (ใช้เวลาเพียง 2-5 วินาที)
 ./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin yom --update-existing
 
-# 2. อัปเดตครบทุก 5 ลุ่มน้ำหลัก
+# อัปเดตครบทุก 5 ลุ่มน้ำหลัก
 ./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin all --update-existing
 ```
 

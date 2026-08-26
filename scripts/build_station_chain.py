@@ -121,6 +121,15 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
 
     # 2. Load and Snap Stations
     water_st, rain_st = load_stations_for_basin(basin_dir)
+    
+    # Load OSM Waterways if available
+    osm_waterways_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
+    osm_waterways = None
+    if os.path.exists(osm_waterways_path) and os.path.getsize(osm_waterways_path) > 100:
+        import json
+        with open(osm_waterways_path, 'r', encoding='utf-8') as f:
+            osm_waterways = json.load(f)
+
     if os.path.exists(station_mapping_path) and os.path.getsize(station_mapping_path) > 100:
         import json
         with open(station_mapping_path, 'r', encoding='utf-8') as f:
@@ -128,8 +137,10 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
         print(f"  [2/4] [CACHE] Loaded {len(snapped_water_st)} cached snapped stations: {station_mapping_path}")
     else:
         print(f"  [2/4] Loaded {len(water_st)} water stations and {len(rain_st)} rain stations.")
-        print("        Snapping water level stations to stream channel...")
-        snapped_water_st = snap_stations_to_stream(water_st, fdir, acc, transform, crs=crs)
+        print("        Snapping water level stations to OSM & stream channels...")
+        snapped_water_st = snap_stations_to_stream(
+            water_st, fdir, acc, transform, osm_waterways_geojson=osm_waterways, crs=crs
+        )
         save_json(snapped_water_st, station_mapping_path)
         print(f"        Saved station mapping: {station_mapping_path}")
 
@@ -142,9 +153,10 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     if flow_paths_cached:
         print(f"  [3/4] [CACHE] Flow paths and relations already exist (skipping tracing).")
     else:
-        print("  [3/4] Tracing Gauge-to-Gauge & Overland Rain-to-Gauge Flow Paths...")
+        print("  [3/4] Tracing Hybrid Gauge-to-Gauge & Overland Rain-to-Gauge Flow Paths...")
         flow_paths_geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
-            snapped_water_st, rain_st, fdir, acc, filled_dem, transform, crs=crs
+            snapped_water_st, rain_st, fdir, acc, filled_dem, transform,
+            osm_waterways_geojson=osm_waterways, crs=crs
         )
         save_geojson(flow_paths_geojson, flow_paths_path)
         save_json(gauge_relations, gauge_relations_path)

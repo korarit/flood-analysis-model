@@ -339,13 +339,110 @@ def download_alos_palsar_dem(
     return raw_dem_path
 
 
+def fetch_osm_waterways(
+    basin: str,
+    output_path: str,
+    stations: List[Dict[str, Any]],
+    force: bool = False
+) -> Dict[str, Any]:
+    """
+    Downloads and caches high-resolution River & Stream Waterway Network from OpenStreetMap (OSM)
+    via Overpass API for the target river basin.
+    Tags: waterway=river, stream, canal.
+    Returns standard GeoJSON FeatureCollection.
+    """
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    if os.path.exists(output_path) and os.path.getsize(output_path) > 1024 and not force:
+        print(f"  [CACHE] OSM Waterways already exist: {output_path}")
+        with open(output_path, 'r', encoding='utf-8') as f:
+            import json
+            return json.load(f)
+
+    print(f"  [OSM] Fetching OpenStreetMap Waterway Network for '{basin}'...")
+    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.25)
+
+    overpass_query = f"""
+    [out:json][timeout:90];
+    (
+      way["waterway"~"river|stream|canal"]({min_lat},{min_lon},{max_lat},{max_lon});
+    );
+    out body geom;
+    """
+
+    mirrors = [
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
+    ]
+
+    osm_data = None
+    last_err = None
+    for mirror_url in mirrors:
+        try:
+            print(f"        Querying Overpass mirror: {mirror_url} ...")
+            resp = requests.post(mirror_url, data={"data": overpass_query}, timeout=95)
+            if resp.status_code == 200:
+                osm_data = resp.json()
+                break
+            else:
+                last_err = f"HTTP {resp.status_code}: {resp.text[:100]}"
+        except Exception as ex:
+            last_err = str(ex)
+
+    if not osm_data or "elements" not in osm_data:
+        print(f"  [WARN] Failed to fetch OSM waterways ({last_err}). Creating empty placeholder GeoJSON.")
+        empty_geojson = {"type": "FeatureCollection", "features": []}
+        save_geojson(empty_geojson, output_path)
+        return empty_geojson
+
+    from .gis_utils import linestring_length_km
+
+    features = []
+    for elem in osm_data.get("elements", []):
+        if elem.get("type") != "way" or "geometry" not in elem:
+            continue
+        coords = [[round(pt["lon"], 6), round(pt["lat"], 6)] for pt in elem["geometry"] if "lon" in pt and "lat" in pt]
+        if len(coords) < 2:
+            continue
+
+        tags = elem.get("tags", {})
+        length_km = linestring_length_km(coords)
+        feat_id = f"osm_way_{elem['id']}"
+
+        features.append({
+            "type": "Feature",
+            "id": feat_id,
+            "properties": {
+                "osm_id": elem["id"],
+                "name": tags.get("name", ""),
+                "name_th": tags.get("name:th", tags.get("name", "")),
+                "name_en": tags.get("name:en", ""),
+                "waterway": tags.get("waterway", "stream"),
+                "length_km": round(length_km, 3)
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": coords
+            }
+        })
+
+    geojson = {
+        "type": "FeatureCollection",
+        "features": features
+    }
+    save_geojson(geojson, output_path)
+    print(f"  [OK] Saved {len(features)} OSM waterway features to: {output_path}")
+    return geojson
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Fetch GIS boundaries, HydroRIVERS, and ALOS PALSAR 12.5m DEM")
+    parser = argparse.ArgumentParser(description="Fetch GIS boundaries, HydroRIVERS, OSM Waterways, and ALOS PALSAR 12.5m DEM")
     parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, wang, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
+    parser.add_argument("--force-osm", action="store_true", help="Force re-download OSM waterways")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -370,7 +467,11 @@ def main():
         subbasins_path = os.path.join(basin_dir, "gis", f"{b}_subbasins.geojson")
         fetch_subbasins_boundary(b, subbasins_path, all_st)
 
-        # 3. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
+        # 3. OpenStreetMap Waterway Network (in dataset/{basin}/gis/osm_waterways.geojson)
+        osm_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
+        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm)
+
+        # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/)
         download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password)
 
 

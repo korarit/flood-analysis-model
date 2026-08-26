@@ -20,14 +20,15 @@ def snap_stations_to_stream(
     fdir: np.ndarray,
     acc: np.ndarray,
     transform: Affine,
+    osm_waterways_geojson: Optional[Dict[str, Any]] = None,
     crs: Any = None,
     search_radius_cells: int = 15,
     min_acc_cells: int = 100
 ) -> List[Dict[str, Any]]:
     """
-    Snaps each water level station to the highest flow accumulation cell
-    within `search_radius_cells` to align with the actual raster stream channel.
-    Handles projected CRS (UTM) and WGS84 coordinates.
+    Snaps each water level station to the closest OpenStreetMap river vector channel (if available)
+    or the highest flow accumulation cell within `search_radius_cells`.
+    Ensures stations align perfectly with the actual river geometry.
     """
     nrows, ncols = fdir.shape
     snapped = []
@@ -44,20 +45,71 @@ def snap_stations_to_stream(
             transformer = None
             inv_transformer = None
 
+    # Parse OSM River Lines if available
+    osm_lines = []
+    if osm_waterways_geojson and osm_waterways_geojson.get("features"):
+        for feat in osm_waterways_geojson.get("features", []):
+            geom = feat.get("geometry")
+            if geom and geom.get("type") == "LineString":
+                coords = geom.get("coordinates", [])
+                if len(coords) >= 2:
+                    try:
+                        line_geom = LineString(coords)
+                        props = feat.get("properties", {})
+                        osm_lines.append((line_geom, props))
+                    except Exception:
+                        pass
+
     for st in stations:
         lat = float(st['latitude'])
         lon = float(st['longitude'])
+        river_name = str(st.get('riverName') or st.get('river_name') or '').strip()
 
+        snapped_lon, snapped_lat = lon, lat
+        snapped_via_osm = False
+
+        # 1. Attempt High-Precision OSM Snapping (within ~1.5 km buffer)
+        if osm_lines:
+            pt = Point(lon, lat)
+            best_line_geom = None
+            min_dist_deg = 0.015  # ~1.6 km
+
+            # Priority 1: Matching River Name in OSM
+            if river_name and len(river_name) >= 2:
+                for line_geom, props in osm_lines:
+                    p_name = str(props.get('name') or props.get('name_th') or '')
+                    if river_name in p_name or p_name in river_name:
+                        d = pt.distance(line_geom)
+                        if d < min_dist_deg:
+                            min_dist_deg = d
+                            best_line_geom = line_geom
+
+            # Priority 2: Closest Major River / Stream
+            if best_line_geom is None:
+                for line_geom, props in osm_lines:
+                    d = pt.distance(line_geom)
+                    if d < min_dist_deg:
+                        min_dist_deg = d
+                        best_line_geom = line_geom
+
+            if best_line_geom is not None:
+                from shapely.ops import nearest_points
+                near_pt = nearest_points(best_line_geom, pt)[0]
+                snapped_lon, snapped_lat = round(near_pt.x, 6), round(near_pt.y, 6)
+                snapped_via_osm = True
+
+        # 2. Convert to Raster Coordinates (r, c)
         if inv_transformer is not None:
-            proj_x, proj_y = inv_transformer.transform(lon, lat)
+            proj_x, proj_y = inv_transformer.transform(snapped_lon, snapped_lat)
             r, c = rowcol(transform, proj_x, proj_y)
         else:
-            r, c = rowcol(transform, lon, lat)
+            r, c = rowcol(transform, snapped_lon, snapped_lat)
 
         best_r, best_c = r, c
         best_acc = -1
 
-        if 0 <= r < nrows and 0 <= c < ncols:
+        # 3. Fallback / Refinement via Flow Accumulation raster if not snapped via OSM
+        if not snapped_via_osm and 0 <= r < nrows and 0 <= c < ncols:
             r_min = max(0, r - search_radius_cells)
             r_max = min(nrows, r + search_radius_cells + 1)
             c_min = max(0, c - search_radius_cells)
@@ -69,12 +121,15 @@ def snap_stations_to_stream(
                         best_acc = acc[cr, cc]
                         best_r, best_c = cr, cc
 
-        # Convert back to lon, lat
-        x, y = transform * (best_c + 0.5, best_r + 0.5)
-        if transformer is not None:
-            snapped_lon, snapped_lat = transformer.transform(x, y)
-        else:
-            snapped_lon, snapped_lat = x, y
+            x, y = transform * (best_c + 0.5, best_r + 0.5)
+            if transformer is not None:
+                snapped_lon, snapped_lat = transformer.transform(x, y)
+            else:
+                snapped_lon, snapped_lat = x, y
+
+        # Ensure grid_row / grid_col are clamped within DEM bounds
+        best_r = max(0, min(nrows - 1, best_r))
+        best_c = max(0, min(ncols - 1, best_c))
 
         offset_m = haversine_distance(lat, lon, snapped_lat, snapped_lon) * 1000.0
 
@@ -87,6 +142,7 @@ def snap_stations_to_stream(
         st_copy['grid_col'] = best_c
         st_copy['flow_acc_cells'] = int(acc[best_r, best_c]) if 0 <= best_r < nrows and 0 <= best_c < ncols else 0
         st_copy['snap_offset_meters'] = round(offset_m, 1)
+        st_copy['snapped_via_osm'] = snapped_via_osm
         snapped.append(st_copy)
 
     return snapped
@@ -103,8 +159,6 @@ def detect_confluences(
     Detects Confluence Points (nodes where in-degree >= 2 in the river network).
     Returns a GeoJSON FeatureCollection of confluence Point features.
     """
-    from rasterio.warp import transform as warp_coords
-
     nrows, ncols = fdir.shape
     in_degree = np.zeros((nrows, ncols), dtype=np.int32)
 
@@ -222,17 +276,6 @@ def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tu
     """
     Computes hydrological runoff response lag time directly in minutes (and hours)
     from a rainfall telemetry station down the mountain catchment to the destination water station.
-
-    Hydrological Modeling Basis & References:
-    1. US Army Corps of Engineers (USACE) HEC-HMS Technical Reference Manual:
-       - Hydrograph Transform Methods (Lag Time & Time of Concentration Tc).
-       - Hydrological Lag Time T_lag ≈ 0.6 * Tc for peak flood response.
-    2. USDA NRCS National Engineering Handbook (Part 630: Hydrology, Chapter 15 / TR-55):
-       - Segmented Velocity Method: Overland hill slope runoff + Open channel river routing.
-    3. Flash Flood / Saturated Catchment (Min Lag with -30% Early Warning SF):
-       - Rapid rill formation, lower Manning n (0.035), higher flood wave speed.
-    4. Baseflow / Initial Abstraction / Dry Soil (Max Lag):
-       - Slower initial overland sheet flow, vegetative resistance, lower channel stage.
     """
     s_safe = max(0.0005, slope)
     l_m = max(100.0, dist_km * 1000.0)
@@ -254,11 +297,9 @@ def compute_rainfall_lag_bounds(dist_km: float, slope: float, dz_m: float) -> Tu
     # 3. Blended Lag Time directly in Minutes
     lag_avg_m = int(round(max(15, 0.5 * tc_avg_min + 0.5 * t_kin_avg_min)))
     t_min_phys = 0.4 * tc_min_min + 0.6 * t_kin_max_min
-    # Apply -30% early warning safety margin to minimum lag time
     lag_min_m = int(round(max(10, min(t_min_phys, lag_avg_m * 0.70))))
     lag_max_m = int(round(max(lag_avg_m + 15, 0.6 * tc_max_min + 0.4 * t_kin_min_min)))
 
-    # Derived hours
     lag_avg_h = round(lag_avg_m / 60.0, 1)
     lag_min_h = round(lag_min_m / 60.0, 1)
     lag_max_h = round(lag_max_m / 60.0, 1)
@@ -273,13 +314,18 @@ def build_flow_paths_and_relations(
     acc: np.ndarray,
     filled_dem: np.ndarray,
     transform: Affine,
+    osm_waterways_geojson: Optional[Dict[str, Any]] = None,
     crs: Any = None
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     Generates:
-    1. flow_paths.geojson (LineString vector features for Frontend Map)
+    1. flow_paths.geojson (LineString vector features for Frontend Map aligned with OSM rivers)
     2. station_relations (Gauge -> Downstream Gauge)
     3. rainfall_relations (Rain Gauge -> Receiving Water Gauge)
+
+    Employs Hybrid Routing:
+    - OpenStreetMap River Vector Topology for river channel paths.
+    - DEM D8 Flow Routing for overland rainfall mountain runoff.
     """
     nrows, ncols = fdir.shape
 
@@ -296,30 +342,84 @@ def build_flow_paths_and_relations(
             transformer = None
             inv_transformer = None
 
-    # Map grid coordinates to water station IDs
+    # Parse OSM River Lines if available
+    osm_line_features = []
+    if osm_waterways_geojson and osm_waterways_geojson.get("features"):
+        for feat in osm_waterways_geojson.get("features", []):
+            geom = feat.get("geometry")
+            if geom and geom.get("type") == "LineString":
+                coords = geom.get("coordinates", [])
+                if len(coords) >= 2:
+                    try:
+                        osm_line_features.append({
+                            "geom": LineString(coords),
+                            "coords": coords,
+                            "props": feat.get("properties", {})
+                        })
+                    except Exception:
+                        pass
+
+    # Map grid coordinates to water station IDs (expanded 5x5 neighborhood to ensure capture)
     water_grid_map = {}
     for st in water_stations:
         r, c = st.get('grid_row'), st.get('grid_col')
         st_id = str(st.get('station_id', '')).strip()
         if r is not None and c is not None and st_id:
-            # Also register a 3x3 neighborhood around station to ensure intersection
-            for dr in (-1, 0, 1):
-                for dc in (-1, 0, 1):
-                    water_grid_map[(r + dr, c + dc)] = st_id
+            for dr in (-2, -1, 0, 1, 2):
+                for dc in (-2, -1, 0, 1, 2):
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < nrows and 0 <= nc < ncols:
+                        water_grid_map[(nr, nc)] = st_id
 
     features = []
     gauge_relations = []
     rainfall_relations = []
+
+    # Helper to sample elevation from DEM safely
+    def sample_elevation(lon: float, lat: float) -> float:
+        if inv_transformer is not None:
+            px, py = inv_transformer.transform(lon, lat)
+            gr, gc = rowcol(transform, px, py)
+        else:
+            gr, gc = rowcol(transform, lon, lat)
+        gr = max(0, min(nrows - 1, gr))
+        gc = max(0, min(ncols - 1, gc))
+        val = float(filled_dem[gr, gc])
+        return val if not np.isnan(val) and val != -9999.0 else 100.0
+
+    # Helper: Try routing along OSM river lines between two stations
+    def find_osm_route_between(p_up: Point, p_down: Point, max_dist_deg: float = 0.02) -> Optional[List[List[float]]]:
+        if not osm_line_features:
+            return None
+        # Check for direct containment on the same river line
+        for item in osm_line_features:
+            line_geom = item["geom"]
+            d_up = p_up.distance(line_geom)
+            d_down = p_down.distance(line_geom)
+            if d_up <= max_dist_deg and d_down <= max_dist_deg:
+                try:
+                    from shapely.ops import substring
+                    loc_up = line_geom.project(p_up)
+                    loc_down = line_geom.project(p_down)
+                    if loc_up < loc_down:
+                        sub = substring(line_geom, loc_up, loc_down)
+                        sub_coords = [[round(c[0], 6), round(c[1], 6)] for c in sub.coords]
+                        if len(sub_coords) >= 2:
+                            return sub_coords
+                except Exception:
+                    pass
+        return None
 
     # 1. Trace Gauge-to-Gauge Flow Paths (Upstream -> Downstream)
     for st in water_stations:
         st_id = str(st.get('station_id', '')).strip()
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
+        st_lat = float(st.get('latitude', 0.0))
+        st_lon = float(st.get('longitude', 0.0))
         if start_r is None or start_c is None or not st_id:
             continue
 
-        # Trace downstream until hitting the next water station
         def make_stop_fn(origin_id):
             def stop_fn(r, c):
                 target_id = water_grid_map.get((r, c))
@@ -328,29 +428,34 @@ def build_flow_paths_and_relations(
                 return False, None
             return stop_fn
 
-        # Step 1 step forward first to avoid immediate self-collision
+        # Step 1 forward first to avoid immediate self-collision
         code = int(fdir[start_r, start_c])
         if code in D8_DELTAS:
             dr, dc = D8_DELTAS[code]
             first_r, first_c = start_r + dr, start_c + dc
-            coords, target_station_id = trace_downstream_path(
+            raster_coords, target_station_id = trace_downstream_path(
                 first_r, first_c, fdir, transform, crs=crs,
                 stop_condition_fn=make_stop_fn(st_id),
-                max_steps=1500
+                max_steps=1800
             )
+
             # Prepend start station coordinate in WGS84
-            x, y = transform * (start_c + 0.5, start_r + 0.5)
-            if transformer is not None:
-                st_lon, st_lat = transformer.transform(x, y)
-            else:
-                st_lon, st_lat = x, y
-            coords = [[round(st_lon, 6), round(st_lat, 6)]] + coords
+            coords = [[round(st_lon, 6), round(st_lat, 6)]] + raster_coords
 
             if target_station_id and len(coords) >= 2:
-                dist_km = linestring_length_km(coords)
-                z_up = float(filled_dem[start_r, start_c])
                 target_st = next((s for s in water_stations if s['station_id'] == target_station_id), None)
-                z_down = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st else z_up
+                
+                # Check for OSM Vector refinement
+                if target_st and osm_line_features:
+                    tgt_lat = float(target_st.get('latitude', 0.0))
+                    tgt_lon = float(target_st.get('longitude', 0.0))
+                    osm_route = find_osm_route_between(Point(st_lon, st_lat), Point(tgt_lon, tgt_lat))
+                    if osm_route and len(osm_route) >= 2:
+                        coords = [[round(st_lon, 6), round(st_lat, 6)]] + osm_route + [[round(tgt_lon, 6), round(tgt_lat, 6)]]
+
+                dist_km = linestring_length_km(coords)
+                z_up = sample_elevation(st_lon, st_lat)
+                z_down = sample_elevation(target_st['longitude'], target_st['latitude']) if target_st else z_up
                 dz = max(0.0, z_up - z_down)
                 slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
@@ -402,14 +507,25 @@ def build_flow_paths_and_relations(
         coords, target_water_id = trace_downstream_path(
             r, c, fdir, transform, crs=crs,
             stop_condition_fn=stop_at_any_water_station,
-            max_steps=2000
+            max_steps=2200
         )
 
         if target_water_id and len(coords) >= 2:
-            dist_km = linestring_length_km(coords)
             target_st = next((s for s in water_stations if s['station_id'] == target_water_id), None)
-            z_rain = float(filled_dem[r, c])
-            z_water = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st and target_st.get('grid_row') is not None else z_rain
+            
+            # Hybrid OSM refinement: if path hits an OSM river segment, merge down to gauge
+            if target_st and osm_line_features and len(coords) > 5:
+                tgt_lat = float(target_st.get('latitude', 0.0))
+                tgt_lon = float(target_st.get('longitude', 0.0))
+                # Check mid-point of overland flow as stream entry
+                mid_pt = Point(coords[len(coords)//2][0], coords[len(coords)//2][1])
+                osm_sub = find_osm_route_between(mid_pt, Point(tgt_lon, tgt_lat), max_dist_deg=0.01)
+                if osm_sub:
+                    coords = coords[:len(coords)//2] + osm_sub + [[round(tgt_lon, 6), round(tgt_lat, 6)]]
+
+            dist_km = linestring_length_km(coords)
+            z_rain = sample_elevation(lon, lat)
+            z_water = sample_elevation(target_st['longitude'], target_st['latitude']) if target_st else z_rain
             dz = max(0.0, z_rain - z_water)
             slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
             lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(dist_km, slope, dz)
@@ -435,7 +551,7 @@ def build_flow_paths_and_relations(
                     "slope": round(slope, 6),
                     "upstream_elev_m": round(z_rain, 2),
                     "downstream_elev_m": round(z_water, 2),
-                    "influence_weight_percent": 30.0  # Initial default, updated below via IDW
+                    "influence_weight_percent": 30.0
                 },
                 "geometry": {
                     "type": "LineString",
@@ -445,7 +561,7 @@ def build_flow_paths_and_relations(
             features.append(feature)
             rainfall_relations.append(feature["properties"])
 
-    # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW) per Target Water Station
+    # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}
     for r_prop in rainfall_relations:
         target_groups.setdefault(r_prop['to_station_id'], []).append(r_prop)
