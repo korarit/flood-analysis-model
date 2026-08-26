@@ -138,11 +138,11 @@ def snap_stations_to_stream(
         st_copy['orig_longitude'] = lon
         st_copy['latitude'] = round(snapped_lat, 6)
         st_copy['longitude'] = round(snapped_lon, 6)
-        st_copy['grid_row'] = best_r
-        st_copy['grid_col'] = best_c
+        st_copy['grid_row'] = int(best_r)
+        st_copy['grid_col'] = int(best_c)
         st_copy['flow_acc_cells'] = int(acc[best_r, best_c]) if 0 <= best_r < nrows and 0 <= best_c < ncols else 0
-        st_copy['snap_offset_meters'] = round(offset_m, 1)
-        st_copy['snapped_via_osm'] = snapped_via_osm
+        st_copy['snap_offset_meters'] = round(float(offset_m), 1)
+        st_copy['snapped_via_osm'] = bool(snapped_via_osm)
         snapped.append(st_copy)
 
     return snapped

@@ -61,6 +61,17 @@ def bbox_to_wkt(min_lat: float, min_lon: float, max_lat: float, max_lon: float) 
     return f"POLYGON(({min_lon} {min_lat}, {max_lon} {min_lat}, {max_lon} {max_lat}, {min_lon} {max_lat}, {min_lon} {min_lat}))"
 
 
+def _json_serialize_default(obj: Any) -> Any:
+    """Universal JSON serializer fallback handling numpy scalars, arrays, and sets."""
+    if hasattr(obj, 'item'):  # numpy scalar (int32, int64, float32, float64, bool_)
+        return obj.item()
+    if hasattr(obj, 'tolist'):  # numpy ndarray
+        return obj.tolist()
+    if isinstance(obj, set):
+        return list(obj)
+    return str(obj)
+
+
 def load_geojson(filepath: str) -> Dict[str, Any]:
     """Load a GeoJSON file."""
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -72,9 +83,9 @@ def save_geojson(data: Dict[str, Any], filepath: str, indent: Optional[int] = 2)
     os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
         if indent is None:
-            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'), default=_json_serialize_default)
         else:
-            json.dump(data, f, ensure_ascii=False, indent=indent)
+            json.dump(data, f, ensure_ascii=False, indent=indent, default=_json_serialize_default)
 
 
 def save_json(data: Any, filepath: str, indent: Optional[int] = 2):
@@ -82,9 +93,9 @@ def save_json(data: Any, filepath: str, indent: Optional[int] = 2):
     os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
         if indent is None:
-            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'), default=_json_serialize_default)
         else:
-            json.dump(data, f, ensure_ascii=False, indent=indent)
+            json.dump(data, f, ensure_ascii=False, indent=indent, default=_json_serialize_default)
 
 
 def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
