@@ -490,8 +490,18 @@ def main():
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
 
     for b in basin_list:
-        basin_dir = os.path.join(args.dir, b)
-        terrain_basin_dir = os.path.join(args.terrain_dir, b)
+        # Smart path resolution for --dir (supports both './dataset' and './dataset/nan')
+        if os.path.basename(os.path.normpath(args.dir)) == b:
+            basin_dir = args.dir
+        else:
+            basin_dir = os.path.join(args.dir, b)
+
+        # Smart path resolution for --terrain-dir
+        if os.path.basename(os.path.normpath(args.terrain_dir)) == b:
+            terrain_basin_dir = args.terrain_dir
+        else:
+            terrain_basin_dir = os.path.join(args.terrain_dir, b)
+
         print(f"\n🌊 [STEP 1] Fetching GIS & DEM for Basin: {b.upper()}")
         water_st, rain_st = load_stations_for_basin(basin_dir)
         all_st = water_st + rain_st
