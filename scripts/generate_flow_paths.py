@@ -24,6 +24,7 @@ from scripts.modules.graph_topology import (
     build_flow_paths_and_relations,
     delineate_station_catchments
 )
+from scripts.modules.backend_exporter import export_backend_station_relations
 from scripts.fetch_basin_gis import fetch_osm_waterways
 
 
@@ -114,51 +115,56 @@ def generate_basin_flow_paths(
     save_json(gauge_relations, gauge_relations_path)
     save_json(rain_relations, rain_relations_path)
 
-    # Export frontend relations format
-    frontend_relations = {
-        "basin": basin,
-        "gauge_to_gauge": gauge_relations,
-        "rainfall_to_gauge": rain_relations,
-        "total_gauge_relations": len(gauge_relations),
-        "total_rainfall_relations": len(rain_relations),
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    }
-    save_json(frontend_relations, relations_frontend_path)
-
-    # Sync into final_station_data.json if exists
+    # 6. Preserve existing calculated rainfallThresholds if present
+    existing_thresholds = {}
     if os.path.exists(final_station_data_path):
         try:
             with open(final_station_data_path, 'r', encoding='utf-8') as f:
+                fdata = json.load(f)
+                for st_id, st_obj in fdata.items():
+                    for inf in st_obj.get("influencingStations", []):
+                        inf_id = str(inf.get("stationId", "")).strip()
+                        if inf.get("rainfallThresholds") and inf_id:
+                            existing_thresholds[(str(st_id), inf_id)] = inf["rainfallThresholds"]
+        except Exception:
+            pass
+
+    for rr in rain_relations:
+        to_id = str(rr.get("to_station_id", rr.get("target_station_id", ""))).strip()
+        from_id = str(rr.get("from_station_id", rr.get("station_id", ""))).strip()
+        key = (to_id, from_id)
+        if key in existing_thresholds and not rr.get("rainfallThresholds"):
+            rr["rainfallThresholds"] = existing_thresholds[key]
+
+    # 7. Export Frontend relations_frontend.json & Database station_relations_db.json
+    db_relations_path = os.path.join(processed_dir, "station_relations_db.json")
+    export_backend_station_relations(
+        gauge_relations=gauge_relations,
+        rainfall_relations=rain_relations,
+        output_db_path=db_relations_path,
+        output_frontend_path=relations_frontend_path
+    )
+    print(f"        Saved Frontend relations : {relations_frontend_path}")
+    print(f"        Saved Database relations : {db_relations_path}")
+
+    # 8. Sync relations into final_station_data.json if exists
+    if os.path.exists(final_station_data_path) and os.path.exists(relations_frontend_path):
+        try:
+            with open(final_station_data_path, 'r', encoding='utf-8') as f:
                 final_data = json.load(f)
+            with open(relations_frontend_path, 'r', encoding='utf-8') as f:
+                frontend_list = json.load(f)
 
-            # Build lookup of rainfall influences per target water station
-            rain_influences: Dict[str, List[Dict[str, Any]]] = {}
-            for rr in rain_relations:
-                to_id = str(rr.get('to_station_id', '')).strip()
-                if to_id:
-                    rain_influences.setdefault(to_id, []).append({
-                        "stationId": rr.get("from_station_id"),
-                        "stationName": rr.get("from_station_name"),
-                        "stationType": "rainfall",
-                        "distanceKm": rr.get("total_distance_km"),
-                        "travelTimeMinutes": rr.get("response_lag_minutes"),
-                        "travelTimeMinutesMin": rr.get("response_lag_minutes_min"),
-                        "travelTimeMinutesMax": rr.get("response_lag_minutes_max"),
-                        "travelTimeHours": rr.get("response_lag_hours"),
-                        "travelTimeHoursMin": rr.get("response_lag_hours_min"),
-                        "travelTimeHoursMax": rr.get("response_lag_hours_max"),
-                        "elevationDiffM": rr.get("elevation_diff_m"),
-                        "slope": rr.get("slope"),
-                        "influenceWeightPercent": rr.get("influence_weight_percent")
-                    })
+            frontend_by_id = {str(item.get("stationId")): item for item in frontend_list}
 
-            # Update final_station_data entries
             for st_id, st_obj in final_data.items():
-                if st_id in rain_influences:
-                    st_obj["influencingStations"] = rain_influences[st_id]
+                if str(st_id) in frontend_by_id:
+                    f_item = frontend_by_id[str(st_id)]
+                    st_obj["influencingStations"] = f_item.get("influencingStations", [])
+                    st_obj["downstreamStations"] = f_item.get("downstreamStations", [])
 
             save_json(final_data, final_station_data_path)
-            print(f"        Synced relations into: {final_station_data_path}")
+            print(f"        Synced frontend relations into: {final_station_data_path}")
         except Exception as ex:
             print(f"  [WARN] Could not sync final_station_data.json: {ex}")
 
