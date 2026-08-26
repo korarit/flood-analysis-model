@@ -37,14 +37,29 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     catchments_path = os.path.join(catchment_dir, "catchments.geojson")
     processed_catchments_path = os.path.join(processed_dir, "catchments.geojson")
 
+    def _is_valid_relation_file(path: str) -> bool:
+        if not os.path.exists(path) or os.path.getsize(path) <= 100:
+            return False
+        try:
+            import json
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list) and len(data) > 0:
+                    first_dist = data[0].get('distance_km', 0.0) or data[0].get('total_distance_km', 0.0)
+                    if first_dist > 2000.0:  # Invalidated corrupted distance from old bug
+                        return False
+        except Exception:
+            return False
+        return True
+
     # -------------------------------------------------------------
     # Top-Level CACHE Check: Skip entire Step 3 if all artifacts exist
     # -------------------------------------------------------------
     all_cached = (
         os.path.exists(station_mapping_path) and os.path.getsize(station_mapping_path) > 100 and
         os.path.exists(flow_paths_path) and os.path.getsize(flow_paths_path) > 100 and
-        os.path.exists(gauge_relations_path) and os.path.getsize(gauge_relations_path) > 100 and
-        os.path.exists(rain_relations_path) and os.path.getsize(rain_relations_path) > 100 and
+        _is_valid_relation_file(gauge_relations_path) and
+        _is_valid_relation_file(rain_relations_path) and
         os.path.exists(catchments_path) and os.path.getsize(catchments_path) > 100
     )
 
@@ -118,8 +133,8 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     # 3. Build Flow Paths (Gauge-to-Gauge & Rain-to-Gauge)
     flow_paths_cached = (
         os.path.exists(flow_paths_path) and os.path.getsize(flow_paths_path) > 100 and
-        os.path.exists(gauge_relations_path) and os.path.getsize(gauge_relations_path) > 100 and
-        os.path.exists(rain_relations_path) and os.path.getsize(rain_relations_path) > 100
+        _is_valid_relation_file(gauge_relations_path) and
+        _is_valid_relation_file(rain_relations_path)
     )
     if flow_paths_cached:
         print(f"  [3/4] [CACHE] Flow paths and relations already exist (skipping tracing).")

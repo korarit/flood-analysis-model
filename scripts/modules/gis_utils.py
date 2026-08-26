@@ -23,14 +23,20 @@ def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
 
 
 def linestring_length_km(coordinates: List[List[float]]) -> float:
-    """Calculate length of a LineString coordinates list [[lon, lat], ...]."""
+    """Calculate length of a LineString coordinates list [[lon, lat], ...]. Supports both WGS84 and Projected (UTM) coords."""
     if not coordinates or len(coordinates) < 2:
         return 0.0
     total = 0.0
     for i in range(len(coordinates) - 1):
         lon1, lat1 = coordinates[i][0], coordinates[i][1]
         lon2, lat2 = coordinates[i + 1][0], coordinates[i + 1][1]
-        total += haversine_distance(lat1, lon1, lat2, lon2)
+        # Check if coordinates are in projected meters (UTM: abs > 180 deg)
+        if abs(lon1) > 180.0 or abs(lat1) > 90.0 or abs(lon2) > 180.0 or abs(lat2) > 90.0:
+            dx = lon2 - lon1
+            dy = lat2 - lat1
+            total += math.sqrt(dx * dx + dy * dy) / 1000.0
+        else:
+            total += haversine_distance(lat1, lon1, lat2, lon2)
     return total
 
 

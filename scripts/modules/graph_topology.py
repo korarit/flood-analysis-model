@@ -235,6 +235,19 @@ def build_flow_paths_and_relations(
     """
     nrows, ncols = fdir.shape
 
+    # Set up CRS Transformer for Projected DEMs (e.g. UTM 47N) vs WGS84
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            transformer = None
+            inv_transformer = None
+
     # Map grid coordinates to water station IDs
     water_grid_map = {}
     for st in water_stations:
@@ -273,12 +286,16 @@ def build_flow_paths_and_relations(
             dr, dc = D8_DELTAS[code]
             first_r, first_c = start_r + dr, start_c + dc
             coords, target_station_id = trace_downstream_path(
-                first_r, first_c, fdir, transform,
+                first_r, first_c, fdir, transform, crs=crs,
                 stop_condition_fn=make_stop_fn(st_id),
                 max_steps=1500
             )
-            # Prepend start station coordinate
-            st_lon, st_lat = transform * (start_c + 0.5, start_r + 0.5)
+            # Prepend start station coordinate in WGS84
+            x, y = transform * (start_c + 0.5, start_r + 0.5)
+            if transformer is not None:
+                st_lon, st_lat = transformer.transform(x, y)
+            else:
+                st_lon, st_lat = x, y
             coords = [[round(st_lon, 6), round(st_lat, 6)]] + coords
 
             if target_station_id and len(coords) >= 2:
@@ -287,7 +304,7 @@ def build_flow_paths_and_relations(
                 target_st = next((s for s in water_stations if s['station_id'] == target_station_id), None)
                 z_down = float(filled_dem[target_st['grid_row'], target_st['grid_col']]) if target_st else z_up
                 dz = max(0.0, z_up - z_down)
-                slope = (dz / (dist_km * 1000.0)) if dist_km > 0 else 0.0001
+                slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
                 feature_id = f"flow_gauge_{st_id}_to_{target_station_id}"
                 feature = {
@@ -314,15 +331,6 @@ def build_flow_paths_and_relations(
                 gauge_relations.append(feature["properties"])
 
     # 2. Trace Overland Flow from Rainfall Stations to Primary Water Level Station
-    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
-    inv_transformer = None
-    if not is_geographic and crs is not None:
-        try:
-            from pyproj import Transformer
-            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
-        except Exception:
-            inv_transformer = None
-
     for r_st in rain_stations:
         r_id = str(r_st.get('station_id', '')).strip()
         if not r_id:
