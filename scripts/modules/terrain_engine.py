@@ -73,7 +73,7 @@ def clip_dem_to_polygon(
 
 def read_dem_geotiff(
     dem_path: str,
-    max_cells: int = 250_000_000
+    max_cells: int = 200_000_000
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
     Read DEM raster with memory-adaptive scaling.
