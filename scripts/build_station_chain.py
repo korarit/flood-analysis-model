@@ -110,14 +110,17 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
     
     if os.path.exists(fdir_path) and os.path.exists(acc_path) and os.path.getsize(fdir_path) > 1024:
-        fdir, _, _, _ = read_dem_geotiff(fdir_path)
-        acc, _, _, _ = read_dem_geotiff(acc_path)
+        fdir, _, _, _ = read_dem_geotiff(fdir_path, max_cells=25_000_000)
+        acc, _, _, _ = read_dem_geotiff(acc_path, max_cells=25_000_000)
     else:
         import pyflwdir
         is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
         flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
         fdir = flw.to_array(ftype='d8')
         acc = flw.upstream_area(unit='cell')
+        del flw
+        import gc
+        gc.collect()
 
     # 2. Load and Snap Stations
     water_st, rain_st = load_stations_for_basin(basin_dir)
@@ -182,7 +185,10 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
 
     # Free memory buffers immediately
     import gc
-    del filled_dem, flw, fdir, acc
+    try:
+        del filled_dem, fdir, acc
+    except Exception:
+        pass
     gc.collect()
 
 

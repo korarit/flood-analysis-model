@@ -73,11 +73,11 @@ def clip_dem_to_polygon(
 
 def read_dem_geotiff(
     dem_path: str,
-    max_cells: int = 200_000_000
+    max_cells: int = 150_000_000
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
     Read DEM raster with memory-adaptive scaling.
-    If grid size exceeds max_cells (default 250 Million cells, ~26m resolution), downsamples adaptively
+    If grid size exceeds max_cells (default 25 Million cells, ~35m resolution), downsamples adaptively
     to fit comfortably within RAM while preserving full hydrological fidelity.
     """
     from rasterio.enums import Resampling

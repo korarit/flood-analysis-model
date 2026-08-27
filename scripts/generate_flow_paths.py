@@ -122,6 +122,8 @@ def generate_basin_flow_paths(
         flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
         fdir = flw.to_array(ftype='d8')
         acc = flw.upstream_area(unit='cell')
+        del flw
+        gc.collect()
 
         # Save cached rasters to disk for fast subsequent runs
         print("        Saving flow rasters to cache...")

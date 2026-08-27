@@ -36,6 +36,9 @@ class DirectedRiverGraph:
         self.adj: Dict[int, List[Tuple[int, Dict[str, Any]]]] = {}  # node_id -> [(neighbor_id, edge_data)]
         self.grid: Dict[Tuple[int, int], List[int]] = {}  # (grid_x, grid_y) -> [node_id, ...]
         self._next_node_id = 1
+        self._kdtree = None
+        self._node_id_list: List[int] = []
+        self._is_indexed = False
 
     def _grid_coord(self, lon: float, lat: float) -> Tuple[int, int]:
         return int(math.floor(lon / self.snap_tolerance_deg)), int(math.floor(lat / self.snap_tolerance_deg))
@@ -61,7 +64,24 @@ class DirectedRiverGraph:
         self.nodes[new_id] = (r_lon, r_lat, elev)
         self.adj[new_id] = []
         self.grid.setdefault((gx, gy), []).append(new_id)
+        self._is_indexed = False
         return new_id
+
+    def build_spatial_index(self):
+        """Builds high-performance scipy cKDTree for O(log N) nearest neighbor search in microseconds."""
+        if not self.nodes:
+            self._kdtree = None
+            self._node_id_list = []
+            self._is_indexed = True
+            return
+        try:
+            from scipy.spatial import cKDTree
+            self._node_id_list = list(self.nodes.keys())
+            coords = np.array([[self.nodes[nid][0], self.nodes[nid][1]] for nid in self._node_id_list], dtype=np.float64)
+            self._kdtree = cKDTree(coords)
+        except Exception:
+            self._kdtree = None
+        self._is_indexed = True
 
     def add_river_segment(
         self,
@@ -122,7 +142,17 @@ class DirectedRiverGraph:
             prev_node = curr_node
 
     def find_nearest_node(self, lon: float, lat: float, max_dist_deg: float = 0.05) -> Tuple[Optional[int], float]:
-        """Finds the nearest graph node to a given coordinate using expanding grid search."""
+        """Finds the nearest graph node to a given coordinate using O(log N) cKDTree or spatial grid fallback."""
+        if not self._is_indexed:
+            self.build_spatial_index()
+
+        if self._kdtree is not None and self._node_id_list:
+            dist, idx = self._kdtree.query([lon, lat], distance_upper_bound=max_dist_deg)
+            if not math.isinf(dist) and idx < len(self._node_id_list) and dist <= max_dist_deg:
+                return self._node_id_list[idx], float(dist)
+            return None, float(dist) if not math.isinf(dist) else float('inf')
+
+        # Fallback to spatial hash grid search
         gx, gy = self._grid_coord(lon, lat)
         search_radius = max(1, int(math.ceil(max_dist_deg / self.snap_tolerance_deg)))
 
@@ -668,6 +698,7 @@ def build_flow_paths_and_relations(
                 if len(coords) >= 2:
                     p_name = feat.get("properties", {}).get("name", "")
                     river_graph.add_river_segment(coords, sample_elev_fn=sample_elevation, river_name=p_name)
+    river_graph.build_spatial_index()
 
     # 2. Map Water Stations onto Grid and Graph Nodes
     water_grid_map = {}
@@ -695,10 +726,23 @@ def build_flow_paths_and_relations(
     gauge_relations = []
     rainfall_relations = []
 
+    try:
+        from tqdm import tqdm
+    except ImportError:
+        def tqdm(iterable, **kwargs):
+            return iterable
+
     # =========================================================================
     # LAYER 1: Gauge-to-Gauge Backbone Flow Paths (Upstream -> Downstream)
     # =========================================================================
-    for st in water_stations:
+    pbar_water = tqdm(
+        water_stations,
+        desc="        [Progress] Layer 1: Gauge-to-Gauge Flow Paths",
+        unit="station",
+        ncols=85,
+        leave=False
+    )
+    for st in pbar_water:
         st_id = str(st.get('station_id', '')).strip()
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
@@ -793,7 +837,14 @@ def build_flow_paths_and_relations(
             return True, t_id
         return False, None
 
-    for r_st in rain_stations:
+    pbar_rain = tqdm(
+        rain_stations,
+        desc="        [Progress] Layer 2: Rain-to-Gauge Overland Flow Paths",
+        unit="station",
+        ncols=85,
+        leave=False
+    )
+    for r_st in pbar_rain:
         r_id = str(r_st.get('station_id', '')).strip()
         if not r_id:
             continue
@@ -1077,32 +1128,44 @@ def delineate_station_catchments(
         leave=True
     )
 
+    # Reusable bitmask / boolean array for ultra-fast zero-allocation BFS
+    visited_mask = np.zeros((nrows, ncols), dtype=bool)
+
     for st in pbar:
         st_id = str(st.get('station_id', '')).strip()
         start_r = st.get('grid_row')
         start_c = st.get('grid_col')
         if start_r is None or start_c is None:
             continue
+        if not (0 <= start_r < nrows and 0 <= start_c < ncols):
+            continue
 
-        # Fast O(1) BFS upstream traversal using collections.deque
-        visited = set()
+        # Fast O(1) BFS upstream traversal
+        visited_coords = []
         queue = deque([(start_r, start_c)])
-        visited.add((start_r, start_c))
+        visited_mask[start_r, start_c] = True
+        visited_coords.append((start_r, start_c))
 
         while queue:
             cr, cc = queue.popleft()
             for code, (dr, dc) in reverse_d8.items():
                 nr, nc = cr + dr, cc + dc
-                if 0 <= nr < nrows and 0 <= nc < ncols and (nr, nc) not in visited:
+                if 0 <= nr < nrows and 0 <= nc < ncols and not visited_mask[nr, nc]:
                     if int(fdir[nr, nc]) == code:
-                        visited.add((nr, nc))
+                        visited_mask[nr, nc] = True
                         queue.append((nr, nc))
+                        visited_coords.append((nr, nc))
+
+        # Reset mask for visited cells only (blazing fast O(K) instead of O(N*M))
+        for vr, vc in visited_coords:
+            visited_mask[vr, vc] = False
 
         # Create bounding polygon for the catchment cells
-        if len(visited) > 10:
+        if len(visited_coords) > 10:
+            sample_step = max(1, len(visited_coords) // 100)
             xs = []
             ys = []
-            for (vr, vc) in list(visited)[::max(1, len(visited) // 100)]:  # sample points for convex hull
+            for vr, vc in visited_coords[::sample_step]:
                 vx, vy = transform * (vc + 0.5, vr + 0.5)
                 xs.append(vx)
                 ys.append(vy)
@@ -1125,7 +1188,7 @@ def delineate_station_catchments(
                 else:
                     cell_area_km2 = (abs(transform[0]) * abs(transform[4])) / 1_000_000.0
 
-                area_km2 = len(visited) * cell_area_km2
+                area_km2 = len(visited_coords) * cell_area_km2
 
                 features.append({
                     "type": "Feature",
