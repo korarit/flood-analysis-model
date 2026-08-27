@@ -184,6 +184,50 @@ flood-analysis-model/
 
 ---
 
+#### 🛰️ (3) ดาวน์โหลด GIS Boundaries, OSM Waterways และ ALOS PALSAR 12.5m DEM (`fetch_basin_gis.py`):
+สคริปต์ **Step 1** ทำหน้าที่รวบรวมข้อมูลเชิงพื้นที่ (Spatial & GIS) และแบบจำลองความสูงภูมิประเทศดิจิทัล (DEM) อัตโนมัติ:
+1. **Basin Boundary (`{basin}_boundary.geojson`)**: สร้างกรอบขอบเขตลุ่มน้ำจากพิกัดสถานีทั้งหมดพร้อม Buffer
+2. **Sub-basins Partitioning (`{basin}_subbasins.geojson`)**: แบ่งขอบเขตรูปสี่เหลี่ยมลุ่มน้ำย่อยแบบเรียงลำดับต้นน้ำสู่ท้ายน้ำ (Topological cascade) เพื่อใช้ตัดต่อประมวลผลโมเดลความละเอียดสูง 12.5m
+3. **OpenStreetMap Waterways (`osm_waterways.geojson`)**: ดาวน์โหลดโครงข่ายแม่น้ำ ลำห้วย คลอง ผ่าน Overpass API พร้อมคำนวณความยาวลำน้ำ (km)
+4. **ALOS PALSAR 12.5m RTC DEM (`raw_dem.tif`)**: ค้นหาและดาวน์โหลด DEM ความละเอียด 12.5m จาก NASA ASF DAAC แบบ Chunked Download (ดาวน์โหลดทีละ batch -> แตกไฟล์ `.dem.tif` -> ลบ `.zip` ทันทีเพื่อประหยัดพื้นที่ดิสก์) และรวมเป็น Mosaic ขนาดใหญ่ด้วย Low-RAM Streaming Engine (~30-50MB RAM)
+
+##### สิ่งที่ต้องเตรียมก่อนรัน (Prerequisites):
+- มีข้อมูลสถานีอยู่ใน `dataset/{basin}/station/` (`*waterlevel*.csv` หรือ `*rain*.csv`) เพื่อนำพิกัดมาคำนวณ Bounding Box
+- สมัครบัญชี **NASA Earthdata** ฟรีที่ [urs.earthdata.nasa.gov](https://urs.earthdata.nasa.gov/) สำหรับดาวน์โหลด ALOS PALSAR DEM
+
+##### พารามิเตอร์ของคำสั่ง (Command-line Arguments):
+| Argument | Type | Default | คำอธิบาย |
+| :--- | :--- | :--- | :--- |
+| `--basin` | `str` | `yom` | รหัสลุ่มน้ำเป้าหมาย (`yom`, `nan`, `ping`, `wang`, `chao-phraya`, หรือ `all`) |
+| `--dir` | `str` | `./dataset` | โฟลเดอร์จัดเก็บข้อมูลสถานีและไฟล์ GIS GeoJSON |
+| `--terrain-dir` | `str` | `./terrain` | โฟลเดอร์จัดเก็บไฟล์ DEM GeoTIFF ขนาดใหญ่ (แยกอิสระจาก dataset) |
+| `--username`, `-u` | `str` | `None` | NASA Earthdata Username (หรืออ่านจาก `EARTHDATA_USER` env var / `~/.netrc`) |
+| `--password`, `-p` | `str` | `None` | NASA Earthdata Password (หรืออ่านจาก `EARTHDATA_PASS` env var / `~/.netrc`) |
+| `--chunk-size` | `int` | `10` | จำนวน tiles ที่ดาวน์โหลดต่อ batch เพื่อประหยัดพื้นที่ดิสก์ก่อนแตกไฟล์ |
+| `--force-osm` | `flag` | `False` | บังคับดาวน์โหลดข้อมูล OSM Waterways ใหม่แม้จะมีไฟล์แคชเดิมอยู่แล้ว |
+
+##### ตัวอย่างคำสั่งการใช้งาน:
+```bash
+# 1. รันลุ่มน้ำยม โดยระบุ Earthdata Username/Password
+./venv/bin/python scripts/fetch_basin_gis.py --basin yom --username <your_user> --password <your_pass>
+
+# 2. รันโดยใช้ Environment Variables (ไม่ต้องพิมพ์รหัสผ่านใน Command Line)
+export EARTHDATA_USER="your_username"
+export EARTHDATA_PASS="your_password"
+./venv/bin/python scripts/fetch_basin_gis.py --basin yom
+
+# 3. กำหนดโฟลเดอร์ Dataset และ Terrain แยกกัน
+./venv/bin/python scripts/fetch_basin_gis.py --basin nan --dir ./dataset --terrain-dir ./terrain
+
+# 4. บังคับดาวน์โหลด OSM Waterways ใหม่อีกครั้ง (Bypass Cache)
+./venv/bin/python scripts/fetch_basin_gis.py --basin yom --force-osm
+
+# 5. รันดาวน์โหลดครบทุก 5 ลุ่มน้ำ
+./venv/bin/python scripts/fetch_basin_gis.py --basin all
+```
+
+---
+
 ### 4.3 ตัวอย่างคำสั่งการรัน Master Script (Full 6-Step Pipeline)
 
 ```bash
@@ -206,13 +250,15 @@ export EARTHDATA_PASS="your_password"
 
 ### 4.4 ไฟล์ผลลัพธ์โมเดลสำหรับ Backend & แผนที่ Frontend
 
+* `dataset/{basin}/gis/{basin}_boundary.geojson` — รูปปิด Polygon ขอบเขตลุ่มน้ำ
+* `dataset/{basin}/gis/{basin}_subbasins.geojson` — รูปปิด Polygon ขอบเขตลุ่มน้ำย่อยแบบเรียงลำดับต้นน้ำสู่ท้ายน้ำ (Topological)
+* `dataset/{basin}/gis/osm_waterways.geojson` — โครงข่ายแม่น้ำ ลำห้วย คลอง จาก OpenStreetMap
+* `terrain/{basin}/raw_dem.tif` — โมเสกภาพแบบจำลองความสูงภูมิประเทศ ALOS PALSAR 12.5m DEM
 * `dataset/{basin}/response/rainfall-thresholds.json` — เกณฑ์ฝนสะสมกระตุ้นน้ำหลากและเตือนภัยแยกรายคู่สถานีฝน-น้ำ
 * `dataset/{basin}/processed/station_relations_db.json` — Payload สำหรับตาราง `station_relations` ใน PostgreSQL
 * `dataset/{basin}/processed/relations_frontend.json` — โครงสร้างข้อมูลสำหรับหน้า `StationRelations.tsx` บน Frontend
 * `dataset/{basin}/processed/flow_paths.geojson` — เส้นทางเวกเตอร์การไหลของน้ำ (Rain-to-Gauge และ Gauge-to-Gauge) สำหรับแสดงผลบน `LeafletWaterMap.tsx`
 * `dataset/{basin}/processed/river_network.geojson` — เส้นโครงข่ายลำน้ำสายหลักและสายรองทั้งหมด พร้อมความชัน
-* `dataset/{basin}/processed/station_relations_db.json` — ข้อมูลสำหรับบันทึกลงตาราง `station_relations` ของ PostgreSQL
-* `dataset/{basin}/processed/relations_frontend.json` — ข้อมูลสรุปความสัมพันธ์ของสถานีสำหรับคอมโพเนนต์ `StationRelations.tsx`
 * `dataset/{basin}/catchment/catchments.geojson` — รูปปิด Polygon ขอบเขตพื้นที่รับน้ำย่อยของแต่ละสถานี
 
 
