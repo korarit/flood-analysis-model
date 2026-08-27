@@ -253,13 +253,14 @@ def main():
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--threshold", type=int, default=300, help="Stream accumulation threshold in cells")
+    parser.add_argument("--force", action="store_true", help="Force recomputation without using cached river network")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
         terrain_basin_dir = os.path.join(args.terrain_dir, b)
-        process_basin_terrain(b, basin_dir, terrain_basin_dir, stream_threshold=args.threshold)
+        process_basin_terrain(b, basin_dir, terrain_basin_dir, stream_threshold=args.threshold, force=args.force)
 
 
 if __name__ == "__main__":
