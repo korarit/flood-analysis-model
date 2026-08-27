@@ -143,7 +143,7 @@ def generate_basin_flow_paths(
         osm_waterways_geojson=osm_waterways, crs=crs
     )
 
-    save_geojson(flow_paths_geojson, flow_paths_path)
+    save_geojson(flow_paths_geojson, flow_paths_path, indent=None)
     save_json(gauge_relations, gauge_relations_path)
     save_json(rain_relations, rain_relations_path)
 
