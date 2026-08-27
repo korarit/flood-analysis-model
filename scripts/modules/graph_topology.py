@@ -854,14 +854,20 @@ def build_flow_paths_and_relations(
                 v_node = water_node_map.get(w_id)
                 if v_node and v_node != entry_node and v_node in dist_map:
                     b_dist = dist_map[v_node]
-                    backbone_coords = river_graph.reconstruct_path_from_prev(prev_map, entry_node, v_node)
-                    if backbone_coords and len(backbone_coords) >= 2:
-                        w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
-                        w_elev = sample_elevation(w_lon, w_lat)
-                        if w_elev <= z_rain + 2.0:  # Downstream elevation check
+                    w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
+                    w_elev = sample_elevation(w_lon, w_lat)
+                    if w_elev <= z_rain + 2.0:  # Downstream elevation check
+                        backbone_coords = river_graph.reconstruct_path_from_prev(prev_map, entry_node, v_node)
+                        if backbone_coords and len(backbone_coords) >= 2:
                             downstream_targets.append((b_dist, w_id, wst, backbone_coords))
 
             downstream_targets.sort(key=lambda x: x[0])
+
+            # Limit flood influence cascade to primary hydrological reach (<= 120km, max 8 downstream gauges)
+            # Eliminates redundant multi-hundred-kilometer river duplicate geometries while preserving full regional flood cascade
+            if downstream_targets:
+                filtered_targets = [t for t in downstream_targets if t[0] <= 120.0][:8]
+                downstream_targets = filtered_targets if filtered_targets else [downstream_targets[0]]
 
         # If not connected via graph, fallback to D8 direct water station or closest downstream candidate
         if not downstream_targets:
