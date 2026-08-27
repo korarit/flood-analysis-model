@@ -159,7 +159,7 @@ def simplify_river_geojson(
             is_osm = "osm_id" in props
             if min_length_km > 0 and 0.0 < length_km < min_length_km and not is_osm:
                 continue
-            if min_acc_cells > 0 and 0 < start_acc < min_acc_cells:
+            if min_acc_cells > 0 and 0 < start_acc < min_acc_cells and not is_osm:
                 continue
 
             if gtype == "LineString":

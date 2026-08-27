@@ -1078,6 +1078,9 @@ def build_flow_paths_and_relations(
                         total_dz_m=dz
                     )
                     
+                    # Append river coordinates so the flow path follows the river to the gauge
+                    full_coords = merge_coordinates(coords, backbone_coords)
+                    
                     feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
                     feature = {
                         "type": "Feature",
@@ -1105,7 +1108,7 @@ def build_flow_paths_and_relations(
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                            "coordinates": simplify_linestring_coords(full_coords, tolerance_deg=0.00035)
                         }
                     }
                     features.append(feature)
