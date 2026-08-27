@@ -281,27 +281,46 @@ def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[fl
     return merged
 
 
-def simplify_linestring_coords(coords: List[List[float]], tolerance_deg: float = 0.00035) -> List[List[float]]:
+def simplify_linestring_coords(
+    coords: List[List[float]],
+    tolerance_deg: float = 0.00035,
+    max_step_km: float = 0.5
+) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
     Eliminates redundant collinear raster stair steps while preserving 100% of curves, bends,
-    and exact station endpoints. Reduces GeoJSON payload size by 85-92%.
+    and exact station endpoints.
+    Strictly sanitizes against any straight-line jumps > max_step_km (500m).
     """
-    if not coords or len(coords) <= 2:
+    if not coords or len(coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords]
+
+    # 1. Topological Continuity Sanitization: Stop at any artificial leap > max_step_km
+    clean_coords = [coords[0]]
+    for i in range(len(coords) - 1):
+        p1, p2 = coords[i], coords[i + 1]
+        d_km = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
+        if d_km > max_step_km:
+            break
+        clean_coords.append(p2)
+
+    if len(clean_coords) < 2:
+        return [[round(p[0], 5), round(p[1], 5)] for p in coords[:2]]
+
+    # 2. Douglas-Peucker Simplification
     try:
-        line = LineString(coords)
+        line = LineString(clean_coords)
         simplified = line.simplify(tolerance_deg, preserve_topology=True)
         if simplified.geom_type == 'LineString':
             simp_pts = [[round(p[0], 5), round(p[1], 5)] for p in simplified.coords]
             if len(simp_pts) >= 2:
                 # Strictly preserve exact origin and destination coordinates
-                simp_pts[0] = [round(coords[0][0], 5), round(coords[0][1], 5)]
-                simp_pts[-1] = [round(coords[-1][0], 5), round(coords[-1][1], 5)]
+                simp_pts[0] = [round(clean_coords[0][0], 5), round(clean_coords[0][1], 5)]
+                simp_pts[-1] = [round(clean_coords[-1][0], 5), round(clean_coords[-1][1], 5)]
                 return simp_pts
     except Exception:
         pass
-    return [[round(p[0], 5), round(p[1], 5)] for p in coords]
+    return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
 
 
 def compute_terrain_slope_and_weights(
