@@ -284,7 +284,7 @@ def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[fl
 def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
-    max_step_km: float = 0.5
+    max_step_km: float = 10.0
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
