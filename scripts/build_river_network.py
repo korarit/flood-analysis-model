@@ -166,36 +166,42 @@ def process_basin_terrain(
         del sub_elev, filled_dem, fdir, acc, flw_obj, sub_river_geojson, sub_segments, sub_confluences
         gc.collect()
 
-    # 6. Filter river network to strictly remain inside the official ThaiWater Basin Boundary Polygon
-    boundary_path = os.path.join(gis_dir, f"{basin}_boundary.geojson")
-    if os.path.exists(boundary_path):
-        try:
-            with open(boundary_path, 'r', encoding='utf-8') as f:
-                b_data = json.load(f)
-                b_feat = b_data.get('features', [{}])[0]
-                if b_feat.get('geometry'):
-                    basin_poly = shape(b_feat['geometry'])
-                    # Filter river reaches: keep only reaches that intersect or are inside the basin boundary
-                    filtered_features = []
-                    filtered_segments = []
-                    for feat, seg in zip(all_river_features, all_river_segments):
-                        r_geom = shape(feat['geometry'])
-                        if basin_poly.intersects(r_geom):
-                            filtered_features.append(feat)
-                            filtered_segments.append(seg)
-                    
-                    filtered_confluences = []
-                    for conf in all_confluences:
-                        c_geom = shape(conf['geometry'])
-                        if basin_poly.contains(c_geom) or basin_poly.intersects(c_geom):
-                            filtered_confluences.append(conf)
+    # 6. Filter river network using Basin Bounding Box (BBox) + Southern Station Limit
+    water_st_all, rain_st_all = load_stations_for_basin(basin_dir)
+    all_st = water_st_all + rain_st_all
+    if all_st:
+        from scripts.modules.gis_utils import get_station_bbox
+        bbox_min_lat, bbox_min_lon, bbox_max_lat, bbox_max_lon = get_station_bbox(all_st, buffer_deg=0.15)
+        effective_min_lat = southern_limit_lat if southern_limit_lat is not None else bbox_min_lat
 
-                    print(f"  [BOUNDARY FILTER] Retained {len(filtered_features)}/{len(all_river_features)} river reaches inside official basin boundary (filtered out {len(all_river_features) - len(filtered_features)} outside reaches).")
-                    all_river_features = filtered_features
-                    all_river_segments = filtered_segments
-                    all_confluences = filtered_confluences
-        except Exception as ex:
-            print(f"  [WARN] Could not apply boundary polygon filter: {ex}")
+        filtered_features = []
+        filtered_segments = []
+        for feat, seg in zip(all_river_features, all_river_segments):
+            coords = feat.get('geometry', {}).get('coordinates', [])
+            if not coords:
+                continue
+            # Keep reach if its points fall within the basin BBox bounds and above southern limit
+            reach_lons = [c[0] for c in coords]
+            reach_lats = [c[1] for c in coords]
+            mid_lon = (min(reach_lons) + max(reach_lons)) / 2.0
+            mid_lat = (min(reach_lats) + max(reach_lats)) / 2.0
+
+            if (bbox_min_lon <= mid_lon <= bbox_max_lon) and (effective_min_lat <= mid_lat <= bbox_max_lat):
+                filtered_features.append(feat)
+                filtered_segments.append(seg)
+
+        filtered_confluences = []
+        for conf in all_confluences:
+            c_coords = conf.get('geometry', {}).get('coordinates', [])
+            if c_coords and len(c_coords) >= 2:
+                c_lon, c_lat = c_coords[0], c_coords[1]
+                if (bbox_min_lon <= c_lon <= bbox_max_lon) and (effective_min_lat <= c_lat <= bbox_max_lat):
+                    filtered_confluences.append(conf)
+
+        print(f"  [BBOX FILTER] Retained {len(filtered_features)}/{len(all_river_features)} river reaches within basin bbox [{bbox_min_lon:.3f}, {effective_min_lat:.3f}, {bbox_max_lon:.3f}, {bbox_max_lat:.3f}] (filtered out {len(all_river_features) - len(filtered_features)} outside reaches).")
+        all_river_features = filtered_features
+        all_river_segments = filtered_segments
+        all_confluences = filtered_confluences
 
     merged_river_geojson = {
         "type": "FeatureCollection",
