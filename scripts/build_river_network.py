@@ -6,15 +6,15 @@ extracts River Network Reaches with slopes, and detects Confluences.
 """
 
 import argparse
+import json
 import os
-import sys
-from typing import Dict, Any
-
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from scripts.modules.gis_utils import save_geojson, save_json
-import json
+
+import numpy as np
 from shapely.geometry import shape
+
+from scripts.modules.gis_utils import save_geojson, save_json
 
 from scripts.modules.terrain_engine import (
     clip_dem_to_polygon,
