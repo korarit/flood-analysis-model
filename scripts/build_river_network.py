@@ -96,6 +96,11 @@ def process_basin_terrain(
 
     subbasin_pbar = tqdm(subbasin_features, desc="Total Sub-basin Progress", unit="subbasin", ncols=85)
 
+    # Calculate southern limit: Southernmost water level station - 5km (~0.045 deg)
+    water_st, _ = load_stations_for_basin(basin_dir)
+    water_lats = [float(st['latitude']) for st in water_st if st.get('latitude') is not None]
+    southern_limit_lat = round(min(water_lats) - (5.0 / 111.0), 5) if water_lats else None
+
     for idx, sub_feat in enumerate(subbasin_pbar, 1):
         t_sub_start = time.time()
         props = sub_feat['properties']
@@ -126,7 +131,8 @@ def process_basin_terrain(
         t0 = time.time()
         print(f"  │  [3/4] Extracting river reaches (Threshold >= {stream_threshold} cells)...")
         sub_river_geojson, sub_segments = extract_river_network_reaches(
-            filled_dem, fdir, acc, sub_transform, crs=crs, min_stream_acc_cells=stream_threshold
+            filled_dem, fdir, acc, sub_transform, crs=crs, min_stream_acc_cells=stream_threshold,
+            min_lat=southern_limit_lat
         )
         
         # Tag reach features with subbasin_id

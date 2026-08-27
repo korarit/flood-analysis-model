@@ -317,19 +317,19 @@ def compute_flow_accumulation(
                     queue.append((nr, nc))
 
     return acc
-
-
 def extract_river_network_reaches(
     filled_dem: np.ndarray,
     fdir: np.ndarray,
     acc: np.ndarray,
     transform: Affine,
     crs: Any = None,
-    min_stream_acc_cells: int = 500
+    min_stream_acc_cells: int = 300,
+    min_lat: Optional[float] = None
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """
     Extracts vectorized river network (GeoJSON FeatureCollection) and segment features
     along cells with Flow Accumulation >= min_stream_acc_cells.
+    Clips river reaches to never extend south beyond min_lat (southernmost station + 5 km).
     Uses ultra-fast pyproj.Transformer and tqdm progress bar.
     """
     try:
@@ -437,6 +437,20 @@ def extract_river_network_reaches(
                 coords = [[round(lo, 6), round(la, 6)] for lo, la in zip(lons, lats)]
             else:
                 coords = [[round(x, 6), round(y, 6)] for x, y in zip(xs, ys)]
+
+            # Clip coordinates at southernmost boundary if specified
+            if min_lat is not None:
+                filtered_coords = []
+                for pt in coords:
+                    if pt[1] >= min_lat:
+                        filtered_coords.append(pt)
+                    else:
+                        filtered_coords.append([pt[0], round(min_lat, 6)])
+                        break
+                coords = filtered_coords
+
+            if len(coords) < 2:
+                continue
 
             reach_counter += 1
             reach_id = f"REACH_{reach_counter:05d}"
