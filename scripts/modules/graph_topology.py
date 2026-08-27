@@ -863,10 +863,10 @@ def build_flow_paths_and_relations(
 
             downstream_targets.sort(key=lambda x: x[0])
 
-            # Limit flood influence cascade to primary hydrological reach (<= 120km, max 8 downstream gauges)
-            # Eliminates redundant multi-hundred-kilometer river duplicate geometries while preserving full regional flood cascade
+            # Limit flood influence cascade to primary hydrological reach (<= 50km, max 4 downstream gauges)
+            # Eliminates redundant long-distance river duplicate geometries while preserving full local/regional flood cascade
             if downstream_targets:
-                filtered_targets = [t for t in downstream_targets if t[0] <= 120.0][:8]
+                filtered_targets = [t for t in downstream_targets if t[0] <= 50.0][:4]
                 downstream_targets = filtered_targets if filtered_targets else [downstream_targets[0]]
 
         # If not connected via graph, fallback to D8 direct water station or closest downstream candidate
