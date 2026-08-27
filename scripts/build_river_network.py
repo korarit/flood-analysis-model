@@ -123,13 +123,9 @@ def process_basin_terrain(
         if not coords or len(coords) < 2:
             continue
 
-        # Spatial BBox & Southern Limit Filter
-        lons = [c[0] for c in coords]
+        # Spatial Southern Limit Filter: keep river if ANY part of it is above effective_min_lat
         lats = [c[1] for c in coords]
-        mid_lon = (min(lons) + max(lons)) / 2.0
-        mid_lat = (min(lats) + max(lats)) / 2.0
-
-        if not (bbox_min_lon <= mid_lon <= bbox_max_lon and effective_min_lat <= mid_lat <= bbox_max_lat):
+        if max(lats) < effective_min_lat:
             continue
 
         props = feat.get("properties", {})

@@ -156,7 +156,8 @@ def simplify_river_geojson(
             length_km = float(props.get("length_km", props.get("distance_km", 0.0)))
             start_acc = int(props.get("start_acc_cells", 0))
 
-            if min_length_km > 0 and 0.0 < length_km < min_length_km:
+            is_osm = "osm_id" in props
+            if min_length_km > 0 and 0.0 < length_km < min_length_km and not is_osm:
                 continue
             if min_acc_cells > 0 and 0 < start_acc < min_acc_cells:
                 continue
