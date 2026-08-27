@@ -289,10 +289,23 @@ def scrape_station_fast(
     return code, 0, duration
 
 
+def check_dwr_connectivity(session: requests.Session) -> Tuple[bool, str]:
+    """Tests if DWR server is reachable from the current environment."""
+    test_url = f"{BASE_URL}?FilterSTN=STN0913&FilterType=1D&FilterDate=2025-06-01&FilterTime=00%3A00&FilterNumData=48"
+    try:
+        resp = session.get(test_url, timeout=8)
+        if resp.status_code == 200 and "ปริมาณน้ำฝน" in resp.text:
+            return True, "OK"
+        return False, f"Server responded with HTTP {resp.status_code}"
+    except Exception as e:
+        return False, str(e)
+
+
 def load_dwr_stations_for_basin(dataset_dir: Path, basin: str) -> List[Dict[str, Any]]:
     """Loads DWR stations from dataset/{basin}/station/{basin}_rain_stations_dwr.json"""
     dwr_file = dataset_dir / basin / "station" / f"{basin}_rain_stations_dwr.json"
     if not dwr_file.exists():
+        print(f"  [WARNING] Station metadata file not found at: {dwr_file}")
         return []
 
     with open(dwr_file, "r", encoding="utf-8") as f:
@@ -359,6 +372,17 @@ def run_dwr_scraper(
     # Create high-capacity HTTP session pool
     session = create_http_session(pool_size=workers * inner_workers + 10)
     summary_stats = {b: 0 for b in target_basins}
+
+    # Pre-flight Connectivity Check
+    is_connected, conn_msg = check_dwr_connectivity(session)
+    if not is_connected:
+        print("\n" + "!" * 85)
+        print("  [CRITICAL NETWORK ERROR] Cannot connect to DWR server (ews.dwr.go.th)")
+        print(f"  Details: {conn_msg}")
+        print("  Reason : DWR firewall blocks connections from outside Thailand / Cloud IPs (e.g. Google Colab).")
+        print("  Action : Please run this script on your local computer in Thailand, then upload the output.")
+        print("!" * 85 + "\n")
+        return
 
     for basin in target_basins:
         stations = load_dwr_stations_for_basin(dataset_dir, basin)
@@ -464,9 +488,11 @@ def run_dwr_scraper(
                 writer.writeheader()
                 writer.writerows(all_basin_records)
             total_rows = len(all_basin_records)
+            print(f"  -> Successfully generated {final_csv} with {total_rows:,} total hourly records!")
+        else:
+            print(f"  [WARNING] No records found for basin {basin}. Output file was not generated.")
 
         summary_stats[basin] = total_rows
-        print(f"  -> Successfully generated {final_csv} with {total_rows:,} total hourly records!")
 
     print("\n" + "=" * 85)
     print("  DWR SCRAPER COMPLETED SUMMARY")
