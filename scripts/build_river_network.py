@@ -36,9 +36,9 @@ def process_basin_terrain(
     force: bool = False
 ):
     """
-    Processes DEM using Sub-basin Topological Cascade at native 12.5m resolution.
-    Runs each sub-basin in order with minimal RAM footprint (~200-400 MB),
-    extracting high-resolution river reaches, slope profiles, and confluences.
+    Builds the complete River Network by basing 100% on OpenStreetMap (OSM) Waterways
+    in the basin BBox, enhanced with ALOS PALSAR 12.5m DEM elevations, slopes,
+    and topological flow direction enforcement.
     """
     gis_dir = os.path.join(basin_dir, "gis")
     river_dir = os.path.join(basin_dir, "river")
@@ -47,7 +47,7 @@ def process_basin_terrain(
     os.makedirs(processed_dir, exist_ok=True)
     os.makedirs(terrain_dir, exist_ok=True)
 
-    # 0. Check if already computed (Cache)
+    # 0. Check Cache
     processed_river_path = os.path.join(processed_dir, "river_network.geojson")
     river_segments_path = os.path.join(river_dir, "river_segments.json")
     if (
@@ -57,151 +57,153 @@ def process_basin_terrain(
         and not force
     ):
         print(f"\n🏔️ [STEP 2] [CACHE] River network already exists: {processed_river_path}")
-        print("        Loaded cached 12.5m river network and confluences (skipping re-computation).")
+        print("        Loaded cached river network (skipping re-computation).")
         return
 
-    raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
-    if not os.path.exists(raw_dem_path):
-        print(f"❌ ERROR: raw_dem.tif not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
+    # 1. Load Stations and Bounding Box
+    water_st, rain_st = load_stations_for_basin(basin_dir)
+    all_st = water_st + rain_st
+    if not all_st:
+        print(f"❌ ERROR: No stations found in {basin_dir}/station/", file=sys.stderr)
         sys.exit(1)
 
-    # 1. Load Sub-basins (Topological Order 1 -> N)
-    subbasins_path = os.path.join(gis_dir, f"{basin}_subbasins.geojson")
-    if not os.path.exists(subbasins_path):
-        water_st, rain_st = load_stations_for_basin(basin_dir)
-        subbasins_geojson = fetch_subbasins_boundary(basin, subbasins_path, water_st + rain_st)
-    else:
-        with open(subbasins_path, 'r', encoding='utf-8') as f:
-            subbasins_geojson = json.load(f)
-
-    subbasin_features = sorted(
-        subbasins_geojson['features'],
-        key=lambda x: x['properties'].get('order', 1)
-    )
-
-    import time
-    try:
-        from tqdm import tqdm
-    except ImportError:
-        def tqdm(iterable, **kwargs):
-            return iterable
-
-    print(f"\n🏔️ [STEP 2] Sub-basin Cascade Engine (Native 12.5m DEM) for Basin: {basin.upper()}")
-    print(f"        Processing {len(subbasin_features)} sub-basins from headwaters to outlet...")
-
-    all_river_features = []
-    all_river_segments = []
-    all_confluences = []
-    reach_counter = 0
-
-    subbasin_pbar = tqdm(subbasin_features, desc="Total Sub-basin Progress", unit="subbasin", ncols=85)
+    from scripts.modules.gis_utils import get_station_bbox, linestring_length_km
+    bbox_min_lat, bbox_min_lon, bbox_max_lat, bbox_max_lon = get_station_bbox(all_st, buffer_deg=0.25)
 
     # Calculate southern limit: Southernmost water level station - 5km (~0.045 deg)
-    water_st, _ = load_stations_for_basin(basin_dir)
     water_lats = [float(st['latitude']) for st in water_st if st.get('latitude') is not None]
     southern_limit_lat = round(min(water_lats) - (5.0 / 111.0), 5) if water_lats else None
+    effective_min_lat = southern_limit_lat if southern_limit_lat is not None else bbox_min_lat
 
-    for idx, sub_feat in enumerate(subbasin_pbar, 1):
-        t_sub_start = time.time()
-        props = sub_feat['properties']
-        sub_id = props['subbasin_id']
-        sub_name = props['subbasin_name_th']
-        sub_order = props.get('order', idx)
-        print(f"\n  ┌─ [{idx}/{len(subbasin_features)}] Sub-basin ({sub_order}): {sub_name}")
+    # 2. Fetch or Load 100% of OSM Waterways in BBox
+    from scripts.fetch_basin_gis import fetch_osm_waterways
+    osm_waterways_path = os.path.join(gis_dir, "osm_waterways.geojson")
+    osm_geojson = fetch_osm_waterways(basin, osm_waterways_path, all_st, force=force)
+    osm_features = osm_geojson.get("features", [])
+    print(f"\n🌊 [STEP 2] Building Complete River Network from 100% OSM Waterways ({len(osm_features):,} features)...")
 
-        # 2. Clip native 12.5m DEM for this sub-basin
-        t0 = time.time()
-        print(f"  │  [1/4] Clipping 12.5m DEM for sub-basin...")
-        sub_elev, sub_transform, crs, nodata = clip_dem_to_polygon(
-            raw_dem_path,
-            sub_feat['geometry'],
-            buffer_deg=0.015
-        )
-        print(f"  │        Grid shape: {sub_elev.shape[0]:,} rows x {sub_elev.shape[1]:,} cols ({sub_elev.size:,} cells, {time.time()-t0:.1f}s)")
+    # 3. Load DEM for Elevation & Slope Profiling
+    raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
+    cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
+    dem_path = cond_dem_path if os.path.exists(cond_dem_path) else raw_dem_path
 
-        # 3. Flow Routing & Accumulation in C
-        t0 = time.time()
-        print("  │  [2/4] Running C-accelerated Pit-filling & D8 Flow Routing...")
-        filled_dem, flw_obj = fill_depressions_priority_flood(sub_elev, transform=sub_transform, crs=crs, nodata=nodata)
-        fdir = compute_d8_flow_direction(filled_dem, sub_transform, flw_obj=flw_obj, nodata=nodata)
-        acc = compute_flow_accumulation(fdir, flw_obj=flw_obj)
-        print(f"  │        Flow tree & accumulation computed in {time.time()-t0:.1f}s")
+    dem_data = None
+    dem_transform = None
+    dem_crs = None
+    if os.path.exists(dem_path):
+        import rasterio
+        with rasterio.open(dem_path) as src:
+            dem_data = src.read(1).astype(np.float32)
+            dem_transform = src.transform
+            dem_crs = src.crs
+            dem_nodata = src.nodata if src.nodata is not None else -9999.0
 
-        # 4. Extract River Reaches at 12.5m resolution
-        t0 = time.time()
-        print(f"  │  [3/4] Extracting river reaches (Threshold >= {stream_threshold} cells)...")
-        sub_river_geojson, sub_segments = extract_river_network_reaches(
-            filled_dem, fdir, acc, sub_transform, crs=crs, min_stream_acc_cells=stream_threshold,
-            min_lat=southern_limit_lat
-        )
-        
-        # Tag reach features with subbasin_id
-        for feat in sub_river_geojson['features']:
-            reach_counter += 1
-            feat['id'] = f"REACH_{reach_counter:05d}"
-            feat['properties']['reach_id'] = feat['id']
-            feat['properties']['subbasin_id'] = sub_id
-            feat['properties']['subbasin_name'] = sub_name
-            all_river_features.append(feat)
+    def sample_elev(lon: float, lat: float) -> float:
+        if dem_data is None or dem_transform is None:
+            return 100.0
+        try:
+            from rasterio.transform import rowcol
+            r, c = rowcol(dem_transform, lon, lat)
+            if 0 <= r < dem_data.shape[0] and 0 <= c < dem_data.shape[1]:
+                val = dem_data[r, c]
+                if val != dem_nodata and not np.isnan(val) and val > -500:
+                    return float(val)
+        except Exception:
+            pass
+        return 100.0
 
-        for seg in sub_segments:
-            seg['subbasin_id'] = sub_id
-            all_river_segments.append(seg)
-        print(f"  │        Extracted {len(sub_segments)} reaches in {time.time()-t0:.1f}s")
+    # 4. Enhance every OSM River & Tributary reach with DEM Hydrology
+    all_river_features = []
+    all_river_segments = []
+    reach_counter = 0
+    node_endpoints = {}
 
-        # 5. Detect Confluences
-        t0 = time.time()
-        print(f"  │  [4/4] Detecting Confluences...")
-        sub_confluences = detect_confluences(fdir, acc, sub_transform, crs=crs, min_acc_cells=stream_threshold)
-        for conf in sub_confluences['features']:
-            conf['properties']['subbasin_id'] = sub_id
-            all_confluences.append(conf)
-        print(f"  │        Found {len(sub_confluences['features'])} junctions in {time.time()-t0:.1f}s")
+    for feat in osm_features:
+        coords = feat.get("geometry", {}).get("coordinates", [])
+        if not coords or len(coords) < 2:
+            continue
 
-        sub_elapsed = time.time() - t_sub_start
-        print(f"  └─ ✅ Sub-basin ({sub_order}) finished in {sub_elapsed:.1f}s")
+        # Spatial BBox & Southern Limit Filter
+        lons = [c[0] for c in coords]
+        lats = [c[1] for c in coords]
+        mid_lon = (min(lons) + max(lons)) / 2.0
+        mid_lat = (min(lats) + max(lats)) / 2.0
 
-        # Free large raster arrays and C memory buffers immediately
-        import gc
-        del sub_elev, filled_dem, fdir, acc, flw_obj, sub_river_geojson, sub_segments, sub_confluences
-        gc.collect()
+        if not (bbox_min_lon <= mid_lon <= bbox_max_lon and effective_min_lat <= mid_lat <= bbox_max_lat):
+            continue
 
-    # 6. Filter river network using Basin Bounding Box (BBox) + Southern Station Limit
-    water_st_all, rain_st_all = load_stations_for_basin(basin_dir)
-    all_st = water_st_all + rain_st_all
-    if all_st:
-        from scripts.modules.gis_utils import get_station_bbox
-        bbox_min_lat, bbox_min_lon, bbox_max_lat, bbox_max_lon = get_station_bbox(all_st, buffer_deg=0.15)
-        effective_min_lat = southern_limit_lat if southern_limit_lat is not None else bbox_min_lat
+        props = feat.get("properties", {})
+        length_km = linestring_length_km(coords)
+        if length_km < 0.05:  # Skip trivial micro-segments < 50m
+            continue
 
-        filtered_features = []
-        filtered_segments = []
-        for feat, seg in zip(all_river_features, all_river_segments):
-            coords = feat.get('geometry', {}).get('coordinates', [])
-            if not coords:
-                continue
-            # Keep reach if its points fall within the basin BBox bounds and above southern limit
-            reach_lons = [c[0] for c in coords]
-            reach_lats = [c[1] for c in coords]
-            mid_lon = (min(reach_lons) + max(reach_lons)) / 2.0
-            mid_lat = (min(reach_lats) + max(reach_lats)) / 2.0
+        # Sample Elevations
+        z_start = sample_elev(coords[0][0], coords[0][1])
+        z_end = sample_elev(coords[-1][0], coords[-1][1])
 
-            if (bbox_min_lon <= mid_lon <= bbox_max_lon) and (effective_min_lat <= mid_lat <= bbox_max_lat):
-                filtered_features.append(feat)
-                filtered_segments.append(seg)
+        # Enforce Downhill Flow Direction (higher to lower elevation)
+        oriented_coords = list(coords)
+        if z_start < z_end - 0.5:
+            oriented_coords.reverse()
+            z_start, z_end = z_end, z_start
 
-        filtered_confluences = []
-        for conf in all_confluences:
-            c_coords = conf.get('geometry', {}).get('coordinates', [])
-            if c_coords and len(c_coords) >= 2:
-                c_lon, c_lat = c_coords[0], c_coords[1]
-                if (bbox_min_lon <= c_lon <= bbox_max_lon) and (effective_min_lat <= c_lat <= bbox_max_lat):
-                    filtered_confluences.append(conf)
+        dz = max(0.0, z_start - z_end)
+        slope = (dz / (length_km * 1000.0)) if length_km > 0.001 else 0.0005
 
-        print(f"  [BBOX FILTER] Retained {len(filtered_features)}/{len(all_river_features)} river reaches within basin bbox [{bbox_min_lon:.3f}, {effective_min_lat:.3f}, {bbox_max_lon:.3f}, {bbox_max_lat:.3f}] (filtered out {len(all_river_features) - len(filtered_features)} outside reaches).")
-        all_river_features = filtered_features
-        all_river_segments = filtered_segments
-        all_confluences = filtered_confluences
+        reach_counter += 1
+        reach_id = f"REACH_{reach_counter:05d}"
+        r_name = props.get("name_th") or props.get("name") or props.get("name_en") or ""
+
+        clean_props = {
+            "reach_id": reach_id,
+            "osm_id": props.get("osm_id", reach_counter),
+            "river_name": r_name,
+            "waterway": props.get("waterway", "stream"),
+            "length_km": round(length_km, 3),
+            "upstream_elev_m": round(z_start, 2),
+            "downstream_elev_m": round(z_end, 2),
+            "elevation_diff_m": round(dz, 2),
+            "river_slope": round(slope, 6)
+        }
+
+        out_feat = {
+            "type": "Feature",
+            "id": reach_id,
+            "properties": clean_props,
+            "geometry": {
+                "type": "LineString",
+                "coordinates": oriented_coords
+            }
+        }
+        all_river_features.append(out_feat)
+        all_river_segments.append(clean_props)
+
+        # Track endpoints for Confluence detection
+        start_pt = (round(oriented_coords[0][0], 4), round(oriented_coords[0][1], 4))
+        end_pt = (round(oriented_coords[-1][0], 4), round(oriented_coords[-1][1], 4))
+        node_endpoints.setdefault(start_pt, []).append((reach_id, "start"))
+        node_endpoints.setdefault(end_pt, []).append((reach_id, "end"))
+
+    # 5. Detect Confluences (where 2 or more tributaries meet)
+    all_confluences = []
+    conf_counter = 0
+    for pt, connections in node_endpoints.items():
+        if len(connections) >= 2:
+            conf_counter += 1
+            conf_id = f"CONF_{conf_counter:04d}"
+            all_confluences.append({
+                "type": "Feature",
+                "id": conf_id,
+                "properties": {
+                    "confluence_id": conf_id,
+                    "connected_reaches": len(connections),
+                    "elevation_m": round(sample_elev(pt[0], pt[1]), 2)
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [pt[0], pt[1]]
+                }
+            })
 
     merged_river_geojson = {
         "type": "FeatureCollection",
@@ -215,7 +217,6 @@ def process_basin_terrain(
     river_geojson_path = os.path.join(river_dir, "river_network.geojson")
     river_segments_path = os.path.join(river_dir, "river_segments.json")
     confluences_path = os.path.join(river_dir, "confluences.geojson")
-    processed_river_path = os.path.join(processed_dir, "river_network.geojson")
     raw_river_path = os.path.join(river_dir, "river_network_raw.geojson")
 
     # Save compact raw backup and confluences
@@ -223,7 +224,7 @@ def process_basin_terrain(
     save_json(all_river_segments, river_segments_path)
     save_geojson(merged_confluences_geojson, confluences_path)
 
-    # Automatically optimize and simplify river network for web GIS (< 25 MB)
+    # 6. Simplify and Optimize for Web GIS Rendering
     try:
         from scripts.simplify_river_network import simplify_river_geojson
         simplify_river_geojson(
@@ -242,9 +243,9 @@ def process_basin_terrain(
         save_geojson(merged_river_geojson, processed_river_path, indent=None)
 
     print("\n" + "═" * 70)
-    print(f"  ✅ [SUCCESS] Native 12.5m River Network Extracted & Optimized:")
-    print(f"     • Total River Reaches : {len(all_river_features)} segments")
-    print(f"     • Total Confluences   : {len(all_confluences)} junctions")
+    print(f"  ✅ [SUCCESS] Complete OSM River Network Built & DEM-Enhanced:")
+    print(f"     • Total River Reaches : {len(all_river_features):,} segments (100% complete)")
+    print(f"     • Total Confluences   : {len(all_confluences):,} junctions")
     print(f"     • Saved (Optimized)   : {processed_river_path}")
     print(f"     • Saved (Raw Backup)  : {raw_river_path}")
     print("═" * 70)

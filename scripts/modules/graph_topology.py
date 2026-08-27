@@ -868,6 +868,37 @@ def build_flow_paths_and_relations(
             }
             features.append(feature)
             gauge_relations.append(feature["properties"])
+        elif raster_coords and len(raster_coords) >= 2:
+            coords = merge_coordinates([[st_lon, st_lat]], raster_coords)
+            dist_km = linestring_length_km(coords)
+            if dist_km >= 1.0:
+                z_up = sample_elevation(st_lon, st_lat)
+                z_down = sample_elevation(coords[-1][0], coords[-1][1])
+                dz = max(0.0, z_up - z_down)
+                slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
+
+                feature_id = f"flow_gauge_{st_id}_downstream"
+                feature = {
+                    "type": "Feature",
+                    "id": feature_id,
+                    "properties": {
+                        "feature_type": "gauge_to_gauge_flowpath",
+                        "from_station_id": st_id,
+                        "from_station_name": st.get('station_name', ''),
+                        "to_station_id": "",
+                        "to_station_name": "Basin Outlet / Main River Flow",
+                        "distance_km": round(dist_km, 2),
+                        "river_slope": round(slope, 6),
+                        "elevation_diff_m": round(dz, 2),
+                        "upstream_elev_m": round(z_up, 2),
+                        "downstream_elev_m": round(z_down, 2),
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                    }
+                }
+                features.append(feature)
 
     # =========================================================================
     # LAYER 2: Rain-to-Gauge Overland Connectors (Overland -> River Backbone)
@@ -1021,23 +1052,21 @@ def build_flow_paths_and_relations(
                 tgt_lat = float(target_st.get('latitude', 0.0))
                 z_water = sample_elevation(tgt_lon, tgt_lat)
 
+                # Natural D8 Overland Runoff Line: from rain station down to the stream entry point
                 coords = merge_coordinates(
                     [[lon, lat]],
-                    overland_coords[:entry_idx + 1],
-                    backbone_coords
+                    overland_coords[:entry_idx + 1]
                 )
-                last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
-                if last_dist <= 0.005:
-                    coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
 
-                overland_dist_km = linestring_length_km(overland_coords[:entry_idx + 1])
+                overland_dist_km = linestring_length_km(coords)
                 channel_dist_km = b_dist
-                dist_km = linestring_length_km(coords)
+                total_dist_km = overland_dist_km + channel_dist_km
                 dz = max(0.0, z_rain - z_water)
 
-                overland_dz = max(0.0, z_rain - sample_elevation(overland_coords[entry_idx][0], overland_coords[entry_idx][1]))
+                entry_pt = overland_coords[entry_idx]
+                overland_dz = max(0.0, z_rain - sample_elevation(entry_pt[0], entry_pt[1]))
                 overland_slope = (overland_dz / (overland_dist_km * 1000.0)) if overland_dist_km > 0.001 else 0.01
-                channel_slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0005
+                channel_slope = (dz / (total_dist_km * 1000.0)) if total_dist_km > 0.001 else 0.0005
 
                 lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
                     overland_dist_km=overland_dist_km,
@@ -1057,8 +1086,9 @@ def build_flow_paths_and_relations(
                         "from_station_name": r_st.get('station_name', ''),
                         "to_station_id": target_water_id,
                         "to_station_name": target_st.get('station_name', ''),
-                        "total_distance_km": round(dist_km, 2),
-                        "distance_km": round(dist_km, 2),
+                        "total_distance_km": round(total_dist_km, 2),
+                        "distance_km": round(overland_dist_km, 2),
+                        "channel_distance_km": round(channel_dist_km, 2),
                         "response_lag_minutes": lag_avg_m,
                         "response_lag_minutes_min": lag_min_m,
                         "response_lag_minutes_max": lag_max_m,
@@ -1066,7 +1096,7 @@ def build_flow_paths_and_relations(
                         "response_lag_hours_min": lag_min_h,
                         "response_lag_hours_max": lag_max_h,
                         "elevation_diff_m": round(dz, 2),
-                        "slope": round(channel_slope, 6),
+                        "slope": round(overland_slope, 6),
                         "upstream_elev_m": round(z_rain, 2),
                         "downstream_elev_m": round(z_water, 2),
                         "influence_weight_percent": 100.0

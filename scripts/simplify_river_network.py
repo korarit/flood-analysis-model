@@ -197,6 +197,8 @@ def simplify_river_geojson(
                 "elev_diff_m": round(float(props.get("elevation_diff_m", 0.0)), 1),
                 "acc_km2": round(start_acc * CELL_AREA_KM2_12_5M, 2)
             }
+            if props.get("waterway"):
+                clean_props["waterway"] = props["waterway"]
             if props.get("river_name"):
                 clean_props["river_name"] = props["river_name"]
 
