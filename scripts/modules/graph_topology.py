@@ -177,10 +177,11 @@ class DirectedRiverGraph:
     def dijkstra_single_source(
         self,
         start_node: int,
-        target_nodes_set: Optional[Set[int]] = None
+        target_nodes_set: Optional[Set[int]] = None,
+        max_dist_km: float = 60.0
     ) -> Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]:
         """
-        Runs Dijkstra shortest path from start_node to all reachable nodes.
+        Runs Dijkstra shortest path from start_node to reachable nodes within max_dist_km.
         If target_nodes_set is provided, stops early once all reachable target nodes have been settled.
         Returns:
             dist: Dict[node_id, shortest_distance_km]
@@ -196,6 +197,8 @@ class DirectedRiverGraph:
 
         while pq:
             cost, u = heapq.heappop(pq)
+            if cost > max_dist_km:
+                break
             if cost > dist.get(u, float('inf')):
                 continue
 
@@ -206,7 +209,7 @@ class DirectedRiverGraph:
 
             for v, edge_d in self.adj.get(u, []):
                 new_cost = cost + edge_d["length_km"]
-                if new_cost < dist.get(v, float('inf')):
+                if new_cost <= max_dist_km and new_cost < dist.get(v, float('inf')):
                     dist[v] = new_cost
                     prev[v] = (u, edge_d)
                     heapq.heappush(pq, (new_cost, v))
@@ -253,13 +256,13 @@ class DirectedRiverGraph:
                 combined_coords.extend(c[1:])
         return combined_coords
 
-    def shortest_path(self, start_node: int, end_node: int) -> Tuple[Optional[List[List[float]]], float]:
+    def shortest_path(self, start_node: int, end_node: int, max_dist_km: float = 250.0) -> Tuple[Optional[List[List[float]]], float]:
         """Memory-efficient Dijkstra shortest-path routing between two nodes via parent backtracking."""
         if start_node == end_node:
             p = self.nodes.get(start_node)
             return ([[p[0], p[1]]] if p else None), 0.0
 
-        dist, prev = self.dijkstra_single_source(start_node, target_nodes_set={end_node})
+        dist, prev = self.dijkstra_single_source(start_node, target_nodes_set={end_node}, max_dist_km=max_dist_km)
         if end_node not in dist:
             return None, float('inf')
 
@@ -540,27 +543,17 @@ def trace_downstream_path(
     transform: Affine,
     crs: Any = None,
     stop_condition_fn=None,
-    max_steps: int = 2000
+    max_steps: int = 5000
 ) -> Tuple[List[List[float]], Optional[Any]]:
     """
-    Traces D8 flow path downstream cell by cell.
+    Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
     Returns (coordinates_list [[lon, lat], ...], stop_data).
     """
     nrows, ncols = fdir.shape
-    coords = []
     curr_r, curr_c = start_r, start_c
     visited: Set[Tuple[int, int]] = set()
     stop_data = None
-
-    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
-    transformer = None
-    if not is_geographic and crs is not None:
-        try:
-            from pyproj import Transformer
-            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
-            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
-        except Exception:
-            transformer = None
+    path_rc = []
 
     for _ in range(max_steps):
         if not (0 <= curr_r < nrows and 0 <= curr_c < ncols):
@@ -568,13 +561,7 @@ def trace_downstream_path(
         if (curr_r, curr_c) in visited:
             break  # cycle protection
         visited.add((curr_r, curr_c))
-
-        x, y = transform * (curr_c + 0.5, curr_r + 0.5)
-        if transformer is not None:
-            lon, lat = transformer.transform(x, y)
-        else:
-            lon, lat = x, y
-        coords.append([round(lon, 6), round(lat, 6)])
+        path_rc.append((curr_r, curr_c))
 
         if stop_condition_fn:
             should_stop, data = stop_condition_fn(curr_r, curr_c)
@@ -588,6 +575,30 @@ def trace_downstream_path(
         dr, dc = D8_DELTAS[code]
         curr_r, curr_c = curr_r + dr, curr_c + dc
 
+    if not path_rc:
+        return [], stop_data
+
+    # Vectorized conversion from (row, col) to (lon, lat)
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        except Exception:
+            transformer = None
+
+    r_arr = np.array([p[0] for p in path_rc], dtype=np.float64)
+    c_arr = np.array([p[1] for p in path_rc], dtype=np.float64)
+    xs = transform[2] + (c_arr + 0.5) * transform[0] + (r_arr + 0.5) * transform[1]
+    ys = transform[5] + (c_arr + 0.5) * transform[3] + (r_arr + 0.5) * transform[4]
+
+    if transformer is not None:
+        lons, lats = transformer.transform(xs, ys)
+    else:
+        lons, lats = xs, ys
+
+    coords = [[round(float(lo), 6), round(float(la), 6)] for lo, la in zip(lons, lats)]
     return coords, stop_data
 
 
@@ -897,7 +908,7 @@ def build_flow_paths_and_relations(
         # If connected to OSM river graph, discover all reachable downstream gauges via Single-Source Dijkstra
         if entry_node is not None:
             if entry_node not in dijkstra_cache:
-                dijkstra_cache[entry_node] = river_graph.dijkstra_single_source(entry_node, target_water_nodes)
+                dijkstra_cache[entry_node] = river_graph.dijkstra_single_source(entry_node, target_water_nodes, max_dist_km=60.0)
             dist_map, prev_map = dijkstra_cache[entry_node]
 
             for wst in water_stations:
