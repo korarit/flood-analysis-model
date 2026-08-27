@@ -9,20 +9,27 @@ Usage:
 """
 
 import argparse
+import gc
 import json
 import os
 import sys
 import time
 from typing import Dict, List, Any
 
+import numpy as np
+import rasterio
+
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from scripts.modules.gis_utils import save_geojson, save_json, load_stations_for_basin
-from scripts.modules.terrain_engine import read_dem_geotiff, burn_stream_network_into_dem
+from scripts.modules.terrain_engine import (
+    read_dem_geotiff,
+    burn_stream_network_into_dem,
+    save_geotiff_raster
+)
 from scripts.modules.graph_topology import (
     snap_stations_to_stream,
-    build_flow_paths_and_relations,
-    delineate_station_catchments
+    build_flow_paths_and_relations
 )
 from scripts.modules.backend_exporter import export_backend_station_relations
 from scripts.fetch_basin_gis import fetch_osm_waterways
@@ -69,33 +76,58 @@ def generate_basin_flow_paths(
     n_osm = len(osm_waterways.get("features", []))
     print(f"        Loaded {n_osm:,} OSM river/stream features.")
 
-    # 3. Load or Condition DEM Raster
+    # 3. Load or Condition DEM Raster with Smart Caching
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
     cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
     fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
     acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
 
-    dem_to_use = cond_dem_path if (os.path.exists(cond_dem_path) and os.path.getsize(cond_dem_path) > 1024) else raw_dem_path
+    has_cached_rasters = (
+        not force
+        and os.path.exists(fdir_path) and os.path.getsize(fdir_path) > 1024
+        and os.path.exists(acc_path) and os.path.getsize(acc_path) > 1024
+        and os.path.exists(cond_dem_path) and os.path.getsize(cond_dem_path) > 1024
+    )
 
-    if not os.path.exists(dem_to_use):
-        print(f"  ❌ ERROR: DEM not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
-        return
+    if has_cached_rasters:
+        print("  [3/5] [CACHE] Loading cached Flow Direction, Accumulation, and Conditioned DEM...")
+        with rasterio.open(fdir_path) as src_fdir:
+            fdir = src_fdir.read(1).astype(np.uint8)
+            transform = src_fdir.transform
+            crs = src_fdir.crs
+        with rasterio.open(acc_path) as src_acc:
+            acc = src_acc.read(1).astype(np.int32)
+        with rasterio.open(cond_dem_path) as src_dem:
+            filled_dem = src_dem.read(1).astype(np.float32)
+            nodata = src_dem.nodata if src_dem.nodata is not None else -9999.0
+    else:
+        dem_to_use = cond_dem_path if (os.path.exists(cond_dem_path) and os.path.getsize(cond_dem_path) > 1024) else raw_dem_path
 
-    print("  [3/5] Loading DEM & Hydro-Enforcing OSM River Channels...")
-    filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
+        if not os.path.exists(dem_to_use):
+            print(f"  ❌ ERROR: DEM not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
+            return
 
-    # Apply Stream Burning to DEM if OSM is available and not already cached
-    if n_osm > 0:
-        filled_dem = burn_stream_network_into_dem(
-            filled_dem, transform, osm_waterways, crs=crs, burn_depth_m=burn_depth, nodata=nodata
-        )
+        print("  [3/5] Loading DEM & Hydro-Enforcing OSM River Channels...")
+        filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
 
-    # Compute Flow Direction & Accumulation
-    import pyflwdir
-    is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
-    flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
-    fdir = flw.to_array(ftype='d8')
-    acc = flw.upstream_area(unit='cell')
+        # Apply Stream Burning to DEM if OSM is available
+        if n_osm > 0:
+            filled_dem = burn_stream_network_into_dem(
+                filled_dem, transform, osm_waterways, crs=crs, burn_depth_m=burn_depth, nodata=nodata
+            )
+
+        # Compute Flow Direction & Accumulation
+        import pyflwdir
+        is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+        flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
+        fdir = flw.to_array(ftype='d8')
+        acc = flw.upstream_area(unit='cell')
+
+        # Save cached rasters to disk for fast subsequent runs
+        print("        Saving flow rasters to cache...")
+        save_geotiff_raster(fdir, transform, crs, fdir_path, nodata=0)
+        save_geotiff_raster(acc, transform, crs, acc_path, nodata=-1)
+        save_geotiff_raster(filled_dem, transform, crs, cond_dem_path, nodata=nodata)
 
     # 4. Snap Stations to OSM Rivers and Stream Channel
     print("  [4/5] Snapping stations to OSM River Channels...")
@@ -169,8 +201,9 @@ def generate_basin_flow_paths(
             print(f"  [WARN] Could not sync final_station_data.json: {ex}")
 
     # Free memory buffers immediately
-    import gc
-    del filled_dem, flw, fdir, acc
+    del filled_dem, fdir, acc
+    if 'flw' in locals() and flw is not None:
+        del flw
     gc.collect()
 
     elapsed = time.time() - t_start
