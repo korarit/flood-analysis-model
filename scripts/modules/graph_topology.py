@@ -130,14 +130,8 @@ class DirectedRiverGraph:
                     "river_name": river_name
                 }
 
-                # Primary downstream edge
+                # Primary downstream edge (enforce downstream flow only)
                 self.adj[prev_node].append((curr_node, edge_data))
-
-                # Secondary reverse edge with penalty for topological bridging fallback
-                rev_edge = dict(edge_data)
-                rev_edge["coords"] = [[p_curr_lon, p_curr_lat], [p_prev_lon, p_prev_lat]]
-                rev_edge["length_km"] = length_km * 3.0
-                self.adj[curr_node].append((prev_node, rev_edge))
 
             prev_node = curr_node
 
@@ -427,26 +421,29 @@ def snap_stations_to_stream(
             r, c = rowcol(transform, snapped_lon, snapped_lat)
 
         best_r, best_c = r, c
-        best_acc = -1
+        best_acc = int(acc[r, c]) if 0 <= r < nrows and 0 <= c < ncols else -1
 
-        # 3. Fallback / Refinement via Flow Accumulation raster if not snapped via OSM
-        if not snapped_via_osm and 0 <= r < nrows and 0 <= c < ncols:
-            r_min = max(0, r - search_radius_cells)
-            r_max = min(nrows, r + search_radius_cells + 1)
-            c_min = max(0, c - search_radius_cells)
-            c_max = min(ncols, c + search_radius_cells + 1)
+        # 3. Always refine via Flow Accumulation raster to sit directly on the flowing D8 channel
+        # Use tighter radius if already on OSM (~5 cells = 60m), wider if raw coordinate (~15 cells = 180m)
+        cur_search_radius = 5 if snapped_via_osm else search_radius_cells
+        if 0 <= r < nrows and 0 <= c < ncols:
+            r_min = max(0, r - cur_search_radius)
+            r_max = min(nrows, r + cur_search_radius + 1)
+            c_min = max(0, c - cur_search_radius)
+            c_max = min(ncols, c + cur_search_radius + 1)
 
             for cr in range(r_min, r_max):
                 for cc in range(c_min, c_max):
                     if acc[cr, cc] > best_acc and acc[cr, cc] >= min_acc_cells:
-                        best_acc = acc[cr, cc]
+                        best_acc = int(acc[cr, cc])
                         best_r, best_c = cr, cc
 
-            x, y = transform * (best_c + 0.5, best_r + 0.5)
-            if transformer is not None:
-                snapped_lon, snapped_lat = transformer.transform(x, y)
-            else:
-                snapped_lon, snapped_lat = x, y
+            if not snapped_via_osm:
+                x, y = transform * (best_c + 0.5, best_r + 0.5)
+                if transformer is not None:
+                    snapped_lon, snapped_lat = transformer.transform(x, y)
+                else:
+                    snapped_lon, snapped_lat = x, y
 
         # Ensure grid_row / grid_col are clamped within DEM bounds
         best_r = max(0, min(nrows - 1, best_r))
@@ -748,14 +745,15 @@ def build_flow_paths_and_relations(
         st_lat, st_lon = float(st.get('latitude', 0.0)), float(st.get('longitude', 0.0))
 
         if r is not None and c is not None:
-            for dr in (-2, -1, 0, 1, 2):
-                for dc in (-2, -1, 0, 1, 2):
+            # Generous 11x11 capture footprint (~135m) around each station so flowing stream D8 channel always hits it
+            for dr in (-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5):
+                for dc in (-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5):
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < nrows and 0 <= nc < ncols:
                         water_grid_map[(nr, nc)] = st_id
 
-        # Find closest node on river graph
-        nid, _ = river_graph.find_nearest_node(st_lon, st_lat, max_dist_deg=0.02)
+        # Find closest node on river graph within tight tolerance (~1.5 km)
+        nid, d_nid = river_graph.find_nearest_node(st_lon, st_lat, max_dist_deg=0.015)
         if nid:
             water_node_map[st_id] = nid
 
@@ -811,19 +809,20 @@ def build_flow_paths_and_relations(
             if not target_st:
                 continue
 
+            tgt_lon = float(target_st.get('longitude', 0.0))
+            tgt_lat = float(target_st.get('latitude', 0.0))
+
             # Continuous 12.5m DEM D8 raster coordinates: zero straight lines
             coords = merge_coordinates([[st_lon, st_lat]], raster_coords)
             
-            # Snap the final vertex to the target station smoothly (within 500m)
-            last_dist = math.hypot(coords[-1][0] - target_st['longitude'], coords[-1][1] - target_st['latitude'])
+            # Snap the final vertex to the target station smoothly only if within 500m
+            last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
             if last_dist <= 0.005:
-                coords[-1] = [round(float(target_st['longitude']), 6), round(float(target_st['latitude']), 6)]
-            else:
-                coords.append([round(float(target_st['longitude']), 6), round(float(target_st['latitude']), 6)])
+                coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
 
             dist_km = linestring_length_km(coords)
             z_up = sample_elevation(st_lon, st_lat)
-            z_down = sample_elevation(target_st['longitude'], target_st['latitude'])
+            z_down = sample_elevation(tgt_lon, tgt_lat)
             dz = max(0.0, z_up - z_down)
             slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
@@ -913,8 +912,6 @@ def build_flow_paths_and_relations(
                 last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
                 if last_dist <= 0.005:
                     coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
-                else:
-                    coords.append([round(tgt_lon, 6), round(tgt_lat, 6)])
 
                 dist_km = linestring_length_km(coords)
                 dz = max(0.0, z_rain - z_water)
@@ -995,8 +992,9 @@ def build_flow_paths_and_relations(
                             downstream_targets.append((b_dist, w_id, wst, backbone_coords))
 
             downstream_targets.sort(key=lambda x: x[0])
+            # Select ONLY the single best downstream receiving station (no artificial branching)
             if downstream_targets:
-                downstream_targets = [t for t in downstream_targets if t[0] <= 50.0][:4]
+                downstream_targets = [downstream_targets[0]]
 
         if downstream_targets and entry_idx is not None:
             for b_dist, target_water_id, target_st, backbone_coords in downstream_targets:
@@ -1012,8 +1010,6 @@ def build_flow_paths_and_relations(
                 last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
                 if last_dist <= 0.005:
                     coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
-                else:
-                    coords.append([round(tgt_lon, 6), round(tgt_lat, 6)])
 
                 overland_dist_km = linestring_length_km(overland_coords[:entry_idx + 1])
                 channel_dist_km = b_dist
@@ -1054,7 +1050,7 @@ def build_flow_paths_and_relations(
                         "slope": round(channel_slope, 6),
                         "upstream_elev_m": round(z_rain, 2),
                         "downstream_elev_m": round(z_water, 2),
-                        "influence_weight_percent": 30.0
+                        "influence_weight_percent": 100.0
                     },
                     "geometry": {
                         "type": "LineString",
@@ -1064,11 +1060,11 @@ def build_flow_paths_and_relations(
                 features.append(feature)
                 rainfall_relations.append(feature["properties"])
         else:
-            # Case 3: Standalone overland drainage (no fake straight line jumps to distant stations)
+            # Case 3: Standalone overland drainage along terrain D8 (natural curved flow path)
             if len(overland_coords) >= 2:
                 coords = merge_coordinates([[lon, lat]], overland_coords)
                 dist_km = linestring_length_km(coords)
-                if dist_km >= 2.0:
+                if dist_km >= 1.0:
                     z_end = sample_elevation(coords[-1][0], coords[-1][1])
                     dz = max(0.0, z_rain - z_end)
                     slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.01

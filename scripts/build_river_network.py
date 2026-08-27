@@ -166,7 +166,37 @@ def process_basin_terrain(
         del sub_elev, filled_dem, fdir, acc, flw_obj, sub_river_geojson, sub_segments, sub_confluences
         gc.collect()
 
-    # 6. Save Merged Native 12.5m River Network
+    # 6. Filter river network to strictly remain inside the official ThaiWater Basin Boundary Polygon
+    boundary_path = os.path.join(gis_dir, f"{basin}_boundary.geojson")
+    if os.path.exists(boundary_path):
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as f:
+                b_data = json.load(f)
+                b_feat = b_data.get('features', [{}])[0]
+                if b_feat.get('geometry'):
+                    basin_poly = shape(b_feat['geometry'])
+                    # Filter river reaches: keep only reaches that intersect or are inside the basin boundary
+                    filtered_features = []
+                    filtered_segments = []
+                    for feat, seg in zip(all_river_features, all_river_segments):
+                        r_geom = shape(feat['geometry'])
+                        if basin_poly.intersects(r_geom):
+                            filtered_features.append(feat)
+                            filtered_segments.append(seg)
+                    
+                    filtered_confluences = []
+                    for conf in all_confluences:
+                        c_geom = shape(conf['geometry'])
+                        if basin_poly.contains(c_geom) or basin_poly.intersects(c_geom):
+                            filtered_confluences.append(conf)
+
+                    print(f"  [BOUNDARY FILTER] Retained {len(filtered_features)}/{len(all_river_features)} river reaches inside official basin boundary (filtered out {len(all_river_features) - len(filtered_features)} outside reaches).")
+                    all_river_features = filtered_features
+                    all_river_segments = filtered_segments
+                    all_confluences = filtered_confluences
+        except Exception as ex:
+            print(f"  [WARN] Could not apply boundary polygon filter: {ex}")
+
     merged_river_geojson = {
         "type": "FeatureCollection",
         "features": all_river_features

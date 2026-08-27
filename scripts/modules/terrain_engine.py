@@ -424,8 +424,6 @@ def extract_river_network_reaches(
                 break
 
             curr_r, curr_c = next_r, next_c
-            if len(pts_r) >= 300: # chunk long continuous main rivers
-                break
 
         if len(pts_r) >= 2:
             # Batch coordinate conversion using Affine & Transformer
@@ -471,6 +469,7 @@ def extract_river_network_reaches(
                     "elevation_diff_m": round(dz, 2),
                     "river_slope": round(slope, 6),
                     "start_acc_cells": int(acc[sr, sc]),
+                    "end_acc_cells": int(acc[pts_r[-1], pts_c[-1]]),
                 },
                 "geometry": {
                     "type": "LineString",

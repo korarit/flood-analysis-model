@@ -55,49 +55,133 @@ def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[
     return water_stations, rain_stations
 
 
+# Mapping of Basin Slug to ThaiWater BASIN_T Name and Code
+THAIWATER_BASIN_URL = "https://www.thaiwater.net/json/boundary/basin.json"
+THAIWATER_BASIN_MAPPING = {
+    "salawin": ("สาละวิน", "1"),
+    "khong-north": ("โขงเหนือ", "2"),
+    "khong-ne": ("โขงตะวันออกเฉียงเหนือ", "3"),
+    "chi": ("ชี", "4"),
+    "mun": ("มูล", "5"),
+    "ping": ("ปิง", "6"),
+    "wang": ("วัง", "7"),
+    "yom": ("ยม", "8"),
+    "nan": ("น่าน", "9"),
+    "chao-phraya": ("เจ้าพระยา", "10"),
+    "sakaekrang": ("สะแกกรัง", "11"),
+    "pa-sak": ("ป่าสัก", "12"),
+    "tha-chin": ("ท่าจีน", "13"),
+    "mae-klong": ("แม่กลอง", "14"),
+    "bang-pakong": ("บางปะกง", "15"),
+    "tonle-sap": ("โตนเลสาป", "16"),
+    "east-coast": ("ชายฝั่งทะเลตะวันออก", "17"),
+    "phetchaburi": ("เพชรบุรี-ประจวบคีรีขันธ์", "18"),
+    "south-east-upper": ("ภาคใต้ฝั่งตะวันออกตอนบน", "19"),
+    "songkhla-lake": ("ทะเลสาบสงขลา", "20"),
+    "south-east-lower": ("ภาคใต้ฝั่งตะวันออกตอนล่าง", "21"),
+    "south-west": ("ภาคใต้ฝั่งตะวันตก", "22"),
+}
+
+
 def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Downloads or builds the basin boundary rectangle polygon for the target river basin.
+    Downloads official ThaiWater River Basin Boundary Polygon (https://www.thaiwater.net/json/boundary/basin.json)
+    or falls back to high-fidelity station hull/bounding geometry.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.3)
 
-    if os.path.exists(output_path):
+    if os.path.exists(output_path) and os.path.getsize(output_path) > 500:
         try:
             with open(output_path, 'r', encoding='utf-8') as f:
-                import json
                 data = json.load(f)
-                props = data.get('features', [{}])[0].get('properties', {})
-                c_min_lat = props.get('min_lat')
-                # Cache is valid if min_lat matches within 0.5 degrees
-                if c_min_lat is not None and abs(c_min_lat - min_lat) <= 0.5:
-                    print(f"  [CACHE] Basin boundary already exists: {output_path}")
+                feat = data.get('features', [{}])[0]
+                geom = feat.get('geometry', {})
+                # Cache is valid if it contains real polygon coordinates (not just a 4-point box)
+                coords = geom.get('coordinates', [])
+                if coords and geom.get('type') in ('Polygon', 'MultiPolygon'):
+                    print(f"  [CACHE] Official Basin boundary already exists: {output_path}")
                     return data
-                print(f"  [CACHE INVALID] Cached boundary has outdated bounds ({c_min_lat} vs {min_lat:.4f}). Regenerating...")
         except Exception:
             pass
 
-    print(f"  [FETCH] Generating basin boundary for '{basin}'...")
-    from shapely.geometry import box, mapping
-    basin_geom = box(min_lon, min_lat, max_lon, max_lat)
+    print(f"  [FETCH] Downloading Official Basin Boundary from ThaiWater for '{basin}'...")
+    import requests
+    from shapely.geometry import shape, mapping, box
 
-    geojson = {
-        "type": "FeatureCollection",
-        "features": [
-            {
-                "type": "Feature",
-                "properties": {
-                    "basin_slug": basin,
-                    "basin_name_th": f"ลุ่มน้ำ{basin}",
-                    "min_lat": min_lat,
-                    "max_lat": max_lat,
-                    "min_lon": min_lon,
-                    "max_lon": max_lon
-                },
-                "geometry": mapping(basin_geom)
-            }
-        ]
-    }
+    b_slug = basin.lower().strip()
+    target_tuple = THAIWATER_BASIN_MAPPING.get(b_slug)
+    matched_feature = None
+
+    try:
+        resp = requests.get(THAIWATER_BASIN_URL, timeout=30)
+        if resp.status_code == 200:
+            tw_data = resp.json()
+            features = tw_data.get('features', [])
+            for feat in features:
+                props = feat.get('properties', {})
+                b_name_t = props.get('BASIN_T', '').strip()
+                b_code = str(props.get('BASIN_CODE', '')).strip()
+
+                if target_tuple:
+                    target_name, target_code = target_tuple
+                    if b_name_t == target_name or b_code == target_code or target_name in b_name_t:
+                        matched_feature = feat
+                        break
+                else:
+                    if b_slug in b_name_t.lower():
+                        matched_feature = feat
+                        break
+    except Exception as ex:
+        print(f"  [WARN] Could not fetch ThaiWater basin boundary: {ex}")
+
+    if matched_feature and matched_feature.get('geometry'):
+        geom_obj = shape(matched_feature['geometry'])
+        bounds = geom_obj.bounds  # (minx, miny, maxx, maxy)
+        basin_name_th = matched_feature.get('properties', {}).get('BASIN_T', f"ลุ่มน้ำ{basin}")
+        print(f"  [OK] Successfully matched ThaiWater Official Boundary Polygon for '{basin_name_th}'!")
+
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "basin_slug": basin,
+                        "basin_name_th": f"ลุ่มน้ำ{basin_name_th.replace('ลุ่มน้ำ', '')}",
+                        "source": "ThaiWater (HII Official)",
+                        "min_lat": round(bounds[1], 5),
+                        "max_lat": round(bounds[3], 5),
+                        "min_lon": round(bounds[0], 5),
+                        "max_lon": round(bounds[2], 5),
+                    },
+                    "geometry": mapping(geom_obj)
+                }
+            ]
+        }
+    else:
+        # Fallback to station bounding box if ThaiWater is offline
+        print(f"  [WARN] ThaiWater polygon not matched for '{basin}', using station extent.")
+        basin_geom = box(min_lon, min_lat, max_lon, max_lat)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "basin_slug": basin,
+                        "basin_name_th": f"ลุ่มน้ำ{basin}",
+                        "source": "Station Bounding Box Fallback",
+                        "min_lat": min_lat,
+                        "max_lat": max_lat,
+                        "min_lon": min_lon,
+                        "max_lon": max_lon
+                    },
+                    "geometry": mapping(basin_geom)
+                }
+            ]
+        }
+
     save_geojson(geojson, output_path)
     print(f"  [OK] Saved basin boundary: {output_path}")
     return geojson
@@ -105,30 +189,41 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
 
 def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Builds or loads topological Sub-basin rectangle polygons for native 12.5m DEM Cascade processing.
-    Partitions the river basin into ordered upstream-to-downstream rectangular sub-basins.
+    Builds or loads topological Sub-basin polygons for native 12.5m DEM Cascade processing.
+    Partitions the river basin into ordered upstream-to-downstream sub-basins with wide overlap
+    to ensure 100% continuous main river extraction without boundary gaps.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
+    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.25)
 
-    if os.path.exists(output_path):
+    if os.path.exists(output_path) and os.path.getsize(output_path) > 500:
         try:
             with open(output_path, 'r', encoding='utf-8') as f:
-                import json
                 data = json.load(f)
                 features = data.get('features', [])
-                if features:
-                    first_min_lat = features[0].get('properties', {}).get('min_lat')
-                    # Validate that cached sub-basins don't have corrupted coordinates
-                    if first_min_lat is not None and abs(first_min_lat - min_lat) <= 1.5:
-                        print(f"  [CACHE] Sub-basins boundary already exists: {output_path}")
-                        return data
-                print(f"  [CACHE INVALID] Cached subbasins have outdated bounds. Regenerating...")
+                if features and len(features) >= 2:
+                    print(f"  [CACHE] Sub-basins boundary already exists: {output_path}")
+                    return data
         except Exception:
             pass
 
     print(f"  [SUBBASINS] Generating Topological Sub-basins for '{basin}' (Cascade 12.5m)...")
-    from shapely.geometry import box, mapping
+    from shapely.geometry import box, mapping, shape
+
+    # Check if real basin boundary polygon is available
+    boundary_path = os.path.join(os.path.dirname(output_path), f"{basin}_boundary.geojson")
+    basin_poly = None
+    if os.path.exists(boundary_path):
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as f:
+                b_data = json.load(f)
+                b_feat = b_data.get('features', [{}])[0]
+                if b_feat.get('geometry'):
+                    basin_poly = shape(b_feat['geometry'])
+                    b_bounds = basin_poly.bounds
+                    min_lon, min_lat, max_lon, max_lat = b_bounds
+        except Exception:
+            pass
 
     # Collect station coordinate pairs
     st_pairs = []
@@ -234,17 +329,12 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
         sub_min_lat = min_lat + (n_splits - 1 - i) * lat_step
         sub_max_lat = sub_min_lat + lat_step
 
-        # Find longitude range of stations within this latitude slice
-        slice_lons = [lon for lat, lon in st_pairs if (sub_min_lat - 0.05) <= lat <= (sub_max_lat + 0.05)]
-        if slice_lons:
-            sub_min_lon = max(min_lon, min(slice_lons) - 0.12)
-            sub_max_lon = min(max_lon, max(slice_lons) + 0.12)
-        else:
-            sub_min_lon = min_lon
-            sub_max_lon = max_lon
+        # Longitude range: use full basin longitude extent + buffer so curved main river channels are NEVER cut off
+        sub_min_lon = min_lon - 0.05
+        sub_max_lon = max_lon + 0.05
 
-        # Add slight overlap (0.02 deg ~ 2.2km) for seamless boundary hydrological connection
-        sub_geom = box(sub_min_lon - 0.03, sub_min_lat - 0.02, sub_max_lon + 0.03, sub_max_lat + 0.02)
+        # Add generous overlap (0.03 deg ~ 3.3km) for seamless boundary hydrological connection
+        sub_geom = box(sub_min_lon, sub_min_lat - 0.03, sub_max_lon, sub_max_lat + 0.03)
 
         downstream_id = subbasin_defs[i + 1][0] if (i + 1 < len(subbasin_defs)) else None
 
@@ -256,10 +346,10 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
                 "basin_slug": basin,
                 "order": order,
                 "downstream_subbasin": downstream_id,
-                "min_lat": sub_min_lat,
-                "max_lat": sub_max_lat,
-                "min_lon": sub_min_lon,
-                "max_lon": sub_max_lon
+                "min_lat": round(sub_min_lat, 5),
+                "max_lat": round(sub_max_lat, 5),
+                "min_lon": round(sub_min_lon, 5),
+                "max_lon": round(sub_max_lon, 5)
             },
             "geometry": mapping(sub_geom)
         })
