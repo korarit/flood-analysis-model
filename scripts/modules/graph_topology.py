@@ -144,23 +144,35 @@ class DirectedRiverGraph:
             return best_nid, best_d
         return None, best_d
 
-    def shortest_path(self, start_node: int, end_node: int) -> Tuple[Optional[List[List[float]]], float]:
-        """Memory-efficient Dijkstra shortest-path routing between two nodes via parent backtracking."""
-        if start_node == end_node:
-            p = self.nodes.get(start_node)
-            return ([[p[0], p[1]]] if p else None), 0.0
-
+    def dijkstra_single_source(
+        self,
+        start_node: int,
+        target_nodes_set: Optional[Set[int]] = None
+    ) -> Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]:
+        """
+        Runs Dijkstra shortest path from start_node to all reachable nodes.
+        If target_nodes_set is provided, stops early once all reachable target nodes have been settled.
+        Returns:
+            dist: Dict[node_id, shortest_distance_km]
+            prev: Dict[node_id, (parent_node_id, edge_data)]
+        """
         dist: Dict[int, float] = {start_node: 0.0}
-        prev: Dict[int, Tuple[int, Dict[str, Any]]] = {}  # node -> (parent_node, edge_data)
+        prev: Dict[int, Tuple[int, Dict[str, Any]]] = {}
         pq: List[Tuple[float, int]] = [(0.0, start_node)]
+
+        remaining_targets = set(target_nodes_set) if target_nodes_set is not None else None
+        if remaining_targets is not None:
+            remaining_targets.discard(start_node)
 
         while pq:
             cost, u = heapq.heappop(pq)
             if cost > dist.get(u, float('inf')):
                 continue
 
-            if u == end_node:
-                break
+            if remaining_targets is not None and u in remaining_targets:
+                remaining_targets.discard(u)
+                if not remaining_targets:
+                    break
 
             for v, edge_d in self.adj.get(u, []):
                 new_cost = cost + edge_d["length_km"]
@@ -169,19 +181,39 @@ class DirectedRiverGraph:
                     prev[v] = (u, edge_d)
                     heapq.heappush(pq, (new_cost, v))
 
-        if end_node not in prev:
-            return None, float('inf')
+        return dist, prev
 
-        # Backtrack path edges from end_node to start_node
+    def reconstruct_path_from_prev(
+        self,
+        prev: Dict[int, Tuple[int, Dict[str, Any]]],
+        start_node: int,
+        end_node: int
+    ) -> Optional[List[List[float]]]:
+        """Backtracks parent pointers from end_node to start_node and stitches coordinates seamlessly."""
+        if start_node == end_node:
+            p = self.nodes.get(start_node)
+            return [[p[0], p[1]]] if p else None
+
+        if end_node not in prev:
+            return None
+
         curr = end_node
         path_edges = []
+        visited_nodes = set()
         while curr in prev:
+            if curr in visited_nodes or curr == start_node:
+                break
+            visited_nodes.add(curr)
             parent, edge_d = prev[curr]
             path_edges.append(edge_d)
             curr = parent
-        path_edges.reverse()
+            if curr == start_node:
+                break
 
-        # Stitch coordinates without duplicate adjacent points
+        if curr != start_node and end_node != start_node:
+            return None
+
+        path_edges.reverse()
         combined_coords = []
         for edge_d in path_edges:
             c = edge_d["coords"]
@@ -189,8 +221,20 @@ class DirectedRiverGraph:
                 combined_coords.extend(c)
             else:
                 combined_coords.extend(c[1:])
+        return combined_coords
 
-        return combined_coords, dist[end_node]
+    def shortest_path(self, start_node: int, end_node: int) -> Tuple[Optional[List[List[float]]], float]:
+        """Memory-efficient Dijkstra shortest-path routing between two nodes via parent backtracking."""
+        if start_node == end_node:
+            p = self.nodes.get(start_node)
+            return ([[p[0], p[1]]] if p else None), 0.0
+
+        dist, prev = self.dijkstra_single_source(start_node, target_nodes_set={end_node})
+        if end_node not in dist:
+            return None, float('inf')
+
+        coords = self.reconstruct_path_from_prev(prev, start_node, end_node)
+        return coords, dist[end_node]
 
 
 def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[float]]:
@@ -594,17 +638,25 @@ def build_flow_paths_and_relations(
             transformer = None
             inv_transformer = None
 
-    # Helper to sample elevation from DEM safely
+    # Optimized elevation sampling with memoization cache
+    inv_trans = ~transform
+    elev_cache: Dict[Tuple[float, float], float] = {}
+
     def sample_elevation(lon: float, lat: float) -> float:
+        r_key = (round(lon, 4), round(lat, 4))
+        if r_key in elev_cache:
+            return elev_cache[r_key]
         if inv_transformer is not None:
             px, py = inv_transformer.transform(lon, lat)
-            gr, gc = rowcol(transform, px, py)
+            gc, gr = inv_trans * (px, py)
         else:
-            gr, gc = rowcol(transform, lon, lat)
-        gr = max(0, min(nrows - 1, gr))
-        gc = max(0, min(ncols - 1, gc))
+            gc, gr = inv_trans * (lon, lat)
+        gr = max(0, min(nrows - 1, int(gr)))
+        gc = max(0, min(ncols - 1, int(gc)))
         val = float(filled_dem[gr, gc])
-        return val if not np.isnan(val) and val != -9999.0 else 100.0
+        res = val if not np.isnan(val) and val != -9999.0 else 100.0
+        elev_cache[r_key] = res
+        return res
 
     # 1. Construct Directed River Backbone Graph from OSM with Spatial Grid Indexing
     river_graph = DirectedRiverGraph(snap_tolerance_deg=0.00035)
@@ -730,6 +782,10 @@ def build_flow_paths_and_relations(
     # =========================================================================
     # LAYER 2: Rain-to-Gauge Overland Connectors (Overland -> River Backbone)
     # =========================================================================
+    # Target water nodes set for early termination and Dijkstra SSSP caching
+    target_water_nodes = set(water_node_map.values())
+    dijkstra_cache: Dict[int, Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]] = {}
+
     # Stop condition: stops when encountering any water level station on the 12.5m grid
     def stop_at_water_station(curr_r, curr_c):
         t_id = water_grid_map.get((curr_r, curr_c))
@@ -767,22 +823,38 @@ def build_flow_paths_and_relations(
         entry_node = None
 
         if len(overland_coords) >= 2:
-            # Scan along D8 path to find first valid intersection with OSM river network
-            for p_idx in range(len(overland_coords)):
+            # Strided scan (step 8) along D8 path to find first valid intersection with OSM river network
+            STRIDE = 8
+            for p_idx in range(0, len(overland_coords), STRIDE):
                 pt = overland_coords[p_idx]
                 nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=0.008)  # ~800m
                 if nid:
-                    entry_idx = p_idx
-                    entry_node = nid
+                    # Refine to exact first intersection vertex
+                    exact_start = max(0, p_idx - STRIDE + 1)
+                    for fine_idx in range(exact_start, p_idx + 1):
+                        f_pt = overland_coords[fine_idx]
+                        f_nid, _ = river_graph.find_nearest_node(f_pt[0], f_pt[1], max_dist_deg=0.008)
+                        if f_nid:
+                            entry_idx = fine_idx
+                            entry_node = f_nid
+                            break
+                    if entry_node is None:
+                        entry_idx = p_idx
+                        entry_node = nid
                     break
 
-        # If connected to OSM river graph, discover all reachable downstream gauges
+        # If connected to OSM river graph, discover all reachable downstream gauges via Single-Source Dijkstra
         if entry_node is not None:
+            if entry_node not in dijkstra_cache:
+                dijkstra_cache[entry_node] = river_graph.dijkstra_single_source(entry_node, target_water_nodes)
+            dist_map, prev_map = dijkstra_cache[entry_node]
+
             for wst in water_stations:
                 w_id = str(wst.get('station_id', '')).strip()
                 v_node = water_node_map.get(w_id)
-                if v_node and v_node != entry_node:
-                    backbone_coords, b_dist = river_graph.shortest_path(entry_node, v_node)
+                if v_node and v_node != entry_node and v_node in dist_map:
+                    b_dist = dist_map[v_node]
+                    backbone_coords = river_graph.reconstruct_path_from_prev(prev_map, entry_node, v_node)
                     if backbone_coords and len(backbone_coords) >= 2:
                         w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
                         w_elev = sample_elevation(w_lon, w_lat)
