@@ -1208,7 +1208,7 @@ def delineate_station_catchments(
                         "station_id": st_id,
                         "station_name": st.get('station_name', ''),
                         "catchment_area_km2": round(area_km2, 2),
-                        "contributing_cells": len(visited)
+                        "contributing_cells": len(visited_coords)
                     },
                     "geometry": {
                         "type": "Polygon",
