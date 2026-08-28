@@ -59,7 +59,7 @@ def generate_basin_flow_paths(
     include_osm_layer: bool = True,
     branch_max_cells: int = 400_000,
     branch_max_count: int = 30,
-    branch_min_km: float = 1.5,
+    branch_min_km: float = 1.0,
     overland_max_km: float = 5.0,
     clip_to_basin: bool = True,
     write_gzip: bool = True
@@ -347,8 +347,8 @@ def main():
                         help="Max upstream cells collected per rain station for branches (default: 400000)")
     parser.add_argument("--branch-max-count", type=int, default=30,
                         help="Max drainage branches kept per rain station, longest first (default: 30)")
-    parser.add_argument("--branch-min-km", type=float, default=1.5,
-                        help="Minimum drainage branch length in km, branches only (default: 1.5; flow paths use --min-flow-km)")
+    parser.add_argument("--branch-min-km", type=float, default=1.0,
+                        help="Minimum drainage branch length in km, branches only (default: 1.0; flow paths use --min-flow-km)")
     parser.add_argument("--overland-max-km", type=float, default=5.0,
                         help="Cap length of pure-overland (river-less) rain flow paths in km (default: 5.0; 0 disables)")
     parser.add_argument("--no-basin-clip", action="store_true",

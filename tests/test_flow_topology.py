@@ -349,10 +349,10 @@ def test_end_to_end_synthetic_basin():
 
 
 def test_branch_min_km_default():
-    """--branch-min-km default must be 1.5 while flow paths stay at 1.0."""
+    """--branch-min-km default must be 1.0 while flow paths stay at 1.0."""
     import inspect
     sig = inspect.signature(build_flow_paths_and_relations)
-    assert sig.parameters["branch_min_km"].default == 1.5
+    assert sig.parameters["branch_min_km"].default == 1.0
     assert sig.parameters["min_flow_km"].default == 1.0
 
 

@@ -1581,7 +1581,7 @@ def build_flow_paths_and_relations(
     include_osm_layer: bool = True,
     branch_max_cells: int = 400_000,
     branch_max_count: int = 30,
-    branch_min_km: float = 1.5,
+    branch_min_km: float = 1.0,
     river_mask: Optional[np.ndarray] = None,
     overland_max_km: float = 5.0,
     basin_boundary_geojson: Optional[Dict[str, Any]] = None,
