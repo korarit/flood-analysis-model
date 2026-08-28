@@ -356,6 +356,173 @@ def test_branch_min_km_default():
     assert sig.parameters["min_flow_km"].default == 1.0
 
 
+# ---------------------------------------------------------------------------
+# 9. Crossing noding: ways crossing WITHOUT a shared vertex must connect
+# ---------------------------------------------------------------------------
+def test_noding_crossing_ways_connect():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+
+    def elev_fn(lon, lat):
+        # Elevation falls eastward (main stem flows east) and southward (tributary
+        # flows south into the main stem at the crossing).
+        return 100.0 - lon * 100.0 + (lat - 18.0) * 1000.0
+
+    # Horizontal main stem flowing EAST (elev falls with lon)
+    main = [[100.000, 18.000], [100.050, 18.000]]
+    g.add_river_segment(main, sample_elev_fn=elev_fn, river_name="main")
+
+    # Vertical tributary flowing SOUTH, crossing the main stem mid-segment at
+    # (100.025, 18.000) — no shared vertex anywhere.
+    trib = [[100.025, 18.050], [100.025, 17.950]]
+    g.add_river_segment(trib, sample_elev_fn=elev_fn, river_name="trib")
+
+    diag = g.finalize_connectivity()
+    g.build_spatial_index()
+    assert diag["crossings_split"] >= 1, "crossing must be noded"
+
+    # Route from the tributary head to the main stem's downstream mouth:
+    # possible only when the crossing junction exists.
+    head, _ = g.find_nearest_node(100.025, 18.050, max_dist_deg=0.01)
+    mouth, _ = g.find_nearest_node(100.050, 18.000, max_dist_deg=0.01)
+    coords, dist = g.shortest_path(head, mouth, max_dist_km=50.0)
+    assert coords is not None, "graph must be connected across the noded crossing"
+    assert dist > 0.0
+    # Junction must lie at the crossing point
+    junction, _ = g.find_nearest_node(100.025, 18.000, max_dist_deg=0.0005)
+    assert junction is not None
+
+
+# ---------------------------------------------------------------------------
+# 10. Endpoint welding: consecutive ways with a small gap must connect
+# ---------------------------------------------------------------------------
+def test_endpoint_weld_connects_gapped_ways():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+
+    def elev_fn(lon, lat):
+        return 200.0 - lon * 1000.0  # flows east
+
+    # Way A ends at (100.050, 18.0); way B starts ~80m away (beyond the 39m
+    # vertex-weld tolerance) and continues east.
+    a = [[100.000, 18.000], [100.050, 18.000]]
+    b = [[100.0508, 18.0000], [100.100, 18.000]]
+    g.add_river_segment(a, sample_elev_fn=elev_fn, river_name="A")
+    g.add_river_segment(b, sample_elev_fn=elev_fn, river_name="B")
+
+    diag = g.finalize_connectivity(endpoint_snap_deg=0.002)
+    g.build_spatial_index()
+    assert diag["ends_welded"] >= 1, "the gapped way end must be welded"
+
+    head, _ = g.find_nearest_node(100.000, 18.000, max_dist_deg=0.01)
+    tail, _ = g.find_nearest_node(100.100, 18.000, max_dist_deg=0.01)
+    coords, dist = g.shortest_path(head, tail, max_dist_km=50.0)
+    assert coords is not None, "gapped ways must form one routable channel after welding"
+    assert dist > 0.0
+
+
+# ---------------------------------------------------------------------------
+# 11. snap_point_to_graph: projects onto EDGES (splits mid-segment)
+# ---------------------------------------------------------------------------
+def test_snap_point_to_graph_splits_edge():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    g.add_river_segment(
+        [[100.000, 18.000], [100.100, 18.000]],  # one long 2-vertex edge
+        sample_elev_fn=lambda lo, la: -lo * 100.0
+    )
+    g.finalize_connectivity()
+    g.build_spatial_index()
+
+    before_nodes = len(g.nodes)
+    # Query point ~55m off the line, near the middle (no vertex anywhere near)
+    q = (100.050, 18.0005)
+    nid, d = g.snap_point_to_graph(q[0], q[1], max_dist_deg=0.003)
+    assert nid is not None, "projection onto the edge must succeed"
+    assert d <= 0.003
+    lon, lat, _ = g.nodes[nid]
+    assert abs(lat - 18.0) < 1e-6, "snapped node must sit exactly on the line"
+    assert abs(lon - 100.050) < 1e-3
+    assert len(g.nodes) == before_nodes + 1, "mid-edge projection must split the edge"
+    # The graph must now route THROUGH the new node
+    outs = [v for v, _ in g.adj.get(nid, [])]
+    ins = [a for a, outs2 in g.adj.items() for v, _ in outs2 if v == nid]
+    assert outs and ins, "split node must have in- and out-edges"
+
+
+# ---------------------------------------------------------------------------
+# 12. River-aware D8 stop: overland trace stops at the river mask
+# ---------------------------------------------------------------------------
+def test_river_stop_stops_d8():
+    from scripts.modules.graph_topology import RIVER_STOP
+    H, W = 30, 10
+    fdir = np.zeros((H, W), dtype=np.uint8)
+    fdir[:, :] = 4  # everything flows south
+    transform = Affine(RES, 0, 100.0, 0, -RES, 18.3)
+
+    river_mask = np.zeros((H, W), dtype=bool)
+    river_mask[10, :] = True  # river across row 10
+
+    coords, stop_data, cells = trace_downstream_path(
+        0, 5, fdir, transform, crs=None, river_mask=river_mask, max_steps=100
+    )
+    assert stop_data == RIVER_STOP, f"trace must stop on the river, got {stop_data!r}"
+    assert cells[-1] == (10, 5), f"must stop at the first river cell, got {cells[-1]}"
+    assert len(cells) == 11, "must stop AT the river, not cross it"
+
+    # Without the mask the same trace runs to the grid edge / step limit
+    coords2, stop_data2, cells2 = trace_downstream_path(
+        0, 5, fdir, transform, crs=None, max_steps=100
+    )
+    assert stop_data2 != RIVER_STOP
+    assert len(cells2) > len(cells)
+
+    # Starting ON the river must still trace away (start cell exempt)
+    coords3, stop_data3, cells3 = trace_downstream_path(
+        10, 5, fdir, transform, crs=None, river_mask=river_mask, max_steps=100
+    )
+    assert stop_data3 is None and len(cells3) > 1
+
+
+# ---------------------------------------------------------------------------
+# 13. River-first cascade: rain runoff enters the river instead of the distant gauge
+# ---------------------------------------------------------------------------
+def test_river_first_cascade_with_mask():
+    from scripts.modules.terrain_engine import build_river_mask
+    B = _build_synthetic_basin()
+
+    river_mask = build_river_mask(B["osm"], B["transform"], out_shape=(B["H"], B["W"]))
+    assert river_mask is not None
+
+    snapped = snap_stations_to_stream(
+        B["water"], B["fdir"], B["acc"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None
+    )
+    geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
+        snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None,
+        min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
+        include_branches=True, branch_min_km=1.0,
+        river_mask=river_mask
+    )
+
+    rain_pairs = {(r.get("from_station_id"), r.get("to_station_id")) for r in rain_relations}
+    # River-first: R1 hits the river mask long before W400's footprint, enters the
+    # river, and still reaches the same gauge chain via the backbone cascade.
+    assert ("R1", "W400") in rain_pairs, f"rain must reach W400, got {rain_pairs}"
+    assert ("R1", "W600") in rain_pairs, f"cascade must reach W600, got {rain_pairs}"
+
+    # The overland (segment 0) part must stop at the river ENTRY, not run overland to
+    # the distant gauge: its 'distance_km' is the overland-only length (~5km to the
+    # main channel here), and the channel part is reported separately.
+    seg0 = [f for f in geojson["features"]
+            if f["properties"].get("from_station_id") == "R1"
+            and f["properties"].get("cascade_segment") == 0]
+    assert seg0, "expected a segment-0 feature for R1"
+    p0 = seg0[0]["properties"]
+    assert "channel_distance_km" in p0, f"river-entry (Case 2) feature expected: {p0}"
+    assert p0["distance_km"] < 10.0, \
+        f"overland part must stop at the river entry, got {p0['distance_km']} km"
+    assert p0["total_distance_km"] > p0["distance_km"], "channel part must add distance"
+
+
 def test_branch_cap_and_dedupe():
     """G1/G2: per-station cap (longest kept) + cross-station geometry dedupe."""
     from collections import Counter
@@ -392,6 +559,11 @@ def main():
         test_end_to_end_synthetic_basin,
         test_branch_min_km_default,
         test_branch_cap_and_dedupe,
+        test_noding_crossing_ways_connect,
+        test_endpoint_weld_connects_gapped_ways,
+        test_snap_point_to_graph_splits_edge,
+        test_river_stop_stops_d8,
+        test_river_first_cascade_with_mask,
     ]
     for t in tests:
         t()

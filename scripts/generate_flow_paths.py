@@ -30,6 +30,7 @@ from scripts.modules.gis_utils import (
 from scripts.modules.terrain_engine import (
     read_dem_geotiff,
     burn_stream_network_into_dem,
+    build_river_mask,
     save_geotiff_raster
 )
 from scripts.modules.graph_topology import (
@@ -59,6 +60,7 @@ def generate_basin_flow_paths(
     branch_max_cells: int = 400_000,
     branch_max_count: int = 30,
     branch_min_km: float = 1.5,
+    overland_max_km: float = 5.0,
     write_gzip: bool = True
 ):
     """
@@ -180,6 +182,33 @@ def generate_basin_flow_paths(
         save_geotiff_raster(acc, transform, crs, acc_path, nodata=-1)
         save_geotiff_raster(filled_dem, transform, crs, cond_dem_path, nodata=nodata)
 
+    # 3b. River mask (OSM waterway footprint) for river-aware D8 stopping — cached.
+    # Overland traces stop at the first river cell so runoff merges into the adjacent
+    # river instead of crossing it, and rain stations next to a river enter it at once.
+    river_mask_path = os.path.join(terrain_dir, "river_mask.tif")
+    river_mask = None
+    if (not force and os.path.exists(river_mask_path) and os.path.getsize(river_mask_path) > 1024):
+        try:
+            with rasterio.open(river_mask_path) as src_m:
+                m = src_m.read(1).astype(np.uint8)
+            if m.shape == fdir.shape:
+                river_mask = (m == 1)
+                print("  [3b/5] [CACHE] Loaded river mask for river-aware D8 stopping.")
+            else:
+                print("  [3b/5] Cached river mask shape mismatch — rebuilding.")
+        except Exception:
+            river_mask = None
+    if river_mask is None:
+        print("  [3b/5] Building river mask (OSM waterway footprint)...")
+        river_mask = build_river_mask(osm_waterways, transform, out_shape=fdir.shape, crs=crs)
+        if river_mask is not None:
+            try:
+                save_geotiff_raster(river_mask.astype(np.uint8), transform, crs, river_mask_path, nodata=255)
+            except Exception as ex:
+                print(f"  [WARN] Could not cache river_mask.tif: {ex}")
+        else:
+            print("  [WARN] No river mask available — river-aware D8 stopping disabled.")
+
     # 4. Snap Stations to OSM Rivers and Stream Channel
     print("  [4/5] Snapping stations to OSM River Channels...")
     snapped_water_st = snap_stations_to_stream(
@@ -200,7 +229,9 @@ def generate_basin_flow_paths(
         include_osm_layer=include_osm_layer,
         branch_max_cells=branch_max_cells,
         branch_max_count=branch_max_count,
-        branch_min_km=branch_min_km
+        branch_min_km=branch_min_km,
+        river_mask=river_mask,
+        overland_max_km=overland_max_km
     )
 
     raw_bytes, gz_bytes = write_geojson_pair(flow_paths_geojson, flow_paths_path, write_gzip=write_gzip)
@@ -315,6 +346,8 @@ def main():
                         help="Max drainage branches kept per rain station, longest first (default: 30)")
     parser.add_argument("--branch-min-km", type=float, default=1.5,
                         help="Minimum drainage branch length in km, branches only (default: 1.5; flow paths use --min-flow-km)")
+    parser.add_argument("--overland-max-km", type=float, default=5.0,
+                        help="Cap length of pure-overland (river-less) rain flow paths in km (default: 5.0; 0 disables)")
     parser.add_argument("--no-gzip", action="store_true",
                         help="Skip writing flow_paths.geojson.gz (raw .geojson is always written)")
     args = parser.parse_args()
@@ -355,6 +388,7 @@ def main():
             branch_max_cells=args.branch_max_cells,
             branch_max_count=args.branch_max_count,
             branch_min_km=args.branch_min_km,
+            overland_max_km=args.overland_max_km,
             write_gzip=not args.no_gzip
         )
 

@@ -513,6 +513,91 @@ def save_geotiff_raster(data: np.ndarray, transform: Affine, crs: Any, output_pa
         dst.write(data, 1)
 
 
+def build_river_mask(
+    osm_waterways_geojson: Dict[str, Any],
+    transform: Affine,
+    out_shape: Tuple[int, int],
+    crs: Any = None,
+    dilate_cells: int = 2
+) -> Optional[np.ndarray]:
+    """
+    Builds a boolean river-footprint mask from OSM waterway lines for river-aware D8
+    stopping: overland traces stop when they step onto a river cell instead of crossing
+    the river. The mask is the waterway-line rasterization dilated by `dilate_cells`
+    (~25m per cell) so paths that pass within a couple of cells of a channel still merge.
+    Returns a bool array, or None when no waterways are available / rasterization fails.
+    """
+    if not osm_waterways_geojson or not osm_waterways_geojson.get("features"):
+        return None
+
+    from rasterio.features import rasterize
+    from shapely.geometry import shape
+
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            inv_transformer = None
+
+    def _to_raster_crs(geom_dict):
+        if inv_transformer is not None:
+            from shapely.ops import transform as shp_transform
+            geom_obj = shape(geom_dict)
+            return shp_transform(lambda x, y: inv_transformer.transform(x, y), geom_obj)
+        return shape(geom_dict)
+
+    shapes = []
+    for feat in osm_waterways_geojson.get("features", []):
+        geom = feat.get("geometry")
+        if not geom or geom.get("type") not in ("LineString", "MultiLineString"):
+            continue
+        try:
+            shapes.append((_to_raster_crs(geom), 1))
+        except Exception:
+            continue
+
+    if not shapes:
+        return None
+
+    try:
+        raw = rasterize(
+            shapes,
+            out_shape=tuple(out_shape),
+            transform=transform,
+            fill=0,
+            dtype=np.uint8,
+            all_touched=True
+        )
+    except Exception as ex:
+        print(f"  [WARN] River mask rasterization failed: {ex}. River-aware stopping disabled.")
+        return None
+
+    mask = raw == 1
+    if dilate_cells > 0:
+        try:
+            from scipy.ndimage import binary_dilation
+            mask = binary_dilation(mask, structure=np.ones((3, 3), dtype=bool), iterations=dilate_cells)
+        except Exception:
+            # Manual fallback: 8-neighbor dilation, `dilate_cells` iterations
+            work = mask.copy()
+            for _ in range(dilate_cells):
+                grown = work.copy()
+                grown[1:, :] |= work[:-1, :]
+                grown[:-1, :] |= work[1:, :]
+                grown[:, 1:] |= work[:, :-1]
+                grown[:, :-1] |= work[:, 1:]
+                grown[1:, 1:] |= work[:-1, :-1]
+                grown[:-1, :-1] |= work[1:, 1:]
+                grown[1:, :-1] |= work[:-1, 1:]
+                grown[:-1, 1:] |= work[1:, :-1]
+                work = grown
+            mask = work
+    return mask
+
+
 def burn_stream_network_into_dem(
     dem: np.ndarray,
     transform: Affine,

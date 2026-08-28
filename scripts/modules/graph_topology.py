@@ -20,6 +20,82 @@ from shapely.ops import unary_union
 from .gis_utils import haversine_distance, linestring_length_km
 from .terrain_engine import D8_DELTAS
 
+# Sentinel returned by trace_downstream_path when the trace stops on a river-mask cell
+# (OSM waterway footprint) before reaching any gauge footprint.
+RIVER_STOP = "__river_stop__"
+
+
+def _point_seg_project(px: float, py: float, ax: float, ay: float, bx: float, by: float):
+    """
+    Projects point (px, py) onto segment (a -> b) in lon/lat space.
+    Returns (t, dist, cx, cy) with t in [0, 1], dist = point-to-projection distance,
+    (cx, cy) = projection point. Degenerate segments project to the endpoint.
+    """
+    dx, dy = bx - ax, by - ay
+    l2 = dx * dx + dy * dy
+    if l2 <= 0.0:
+        return 0.0, math.hypot(px - ax, py - ay), ax, ay
+    t = ((px - ax) * dx + (py - ay) * dy) / l2
+    t = max(0.0, min(1.0, t))
+    cx, cy = ax + t * dx, ay + t * dy
+    return t, math.hypot(px - cx, py - cy), cx, cy
+
+
+def _extract_intersection_points(geom) -> List[Tuple[float, float]]:
+    """Recursively extracts representative (lon, lat) points from an intersection geometry."""
+    out: List[Tuple[float, float]] = []
+    try:
+        gt = geom.geom_type
+    except Exception:
+        return out
+    if gt == "Point":
+        out.append((geom.x, geom.y))
+    elif gt == "LineString":
+        cs = list(geom.coords)
+        if cs:
+            out.append((cs[0][0], cs[0][1]))
+            if len(cs) > 1:
+                out.append((cs[-1][0], cs[-1][1]))
+    elif gt in ("MultiPoint", "MultiLineString", "GeometryCollection"):
+        for sub in geom.geoms:
+            out.extend(_extract_intersection_points(sub))
+    return out
+
+
+def _collect_line_intersections(lines: List["LineString"]) -> List[Tuple[float, float]]:
+    """
+    Returns unique (lon, lat) intersection points between distinct input lines using
+    an STRtree candidate search. Ways that merely share welded vertices yield points
+    that already coincide with graph nodes and are skipped later by the caller.
+    """
+    from shapely.strtree import STRtree
+
+    out: Dict[Tuple[float, float], Tuple[float, float]] = {}
+    if len(lines) < 2:
+        return []
+    tree = STRtree(lines)
+    for i, li in enumerate(lines):
+        try:
+            cand = tree.query(li)
+        except Exception:
+            continue
+        for c in cand:
+            j = int(c)
+            if j <= i or j >= len(lines):
+                continue
+            lj = lines[j]
+            try:
+                if not li.intersects(lj):
+                    continue
+                inter = li.intersection(lj)
+            except Exception:
+                continue
+            for (px, py) in _extract_intersection_points(inter):
+                key = (round(px, 6), round(py, 6))
+                out[key] = (px, py)
+    return list(out.values())
+
+
 # Reverse D8 lookup: code -> (dr, dc) offset of the UPSTREAM neighbor cell that
 # flows into the current cell (fdir[nr, nc] == code means (nr, nc) drains into (r, c)).
 REVERSE_D8 = {
@@ -52,6 +128,15 @@ class DirectedRiverGraph:
         self._kdtree = None
         self._node_id_list: List[int] = []
         self._is_indexed = False
+        # Connectivity finalization (noding of crossing ways + endpoint welding):
+        self._source_coords: List[List[List[float]]] = []   # raw way geometries for intersection noding
+        self.way_end_nodes: List[Tuple[int, int]] = []      # (end_node_id, way_id) per added way
+        self._next_way_id = 1
+        self._edge_grid: Optional[Dict[Tuple[int, int], List[int]]] = None  # cell -> [edge_uid]
+        self._edges: Dict[int, Tuple[int, int]] = {}        # edge_uid -> (a, b)
+        self._edge_cells: Dict[int, List[Tuple[int, int]]] = {}
+        self._edge_cell_size = 0.01
+        self._next_edge_uid = 1
 
     def _grid_coord(self, lon: float, lat: float) -> Tuple[int, int]:
         return int(math.floor(lon / self.snap_tolerance_deg)), int(math.floor(lat / self.snap_tolerance_deg))
@@ -116,6 +201,10 @@ class DirectedRiverGraph:
         if len(coords) < 2:
             return
 
+        way_id = self._next_way_id
+        self._next_way_id += 1
+        self._source_coords.append(list(coords))
+
         seg_elevs: Optional[List[Optional[float]]] = None
         if elevs is not None and len(elevs) == len(coords):
             seg_elevs = list(elevs)
@@ -174,13 +263,18 @@ class DirectedRiverGraph:
                     "z_end": z_c,
                     "dz": dz,
                     "river_name": river_name,
-                    "direction_source": direction_source
+                    "direction_source": direction_source,
+                    "way": way_id
                 }
 
                 # Primary downstream edge (enforce downstream flow only)
                 self.adj[prev_node].append((curr_node, edge_data))
 
             prev_node = curr_node
+
+        # Record the way's downstream end node (after any direction flip) for
+        # endpoint-gap welding in finalize_connectivity()
+        self.way_end_nodes.append((prev_node, way_id))
 
     def find_nearest_node(self, lon: float, lat: float, max_dist_deg: float = 0.05) -> Tuple[Optional[int], float]:
         """Finds the nearest graph node to a given coordinate using O(log N) cKDTree or spatial grid fallback."""
@@ -214,6 +308,354 @@ class DirectedRiverGraph:
         if best_d <= max_dist_deg:
             return best_nid, best_d
         return None, best_d
+
+    # ---------------------------------------------------------------------
+    # Connectivity finalization: crossing noding + endpoint-gap welding
+    # ---------------------------------------------------------------------
+    def _build_edge_grid(self):
+        """Spatial-hash index over all graph edges for nearest-edge queries."""
+        self._edge_grid = {}
+        self._edges = {}
+        self._edge_cells = {}
+        cell = self._edge_cell_size
+        uid = 0
+        for a, outs in self.adj.items():
+            pa = self.nodes.get(a)
+            if pa is None:
+                continue
+            for (b, _data) in outs:
+                pb = self.nodes.get(b)
+                if pb is None or a == b:
+                    continue
+                uid += 1
+                self._edges[uid] = (a, b)
+                x0, x1 = min(pa[0], pb[0]), max(pa[0], pb[0])
+                y0, y1 = min(pa[1], pb[1]), max(pa[1], pb[1])
+                cells = []
+                cx0, cx1 = int(math.floor(x0 / cell)), int(math.floor(x1 / cell))
+                cy0, cy1 = int(math.floor(y0 / cell)), int(math.floor(y1 / cell))
+                for cx in range(cx0, cx1 + 1):
+                    for cy in range(cy0, cy1 + 1):
+                        self._edge_grid.setdefault((cx, cy), []).append(uid)
+                        cells.append((cx, cy))
+                self._edge_cells[uid] = cells
+        self._next_edge_uid = uid + 1
+
+    def _index_edge(self, a: int, b: int) -> int:
+        cell = self._edge_cell_size
+        pa, pb = self.nodes[a], self.nodes[b]
+        uid = self._next_edge_uid
+        self._next_edge_uid += 1
+        self._edges[uid] = (a, b)
+        cells = []
+        cx0, cx1 = int(math.floor(min(pa[0], pb[0]) / cell)), int(math.floor(max(pa[0], pb[0]) / cell))
+        cy0, cy1 = int(math.floor(min(pa[1], pb[1]) / cell)), int(math.floor(max(pa[1], pb[1]) / cell))
+        for cx in range(cx0, cx1 + 1):
+            for cy in range(cy0, cy1 + 1):
+                self._edge_grid.setdefault((cx, cy), []).append(uid)
+                cells.append((cx, cy))
+        self._edge_cells[uid] = cells
+        return uid
+
+    def _remove_edge_from_index(self, uid: int):
+        for cell in self._edge_cells.pop(uid, []):
+            bucket = self._edge_grid.get(cell)
+            if bucket and uid in bucket:
+                bucket.remove(uid)
+        self._edges.pop(uid, None)
+
+    def _edge_way_id(self, a: int, b: int) -> Optional[int]:
+        for (nb, data) in self.adj.get(a, []):
+            if nb == b:
+                return data.get("way")
+        return None
+
+    def _nearest_edges(
+        self,
+        lon: float,
+        lat: float,
+        max_dist_deg: float,
+        exclude_nodes: Optional[Set[int]] = None
+    ) -> List[Tuple[float, int, float, Tuple[float, float], int, int]]:
+        """
+        Finds ALL graph edges within max_dist_deg of (lon, lat), sorted by distance.
+        Returns list of (dist_deg, edge_uid, t, (proj_lon, proj_lat), a, b).
+        """
+        if self._edge_grid is None:
+            self._build_edge_grid()
+        cell = self._edge_cell_size
+        gx, gy = int(math.floor(lon / cell)), int(math.floor(lat / cell))
+        r = max(1, int(math.ceil(max_dist_deg / cell)))
+        cands: List[Tuple[float, int, float, Tuple[float, float], int, int]] = []
+        seen: Set[int] = set()
+        for dx in range(-r, r + 1):
+            for dy in range(-r, r + 1):
+                for uid in self._edge_grid.get((gx + dx, gy + dy), ()):
+                    if uid in seen:
+                        continue
+                    seen.add(uid)
+                    a, b = self._edges[uid]
+                    if exclude_nodes and (a in exclude_nodes or b in exclude_nodes):
+                        continue
+                    pa, pb = self.nodes[a], self.nodes[b]
+                    t, d, cx, cy = _point_seg_project(lon, lat, pa[0], pa[1], pb[0], pb[1])
+                    if d <= max_dist_deg:
+                        cands.append((d, uid, t, (cx, cy), a, b))
+        cands.sort(key=lambda c: c[0])
+        return cands
+
+    def _nearest_edge(
+        self,
+        lon: float,
+        lat: float,
+        max_dist_deg: float,
+        exclude_nodes: Optional[Set[int]] = None
+    ):
+        """
+        Finds the graph edge closest to (lon, lat) within max_dist_deg.
+        Returns (dist_deg, edge_uid, t, (proj_lon, proj_lat), a, b) or None.
+        """
+        cands = self._nearest_edges(lon, lat, max_dist_deg, exclude_nodes)
+        return cands[0] if cands else None
+
+    def _split_edge(self, edge_uid: int, px: float, py: float, t: float) -> Optional[int]:
+        """
+        Splits edge (a -> b) at projection point (px, py) creating/inserting node X.
+        The new node welds with any existing node within snap tolerance (so repeated
+        splits at the same location are idempotent). Returns the new node id.
+        """
+        a, b = self._edges.get(edge_uid, (None, None))
+        if a is None:
+            return None
+        data = None
+        for i, (nb, d) in enumerate(self.adj.get(a, [])):
+            if nb == b:
+                data = d
+                idx = i
+                break
+        if data is None:
+            return None
+        self.adj[a].pop(idx)
+        self._remove_edge_from_index(edge_uid)
+
+        pa, pb = self.nodes[a], self.nodes[b]
+        za, zb = pa[2], pb[2]
+        z_new = None if (za is None or zb is None) else za + t * (zb - za)
+        x_node = self._get_or_create_node(px, py, z_new)
+
+        if x_node in (a, b):
+            # Degenerate: the split point welds to an endpoint -> restore the edge
+            self.adj[a].append((b, data))
+            self._index_edge(a, b)
+            return x_node
+
+        way_id = data.get("way")
+        river_name = data.get("river_name", "")
+        dir_src = data.get("direction_source", "")
+
+        seg1 = [[pa[0], pa[1]], [self.nodes[x_node][0], self.nodes[x_node][1]]]
+        seg2 = [[self.nodes[x_node][0], self.nodes[x_node][1]], [pb[0], pb[1]]]
+        z_x = self.nodes[x_node][2]
+
+        data1 = dict(data)
+        data1["coords"] = seg1
+        data1["length_km"] = max(0.001, linestring_length_km(seg1))
+        data1["z_start"], data1["z_end"] = za, z_x
+        data1["dz"] = max(0.0, za - z_x) if (za is not None and z_x is not None) else 0.0
+
+        data2 = dict(data)
+        data2["coords"] = seg2
+        data2["length_km"] = max(0.001, linestring_length_km(seg2))
+        data2["z_start"], data2["z_end"] = z_x, zb
+        data2["dz"] = max(0.0, z_x - zb) if (z_x is not None and zb is not None) else 0.0
+
+        self.adj[a].append((x_node, data1))
+        self.adj.setdefault(x_node, []).append((b, data2))
+        self._index_edge(a, x_node)
+        self._index_edge(x_node, b)
+        return x_node
+
+    def _insert_noding_point(self, px: float, py: float) -> bool:
+        """
+        Inserts a junction node at a geometric crossing of two ways: EVERY edge that
+        passes through the crossing point gets split at it (all splits weld into the
+        same node via the snap tolerance), connecting all crossing ways at one junction.
+        """
+        tol = max(self.snap_tolerance_deg * 2.0, 1e-4)
+        cands = self._nearest_edges(px, py, tol)
+        if not cands:
+            return False
+        changed = False
+        for (d, uid, t, (cx, cy), a, b) in cands:
+            if uid not in self._edges:
+                continue  # already consumed by a previous split in this loop
+            pa, pb = self.nodes[a], self.nodes[b]
+            # Already welded to an edge endpoint -> nothing to split for this edge
+            if math.hypot(px - pa[0], py - pa[1]) <= self.snap_tolerance_deg:
+                continue
+            if math.hypot(px - pb[0], py - pb[1]) <= self.snap_tolerance_deg:
+                continue
+            x_node = self._split_edge(uid, cx, cy, t)
+            if x_node is not None:
+                changed = True
+        return changed
+
+    def _weld_end_node(self, end_node: int, way_id: int, endpoint_snap_deg: float) -> bool:
+        """
+        Welds a dangling way END (no out-edges) onto the nearest edge of ANOTHER way
+        within endpoint_snap_deg by splitting that edge at the projection and adding a
+        short downstream connector. Restores connectivity where consecutive OSM ways of
+        the same river (or tributary mouths) end a few tens of meters short of each other.
+        """
+        if self.adj.get(end_node):
+            return False  # already continues downstream
+        pos = self.nodes.get(end_node)
+        if pos is None:
+            return False
+        cand = self._nearest_edge(pos[0], pos[1], endpoint_snap_deg, exclude_nodes={end_node})
+        if cand is None:
+            return False
+        d, uid, t, (cx, cy), a, b = cand
+        # Never weld a way onto itself
+        if self._edge_way_id(a, b) == way_id:
+            return False
+
+        pa, pb = self.nodes[a], self.nodes[b]
+        # Projection lands on an existing edge endpoint -> connect directly to it
+        if math.hypot(cx - pa[0], cy - pa[1]) <= self.snap_tolerance_deg:
+            target = a
+        elif math.hypot(cx - pb[0], cy - pb[1]) <= self.snap_tolerance_deg:
+            target = b
+        else:
+            target = self._split_edge(uid, cx, cy, t)
+        if target is None or target == end_node:
+            return False
+
+        z_n, z_t = self.nodes[end_node][2], self.nodes[target][2]
+        seg = [[self.nodes[end_node][0], self.nodes[end_node][1]],
+               [self.nodes[target][0], self.nodes[target][1]]]
+        length_km = max(0.001, linestring_length_km(seg))
+        # Direction by elevation: water flows from the higher end to the lower end;
+        # unknown elevations trust the way-end continuation (n -> target).
+        if z_n is not None and z_t is not None and z_n < z_t - 0.5:
+            src, dst = target, end_node
+        else:
+            src, dst = end_node, target
+        zs, zd = self.nodes[src][2], self.nodes[dst][2]
+        connector = {
+            "coords": [[self.nodes[src][0], self.nodes[src][1]], [self.nodes[dst][0], self.nodes[dst][1]]],
+            "length_km": length_km,
+            "z_start": zs,
+            "z_end": zd,
+            "dz": max(0.0, zs - zd) if (zs is not None and zd is not None) else 0.0,
+            "river_name": "",
+            "direction_source": "weld",
+            "way": -1
+        }
+        self.adj.setdefault(src, []).append((dst, connector))
+        self._index_edge(src, dst)
+        return True
+
+    def count_components(self) -> int:
+        """Counts connected components of the (undirected view of the) graph."""
+        parent: Dict[int, int] = {}
+
+        def find(x: int) -> int:
+            r = x
+            while parent[r] != r:
+                r = parent[r]
+            while parent[x] != r:
+                parent[x], x = r, parent[x]
+            return r
+
+        for nid in self.nodes:
+            parent[nid] = nid
+        for a, outs in self.adj.items():
+            for (b, _data) in outs:
+                ra, rb = find(a), find(b)
+                if ra != rb:
+                    parent[ra] = rb
+        return len({find(n) for n in parent})
+
+    def finalize_connectivity(
+        self,
+        endpoint_snap_deg: float = 0.001,
+        max_noding_points: int = 200_000
+    ) -> Dict[str, int]:
+        """
+        Must be called once after all add_river_segment() calls. Performs:
+          1. Crossing noding — ways that geometrically intersect without sharing a vertex
+             get a junction node at every intersection point (edge split).
+          2. Endpoint welding — dangling way ends are projected onto the nearest edge of
+             another way (within endpoint_snap_deg, default ~110m) and connected with a
+             downstream connector, healing gaps left by way splitting / simplification.
+        Returns diagnostics {components_before, components_after, crossings_split, ends_welded}.
+        """
+        comp_before = self.count_components()
+        n_ways = len(self._source_coords)
+
+        points: List[Tuple[float, float]] = []
+        if n_ways >= 2:
+            try:
+                lines = [LineString(c) for c in self._source_coords if len(c) >= 2]
+                points = _collect_line_intersections(lines)[:max_noding_points]
+            except Exception as ex:
+                print(f"  [WARN] finalize_connectivity: crossing noding skipped ({ex})")
+
+        self._build_edge_grid()
+        n_split = 0
+        for (px, py) in points:
+            try:
+                if self._insert_noding_point(px, py):
+                    n_split += 1
+            except Exception:
+                continue
+
+        n_weld = 0
+        for (end_node, way_id) in self.way_end_nodes:
+            try:
+                if self._weld_end_node(end_node, way_id, endpoint_snap_deg):
+                    n_weld += 1
+            except Exception:
+                continue
+
+        comp_after = self.count_components()
+        print(f"  [GRAPH] OSM backbone connectivity: ways={n_ways:,}, "
+              f"components {comp_before:,} -> {comp_after:,} "
+              f"(crossing splits: {n_split:,}, end welds: {n_weld:,})")
+        return {
+            "components_before": comp_before,
+            "components_after": comp_after,
+            "crossings_split": n_split,
+            "ends_welded": n_weld,
+        }
+
+    def snap_point_to_graph(
+        self,
+        lon: float,
+        lat: float,
+        max_dist_deg: float = 0.003
+    ) -> Tuple[Optional[int], float]:
+        """
+        Snaps a coordinate onto the graph by projecting it onto the nearest EDGE
+        (not just the nearest vertex). Splits the edge at the projection when the
+        projection is mid-segment, so the returned node lies exactly on the river.
+        Returns (node_id or None, distance_deg).
+        """
+        cand = self._nearest_edge(lon, lat, max_dist_deg)
+        if cand is None:
+            nid, d = self.find_nearest_node(lon, lat, max_dist_deg=max_dist_deg)
+            return nid, d
+        d, uid, t, (cx, cy), a, b = cand
+        pa, pb = self.nodes[a], self.nodes[b]
+        if math.hypot(cx - pa[0], cy - pa[1]) <= self.snap_tolerance_deg:
+            return a, d
+        if math.hypot(cx - pb[0], cy - pb[1]) <= self.snap_tolerance_deg:
+            return b, d
+        x_node = self._split_edge(uid, cx, cy, t)
+        if x_node is None:
+            return None, d
+        return x_node, d
 
     def dijkstra_single_source(
         self,
@@ -705,11 +1147,15 @@ def trace_downstream_path(
     crs: Any = None,
     stop_condition_fn=None,
     min_lat: Optional[float] = None,
-    max_steps: int = 5000
+    max_steps: int = 5000,
+    river_mask: Optional[np.ndarray] = None
 ) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
     Stops immediately if path reaches min_lat (southernmost basin boundary).
+    When `river_mask` is provided (OSM waterway footprint), the trace also stops — with
+    stop_data=RIVER_STOP — as soon as it steps onto a river cell AFTER the first cell,
+    so overland runoff merges into the nearest river instead of crossing it.
     Returns (coordinates_list [[lon, lat], ...], stop_data, path_cells [(r, c), ...]).
     The cell list enables downstream reuse (e.g. upstream drainage-branch BFS).
     """
@@ -732,6 +1178,12 @@ def trace_downstream_path(
             if should_stop:
                 stop_data = data
                 break
+
+        # River-aware stop: never let overland D8 cross an OSM river channel.
+        # The starting cell is exempt (a station already on a river must trace away).
+        if river_mask is not None and len(path_rc) > 1 and river_mask[curr_r, curr_c]:
+            stop_data = RIVER_STOP
+            break
 
         if min_lat is not None:
             # Check cell latitude to never extend past southern limit
@@ -794,7 +1246,9 @@ def extract_station_drainage_branches(
     min_length_km: float = 1.0,
     max_cells_per_station: int = 400_000,
     southern_limit_lat: Optional[float] = None,
-    max_branches_per_station: int = 30
+    max_branches_per_station: int = 30,
+    river_mask: Optional[np.ndarray] = None,
+    river_merge_max_cells: int = 50
 ) -> Tuple[List[Dict[str, Any]], bool]:
     """
     E3: Extracts upstream D8 channel branches (dendritic tributaries) draining into each
@@ -898,6 +1352,8 @@ def extract_station_drainage_branches(
         station_branches: List[Tuple[float, Dict[str, Any]]] = []
         for (hr, hc) in heads:
             pts: List[Tuple[int, int]] = []
+            river_ext = 0
+            river_merged = False
             curr = (hr, hc)
             while True:
                 if curr in walked:
@@ -913,9 +1369,22 @@ def extract_station_drainage_branches(
                     break
                 dr, dc = D8_DELTAS[code]
                 nxt = (curr[0] + dr, curr[1] + dc)
-                if nxt not in branch_set:
-                    break
-                curr = nxt
+                if nxt in branch_set:
+                    river_ext = 0
+                    curr = nxt
+                    continue
+                # River-merge extension: the claimed set can end a few cells short of the
+                # OSM river (junction cell below --branch-min-acc). Keep walking while the
+                # D8 step stays on river-mask cells so the branch visually meets the river.
+                if (river_mask is not None
+                        and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols
+                        and river_mask[nxt[0], nxt[1]]
+                        and river_ext < river_merge_max_cells):
+                    river_ext += 1
+                    river_merged = True
+                    curr = nxt
+                    continue
+                break
 
             if len(pts) < 2:
                 continue
@@ -944,7 +1413,8 @@ def extract_station_drainage_branches(
                     "from_station_id": r_id,
                     "branch_length_km": round(length_km, 2),
                     "flow_acc_cells": int(acc[hr, hc]),
-                    "branch_cells": len(pts)
+                    "branch_cells": len(pts),
+                    "river_merge": river_merged
                 },
                 "geometry": {
                     "type": "LineString",
@@ -1047,7 +1517,9 @@ def build_flow_paths_and_relations(
     include_osm_layer: bool = True,
     branch_max_cells: int = 400_000,
     branch_max_count: int = 30,
-    branch_min_km: float = 1.5
+    branch_min_km: float = 1.5,
+    river_mask: Optional[np.ndarray] = None,
+    overland_max_km: float = 5.0
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
@@ -1149,6 +1621,10 @@ def build_flow_paths_and_relations(
                         coords, sample_elev_fn=None, river_name=p_name,
                         elevs=batch_sample_elevations(coords)
                     )
+    # Noding + endpoint welding: heal the fragmented OSM way graph (crossing ways
+    # without shared vertices, and way ends that stop tens of meters apart) so the
+    # backbone forms one routable network instead of thousands of islands.
+    river_graph.finalize_connectivity()
     river_graph.build_spatial_index()
 
     # 2. Map Water Stations onto Grid and Graph Nodes
@@ -1186,8 +1662,10 @@ def build_flow_paths_and_relations(
         except Exception:
             pass
 
-        # Find closest node on river graph within tight tolerance (~1.5 km)
-        nid, d_nid = river_graph.find_nearest_node(st_lon, st_lat, max_dist_deg=0.015)
+        # Anchor the gauge onto the graph by projecting it onto the nearest EDGE
+        # (splitting the edge if the projection is mid-segment) — not just the nearest
+        # vertex, which can sit on a different river in confluence areas.
+        nid, d_nid = river_graph.snap_point_to_graph(st_lon, st_lat, max_dist_deg=0.015)
         if nid:
             water_node_map[st_id] = nid
 
@@ -1310,10 +1788,33 @@ def build_flow_paths_and_relations(
             backbone_coords = None
             backbone_dist_km = 0.0
             end_lon, end_lat = raster_coords[-1]
-            nid, d_nid = river_graph.find_nearest_node(end_lon, end_lat, max_dist_deg=0.003)
+            z_end = sample_elevation(end_lon, end_lat)
+
+            # Attach the D8 end onto the backbone by projecting onto the nearest EDGE.
+            # If the very end misses the network (pit / reservoir / nodata), scan the
+            # path backwards for the last place it ran alongside a river reach and
+            # attach there — never leave the gauge hanging with no continuation.
+            nid, d_nid = river_graph.snap_point_to_graph(end_lon, end_lat, max_dist_deg=0.003)
+            if nid is None:
+                scan_from = max(0, len(raster_coords) - 1000)
+                for p_idx in range(len(raster_coords) - 2, scan_from - 1, -4):
+                    pt = raster_coords[p_idx]
+                    cand_nid, cand_d = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=0.003)
+                    if cand_nid is None:
+                        continue
+                    z_here = sample_elevation(pt[0], pt[1])
+                    z_cand = river_graph.nodes.get(cand_nid, (0.0, 0.0, None))[2]
+                    # The attachment node must not sit clearly ABOVE the path point
+                    # (that would be an upstream reach of a different river).
+                    if (z_cand is not None and z_here is not None
+                            and not math.isnan(z_here) and z_cand > z_here + 2.0):
+                        continue
+                    nid, d_nid = cand_nid, cand_d
+                    end_lon, end_lat = pt
+                    z_end = sample_elevation(end_lon, end_lat)
+                    break
             if nid is not None:
                 dist_map, prev_map = get_sssp(nid)
-                z_end = sample_elevation(end_lon, end_lat)
                 candidates = []
                 for wst in water_stations:
                     w_id = str(wst.get('station_id', '')).strip()
@@ -1455,15 +1956,116 @@ def build_flow_paths_and_relations(
         if not (0 <= r < nrows and 0 <= c < ncols):
             continue
 
-        # 1. Trace Continuous 12.5m DEM D8 flow path downstream from rain station
-        overland_coords, direct_target_water_id, overland_cells = trace_downstream_path(
-            r, c, fdir, transform, crs=crs,
-            stop_condition_fn=stop_at_water_station,
-            min_lat=southern_limit_lat,
-            max_steps=5000
-        )
-
         z_rain = sample_elevation(lon, lat)
+        seg_count = 0  # cascade segment counter (Case 2 increments per emitted segment)
+
+        # 1. Trace Continuous 12.5m DEM D8 flow path downstream from rain station.
+        # River-aware ("river first"): the trace stops (stop_data=RIVER_STOP) at the
+        # FIRST OSM river footprint it reaches, so runoff merges into the adjacent
+        # river instead of crossing it or running cross-country to a distant gauge.
+        #
+        # Dead-end fallback: if the contacted river is a topology island (isolated OSM
+        # fragment with NO reachable downstream gauge — common where OSM ways stop
+        # kilometers apart), the water physically keeps flowing: re-trace on pure
+        # terrain (no river stop) so gauge relations are not lost to mapping gaps.
+        overland_coords, stop_data, overland_cells = [], None, []
+        river_stopped = False
+        direct_target_water_id = None
+        entry_idx = None
+        entry_node = None
+        downstream_targets: List[Tuple[float, str, Dict[str, Any]]] = []
+        prev_map = None
+        for _attempt in range(2):
+            eff_river_mask = river_mask if _attempt == 0 else None
+            overland_coords, stop_data, overland_cells = trace_downstream_path(
+                r, c, fdir, transform, crs=crs,
+                stop_condition_fn=stop_at_water_station,
+                min_lat=southern_limit_lat,
+                max_steps=5000,
+                river_mask=eff_river_mask
+            )
+            river_stopped = (stop_data == RIVER_STOP)
+            direct_target_water_id = stop_data if (stop_data and stop_data != RIVER_STOP) else None
+            if direct_target_water_id:
+                break  # Case 1: gauge hit before any river contact
+
+            # Case 2 scan: find the river backbone contact (< 300m).
+            # When the trace stopped on a river cell, scan BACKWARDS from the end —
+            # the river contact is the path terminus. Otherwise coarse STRIDE pass
+            # first, then refine backwards to the exact closest approach.
+            # snap_point_to_graph projects onto edges (splitting them), so rivers
+            # whose nearest vertex is far away are still found reliably.
+            entry_idx = None
+            entry_node = None
+            if len(overland_coords) >= 2:
+                MAX_ENTRY_DIST = 0.003  # tight 300m
+                if river_stopped:
+                    for p_idx in range(len(overland_coords) - 1, -1, -1):
+                        pt = overland_coords[p_idx]
+                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                        if nid is not None:
+                            entry_idx, entry_node = p_idx, nid
+                            break
+                    if entry_node is None:
+                        pt = overland_coords[-1]
+                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=0.006)
+                        if nid is not None:
+                            entry_idx, entry_node = len(overland_coords) - 1, nid
+                else:
+                    STRIDE = 8
+                    coarse_idx = None
+                    coarse_d = MAX_ENTRY_DIST
+                    for p_idx in range(0, len(overland_coords), STRIDE):
+                        pt = overland_coords[p_idx]
+                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                        if nid is not None and d_nid <= MAX_ENTRY_DIST:
+                            coarse_idx = p_idx
+                            entry_node = nid
+                            coarse_d = d_nid
+                            break
+                    if coarse_idx is not None:
+                        # The coarse pass can be up to STRIDE cells past the true river approach;
+                        # refine backwards to the index nearest the backbone.
+                        best_idx, best_node, best_d = coarse_idx, entry_node, coarse_d
+                        for p_idx in range(coarse_idx - 1, max(0, coarse_idx - STRIDE + 1) - 1, -1):
+                            pt = overland_coords[p_idx]
+                            nid2, d2 = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                            if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
+                                best_idx, best_node, best_d = p_idx, nid2, d2
+                        entry_idx, entry_node = best_idx, best_node
+
+            # D1: collect ALL downstream-receiving gauges (hydrological cascade), ordered
+            # by channel distance from the entry node. Directed backbone edges guarantee
+            # gauges on upstream tributaries are unreachable, so the set is hydrologically
+            # correct.
+            downstream_targets = []
+            prev_map = None
+            if entry_node is not None:
+                dist_map, prev_map = get_sssp(entry_node)
+
+                for wst in water_stations:
+                    w_id = str(wst.get('station_id', '')).strip()
+                    v_node = water_node_map.get(w_id)
+                    if v_node and v_node != entry_node and v_node in dist_map:
+                        b_dist = dist_map[v_node]
+                        if b_dist < min_flow_km:
+                            continue  # D2: gauge sits effectively at the entry point -> skip stub
+                        w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
+                        if southern_limit_lat is not None and w_lat < southern_limit_lat:
+                            continue
+                        w_elev = sample_elevation(w_lon, w_lat)
+                        if w_elev <= z_rain + 2.0:
+                            downstream_targets.append((b_dist, w_id, wst))
+
+                downstream_targets.sort(key=lambda x: x[0])
+
+            if downstream_targets:
+                break  # viable river entry with receiving gauges
+            if entry_node is None and not river_stopped:
+                break  # no river contact at all -> Case 3 (pure overland)
+            if _attempt == 1:
+                break  # second pass: accept the dead-end river / overland result
+            # River contact but NO reachable gauge (topology island) -> retry on terrain
 
         # Case 1: D8 flow path directly encountered a water level gauge.
         # D1/D3: hydrological cascade — after the first receiving gauge, keep tracing D8
@@ -1618,58 +2220,6 @@ def build_flow_paths_and_relations(
                     resume_cell = seg_cells2[-1]
                 continue
 
-        # Case 2: Scan for tight intersection with OSM river backbone (< 300m)
-        # A2: coarse STRIDE pass first, then refine backwards to the exact closest approach
-        entry_idx = None
-        entry_node = None
-        if len(overland_coords) >= 2:
-            STRIDE = 8
-            MAX_ENTRY_DIST = 0.003  # tight 300m
-            coarse_idx = None
-            coarse_d = MAX_ENTRY_DIST
-            for p_idx in range(0, len(overland_coords), STRIDE):
-                pt = overland_coords[p_idx]
-                nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
-                if nid is not None and d_nid <= MAX_ENTRY_DIST:
-                    coarse_idx = p_idx
-                    entry_node = nid
-                    coarse_d = d_nid
-                    break
-            if coarse_idx is not None:
-                # The coarse pass can be up to STRIDE cells past the true river approach;
-                # refine backwards to the index nearest the backbone.
-                best_idx, best_node, best_d = coarse_idx, entry_node, coarse_d
-                for p_idx in range(coarse_idx - 1, max(0, coarse_idx - STRIDE + 1) - 1, -1):
-                    pt = overland_coords[p_idx]
-                    nid2, d2 = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
-                    if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
-                        best_idx, best_node, best_d = p_idx, nid2, d2
-                entry_idx, entry_node = best_idx, best_node
-
-        # D1: collect ALL downstream-receiving gauges (hydrological cascade), ordered by
-        # channel distance from the entry node. Directed backbone edges guarantee gauges on
-        # upstream tributaries are unreachable, so the set is hydrologically correct.
-        downstream_targets = []
-        prev_map = None
-        if entry_node is not None:
-            dist_map, prev_map = get_sssp(entry_node)
-
-            for wst in water_stations:
-                w_id = str(wst.get('station_id', '')).strip()
-                v_node = water_node_map.get(w_id)
-                if v_node and v_node != entry_node and v_node in dist_map:
-                    b_dist = dist_map[v_node]
-                    if b_dist < min_flow_km:
-                        continue  # D2: gauge sits effectively at the entry point -> skip stub
-                    w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
-                    if southern_limit_lat is not None and w_lat < southern_limit_lat:
-                        continue
-                    w_elev = sample_elevation(w_lon, w_lat)
-                    if w_elev <= z_rain + 2.0:
-                        downstream_targets.append((b_dist, w_id, wst))
-
-            downstream_targets.sort(key=lambda x: x[0])
-
         if entry_idx is not None:
             branch_seed_cells[r_id] = list(overland_cells[:entry_idx + 1])
             # Case 2: Hit OSM River. We MUST stop overland runoff at entry_idx.
@@ -1768,6 +2318,7 @@ def build_flow_paths_and_relations(
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
                     prev_gauge_node = v_node
+                    seg_count += 1
             else:
                 # Hit the river, but NO water station within the cascade reach.
                 # Stop at the river, don't wander off.
@@ -1821,6 +2372,23 @@ def build_flow_paths_and_relations(
             branch_seed_cells[r_id] = list(overland_cells)
             if len(overland_coords) >= 2:
                 coords = merge_coordinates([[lon, lat]], overland_coords)
+                overland_capped = False
+                if overland_max_km and overland_max_km > 0:
+                    # Cap runaway cross-country overland lines: without a river contact
+                    # the runoff must not be drawn wandering tens of kilometers.
+                    acc_km = 0.0
+                    cut_idx = len(coords) - 1
+                    for ci in range(1, len(coords)):
+                        acc_km += math.hypot(
+                            (coords[ci][0] - coords[ci - 1][0]) * 111.32 * 0.95,
+                            (coords[ci][1] - coords[ci - 1][1]) * 110.54
+                        )
+                        if acc_km > overland_max_km:
+                            cut_idx = ci
+                            overland_capped = True
+                            break
+                    if overland_capped and cut_idx >= 2:
+                        coords = coords[:cut_idx + 1]
                 dist_km = linestring_length_km(coords)
                 if dist_km >= min_flow_km:  # D2: user-defined minimum flow length (1km)
                     z_end = sample_elevation(coords[-1][0], coords[-1][1])
@@ -1840,6 +2408,7 @@ def build_flow_paths_and_relations(
                         "id": feature_id,
                         "properties": {
                             "feature_type": "rainfall_to_gauge_flowpath",
+                            "routing": "overland_capped" if overland_capped else "overland",
                             "from_station_id": r_id,
                             "from_station_name": r_st.get('station_name', ''),
                             "to_station_id": "",
@@ -1878,7 +2447,8 @@ def build_flow_paths_and_relations(
                 min_branch_acc=eff_branch_acc, min_length_km=branch_min_km,
                 max_cells_per_station=branch_max_cells,
                 southern_limit_lat=southern_limit_lat,
-                max_branches_per_station=branch_max_count
+                max_branches_per_station=branch_max_count,
+                river_mask=river_mask
             )
             if not truncated:
                 break
