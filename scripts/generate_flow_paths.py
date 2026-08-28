@@ -58,6 +58,7 @@ def generate_basin_flow_paths(
     include_osm_layer: bool = True,
     branch_max_cells: int = 400_000,
     branch_max_count: int = 30,
+    branch_min_km: float = 1.5,
     write_gzip: bool = True
 ):
     """
@@ -198,7 +199,8 @@ def generate_basin_flow_paths(
         include_branches=include_branches,
         include_osm_layer=include_osm_layer,
         branch_max_cells=branch_max_cells,
-        branch_max_count=branch_max_count
+        branch_max_count=branch_max_count,
+        branch_min_km=branch_min_km
     )
 
     raw_bytes, gz_bytes = write_geojson_pair(flow_paths_geojson, flow_paths_path, write_gzip=write_gzip)
@@ -311,6 +313,8 @@ def main():
                         help="Max upstream cells collected per rain station for branches (default: 400000)")
     parser.add_argument("--branch-max-count", type=int, default=30,
                         help="Max drainage branches kept per rain station, longest first (default: 30)")
+    parser.add_argument("--branch-min-km", type=float, default=1.5,
+                        help="Minimum drainage branch length in km, branches only (default: 1.5; flow paths use --min-flow-km)")
     parser.add_argument("--no-gzip", action="store_true",
                         help="Skip writing flow_paths.geojson.gz (raw .geojson is always written)")
     args = parser.parse_args()
@@ -350,6 +354,7 @@ def main():
             include_osm_layer=not args.no_osm_layer,
             branch_max_cells=args.branch_max_cells,
             branch_max_count=args.branch_max_count,
+            branch_min_km=args.branch_min_km,
             write_gzip=not args.no_gzip
         )
 

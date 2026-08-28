@@ -218,8 +218,9 @@ def _build_synthetic_basin():
         for c in range(max(0, c0 - 20), min(W, c0 + 21)):
             dem[r, c] = min(dem[r, c], 300.0 - 0.5 * r - (1.0 + (20 - abs(c - c0)) * 0.5))
         dem[r, max(0, c0 - 1):c0 + 2] = 300.0 - 0.5 * r - 8.0
-    # East tributary joining the main channel (used by the rain station)
-    tr = 165
+    # East tributary joining the main channel (used by the rain stations);
+    # placed deep enough that the upstream branch exceeds the 1.5km default filter
+    tr = 185
     c_main = _channel_col(tr)
     for c in range(c_main + 2, 140):
         dem[tr, c] = min(dem[tr, c], 300.0 - 0.5 * tr - 8.0 + (c - c_main) * 0.05)
@@ -250,7 +251,7 @@ def _build_synthetic_basin():
 
     # Gauges ~2km apart so cascade segments pass the 1km minimum
     water = [st_at(30, "W30"), st_at(400, "W400"), st_at(600, "W600")]
-    # Two rain stations in the SAME tributary catchment (row-165 trib) — their shared
+    # Two rain stations in the SAME tributary catchment (row-185 trib) — their shared
     # upstream branch network must dedupe into one feature with shared_with
     rain = [
         {"station_id": "R1", "station_name": "rain_R1",
@@ -274,11 +275,13 @@ def test_end_to_end_synthetic_basin():
         assert st.get("snapped_via_osm") is True, f"{st['station_id']} must snap to OSM line"
         assert st.get("grid_row") is not None
 
+    # branch_min_km=1.0 explicit: the synthetic basin's longest branch fragment is ~1.5km
+    # (the 1.5km DEFAULT is asserted separately via signature check below)
     geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
         snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
         osm_waterways_geojson=B["osm"], crs=None,
         min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
-        include_branches=True
+        include_branches=True, branch_min_km=1.0
     )
 
     features = geojson["features"]
@@ -345,6 +348,14 @@ def test_end_to_end_synthetic_basin():
             "rainfall_drainage_branch", "osm_river"} <= layer_types
 
 
+def test_branch_min_km_default():
+    """--branch-min-km default must be 1.5 while flow paths stay at 1.0."""
+    import inspect
+    sig = inspect.signature(build_flow_paths_and_relations)
+    assert sig.parameters["branch_min_km"].default == 1.5
+    assert sig.parameters["min_flow_km"].default == 1.0
+
+
 def test_branch_cap_and_dedupe():
     """G1/G2: per-station cap (longest kept) + cross-station geometry dedupe."""
     from collections import Counter
@@ -379,6 +390,7 @@ def main():
         test_merge_coordinates,
         test_burn_polygons,
         test_end_to_end_synthetic_basin,
+        test_branch_min_km_default,
         test_branch_cap_and_dedupe,
     ]
     for t in tests:

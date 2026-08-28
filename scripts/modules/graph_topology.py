@@ -1046,7 +1046,8 @@ def build_flow_paths_and_relations(
     include_branches: bool = True,
     include_osm_layer: bool = True,
     branch_max_cells: int = 400_000,
-    branch_max_count: int = 30
+    branch_max_count: int = 30,
+    branch_min_km: float = 1.5
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
@@ -1874,7 +1875,7 @@ def build_flow_paths_and_relations(
         for attempt in range(3):
             branch_features, truncated = extract_station_drainage_branches(
                 branch_seed_cells, fdir, acc, transform, crs=crs,
-                min_branch_acc=eff_branch_acc, min_length_km=min_flow_km,
+                min_branch_acc=eff_branch_acc, min_length_km=branch_min_km,
                 max_cells_per_station=branch_max_cells,
                 southern_limit_lat=southern_limit_lat,
                 max_branches_per_station=branch_max_count
