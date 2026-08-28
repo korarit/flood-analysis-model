@@ -891,6 +891,70 @@ def simplify_linestring_coords(
     return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
 
 
+def _extract_basin_polygon(basin_boundary_geojson: Optional[Dict[str, Any]]):
+    """
+    Extracts the first Polygon/MultiPolygon geometry from a basin boundary GeoJSON
+    (accepts FeatureCollection, Feature, or bare geometry dicts). Returns a shapely
+    geometry or None.
+    """
+    if not basin_boundary_geojson:
+        return None
+    try:
+        gj = basin_boundary_geojson
+        geom = None
+        gtype = gj.get("type", "")
+        if gtype == "FeatureCollection":
+            for f in gj.get("features", []):
+                g = (f or {}).get("geometry") or {}
+                if g.get("type") in ("Polygon", "MultiPolygon"):
+                    geom = g
+                    break
+        elif gtype == "Feature":
+            g = gj.get("geometry") or {}
+            if g.get("type") in ("Polygon", "MultiPolygon"):
+                geom = g
+        elif gtype in ("Polygon", "MultiPolygon"):
+            geom = gj
+        if geom is not None:
+            return shape(geom)
+    except Exception:
+        return None
+    return None
+
+
+def _clip_line_to_basin(coords: List[List[float]], basin_poly) -> Optional[List[List[float]]]:
+    """
+    Clips a LineString coordinate list to the basin polygon. When the line crosses the
+    boundary the piece containing the ORIGINAL START point is kept (upstream continuity
+    to the from-station); if the start is outside, the longest piece is kept.
+    Returns None when the line lies entirely outside the basin (feature must be dropped).
+    """
+    try:
+        line = LineString(coords)
+        if basin_poly.covers(line):
+            return coords
+        inter = line.intersection(basin_poly)
+        parts: List[Any] = []
+        if inter.geom_type == "LineString":
+            parts = [inter]
+        elif inter.geom_type in ("MultiLineString", "GeometryCollection"):
+            parts = [g for g in inter.geoms if g.geom_type == "LineString"]
+        if not parts:
+            return None
+        start = Point(coords[0])
+        chosen = None
+        for p in parts:
+            if p.distance(start) <= 1e-9:
+                chosen = p
+                break
+        if chosen is None:
+            chosen = max(parts, key=lambda p: p.length)
+        out = [[round(x, 6), round(y, 6)] for x, y in chosen.coords]
+        return out if len(out) >= 2 else None
+    except Exception:
+        return coords
+
+
 def compute_terrain_slope_and_weights(
     filled_dem: np.ndarray,
     transform: Affine,
@@ -1519,7 +1583,9 @@ def build_flow_paths_and_relations(
     branch_max_count: int = 30,
     branch_min_km: float = 1.5,
     river_mask: Optional[np.ndarray] = None,
-    overland_max_km: float = 5.0
+    overland_max_km: float = 5.0,
+    basin_boundary_geojson: Optional[Dict[str, Any]] = None,
+    clip_to_basin: bool = True
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
@@ -2501,6 +2567,37 @@ def build_flow_paths_and_relations(
                 n_osm_added += 1
         if n_osm_added:
             print(f"        OSM River Layer: {n_osm_added} features (feature_type=osm_river, no length filter)")
+
+    # Basin-boundary clipping: every output line (flow paths, branches, OSM river
+    # display layer) is cut to the official ThaiWater basin polygon. Lines crossing
+    # the boundary keep the piece connected to their from-station; lines entirely
+    # outside the basin are dropped.
+    basin_poly = _extract_basin_polygon(basin_boundary_geojson) if clip_to_basin else None
+    if basin_poly is not None:
+        kept_features: List[Dict[str, Any]] = []
+        n_clipped = 0
+        n_dropped = 0
+        for feat in features:
+            g = feat.get("geometry")
+            if not g or g.get("type") != "LineString":
+                kept_features.append(feat)
+                continue
+            coords = g.get("coordinates") or []
+            if len(coords) < 2:
+                kept_features.append(feat)
+                continue
+            new_coords = _clip_line_to_basin(coords, basin_poly)
+            if new_coords is None:
+                n_dropped += 1
+                continue
+            if len(new_coords) != len(coords):
+                n_clipped += 1
+                feat["properties"]["basin_clipped"] = True
+                g["coordinates"] = new_coords
+            kept_features.append(feat)
+        features = kept_features
+        print(f"        Basin clip: {n_clipped:,} features trimmed to the basin polygon, "
+              f"{n_dropped:,} outside features dropped")
 
     # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}

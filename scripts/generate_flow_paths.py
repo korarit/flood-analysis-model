@@ -61,6 +61,7 @@ def generate_basin_flow_paths(
     branch_max_count: int = 30,
     branch_min_km: float = 1.5,
     overland_max_km: float = 5.0,
+    clip_to_basin: bool = True,
     write_gzip: bool = True
 ):
     """
@@ -231,7 +232,9 @@ def generate_basin_flow_paths(
         branch_max_count=branch_max_count,
         branch_min_km=branch_min_km,
         river_mask=river_mask,
-        overland_max_km=overland_max_km
+        overland_max_km=overland_max_km,
+        basin_boundary_geojson=boundary_geojson,
+        clip_to_basin=clip_to_basin
     )
 
     raw_bytes, gz_bytes = write_geojson_pair(flow_paths_geojson, flow_paths_path, write_gzip=write_gzip)
@@ -348,6 +351,8 @@ def main():
                         help="Minimum drainage branch length in km, branches only (default: 1.5; flow paths use --min-flow-km)")
     parser.add_argument("--overland-max-km", type=float, default=5.0,
                         help="Cap length of pure-overland (river-less) rain flow paths in km (default: 5.0; 0 disables)")
+    parser.add_argument("--no-basin-clip", action="store_true",
+                        help="Do NOT clip output lines to the ThaiWater basin boundary polygon")
     parser.add_argument("--no-gzip", action="store_true",
                         help="Skip writing flow_paths.geojson.gz (raw .geojson is always written)")
     args = parser.parse_args()
@@ -389,6 +394,7 @@ def main():
             branch_max_count=args.branch_max_count,
             branch_min_km=args.branch_min_km,
             overland_max_km=args.overland_max_km,
+            clip_to_basin=not args.no_basin_clip,
             write_gzip=not args.no_gzip
         )
 

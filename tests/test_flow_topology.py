@@ -549,6 +549,64 @@ def test_branch_cap_and_dedupe():
     assert feats[0]["id"].startswith("branch_RA_")
 
 
+# ---------------------------------------------------------------------------
+# 14. Basin-boundary clipping: all output lines are cut to the basin polygon
+# ---------------------------------------------------------------------------
+def test_basin_boundary_clipping():
+    B = _build_synthetic_basin()
+
+    # Boundary polygon covering only the NORTHERN half of the synthetic basin
+    cut_lat = B["y0"] - 0.045  # ~row 450
+    poly = {"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[
+        [B["x0"] - 0.01, cut_lat],
+        [B["x0"] + 0.02, cut_lat],
+        [B["x0"] + 0.02, B["y0"] + 0.01],
+        [B["x0"] - 0.01, B["y0"] + 0.01],
+        [B["x0"] - 0.01, cut_lat],
+    ]]}}
+
+    snapped = snap_stations_to_stream(
+        B["water"], B["fdir"], B["acc"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None
+    )
+    geojson, _gr, _rr = build_flow_paths_and_relations(
+        snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None,
+        min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
+        include_branches=True, branch_min_km=1.0,
+        basin_boundary_geojson=poly, clip_to_basin=True
+    )
+
+    feats = geojson["features"]
+    assert feats, "features inside the boundary must survive"
+    for feat in feats:
+        for lon, lat in feat["geometry"]["coordinates"]:
+            assert lat >= cut_lat - 1e-9, \
+                f"{feat['id']} has coordinate outside the basin polygon: ({lon}, {lat})"
+    # The full-basin OSM display layer reaches far south (row 800) -> at least one
+    # feature must have been trimmed by the clip
+    trimmed = [f for f in feats if f["properties"].get("basin_clipped")]
+    assert trimmed, "expected at least one feature trimmed by the basin clip"
+
+    # With the FULL basin polygon nothing is dropped or trimmed
+    full_poly = {"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[
+        [B["x0"] - 0.01, B["y0"] - B["H"] * RES - 0.01],
+        [B["x0"] + 0.02, B["y0"] - B["H"] * RES - 0.01],
+        [B["x0"] + 0.02, B["y0"] + 0.01],
+        [B["x0"] - 0.01, B["y0"] + 0.01],
+        [B["x0"] - 0.01, B["y0"] - B["H"] * RES - 0.01],
+    ]]}}
+    geojson2, _a, _b = build_flow_paths_and_relations(
+        snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None,
+        min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
+        include_branches=True, branch_min_km=1.0,
+        basin_boundary_geojson=full_poly, clip_to_basin=True
+    )
+    assert not any(f["properties"].get("basin_clipped") for f in geojson2["features"])
+    assert len(geojson2["features"]) >= len(feats), "full boundary must keep all features"
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -564,6 +622,7 @@ def main():
         test_snap_point_to_graph_splits_edge,
         test_river_stop_stops_d8,
         test_river_first_cascade_with_mask,
+        test_basin_boundary_clipping,
     ]
     for t in tests:
         t()
