@@ -519,13 +519,18 @@ def burn_stream_network_into_dem(
     osm_waterways_geojson: Dict[str, Any],
     crs: Any = None,
     burn_depth_m: float = 15.0,
-    nodata: float = -9999.0
+    nodata: float = -9999.0,
+    water_polygons_geojson: Optional[Dict[str, Any]] = None,
+    polygon_burn_depth_m: Optional[float] = None
 ) -> np.ndarray:
     """
     Applies Hydro-Enforcement (Stream Burning / AGREE technique) to DEM.
     Carves vector river/stream channels from OpenStreetMap into the DEM surface by lowering
     elevation along river channels by `burn_depth_m`.
-    This forces D8 hydrological flow directions to strictly follow natural river beds in flat terrain.
+    When `water_polygons_geojson` is provided, open water surfaces (reservoirs / wide rivers)
+    are burned at `polygon_burn_depth_m` (shallower than channels) so D8 flow can cross
+    flat water bodies toward the deeper carved channel.
+    Single combined rasterization (value 2 = line, 1 = polygon) keeps peak RAM at one uint8 mask.
     """
     if not osm_waterways_geojson or not osm_waterways_geojson.get("features"):
         return dem
@@ -545,25 +550,42 @@ def burn_stream_network_into_dem(
         except Exception:
             inv_transformer = None
 
+    def _to_raster_crs(geom_dict):
+        if inv_transformer is not None:
+            from shapely.ops import transform as shp_transform
+            geom_obj = shape(geom_dict)
+            return shp_transform(lambda x, y: inv_transformer.transform(x, y), geom_obj)
+        return shape(geom_dict)
+
+    # Priority 2 (shallower): open water polygons
+    n_polygons = 0
+    if water_polygons_geojson and water_polygons_geojson.get("features") and polygon_burn_depth_m and polygon_burn_depth_m > 0:
+        for feat in water_polygons_geojson.get("features", []):
+            geom = feat.get("geometry")
+            if not geom or geom.get("type") not in ("Polygon", "MultiPolygon"):
+                continue
+            try:
+                shapes.append((_to_raster_crs(geom), 1))
+                n_polygons += 1
+            except Exception:
+                continue
+
+    # Priority 1 (deepest): river/stream lines carve through everything
     for feat in osm_waterways_geojson.get("features", []):
         geom = feat.get("geometry")
         if not geom or geom.get("type") not in ("LineString", "MultiLineString"):
             continue
         try:
-            if inv_transformer is not None:
-                from shapely.ops import transform as shp_transform
-                geom_obj = shape(geom)
-                geom_proj = shp_transform(lambda x, y: inv_transformer.transform(x, y), geom_obj)
-                shapes.append((geom_proj, 1))
-            else:
-                shapes.append((shape(geom), 1))
+            shapes.append((_to_raster_crs(geom), 2))
         except Exception:
             continue
 
     if not shapes:
         return dem
 
-    print(f"  [STREAM BURN] Hydro-enforcing {len(shapes):,} OSM river lines into DEM (-{burn_depth_m}m)...")
+    print(f"  [STREAM BURN] Hydro-enforcing {len(shapes) - n_polygons:,} OSM river lines"
+          + (f" + {n_polygons:,} water polygons (-{burn_depth_m}m / -{polygon_burn_depth_m}m)" if n_polygons else f" (-{burn_depth_m}m)")
+          + " into DEM...")
     try:
         burn_mask = rasterize(
             shapes,
@@ -575,8 +597,11 @@ def burn_stream_network_into_dem(
         )
 
         valid_mask = (dem != nodata) & ~np.isnan(dem)
-        dem[valid_mask & (burn_mask > 0)] -= burn_depth_m
-        del shapes, burn_mask, valid_mask
+        line_mask = burn_mask == 2
+        dem[valid_mask & line_mask] -= burn_depth_m
+        if n_polygons:
+            dem[valid_mask & (burn_mask == 1)] -= polygon_burn_depth_m
+        del shapes, burn_mask, valid_mask, line_mask
         import gc
         gc.collect()
         return dem

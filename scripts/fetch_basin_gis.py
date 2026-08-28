@@ -8,9 +8,12 @@ using NASA Earthdata credentials.
 import argparse
 import csv
 import glob
+import hashlib
+import json
 import math
 import os
 import sys
+import time
 from typing import Dict, List, Tuple, Any, Optional
 
 import requests
@@ -543,70 +546,194 @@ def stream_mosaic_geotiffs(dem_files: List[str], output_path: str, nodata: float
             s.close()
 
 
+# Overpass mirrors are tried in order until one returns a complete response
+OVERPASS_MIRRORS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://lz4.overpass-api.de/api/interpreter",
+    "https://z.overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+    "https://overpass.nchc.org.tw/api/interpreter"
+]
+
+# Remarks indicating an incomplete Overpass response (must refetch / try next mirror)
+_OVERPASS_BAD_REMARKS = ("timed out", "incomplete", "out of memory", "abort")
+
+
+def _basin_query_geometry(basin_boundary_geojson: Optional[Dict[str, Any]]):
+    """
+    Extracts a shapely (Multi)Polygon from a basin boundary GeoJSON FeatureCollection.
+    Returns (geometry_or_None, source_label).
+    """
+    if not basin_boundary_geojson:
+        return None, "station_bbox"
+    feats = basin_boundary_geojson.get("features") or []
+    if not feats:
+        return None, "station_bbox"
+    geom = feats[0].get("geometry")
+    if not geom:
+        return None, "station_bbox"
+    try:
+        from shapely.geometry import shape
+        g = shape(geom)
+        if g.is_empty or g.geom_type not in ("Polygon", "MultiPolygon"):
+            return None, "station_bbox"
+        return g, "basin_polygon"
+    except Exception:
+        return None, "station_bbox"
+
+
+def _overpass_poly_statements(geom: Any, tag_filter: str, max_polygons: int = 5) -> List[str]:
+    """
+    Converts a (Multi)Polygon into Overpass `poly:` filter statements.
+    Simplifies each polygon to ~0.005 deg (~550m) to keep the query compact;
+    irrelevant for waterway fetching since we only need basin-level coverage.
+    """
+    polys = list(geom.geoms) if geom.geom_type == "MultiPolygon" else [geom]
+    polys = sorted(polys, key=lambda p: p.area, reverse=True)
+
+    stmts = []
+    for p in polys[:max_polygons]:
+        poly = p
+        if poly.geom_type == "MultiPolygon":
+            poly = max(poly.geoms, key=lambda g: g.area)
+        simp = poly.simplify(0.005, preserve_topology=True)
+        if simp.geom_type == "MultiPolygon":
+            simp = max(simp.geoms, key=lambda g: g.area)
+        coords = list(simp.exterior.coords)
+        if len(coords) < 4:
+            continue
+        # Overpass poly format: "lat1 lon1 lat2 lon2 ..."
+        pairs = " ".join(f"{lat:.5f} {lon:.5f}" for lon, lat in coords)
+        stmts.append(f'way[{tag_filter}](poly:"{pairs}");')
+    return stmts
+
+
+def _build_overpass_query(
+    tag_filters: List[str],
+    geom: Any,
+    stations: List[Dict[str, Any]],
+    station_bbox_buffer_deg: float = 0.35
+) -> Tuple[str, str, str]:
+    """
+    Builds an Overpass QL query + fingerprint from basin polygon (preferred) or station bbox.
+    Returns (overpass_query, fingerprint, source_label).
+    """
+    stmts: List[str] = []
+    source_label = "basin_polygon"
+    if geom is not None:
+        for tf in tag_filters:
+            stmts.extend(_overpass_poly_statements(geom, tf))
+    if not stmts:
+        source_label = "station_bbox"
+        min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=station_bbox_buffer_deg)
+        bbox = f"({min_lat},{min_lon},{max_lat},{max_lon})"
+        stmts = [f'way[{tf}]{bbox};' for tf in tag_filters]
+
+    query_body = "\n".join(stmts)
+    overpass_query = f"[out:json][timeout:180];\n(\n{query_body}\n);\nout body geom;"
+    fingerprint = hashlib.sha256(overpass_query.encode("utf-8")).hexdigest()[:16]
+    return overpass_query, fingerprint, source_label
+
+
+def _overpass_fetch(overpass_query: str) -> Tuple[Optional[Dict[str, Any]], str]:
+    """
+    Queries Overpass mirrors with long timeout and strict completeness validation.
+    Returns (osm_data_or_None, last_error).
+    """
+    headers = {
+        "User-Agent": "FloodAnalysisModel/1.0 (Hydrological Research; https://github.com/flood-analysis-project)"
+    }
+    osm_data = None
+    last_err = ""
+    for mirror_url in OVERPASS_MIRRORS:
+        try:
+            print(f"        Querying Overpass mirror: {mirror_url} ...")
+            resp = requests.post(mirror_url, data={"data": overpass_query}, headers=headers, timeout=180)
+            if resp.status_code != 200:
+                last_err = f"HTTP {resp.status_code}: {resp.text[:100]}"
+                continue
+            data_json = resp.json()
+            remark = str(data_json.get("remark") or "").lower()
+            if "elements" not in data_json:
+                last_err = "No elements in JSON response"
+            elif any(k in remark for k in _OVERPASS_BAD_REMARKS):
+                last_err = f"Incomplete response remark: {remark[:120]}"
+            else:
+                osm_data = data_json
+                break
+        except Exception as ex:
+            last_err = str(ex)
+    return osm_data, last_err
+
+
+def _load_valid_cache(output_path: str, fingerprint: str, force: bool):
+    """
+    Loads cached geojson only when its fingerprint matches and status is not 'failed'.
+    """
+    if force or not os.path.exists(output_path) or os.path.getsize(output_path) <= 1024:
+        return None
+    try:
+        import json
+        with open(output_path, 'r', encoding='utf-8') as f:
+            cached = json.load(f)
+    except Exception:
+        return None
+    meta = cached.get("_meta") or {}
+    if meta.get("status") == "failed":
+        print(f"  [CACHE] Previous fetch failed for this fingerprint; refetching...")
+        return None
+    if meta.get("fingerprint") != fingerprint:
+        print(f"  [CACHE] Fingerprint mismatch (cached={meta.get('fingerprint')}, want={fingerprint}); refetching...")
+        return None
+    print(f"  [CACHE] Valid cached data (fingerprint={fingerprint}, fetched_at={meta.get('fetched_at')}): {output_path}")
+    return cached
+
+
 def fetch_osm_waterways(
     basin: str,
     output_path: str,
     stations: List[Dict[str, Any]],
-    force: bool = False
+    force: bool = False,
+    basin_boundary_geojson: Optional[Dict[str, Any]] = None
 ) -> Dict[str, Any]:
     """
     Downloads and caches high-resolution River & Stream Waterway Network from OpenStreetMap (OSM)
-    via Overpass API for the target river basin.
-    Tags: waterway=river, stream, canal.
-    Returns standard GeoJSON FeatureCollection.
+    via Overpass API, scoped to the official ThaiWater basin polygon when available
+    (falls back to station bounding box + buffer).
+    Tags: waterway=river, stream, canal, drain, ditch.
+    Returns standard GeoJSON FeatureCollection with `_meta` fingerprint for cache validation.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    if os.path.exists(output_path) and os.path.getsize(output_path) > 1024 and not force:
-        print(f"  [CACHE] OSM Waterways already exist: {output_path}")
-        with open(output_path, 'r', encoding='utf-8') as f:
-            import json
-            return json.load(f)
+    geom, _ = _basin_query_geometry(basin_boundary_geojson)
+    overpass_query, fingerprint, source_label = _build_overpass_query(
+        ['"waterway"~"river|stream|canal|drain|ditch"'], geom, stations
+    )
 
-    print(f"  [OSM] Fetching OpenStreetMap Waterway Network for '{basin}'...")
-    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.35)
+    cached = _load_valid_cache(output_path, fingerprint, force)
+    if cached is not None:
+        return cached
 
-    overpass_query = f"""
-    [out:json][timeout:120];
-    (
-      way["waterway"~"river|stream|canal|drain|ditch"]({min_lat},{min_lon},{max_lat},{max_lon});
-    );
-    out body geom;
-    """
+    print(f"  [OSM] Fetching OpenStreetMap Waterway Network for '{basin}' "
+          f"(source={source_label}, fingerprint={fingerprint})...")
 
-    headers = {
-        "User-Agent": "FloodAnalysisModel/1.0 (Hydrological Research; https://github.com/flood-analysis-project)"
-    }
-
-    mirrors = [
-        "https://overpass-api.de/api/interpreter",
-        "https://overpass.kumi.systems/api/interpreter",
-        "https://lz4.overpass-api.de/api/interpreter",
-        "https://z.overpass-api.de/api/interpreter",
-        "https://overpass.private.coffee/api/interpreter",
-        "https://overpass.nchc.org.tw/api/interpreter"
-    ]
-
-    osm_data = None
-    last_err = None
-    for mirror_url in mirrors:
-        try:
-            print(f"        Querying Overpass mirror: {mirror_url} ...")
-            resp = requests.post(mirror_url, data={"data": overpass_query}, headers=headers, timeout=60)
-            if resp.status_code == 200:
-                data_json = resp.json()
-                if "elements" in data_json:
-                    osm_data = data_json
-                    break
-                else:
-                    last_err = "No elements in JSON response"
-            else:
-                last_err = f"HTTP {resp.status_code}: {resp.text[:100]}"
-        except Exception as ex:
-            last_err = str(ex)
+    osm_data, last_err = _overpass_fetch(overpass_query)
 
     if not osm_data or "elements" not in osm_data:
-        print(f"  [WARN] Failed to fetch OSM waterways ({last_err}). Creating placeholder GeoJSON.")
-        empty_geojson = {"type": "FeatureCollection", "features": []}
+        print(f"  [WARN] Failed to fetch OSM waterways ({last_err}).", file=sys.stderr)
+        if os.path.exists(output_path) and os.path.getsize(output_path) > 1024:
+            # Never destroy an existing good cache with an empty placeholder
+            print(f"  [WARN] Keeping existing cache file: {output_path}", file=sys.stderr)
+            try:
+                with open(output_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        empty_geojson = {
+            "type": "FeatureCollection",
+            "_meta": {"fingerprint": fingerprint, "status": "failed", "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "n_features": 0},
+            "features": []
+        }
         save_geojson(empty_geojson, output_path)
         return empty_geojson
 
@@ -643,10 +770,98 @@ def fetch_osm_waterways(
 
     geojson = {
         "type": "FeatureCollection",
+        "_meta": {
+            "fingerprint": fingerprint,
+            "source": source_label,
+            "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "n_features": len(features)
+        },
         "features": features
     }
     save_geojson(geojson, output_path)
     print(f"  [OK] Saved {len(features)} OSM waterway features to: {output_path}")
+    return geojson
+
+
+def fetch_osm_water_polygons(
+    basin: str,
+    output_path: str,
+    stations: List[Dict[str, Any]],
+    force: bool = False,
+    basin_boundary_geojson: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
+    """
+    Downloads and caches open water surfaces (natural=water, landuse=reservoir) from OSM
+    as Polygon features. Used to hydro-enforce wide rivers / reservoirs into the DEM
+    (stream burning) where no waterway LineString exists.
+    """
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    geom, _ = _basin_query_geometry(basin_boundary_geojson)
+    overpass_query, fingerprint, source_label = _build_overpass_query(
+        ['"natural"="water"', '"landuse"="reservoir"'], geom, stations
+    )
+
+    cached = _load_valid_cache(output_path, fingerprint, force)
+    if cached is not None:
+        return cached
+
+    print(f"  [OSM] Fetching OpenStreetMap Water Polygons for '{basin}' "
+          f"(source={source_label}, fingerprint={fingerprint})...")
+
+    osm_data, last_err = _overpass_fetch(overpass_query)
+
+    if not osm_data or "elements" not in osm_data:
+        print(f"  [WARN] Failed to fetch OSM water polygons ({last_err}). Continuing without water polygons.", file=sys.stderr)
+        empty_geojson = {
+            "type": "FeatureCollection",
+            "_meta": {"fingerprint": fingerprint, "status": "failed", "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "n_features": 0},
+            "features": []
+        }
+        # Only write placeholder when nothing usable exists (same policy as waterways)
+        if not (os.path.exists(output_path) and os.path.getsize(output_path) > 1024):
+            save_geojson(empty_geojson, output_path)
+        return empty_geojson
+
+    features = []
+    for elem in osm_data.get("elements", []):
+        if elem.get("type") != "way" or "geometry" not in elem:
+            continue
+        coords = [[round(pt["lon"], 6), round(pt["lat"], 6)] for pt in elem["geometry"] if "lon" in pt and "lat" in pt]
+        # Closed ways only -> Polygon
+        if len(coords) < 4 or coords[0] != coords[-1]:
+            continue
+
+        tags = elem.get("tags", {})
+        feat_id = f"osm_water_poly_{elem['id']}"
+        features.append({
+            "type": "Feature",
+            "id": feat_id,
+            "properties": {
+                "osm_id": elem["id"],
+                "name": tags.get("name", ""),
+                "name_th": tags.get("name:th", tags.get("name", "")),
+                "water": tags.get("water", ""),
+                "natural": tags.get("natural", ""),
+                "landuse": tags.get("landuse", "")
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [coords]
+            }
+        })
+
+    geojson = {
+        "type": "FeatureCollection",
+        "_meta": {
+            "fingerprint": fingerprint,
+            "source": source_label,
+            "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "n_features": len(features)
+        },
+        "features": features
+    }
+    save_geojson(geojson, output_path)
+    print(f"  [OK] Saved {len(features)} OSM water polygon features to: {output_path}")
     return geojson
 
 
@@ -694,8 +909,18 @@ def main():
         fetch_subbasins_boundary(b, subbasins_path, all_st)
 
         # 3. OpenStreetMap Waterway Network (in dataset/{basin}/gis/osm_waterways.geojson)
+        boundary_geojson = None
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as f:
+                boundary_geojson = json.load(f)
+        except Exception:
+            boundary_geojson = None
         osm_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
-        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm)
+        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm, basin_boundary_geojson=boundary_geojson)
+
+        # 3b. OpenStreetMap Water Polygons for reservoirs / wide rivers (stream burning support)
+        water_polygons_path = os.path.join(basin_dir, "gis", "osm_water_polygons.geojson")
+        fetch_osm_water_polygons(b, water_polygons_path, all_st, force=args.force_osm, basin_boundary_geojson=boundary_geojson)
 
         # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
         download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password, chunk_size=args.chunk_size)

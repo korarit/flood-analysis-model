@@ -1,0 +1,350 @@
+#!/usr/bin/env python3
+"""
+Synthetic unit tests for the flow topology pipeline (C2).
+No real data required — builds a small synthetic DEM + OSM network and verifies:
+
+  1. DirectedRiverGraph direction enforcement + connectivity + path contiguity
+  2. reconstruct_node_path / stitch_coords_from_prev (cascade segment math)
+  3. simplify_linestring_coords jump splitting (A1)
+  4. merge_coordinates dedup
+  5. burn_stream_network_into_dem line vs polygon depths (B4)
+  6. End-to-end build_flow_paths_and_relations on a synthetic basin:
+     gauge chain, rain cascade segments, drainage branches, no long straight jumps
+
+Run:  python tests/test_flow_topology.py
+"""
+
+import math
+import os
+import sys
+
+import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from rasterio.transform import Affine
+
+from scripts.modules.graph_topology import (
+    DirectedRiverGraph,
+    build_flow_paths_and_relations,
+    extract_station_drainage_branches,
+    merge_coordinates,
+    simplify_linestring_coords,
+    snap_stations_to_stream,
+    trace_downstream_path,
+)
+from scripts.modules.terrain_engine import burn_stream_network_into_dem
+from scripts.modules.gis_utils import linestring_length_km
+
+RES = 0.0001  # ~11 m per cell (EPSG:4326)
+
+
+# ---------------------------------------------------------------------------
+# 1. Graph direction, connectivity, contiguity
+# ---------------------------------------------------------------------------
+def test_graph_direction_and_connectivity():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+
+    # Elevation decreases to the south (lower lat = lower elevation)
+    def elev_fn(lon, lat):
+        return 200.0 + (lat - 18.0) * 2000.0
+
+    main = [[100.000, 18.000], [100.000, 18.050], [100.000, 18.100]]
+    g.add_river_segment(main, sample_elev_fn=elev_fn, river_name="main")
+
+    # Tributary digitized FROM head TO junction (downstream direction preserved)
+    trib = [[100.050, 18.100], [100.025, 18.100], [100.000, 18.100]]
+    g.add_river_segment(trib, sample_elev_fn=elev_fn, river_name="trib")
+    g.build_spatial_index()
+
+    head, _ = g.find_nearest_node(100.050, 18.100, max_dist_deg=0.01)
+    mouth, _ = g.find_nearest_node(100.000, 18.000, max_dist_deg=0.01)
+    assert head is not None and mouth is not None
+
+    coords, dist = g.shortest_path(head, mouth, max_dist_km=50.0)
+    assert coords is not None and dist > 0.0
+    assert len(coords) >= 4
+
+    # Contiguity: no gap larger than one vertex spacing (max 0.05 deg here)
+    for i in range(len(coords) - 1):
+        gap = math.hypot(coords[i][0] - coords[i + 1][0], coords[i][1] - coords[i + 1][1])
+        assert gap < 0.051, f"discontinuity at {i}: {gap}"
+    # Ends at the mouth
+    assert math.hypot(coords[-1][0] - 100.0, coords[-1][1] - 18.0) < 1e-3
+
+    # Direction flip: segment digitized upstream (low elev first) must be reversed,
+    # so the edge flows from high elevation (north) down to low elevation (south)
+    g2 = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    g2.add_river_segment([[100.0, 17.950], [100.0, 18.000]], sample_elev_fn=elev_fn)
+    south, _ = g2.find_nearest_node(100.0, 17.950, max_dist_deg=0.01)
+    north, _ = g2.find_nearest_node(100.0, 18.000, max_dist_deg=0.01)
+    outs = [v for v, _ in g2.adj.get(north, [])]
+    assert south in outs, "edge must flow from high (north) to low (south) elevation after flip"
+
+    # Unknown elevation (outside DEM) -> no flip, OSM direction kept
+    g3 = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    g3.add_river_segment(
+        [[100.0, 19.0], [100.0, 19.01]],
+        sample_elev_fn=lambda lo, la: None,  # everything unknown
+    )
+    n_a, _ = g3.find_nearest_node(100.0, 19.0, max_dist_deg=0.01)
+    n_b, _ = g3.find_nearest_node(100.0, 19.01, max_dist_deg=0.01)
+    assert [v for v, _ in g3.adj.get(n_a, [])] == [n_b], "unknown elevations must keep OSM digitization direction"
+
+
+# ---------------------------------------------------------------------------
+# 2. Node path reconstruction + segment stitching
+# ---------------------------------------------------------------------------
+def test_reconstruct_node_path_and_stitch():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    pts = [[100.0 + i * 0.01, 18.0] for i in range(5)]  # 4 edges
+    g.add_river_segment(pts, sample_elev_fn=lambda lo, la: -la * 1000.0)  # flows east
+    g.build_spatial_index()
+
+    n0, _ = g.find_nearest_node(*pts[0], max_dist_deg=0.01)
+    n4, _ = g.find_nearest_node(*pts[-1], max_dist_deg=0.01)
+    dist, prev = g.dijkstra_single_source(n0, max_dist_km=50.0)
+
+    chain = g.reconstruct_node_path(prev, n0, n4)
+    assert chain is not None and len(chain) == 5 and chain[0] == n0 and chain[-1] == n4
+
+    full = g.stitch_coords_from_prev(prev, chain, 0, len(chain) - 1)
+    legacy = g.reconstruct_path_from_prev(prev, n0, n4)
+    assert len(full) == len(legacy)
+    for a, b in zip(full, legacy):
+        assert math.hypot(a[0] - b[0], a[1] - b[1]) < 1e-9
+
+    # Middle segment (node 2 -> node 4) shares its first point with the previous segment end
+    seg = g.stitch_coords_from_prev(prev, chain, 2, len(chain) - 1)
+    assert len(seg) >= 2
+    tail_of_prefix = g.stitch_coords_from_prev(prev, chain, 0, 2)
+    assert math.hypot(seg[0][0] - tail_of_prefix[-1][0], seg[0][1] - tail_of_prefix[-1][1]) < 1e-9
+
+    # Broken chain returns None
+    assert g.reconstruct_node_path(prev, n4, n0) is None
+
+
+# ---------------------------------------------------------------------------
+# 3. simplify_linestring_coords jump splitting
+# ---------------------------------------------------------------------------
+def test_simplify_splits_at_jump():
+    # Mid-path 55km jump: keep chunk from origin, big tail must NOT be re-attached
+    c = [[100.0, 18.0], [100.001, 18.0], [100.500, 18.0], [100.501, 18.0]]
+    out = simplify_linestring_coords(c, tolerance_deg=0.00035, max_step_km=0.5)
+    assert out[0] == [100.0, 18.0]
+    for i in range(len(out) - 1):
+        assert seg_km_local(out[i], out[i + 1]) <= 0.51, f"straight jump survived: {out}"
+
+    # End-of-path small stub (<= 2km): contiguous start + one trailing gauge-access jump
+    c2 = [[100.0, 18.0], [100.001, 18.0], [100.008, 18.0]]
+    out2 = simplify_linestring_coords(c2, tolerance_deg=0.00035, max_step_km=0.5)
+    assert out2[0] == [100.0, 18.0]
+    assert out2[-1] == [100.008, 18.0], f"small end stub must be kept: {out2}"
+    for i in range(len(out2) - 1):
+        assert seg_km_local(out2[i], out2[i + 1]) <= 2.01
+
+    # No-jump line: endpoints exact
+    c3 = [[100.0, 18.0], [100.001, 18.001], [100.002, 18.002]]
+    out3 = simplify_linestring_coords(c3, tolerance_deg=0.00035, max_step_km=0.5)
+    assert out3[0] == [100.0, 18.0] and out3[-1] == [100.002, 18.002]
+
+
+def seg_km_local(a, b):
+    return math.hypot((b[0] - a[0]) * 111.32 * 0.95, (b[1] - a[1]) * 110.54)
+
+
+# ---------------------------------------------------------------------------
+# 4. merge_coordinates dedup
+# ---------------------------------------------------------------------------
+def test_merge_coordinates():
+    a = [[100.0, 18.0], [100.001, 18.0]]
+    b = [[100.001, 18.0], [100.002, 18.001]]
+    m = merge_coordinates(a, b)
+    assert len(m) == 3
+    assert m[0] == [100.0, 18.0] and m[-1] == [100.002, 18.001]
+    assert merge_coordinates(None, []) == []
+
+
+# ---------------------------------------------------------------------------
+# 5. Stream burning: lines (deep) vs polygons (shallow)
+# ---------------------------------------------------------------------------
+def test_burn_polygons():
+    dem = np.full((50, 50), 100.0, dtype=np.float32)
+    transform = Affine(RES, 0, 100.0, 0, -RES, 18.0)
+
+    osm = {"features": [
+        {"geometry": {"type": "LineString",
+                      "coordinates": [[100.000, 17.99995], [100.0049, 17.99995]]}},
+    ]}
+    poly = {"features": [
+        {"geometry": {"type": "Polygon",
+                      "coordinates": [[[100.001, 17.9980], [100.004, 17.9980],
+                                       [100.004, 17.9990], [100.001, 17.9990],
+                                       [100.001, 17.9980]]]}},
+    ]}
+
+    out = burn_stream_network_into_dem(
+        dem.copy(), transform, osm, crs=None, burn_depth_m=15.0,
+        water_polygons_geojson=poly, polygon_burn_depth_m=10.0
+    )
+    assert abs(out[0, 2] - 85.0) < 1e-4, f"line cell should burn -15m, got {out[0, 2]}"
+    assert abs(out[15, 15] - 90.0) < 1e-4, f"polygon-only cell should burn -10m, got {out[15, 15]}"
+    assert out[45, 45] == 100.0, "untouched cell must keep original elevation"
+
+    # Polygons absent -> only lines burn
+    out2 = burn_stream_network_into_dem(dem.copy(), transform, osm, crs=None, burn_depth_m=15.0)
+    assert abs(out2[0, 2] - 85.0) < 1e-4
+    assert out2[15, 15] == 100.0
+
+
+# ---------------------------------------------------------------------------
+# 6. End-to-end synthetic basin
+# ---------------------------------------------------------------------------
+def _channel_col(r):
+    return 80 + int(round(6 * math.sin(r / 18.0)))
+
+
+def _build_synthetic_basin():
+    H, W = 800, 160
+    x0, y0 = 100.0, 18.2
+    transform = Affine(RES, 0, x0, 0, -RES, y0)
+
+    dem = np.zeros((H, W), dtype=np.float32)
+    for r in range(H):
+        dem[r, :] = 300.0 - 0.5 * r
+    # Carve main channel (wiggle) + V-shaped valley so the channel collects drainage
+    for r in range(H):
+        c0 = _channel_col(r)
+        for c in range(max(0, c0 - 20), min(W, c0 + 21)):
+            dem[r, c] = min(dem[r, c], 300.0 - 0.5 * r - (1.0 + (20 - abs(c - c0)) * 0.5))
+        dem[r, max(0, c0 - 1):c0 + 2] = 300.0 - 0.5 * r - 8.0
+    # East tributary joining the main channel (used by the rain station)
+    tr = 165
+    c_main = _channel_col(tr)
+    for c in range(c_main + 2, 140):
+        dem[tr, c] = min(dem[tr, c], 300.0 - 0.5 * tr - 8.0 + (c - c_main) * 0.05)
+
+    osm = {"type": "FeatureCollection", "features": [
+        {"type": "Feature", "id": "osm_way_1",
+         "properties": {"name": "main", "waterway": "river"},
+         "geometry": {"type": "LineString",
+                      "coordinates": [[x0 + (_channel_col(r) + 0.5) * RES,
+                                       y0 - (r + 0.5) * RES] for r in range(H)]}}
+    ]}
+
+    burned = burn_stream_network_into_dem(
+        dem.copy(), transform, osm, crs=None, burn_depth_m=15.0
+    )
+
+    import pyflwdir
+    flw = pyflwdir.from_dem(burned, nodata=-9999.0, transform=transform, latlon=True)
+    fdir = flw.to_array(ftype='d8')
+    acc = flw.upstream_area(unit='cell')
+    del flw
+
+    def st_at(r, sid):
+        c = _channel_col(r)
+        return {"station_id": sid, "station_name": f"gauge_{sid}",
+                "latitude": y0 - (r + 0.5) * RES, "longitude": x0 + (c + 0.5) * RES,
+                "riverName": "main"}
+
+    # Gauges ~2km apart so cascade segments pass the 1km minimum
+    water = [st_at(30, "W30"), st_at(400, "W400"), st_at(600, "W600")]
+    # Rain station on the east hillslope, draining via the row-165 tributary
+    rain = [{"station_id": "R1", "station_name": "rain_R1",
+             "latitude": y0 - (150 + 0.5) * RES, "longitude": x0 + (130 + 0.5) * RES}]
+
+    return dict(H=H, W=W, x0=x0, y0=y0, transform=transform, dem=burned,
+                fdir=fdir, acc=acc, osm=osm, water=water, rain=rain)
+
+
+def test_end_to_end_synthetic_basin():
+    B = _build_synthetic_basin()
+
+    snapped = snap_stations_to_stream(
+        B["water"], B["fdir"], B["acc"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None
+    )
+    for st in snapped:
+        assert st.get("snapped_via_osm") is True, f"{st['station_id']} must snap to OSM line"
+        assert st.get("grid_row") is not None
+
+    geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
+        snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None,
+        min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
+        include_branches=True
+    )
+
+    features = geojson["features"]
+    assert len(features) > 0
+
+    # Gauge chain: W30 -> W400 -> W600 via D8
+    gauge_pairs = {(r.get("from_station_id"), r.get("to_station_id")) for r in gauge_relations}
+    assert ("W30", "W400") in gauge_pairs, f"missing W30->W400, got {gauge_pairs}"
+    assert ("W400", "W600") in gauge_pairs
+
+    # Rain cascade: R1 enters at row 165 (downstream of W30) -> reaches W400 (seg 0),
+    # then the water keeps flowing downstream to W600 (seg 1)
+    rain_pairs = {(r.get("from_station_id"), r.get("to_station_id")) for r in rain_relations}
+    assert ("R1", "W400") in rain_pairs, f"rain must reach W400, got {rain_pairs}"
+    assert ("R1", "W600") in rain_pairs, f"rain cascade must reach W600, got {rain_pairs}"
+    w400_rels = [r for r in rain_relations if r.get("to_station_id") == "W400"]
+    assert w400_rels and w400_rels[0].get("cascade_segment") == 0
+    w600_rels = [r for r in rain_relations if r.get("to_station_id") == "W600"]
+    assert w600_rels and w600_rels[0].get("cascade_segment") == 1
+    assert w600_rels[0].get("previous_gauge_id") == "W400"
+    assert w600_rels[0].get("total_distance_km", 0) > w400_rels[0].get("total_distance_km", 0), \
+        "cumulative distance must grow along the cascade"
+
+    # IDW weights per target group must sum to ~100
+    groups = {}
+    for r in rain_relations:
+        groups.setdefault(r["to_station_id"], []).append(r.get("influence_weight_percent", 0.0))
+    for target, weights in groups.items():
+        assert abs(sum(weights) - 100.0) < 0.5, f"weights of {target} sum to {sum(weights)}"
+
+    # Geometry quality: no straight-line jump above 2 km in ANY feature.
+    # (Douglas-Peucker legitimately collapses long straight D8 runs into single segments;
+    #  anything beyond ~2km in this 4.4km basin would be a stitching defect.)
+    for feat in features:
+        coords = feat["geometry"]["coordinates"]
+        assert len(coords) >= 2, f"degenerate feature {feat['id']}"
+        for i in range(len(coords) - 1):
+            gap = seg_km_local(coords[i], coords[i + 1])
+            assert gap <= 2.01, f"{feat['id']} has {gap:.2f} km straight segment at idx {i}"
+
+    # Drainage branches tied to the rain station exist
+    branch_feats = [f for f in features
+                    if f["properties"].get("feature_type") == "rainfall_drainage_branch"]
+    assert branch_feats, "expected at least one drainage branch for R1"
+    assert all(f["properties"].get("from_station_id") == "R1" for f in branch_feats)
+    assert all(f["properties"]["branch_length_km"] >= 1.0 for f in branch_feats)
+
+    # OSM river display layer is present, separable, and NOT length-filtered
+    osm_feats = [f for f in features if f["properties"].get("feature_type") == "osm_river"]
+    assert osm_feats, "expected OSM river layer features"
+    assert all(f["properties"].get("osm_id") is not None for f in osm_feats)
+    assert all(f["properties"].get("osm_id") is not None for f in osm_feats)
+    layer_types = {f["properties"].get("feature_type") for f in features}
+    assert {"gauge_to_gauge_flowpath", "rainfall_to_gauge_flowpath",
+            "rainfall_drainage_branch", "osm_river"} <= layer_types
+
+
+def main():
+    tests = [
+        test_graph_direction_and_connectivity,
+        test_reconstruct_node_path_and_stitch,
+        test_simplify_splits_at_jump,
+        test_merge_coordinates,
+        test_burn_polygons,
+        test_end_to_end_synthetic_basin,
+    ]
+    for t in tests:
+        t()
+        print(f"PASS  {t.__name__}")
+    print("\nALL TESTS PASSED")
+
+
+if __name__ == "__main__":
+    main()

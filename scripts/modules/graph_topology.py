@@ -15,10 +15,23 @@ import math
 from typing import Dict, List, Tuple, Any, Optional, Set
 import numpy as np
 from rasterio.transform import Affine, rowcol
-from shapely.geometry import Point, LineString, Polygon, MultiPoint, mapping
+from shapely.geometry import Point, LineString, Polygon, MultiPoint, mapping, shape
 from shapely.ops import unary_union
 from .gis_utils import haversine_distance, linestring_length_km
 from .terrain_engine import D8_DELTAS
+
+# Reverse D8 lookup: code -> (dr, dc) offset of the UPSTREAM neighbor cell that
+# flows into the current cell (fdir[nr, nc] == code means (nr, nc) drains into (r, c)).
+REVERSE_D8 = {
+    1: (0, -1),
+    2: (-1, -1),
+    4: (-1, 0),
+    8: (-1, 1),
+    16: (0, 1),
+    32: (1, 1),
+    64: (1, 0),
+    128: (1, -1),
+}
 
 
 class DirectedRiverGraph:
@@ -87,32 +100,64 @@ class DirectedRiverGraph:
         self,
         coords: List[List[float]],
         sample_elev_fn=None,
-        river_name: str = ""
+        river_name: str = "",
+        elevs: Optional[List[Optional[float]]] = None
     ):
         """
         Adds an OSM waterway LineString into the directed graph with full-vertex granular noding.
         Every consecutive vertex pair (C_i, C_{i+1}) becomes a discrete directed edge,
         enabling 100% topological connectivity for all tributaries, stations, and overland entries.
+
+        elevs: optional precomputed elevation list aligned with `coords` (None entry = unknown,
+        e.g. vertex outside the DEM). Batch-supplied by the caller to avoid per-vertex
+        reprojection overhead. Vertices with unknown elevation never trigger a direction flip;
+        the original OSM digitization direction is kept instead (tagged direction_source="osm").
         """
         if len(coords) < 2:
             return
 
+        seg_elevs: Optional[List[Optional[float]]] = None
+        if elevs is not None and len(elevs) == len(coords):
+            seg_elevs = list(elevs)
+
+        def _elev(i: int) -> Optional[float]:
+            if seg_elevs is not None:
+                return seg_elevs[i]
+            if sample_elev_fn is not None:
+                v = sample_elev_fn(coords[i][0], coords[i][1])
+                return float(v) if v is not None else None
+            return 100.0
+
         lon_start, lat_start = coords[0][0], coords[0][1]
         lon_end, lat_end = coords[-1][0], coords[-1][1]
 
-        z_start = sample_elev_fn(lon_start, lat_start) if sample_elev_fn else 100.0
-        z_end = sample_elev_fn(lon_end, lat_end) if sample_elev_fn else 90.0
+        z_start = _elev(0)
+        z_end = _elev(len(coords) - 1)
 
-        # Topological Direction Enforcement: flow from higher elevation to lower elevation
+        # Topological Direction Enforcement: flow from higher elevation to lower elevation.
+        # Unknown elevation (outside DEM / nodata) -> trust the OSM digitization direction.
         segment_coords = list(coords)
-        if z_start < z_end - 0.5:
+        if z_start is not None and z_end is not None and z_start < z_end - 0.5:
             segment_coords.reverse()
+            if seg_elevs is not None:
+                seg_elevs.reverse()
+            direction_source = "elevation"
+        elif z_start is None or z_end is None:
+            direction_source = "osm"
+        else:
+            direction_source = "elevation"
 
         # Connect vertex-by-vertex
         prev_node = None
         for i in range(len(segment_coords)):
             p_lon, p_lat = segment_coords[i][0], segment_coords[i][1]
-            p_elev = sample_elev_fn(p_lon, p_lat) if sample_elev_fn else 100.0
+            if seg_elevs is not None:
+                p_elev = seg_elevs[i]
+            elif sample_elev_fn is not None:
+                v = sample_elev_fn(p_lon, p_lat)
+                p_elev = float(v) if v is not None else None
+            else:
+                p_elev = 100.0
             curr_node = self._get_or_create_node(p_lon, p_lat, p_elev)
 
             if prev_node is not None and prev_node != curr_node:
@@ -121,13 +166,15 @@ class DirectedRiverGraph:
                 sub_coords = [[p_prev_lon, p_prev_lat], [p_curr_lon, p_curr_lat]]
                 length_km = linestring_length_km(sub_coords)
 
+                dz = max(0.0, z_p - z_c) if (z_p is not None and z_c is not None) else 0.0
                 edge_data = {
                     "coords": sub_coords,
                     "length_km": max(0.001, length_km),
                     "z_start": z_p,
                     "z_end": z_c,
-                    "dz": max(0.0, z_p - z_c),
-                    "river_name": river_name
+                    "dz": dz,
+                    "river_name": river_name,
+                    "direction_source": direction_source
                 }
 
                 # Primary downstream edge (enforce downstream flow only)
@@ -263,6 +310,60 @@ class DirectedRiverGraph:
         coords = self.reconstruct_path_from_prev(prev, start_node, end_node)
         return coords, dist[end_node]
 
+    def reconstruct_node_path(
+        self,
+        prev: Dict[int, Tuple[int, Dict[str, Any]]],
+        start_node: int,
+        end_node: int
+    ) -> Optional[List[int]]:
+        """
+        Backtracks parent pointers from end_node to start_node and returns the NODE sequence.
+        Returns None when the chain is broken or cyclic.
+        O(path length) time, O(path length) memory.
+        """
+        if start_node == end_node:
+            return [start_node]
+        if end_node not in prev:
+            return None
+
+        chain: List[int] = []
+        curr = end_node
+        seen: Set[int] = set()
+        while True:
+            if curr in seen:
+                return None
+            seen.add(curr)
+            chain.append(curr)
+            if curr == start_node:
+                break
+            if curr not in prev:
+                return None
+            curr = prev[curr][0]
+        chain.reverse()
+        return chain
+
+    def stitch_coords_from_prev(
+        self,
+        prev: Dict[int, Tuple[int, Dict[str, Any]]],
+        node_chain: List[int],
+        start_pos: int,
+        end_pos: int
+    ) -> List[List[float]]:
+        """
+        Stitches edge coordinates along node_chain[start_pos..end_pos] (inclusive) into one
+        continuous coordinate list using the prev-tree edges. Nodes must be consecutive on
+        the chain; edges are contiguous by construction so the output has no gaps.
+        """
+        combined: List[List[float]] = []
+        for t in range(max(1, start_pos + 1), min(end_pos, len(node_chain) - 1) + 1):
+            _, edge_d = prev[node_chain[t]]
+            c = edge_d["coords"]
+            if not combined:
+                combined.extend(c)
+            else:
+                combined.extend(c[1:])
+        return combined
+
 
 def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[float]]:
     """Helper to merge multiple coordinate lists while removing duplicate adjacent points."""
@@ -284,25 +385,44 @@ def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[fl
 def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
-    max_step_km: float = 10.0
+    max_step_km: float = 0.5
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
-    Eliminates redundant collinear raster stair steps while preserving 100% of curves, bends,
+    Eliminates redundant collinear raster stair steps while preserving curves, bends,
     and exact station endpoints.
-    Strictly sanitizes against any straight-line jumps > max_step_km (500m).
+    Strictly splits at any artificial straight-line jump > max_step_km (500m): only the
+    contiguous chunk starting at the path origin is kept (endpoints are always re-appended
+    so both ends stay exact), and the discard is reported.
     """
     if not coords or len(coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords]
 
-    # 1. Topological Continuity Sanitization: Stop at any artificial leap > max_step_km
-    clean_coords = [coords[0]]
+    # 1. Topological Continuity Sanitization: split at any artificial leap > max_step_km
+    chunks: List[List[List[float]]] = [[coords[0]]]
     for i in range(len(coords) - 1):
         p1, p2 = coords[i], coords[i + 1]
         d_km = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
         if d_km > max_step_km:
-            break
-        clean_coords.append(p2)
+            chunks.append([p2])
+        else:
+            chunks[-1].append(p2)
+
+    clean_coords = chunks[0]
+    if len(chunks) > 1:
+        dropped = sum(len(ch) for ch in chunks[1:])
+        if dropped >= 5:
+            print(f"  [WARN] simplify_linestring: split at {len(chunks) - 1} jump(s) > {max_step_km}km; "
+                  f"kept {len(clean_coords)} pts from origin, discarded {dropped} pts")
+        # Preserve the exact final destination point ONLY when the end gap is a small
+        # station-access stub (<= 2km); a large mid-path jump must NOT be re-drawn.
+        tail = coords[-1]
+        tail_gap_km = math.hypot(
+            (tail[0] - clean_coords[-1][0]) * 111.32 * 0.95,
+            (tail[1] - clean_coords[-1][1]) * 110.54
+        )
+        if 1e-9 < tail_gap_km <= 2.0:
+            clean_coords.append(tail)
 
     if len(clean_coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords[:2]]
@@ -357,11 +477,14 @@ def snap_stations_to_stream(
     osm_waterways_geojson: Optional[Dict[str, Any]] = None,
     crs: Any = None,
     search_radius_cells: int = 15,
-    min_acc_cells: int = 100
+    min_acc_cells: int = 100,
+    water_polygons_geojson: Optional[Dict[str, Any]] = None
 ) -> List[Dict[str, Any]]:
     """
     Snaps each water level station to the closest OpenStreetMap river vector channel (if available)
     or the highest flow accumulation cell within `search_radius_cells`.
+    Water polygon boundaries (reservoirs / wide rivers) act as snapping targets as well,
+    so gauges located next to open water surfaces stay on the network.
     Ensures stations align perfectly with the actual river geometry.
     """
     nrows, ncols = fdir.shape
@@ -393,6 +516,22 @@ def snap_stations_to_stream(
                         osm_lines.append((line_geom, props))
                     except Exception:
                         pass
+
+    # Water polygon boundaries (reservoirs / wide rivers) as snapping targets
+    if water_polygons_geojson and water_polygons_geojson.get("features"):
+        for feat in water_polygons_geojson.get("features", []):
+            geom = feat.get("geometry")
+            if not geom or geom.get("type") not in ("Polygon", "MultiPolygon"):
+                continue
+            try:
+                poly_geom = shape(geom)
+                polys = list(poly_geom.geoms) if poly_geom.geom_type == "MultiPolygon" else [poly_geom]
+                props = feat.get("properties", {})
+                for poly in polys:
+                    if poly.exterior is not None and len(poly.exterior.coords) >= 2:
+                        osm_lines.append((LineString(poly.exterior.coords), props))
+            except Exception:
+                pass
 
     for st in stations:
         lat = float(st['latitude'])
@@ -561,11 +700,12 @@ def trace_downstream_path(
     stop_condition_fn=None,
     min_lat: Optional[float] = None,
     max_steps: int = 5000
-) -> Tuple[List[List[float]], Optional[Any]]:
+) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
     Stops immediately if path reaches min_lat (southernmost basin boundary).
-    Returns (coordinates_list [[lon, lat], ...], stop_data).
+    Returns (coordinates_list [[lon, lat], ...], stop_data, path_cells [(r, c), ...]).
+    The cell list enables downstream reuse (e.g. upstream drainage-branch BFS).
     """
     nrows, ncols = fdir.shape
     curr_r, curr_c = start_r, start_c
@@ -600,7 +740,7 @@ def trace_downstream_path(
         curr_r, curr_c = curr_r + dr, curr_c + dc
 
     if not path_rc:
-        return [], stop_data
+        return [], stop_data, path_rc
 
     # Vectorized conversion from (row, col) to (lon, lat)
     is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
@@ -635,7 +775,173 @@ def trace_downstream_path(
                 break
         coords = filtered_coords
 
-    return coords, stop_data
+    return coords, stop_data, path_rc
+
+
+def extract_station_drainage_branches(
+    branch_seeds: Dict[str, List[Tuple[int, int]]],
+    fdir: np.ndarray,
+    acc: np.ndarray,
+    transform: Affine,
+    crs: Any = None,
+    min_branch_acc: int = 500,
+    min_length_km: float = 1.0,
+    max_cells_per_station: int = 400_000,
+    southern_limit_lat: Optional[float] = None
+) -> List[Dict[str, Any]]:
+    """
+    E3: Extracts upstream D8 channel branches (dendritic tributaries) draining into each
+    rain station's overland flow path. One feature per branch, tagged with the owning
+    rain station (from_station_id).
+
+    Algorithm per station — O(K) time / O(K) RAM in collected channel cells (mask reused):
+      1. Reverse BFS upstream from the path cells; a neighbor joins only when
+         acc >= min_branch_acc (real channels, not hillslope noise).
+      2. Channel heads = branch cells with no in-branch upstream neighbor (trunk excluded).
+      3. Walk each head downstream until it reaches the trunk (seed path) or an
+         already-walked junction -> contiguous, non-overlapping reach LineStrings.
+      4. Filter by length >= min_length_km.
+    """
+    nrows, ncols = fdir.shape
+
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        except Exception:
+            transformer = None
+
+    def cells_to_coords(path_cells: List[Tuple[int, int]]) -> List[List[float]]:
+        r_arr = np.array([p[0] for p in path_cells], dtype=np.float64)
+        c_arr = np.array([p[1] for p in path_cells], dtype=np.float64)
+        xs = transform[2] + (c_arr + 0.5) * transform[0] + (r_arr + 0.5) * transform[1]
+        ys = transform[5] + (c_arr + 0.5) * transform[3] + (r_arr + 0.5) * transform[4]
+        if transformer is not None:
+            lons, lats = transformer.transform(xs, ys)
+        else:
+            lons, lats = xs, ys
+        return [[round(float(lo), 6), round(float(la), 6)] for lo, la in zip(lons, lats)]
+
+    visited = np.zeros((nrows, ncols), dtype=bool)
+    features: List[Dict[str, Any]] = []
+
+    for r_id, seed_cells in branch_seeds.items():
+        if not seed_cells:
+            continue
+        seed_set = set(seed_cells)
+        branch_cells: List[Tuple[int, int]] = []
+        branch_set: Set[Tuple[int, int]] = set()
+        stack: List[Tuple[int, int]] = []
+
+        def _claim(r: int, c: int) -> None:
+            if 0 <= r < nrows and 0 <= c < ncols and not visited[r, c]:
+                visited[r, c] = True
+                branch_cells.append((r, c))
+                branch_set.add((r, c))
+                stack.append((r, c))
+
+        for (r, c) in seed_cells:
+            _claim(r, c)
+
+        truncated = False
+        while stack:
+            r, c = stack.pop()
+            for code, (dr, dc) in REVERSE_D8.items():
+                nr, nc = r + dr, c + dc
+                if (0 <= nr < nrows and 0 <= nc < ncols and not visited[nr, nc]
+                        and acc[nr, nc] >= min_branch_acc and int(fdir[nr, nc]) == code):
+                    # (nr, nc) drains into (r, c) -> genuine upstream channel cell
+                    _claim(nr, nc)
+            if len(branch_cells) > max_cells_per_station:
+                truncated = True
+                break
+
+        # Reset visited cells only (O(K)) so the mask can be reused by the next station
+        for (vr, vc) in branch_cells:
+            visited[vr, vc] = False
+
+        if truncated:
+            print(f"  [WARN] Drainage branches for rain station {r_id} truncated at "
+                  f"{max_cells_per_station:,} cells (increase --branch-min-acc to limit)")
+        if len(branch_cells) < 2:
+            continue
+
+        # In-branch in-degree -> channel heads (cells that no in-branch cell flows into)
+        upstream_deg: Dict[Tuple[int, int], int] = {}
+        for (r, c) in branch_cells:
+            for code, (dr, dc) in REVERSE_D8.items():
+                nr, nc = r + dr, c + dc
+                if (nr, nc) in branch_set and int(fdir[nr, nc]) == code:
+                    # (nr, nc) drains into (r, c): increments the IN-degree of (r, c)
+                    upstream_deg[(r, c)] = upstream_deg.get((r, c), 0) + 1
+
+        # Trunk (seed path) cells are never heads — branches are tributaries only
+        heads = [cell for cell in branch_cells if upstream_deg.get(cell, 0) == 0 and cell not in seed_set]
+
+        walked: Set[Tuple[int, int]] = set()
+        branch_idx = 0
+        for (hr, hc) in heads:
+            pts: List[Tuple[int, int]] = []
+            curr = (hr, hc)
+            while True:
+                if curr in walked:
+                    pts.append(curr)  # junction with an already-traced channel
+                    break
+                if curr in seed_set:
+                    pts.append(curr)  # reached the station's trunk path
+                    break
+                walked.add(curr)
+                pts.append(curr)
+                code = int(fdir[curr[0], curr[1]])
+                if code not in D8_DELTAS:
+                    break
+                dr, dc = D8_DELTAS[code]
+                nxt = (curr[0] + dr, curr[1] + dc)
+                if nxt not in branch_set:
+                    break
+                curr = nxt
+
+            if len(pts) < 2:
+                continue
+
+            coords = cells_to_coords(pts)
+            if southern_limit_lat is not None:
+                filtered = []
+                for pt in coords:
+                    if pt[1] >= southern_limit_lat:
+                        filtered.append(pt)
+                    else:
+                        filtered.append([pt[0], round(southern_limit_lat, 6)])
+                        break
+                coords = filtered
+            if len(coords) < 2:
+                continue
+
+            length_km = linestring_length_km(coords)
+            if length_km < min_length_km:
+                continue
+
+            branch_idx += 1
+            features.append({
+                "type": "Feature",
+                "id": f"branch_{r_id}_{branch_idx:03d}",
+                "properties": {
+                    "feature_type": "rainfall_drainage_branch",
+                    "from_station_id": r_id,
+                    "branch_index": branch_idx,
+                    "branch_length_km": round(length_km, 2),
+                    "flow_acc_cells": int(acc[hr, hc]),
+                    "branch_cells": len(pts)
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                }
+            })
+
+    return features
 
 
 def compute_rainfall_lag_bounds(
@@ -688,18 +994,29 @@ def build_flow_paths_and_relations(
     filled_dem: np.ndarray,
     transform: Affine,
     osm_waterways_geojson: Optional[Dict[str, Any]] = None,
-    crs: Any = None
+    crs: Any = None,
+    min_flow_km: float = 1.0,
+    cascade_max_km: float = 60.0,
+    branch_min_acc: int = 500,
+    include_branches: bool = True,
+    include_osm_layer: bool = True
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
-    - Layer 1: Gauge-to-Gauge River Backbone Flowpaths (Continuous 12.5m Hydro-D8 Routing, 0 straight lines)
-    - Layer 2: Rainfall-to-Gauge Overland Flowpaths (Hillslope D8 -> River Network)
+    - Layer 1: Gauge-to-Gauge River Backbone Flowpaths (12.5m Hydro-D8 routing,
+      with OSM-backbone continuation fallback when D8 terminates early)
+    - Layer 2: Rainfall-to-Gauge Overland Flowpaths (Hillslope D8 -> River Backbone),
+      hydrologically-correct downstream CASCADE: one non-overlapping segment feature per
+      receiving gauge along the flow (entry->G1, G1->G2, ...), relations for every gauge passed
+    - Drainage Branches: per-rain-station upstream D8 channel network (dendritic tributaries)
+    - OSM River Layer: the raw OSM waterway network as its own display layer
+      (feature_type="osm_river"), separable in the frontend like the branches
     - Southern Limit: Strictly bounded to southernmost water station + 5 km.
 
     Returns:
     1. flow_paths_geojson (LineString vector features for Frontend Map)
     2. station_relations (Gauge -> Downstream Gauge)
-    3. rainfall_relations (Rain Gauge -> Receiving Water Gauge)
+    3. rainfall_relations (Rain Gauge -> Receiving Water Gauge, one per gauge passed)
     """
     nrows, ncols = fdir.shape
 
@@ -721,9 +1038,10 @@ def build_flow_paths_and_relations(
     min_water_lat = min(water_lats) if water_lats else None
     southern_limit_lat = round(min_water_lat - (5.0 / 111.0), 5) if min_water_lat is not None else None
 
-    # Optimized elevation sampling with memoization cache
+    # Optimized elevation sampling with memoization cache (capped to bound RAM)
     inv_trans = ~transform
     elev_cache: Dict[Tuple[float, float], float] = {}
+    ELEV_CACHE_MAX = 500_000
 
     def sample_elevation(lon: float, lat: float) -> float:
         r_key = (round(lon, 4), round(lat, 4))
@@ -738,23 +1056,56 @@ def build_flow_paths_and_relations(
         gc = max(0, min(ncols - 1, int(gc)))
         val = float(filled_dem[gr, gc])
         res = val if not np.isnan(val) and val != -9999.0 else 100.0
-        elev_cache[r_key] = res
+        if len(elev_cache) < ELEV_CACHE_MAX:
+            elev_cache[r_key] = res
         return res
+
+    # Batched elevation sampling for OSM vertices: one vectorized affine (+pyproj) call per
+    # feature instead of per-vertex calls. Vertices outside the DEM / nodata -> None (unknown).
+    def batch_sample_elevations(coords_list: List[List[float]]) -> List[Optional[float]]:
+        n = len(coords_list)
+        lons = np.fromiter((c[0] for c in coords_list), dtype=np.float64, count=n)
+        lats = np.fromiter((c[1] for c in coords_list), dtype=np.float64, count=n)
+        if inv_transformer is not None:
+            lons, lats = inv_transformer.transform(lons, lats)
+        col_f, row_f = inv_trans * (lons, lats)
+        rows = np.floor(row_f).astype(np.int64)
+        cols = np.floor(col_f).astype(np.int64)
+        valid = (rows >= 0) & (rows < nrows) & (cols >= 0) & (cols < ncols)
+        out: List[Optional[float]] = [None] * n
+        if valid.any():
+            vals = filled_dem[rows[valid], cols[valid]]
+            ok = ~np.isnan(vals) & (vals != -9999.0)
+            idxs = np.nonzero(valid)[0][ok]
+            for i, v in zip(idxs.tolist(), vals[ok].tolist()):
+                out[i] = float(v)
+        return out
 
     # 1. Construct Directed River Backbone Graph from OSM with Spatial Grid Indexing
     river_graph = DirectedRiverGraph(snap_tolerance_deg=0.00035)
     if osm_waterways_geojson and osm_waterways_geojson.get("features"):
         for feat in osm_waterways_geojson.get("features", []):
             geom = feat.get("geometry")
-            if geom and geom.get("type") == "LineString":
-                coords = geom.get("coordinates", [])
+            if not geom:
+                continue
+            p_name = feat.get("properties", {}).get("name", "")
+            if geom.get("type") == "LineString":
+                line_coords_list = [geom.get("coordinates", [])]
+            elif geom.get("type") == "MultiLineString":
+                line_coords_list = geom.get("coordinates", [])
+            else:
+                continue
+            for coords in line_coords_list:
                 if len(coords) >= 2:
-                    p_name = feat.get("properties", {}).get("name", "")
-                    river_graph.add_river_segment(coords, sample_elev_fn=sample_elevation, river_name=p_name)
+                    river_graph.add_river_segment(
+                        coords, sample_elev_fn=None, river_name=p_name,
+                        elevs=batch_sample_elevations(coords)
+                    )
     river_graph.build_spatial_index()
 
     # 2. Map Water Stations onto Grid and Graph Nodes
     water_grid_map = {}
+    water_prox_map = {}
     water_node_map = {}
     for st in water_stations:
         st_id = str(st.get('station_id', '')).strip()
@@ -765,11 +1116,27 @@ def build_flow_paths_and_relations(
 
         if r is not None and c is not None:
             # Generous 11x11 capture footprint (~135m) around each station so flowing stream D8 channel always hits it
+            # setdefault: the first station claims overlapping cells (no silent overwrite)
             for dr in (-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5):
                 for dc in (-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5):
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < nrows and 0 <= nc < ncols:
-                        water_grid_map[(nr, nc)] = st_id
+                        water_grid_map.setdefault((nr, nc), st_id)
+
+        # A3: proximity fallback map (±12 cells ≈ 150m around the station coordinate).
+        # Catches D8 channels that pass just outside the acc-refined footprint so the
+        # traced path always terminates at the gauge.
+        try:
+            pr, pc = rowcol(transform, st_lon, st_lat)
+            pr, pc = int(pr), int(pc)
+            PROX_R = 12
+            for dr in range(-PROX_R, PROX_R + 1):
+                for dc in range(-PROX_R, PROX_R + 1):
+                    nr, nc = pr + dr, pc + dc
+                    if 0 <= nr < nrows and 0 <= nc < ncols:
+                        water_prox_map.setdefault((nr, nc), st_id)
+        except Exception:
+            pass
 
         # Find closest node on river graph within tight tolerance (~1.5 km)
         nid, d_nid = river_graph.find_nearest_node(st_lon, st_lat, max_dist_deg=0.015)
@@ -779,6 +1146,21 @@ def build_flow_paths_and_relations(
     features = []
     gauge_relations = []
     rainfall_relations = []
+
+    # Downstream target nodes for backbone routing (shared by Layer 1 fallback and Layer 2).
+    # SSSP results are cached per entry node with a cap to bound memory.
+    target_water_nodes = set(water_node_map.values())
+    dijkstra_cache: Dict[int, Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]] = {}
+    DIJKSTRA_CACHE_MAX = 256
+
+    def get_sssp(entry_node: int) -> Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]:
+        if entry_node not in dijkstra_cache:
+            if len(dijkstra_cache) >= DIJKSTRA_CACHE_MAX:
+                dijkstra_cache.clear()
+            dijkstra_cache[entry_node] = river_graph.dijkstra_single_source(
+                entry_node, target_water_nodes, max_dist_km=cascade_max_km
+            )
+        return dijkstra_cache[entry_node]
 
     try:
         from tqdm import tqdm
@@ -807,7 +1189,8 @@ def build_flow_paths_and_relations(
 
         def make_stop_fn(origin_id):
             def stop_fn(r, c):
-                target_id = water_grid_map.get((r, c))
+                # Footprint (acc-refined) takes priority, then coordinate-proximity fallback
+                target_id = water_grid_map.get((r, c)) or water_prox_map.get((r, c))
                 if target_id and target_id != origin_id:
                     return True, target_id
                 return False, None
@@ -816,7 +1199,7 @@ def build_flow_paths_and_relations(
         # Identify downstream candidate via D8 downhill step
         code = int(fdir[start_r, start_c])
         first_r, first_c = (start_r + D8_DELTAS[code][0], start_c + D8_DELTAS[code][1]) if code in D8_DELTAS else (start_r, start_c)
-        raster_coords, target_station_id = trace_downstream_path(
+        raster_coords, target_station_id, _ = trace_downstream_path(
             first_r, first_c, fdir, transform, crs=crs,
             stop_condition_fn=make_stop_fn(st_id),
             min_lat=southern_limit_lat,
@@ -871,7 +1254,84 @@ def build_flow_paths_and_relations(
         elif raster_coords and len(raster_coords) >= 2:
             coords = merge_coordinates([[st_lon, st_lat]], raster_coords)
             dist_km = linestring_length_km(coords)
-            if dist_km >= 1.0:
+
+            # A4: D8 ended without reaching a gauge (pit / nodata / reservoir / step limit).
+            # Continue along the OSM river backbone toward the nearest downstream gauge so the
+            # path does not silently terminate mid-river.
+            backbone_target = None
+            backbone_coords = None
+            backbone_dist_km = 0.0
+            end_lon, end_lat = raster_coords[-1]
+            nid, d_nid = river_graph.find_nearest_node(end_lon, end_lat, max_dist_deg=0.003)
+            if nid is not None:
+                dist_map, prev_map = get_sssp(nid)
+                z_end = sample_elevation(end_lon, end_lat)
+                candidates = []
+                for wst in water_stations:
+                    w_id = str(wst.get('station_id', '')).strip()
+                    v_node = water_node_map.get(w_id)
+                    if not v_node or v_node == nid or v_node not in dist_map:
+                        continue
+                    if dist_map[v_node] < min_flow_km:
+                        continue
+                    w_lat = float(wst.get('latitude', 0.0))
+                    if southern_limit_lat is not None and w_lat < southern_limit_lat:
+                        continue
+                    w_lon = float(wst.get('longitude', 0.0))
+                    if sample_elevation(w_lon, w_lat) <= z_end + 2.0:
+                        candidates.append((dist_map[v_node], w_id, wst))
+                candidates.sort(key=lambda x: x[0])
+                if candidates:
+                    backbone_dist_km, w_id, target_st = candidates[0]
+                    v_node = water_node_map.get(w_id)
+                    chain = river_graph.reconstruct_node_path(prev_map, nid, v_node) if v_node else None
+                    if chain:
+                        backbone_coords = river_graph.stitch_coords_from_prev(prev_map, chain, 0, len(chain) - 1)
+                        if backbone_coords and len(backbone_coords) >= 2:
+                            backbone_target = target_st
+
+            if backbone_target is not None and backbone_coords:
+                coords = merge_coordinates(coords, backbone_coords)
+                dist_km = linestring_length_km(coords)
+                tgt_lon = float(backbone_target.get('longitude', 0.0))
+                tgt_lat = float(backbone_target.get('latitude', 0.0))
+
+                # Snap the final vertex to the receiving gauge (stub <= ~1.5km is acceptable)
+                last_dist = math.hypot(coords[-1][0] - tgt_lon, coords[-1][1] - tgt_lat)
+                if last_dist <= 0.015:
+                    coords.append([round(tgt_lon, 6), round(tgt_lat, 6)])
+
+                z_up = sample_elevation(st_lon, st_lat)
+                z_down = sample_elevation(tgt_lon, tgt_lat)
+                dz = max(0.0, z_up - z_down)
+                slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
+
+                feature_id = f"flow_gauge_{st_id}_to_{backbone_target.get('station_id')}"
+                feature = {
+                    "type": "Feature",
+                    "id": feature_id,
+                    "properties": {
+                        "feature_type": "gauge_to_gauge_flowpath",
+                        "routing": "d8_plus_osm_backbone",
+                        "from_station_id": st_id,
+                        "from_station_name": st.get('station_name', ''),
+                        "to_station_id": str(backbone_target.get('station_id', '')),
+                        "to_station_name": backbone_target.get('station_name', ''),
+                        "distance_km": round(dist_km, 2),
+                        "backbone_distance_km": round(backbone_dist_km, 2),
+                        "river_slope": round(slope, 6),
+                        "elevation_diff_m": round(dz, 2),
+                        "upstream_elev_m": round(z_up, 2),
+                        "downstream_elev_m": round(z_down, 2),
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                    }
+                }
+                features.append(feature)
+                gauge_relations.append(feature["properties"])
+            elif dist_km >= min_flow_km:
                 z_up = sample_elevation(st_lon, st_lat)
                 z_down = sample_elevation(coords[-1][0], coords[-1][1])
                 dz = max(0.0, z_up - z_down)
@@ -903,16 +1363,23 @@ def build_flow_paths_and_relations(
     # =========================================================================
     # LAYER 2: Rain-to-Gauge Overland Connectors (Overland -> River Backbone)
     # =========================================================================
-    # Target water nodes set for early termination and Dijkstra SSSP caching
-    target_water_nodes = set(water_node_map.values())
-    dijkstra_cache: Dict[int, Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]] = {}
-
     # Stop condition: stops when encountering any water level station on the 12.5m grid
     def stop_at_water_station(curr_r, curr_c):
-        t_id = water_grid_map.get((curr_r, curr_c))
+        t_id = water_grid_map.get((curr_r, curr_c)) or water_prox_map.get((curr_r, curr_c))
         if t_id:
             return True, t_id
         return False, None
+
+    def stop_at_water_station_excluding(exclude_ids):
+        def stop_fn(curr_r, curr_c):
+            t_id = water_grid_map.get((curr_r, curr_c)) or water_prox_map.get((curr_r, curr_c))
+            if t_id and t_id not in exclude_ids:
+                return True, t_id
+            return False, None
+        return stop_fn
+
+    # E2: overland path cells per rain station, feeding the drainage-branch extraction
+    branch_seed_cells: Dict[str, List[Tuple[int, int]]] = {}
 
     pbar_rain = tqdm(
         rain_stations,
@@ -941,7 +1408,7 @@ def build_flow_paths_and_relations(
             continue
 
         # 1. Trace Continuous 12.5m DEM D8 flow path downstream from rain station
-        overland_coords, direct_target_water_id = trace_downstream_path(
+        overland_coords, direct_target_water_id, overland_cells = trace_downstream_path(
             r, c, fdir, transform, crs=crs,
             stop_condition_fn=stop_at_water_station,
             min_lat=southern_limit_lat,
@@ -950,8 +1417,11 @@ def build_flow_paths_and_relations(
 
         z_rain = sample_elevation(lon, lat)
 
-        # Case 1: D8 flow path directly encountered a water level gauge
+        # Case 1: D8 flow path directly encountered a water level gauge.
+        # D1/D3: hydrological cascade — after the first receiving gauge, keep tracing D8
+        # downstream: one non-overlapping segment feature per gauge the water passes.
         if direct_target_water_id:
+            branch_seed_cells[r_id] = list(overland_cells)
             target_st = next((s for s in water_stations if s['station_id'] == direct_target_water_id), None)
             if target_st:
                 tgt_lon = float(target_st.get('longitude', 0.0))
@@ -964,89 +1434,196 @@ def build_flow_paths_and_relations(
                     coords[-1] = [round(tgt_lon, 6), round(tgt_lat, 6)]
 
                 dist_km = linestring_length_km(coords)
-                dz = max(0.0, z_rain - z_water)
-                slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.005
+                if dist_km >= min_flow_km:
+                    dz = max(0.0, z_rain - z_water)
+                    slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.005
 
-                lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
-                    overland_dist_km=dist_km,
-                    overland_slope=slope,
-                    channel_dist_km=0.0,
-                    channel_slope=slope,
-                    total_dz_m=dz
-                )
+                    lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
+                        overland_dist_km=dist_km,
+                        overland_slope=slope,
+                        channel_dist_km=0.0,
+                        channel_slope=slope,
+                        total_dz_m=dz
+                    )
 
-                feature_id = f"flow_rain_{r_id}_to_{direct_target_water_id}"
-                feature = {
-                    "type": "Feature",
-                    "id": feature_id,
-                    "properties": {
-                        "feature_type": "rainfall_to_gauge_flowpath",
-                        "from_station_id": r_id,
-                        "from_station_name": r_st.get('station_name', ''),
-                        "to_station_id": direct_target_water_id,
-                        "to_station_name": target_st.get('station_name', ''),
-                        "total_distance_km": round(dist_km, 2),
-                        "distance_km": round(dist_km, 2),
-                        "response_lag_minutes": lag_avg_m,
-                        "response_lag_minutes_min": lag_min_m,
-                        "response_lag_minutes_max": lag_max_m,
-                        "response_lag_hours": lag_avg_h,
-                        "response_lag_hours_min": lag_min_h,
-                        "response_lag_hours_max": lag_max_h,
-                        "elevation_diff_m": round(dz, 2),
-                        "slope": round(slope, 6),
-                        "upstream_elev_m": round(z_rain, 2),
-                        "downstream_elev_m": round(z_water, 2),
-                        "influence_weight_percent": 100.0
-                    },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                    feature_id = f"flow_rain_{r_id}_to_{direct_target_water_id}"
+                    feature = {
+                        "type": "Feature",
+                        "id": feature_id,
+                        "properties": {
+                            "feature_type": "rainfall_to_gauge_flowpath",
+                            "cascade_segment": 0,
+                            "previous_gauge_id": "",
+                            "from_station_id": r_id,
+                            "from_station_name": r_st.get('station_name', ''),
+                            "to_station_id": direct_target_water_id,
+                            "to_station_name": target_st.get('station_name', ''),
+                            "total_distance_km": round(dist_km, 2),
+                            "distance_km": round(dist_km, 2),
+                            "response_lag_minutes": lag_avg_m,
+                            "response_lag_minutes_min": lag_min_m,
+                            "response_lag_minutes_max": lag_max_m,
+                            "response_lag_hours": lag_avg_h,
+                            "response_lag_hours_min": lag_min_h,
+                            "response_lag_hours_max": lag_max_h,
+                            "elevation_diff_m": round(dz, 2),
+                            "slope": round(slope, 6),
+                            "upstream_elev_m": round(z_rain, 2),
+                            "downstream_elev_m": round(z_water, 2),
+                            "influence_weight_percent": 100.0
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                        }
                     }
-                }
-                features.append(feature)
-                rainfall_relations.append(feature["properties"])
+                    features.append(feature)
+                    rainfall_relations.append(feature["properties"])
+
+                # Cascade: continue D8 downstream from the last reached gauge
+                visited_targets = {direct_target_water_id}
+                cum_km = dist_km
+                seg_count = 1  # segment 0 = the first receiving gauge (drawn above)
+                seg_prev_id = direct_target_water_id
+                seg_prev_lonlat = (tgt_lon, tgt_lat)
+                resume_cell = overland_cells[-1]
+                while cum_km < cascade_max_km:
+                    code2 = int(fdir[resume_cell[0], resume_cell[1]])
+                    if code2 not in D8_DELTAS:
+                        break
+                    nr2 = resume_cell[0] + D8_DELTAS[code2][0]
+                    nc2 = resume_cell[1] + D8_DELTAS[code2][1]
+                    seg_coords2, next_target_id, seg_cells2 = trace_downstream_path(
+                        nr2, nc2, fdir, transform, crs=crs,
+                        stop_condition_fn=stop_at_water_station_excluding(visited_targets),
+                        min_lat=southern_limit_lat,
+                        max_steps=5000
+                    )
+                    if not next_target_id or len(seg_coords2) < 2:
+                        break
+                    target_st2 = next((s for s in water_stations if s['station_id'] == next_target_id), None)
+                    if not target_st2:
+                        break
+                    t2_lon = float(target_st2.get('longitude', 0.0))
+                    t2_lat = float(target_st2.get('latitude', 0.0))
+
+                    coords2 = merge_coordinates([[seg_prev_lonlat[0], seg_prev_lonlat[1]]], seg_coords2)
+                    last_dist2 = math.hypot(coords2[-1][0] - t2_lon, coords2[-1][1] - t2_lat)
+                    if last_dist2 <= 0.005:
+                        coords2[-1] = [round(t2_lon, 6), round(t2_lat, 6)]
+                    seg_len_km = linestring_length_km(coords2)
+                    if cum_km + seg_len_km > cascade_max_km * 1.05:
+                        break
+
+                    if seg_len_km >= min_flow_km:
+                        z_water2 = sample_elevation(t2_lon, t2_lat)
+                        dz2 = max(0.0, z_rain - z_water2)
+                        slope2 = (dz2 / (cum_km * 1000.0)) if cum_km > 0.001 else 0.005
+                        lag2 = compute_rainfall_lag_bounds(
+                            overland_dist_km=dist_km,
+                            overland_slope=slope2,
+                            channel_dist_km=max(0.0, cum_km - dist_km),
+                            channel_slope=slope2,
+                            total_dz_m=dz2
+                        )
+                        lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = lag2
+                        feature_id = f"flow_rain_{r_id}_to_{next_target_id}"
+                        feature = {
+                            "type": "Feature",
+                            "id": feature_id,
+                            "properties": {
+                                "feature_type": "rainfall_to_gauge_flowpath",
+                                "cascade_segment": seg_count,
+                                "previous_gauge_id": seg_prev_id,
+                                "from_station_id": r_id,
+                                "from_station_name": r_st.get('station_name', ''),
+                                "to_station_id": next_target_id,
+                                "to_station_name": target_st2.get('station_name', ''),
+                                "total_distance_km": round(cum_km + seg_len_km, 2),
+                                "distance_km": round(seg_len_km, 2),
+                                "segment_length_km": round(seg_len_km, 2),
+                                "response_lag_minutes": lag_avg_m,
+                                "response_lag_minutes_min": lag_min_m,
+                                "response_lag_minutes_max": lag_max_m,
+                                "response_lag_hours": lag_avg_h,
+                                "response_lag_hours_min": lag_min_h,
+                                "response_lag_hours_max": lag_max_h,
+                                "elevation_diff_m": round(dz2, 2),
+                                "slope": round(slope2, 6),
+                                "upstream_elev_m": round(z_rain, 2),
+                                "downstream_elev_m": round(z_water2, 2),
+                                "influence_weight_percent": 100.0
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": simplify_linestring_coords(coords2, tolerance_deg=0.00035)
+                            }
+                        }
+                        features.append(feature)
+                        rainfall_relations.append(feature["properties"])
+                        seg_count += 1
+
+                    visited_targets.add(next_target_id)
+                    seg_prev_id = next_target_id
+                    seg_prev_lonlat = (t2_lon, t2_lat)
+                    cum_km += seg_len_km
+                    resume_cell = seg_cells2[-1]
                 continue
 
         # Case 2: Scan for tight intersection with OSM river backbone (< 300m)
+        # A2: coarse STRIDE pass first, then refine backwards to the exact closest approach
         entry_idx = None
         entry_node = None
         if len(overland_coords) >= 2:
             STRIDE = 8
+            MAX_ENTRY_DIST = 0.003  # tight 300m
+            coarse_idx = None
+            coarse_d = MAX_ENTRY_DIST
             for p_idx in range(0, len(overland_coords), STRIDE):
                 pt = overland_coords[p_idx]
-                nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=0.003)  # tight 300m
-                if nid and d_nid <= 0.003:
-                    entry_idx = p_idx
+                nid, d_nid = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                if nid is not None and d_nid <= MAX_ENTRY_DIST:
+                    coarse_idx = p_idx
                     entry_node = nid
+                    coarse_d = d_nid
                     break
+            if coarse_idx is not None:
+                # The coarse pass can be up to STRIDE cells past the true river approach;
+                # refine backwards to the index nearest the backbone.
+                best_idx, best_node, best_d = coarse_idx, entry_node, coarse_d
+                for p_idx in range(coarse_idx - 1, max(0, coarse_idx - STRIDE + 1) - 1, -1):
+                    pt = overland_coords[p_idx]
+                    nid2, d2 = river_graph.find_nearest_node(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                    if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
+                        best_idx, best_node, best_d = p_idx, nid2, d2
+                entry_idx, entry_node = best_idx, best_node
 
+        # D1: collect ALL downstream-receiving gauges (hydrological cascade), ordered by
+        # channel distance from the entry node. Directed backbone edges guarantee gauges on
+        # upstream tributaries are unreachable, so the set is hydrologically correct.
         downstream_targets = []
+        prev_map = None
         if entry_node is not None:
-            if entry_node not in dijkstra_cache:
-                dijkstra_cache[entry_node] = river_graph.dijkstra_single_source(entry_node, target_water_nodes, max_dist_km=60.0)
-            dist_map, prev_map = dijkstra_cache[entry_node]
+            dist_map, prev_map = get_sssp(entry_node)
 
             for wst in water_stations:
                 w_id = str(wst.get('station_id', '')).strip()
                 v_node = water_node_map.get(w_id)
                 if v_node and v_node != entry_node and v_node in dist_map:
                     b_dist = dist_map[v_node]
+                    if b_dist < min_flow_km:
+                        continue  # D2: gauge sits effectively at the entry point -> skip stub
                     w_lon, w_lat = float(wst['longitude']), float(wst['latitude'])
                     if southern_limit_lat is not None and w_lat < southern_limit_lat:
                         continue
                     w_elev = sample_elevation(w_lon, w_lat)
                     if w_elev <= z_rain + 2.0:
-                        backbone_coords = river_graph.reconstruct_path_from_prev(prev_map, entry_node, v_node)
-                        if backbone_coords and len(backbone_coords) >= 2:
-                            downstream_targets.append((b_dist, w_id, wst, backbone_coords))
+                        downstream_targets.append((b_dist, w_id, wst))
 
             downstream_targets.sort(key=lambda x: x[0])
-            # Select ONLY the single best downstream receiving station (no artificial branching)
-            if downstream_targets:
-                downstream_targets = [downstream_targets[0]]
 
         if entry_idx is not None:
+            branch_seed_cells[r_id] = list(overland_cells[:entry_idx + 1])
             # Case 2: Hit OSM River. We MUST stop overland runoff at entry_idx.
             coords = merge_coordinates(
                 [[lon, lat]],
@@ -1056,12 +1633,40 @@ def build_flow_paths_and_relations(
             entry_pt = overland_coords[entry_idx]
 
             if downstream_targets:
-                # Has valid downstream water gauge(s)
-                for b_dist, target_water_id, target_st, backbone_coords in downstream_targets:
+                # D3: cascade segments — one NON-OVERLAPPING LineString per receiving gauge:
+                #   segment 0   = overland part + channel entry->G1
+                #   segment k>0 = channel G(k-1)->Gk (starts exactly where the previous ends)
+                prev_gauge_node = entry_node
+                for seg_i, (b_dist, target_water_id, target_st) in enumerate(downstream_targets):
                     tgt_lon = float(target_st.get('longitude', 0.0))
                     tgt_lat = float(target_st.get('latitude', 0.0))
                     z_water = sample_elevation(tgt_lon, tgt_lat)
-                    
+                    v_node = water_node_map.get(target_water_id)
+                    if not v_node or prev_map is None:
+                        continue
+                    chain = river_graph.reconstruct_node_path(prev_map, entry_node, v_node)
+                    if not chain:
+                        continue
+
+                    # Cut the channel piece for this segment
+                    if seg_i == 0 or prev_gauge_node not in chain:
+                        start_pos = 0
+                    else:
+                        start_pos = chain.index(prev_gauge_node)
+                    channel_seg = river_graph.stitch_coords_from_prev(prev_map, chain, start_pos, len(chain) - 1)
+                    if not channel_seg or len(channel_seg) < 2:
+                        continue
+
+                    if seg_i == 0:
+                        seg_coords = merge_coordinates(coords, channel_seg)
+                    else:
+                        seg_coords = list(channel_seg)
+
+                    # Snap the final vertex to the receiving gauge (access stub <= ~1.5km)
+                    last_dist = math.hypot(seg_coords[-1][0] - tgt_lon, seg_coords[-1][1] - tgt_lat)
+                    if last_dist <= 0.015:
+                        seg_coords.append([round(tgt_lon, 6), round(tgt_lat, 6)])
+
                     channel_dist_km = b_dist
                     total_dist_km = overland_dist_km + channel_dist_km
                     dz = max(0.0, z_rain - z_water)
@@ -1077,23 +1682,24 @@ def build_flow_paths_and_relations(
                         channel_slope=channel_slope,
                         total_dz_m=dz
                     )
-                    
-                    # Append river coordinates so the flow path follows the river to the gauge
-                    full_coords = merge_coordinates(coords, backbone_coords)
-                    
+
+                    seg_len_km = linestring_length_km(seg_coords)
                     feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
                     feature = {
                         "type": "Feature",
                         "id": feature_id,
                         "properties": {
                             "feature_type": "rainfall_to_gauge_flowpath",
+                            "cascade_segment": seg_count,
+                            "previous_gauge_id": "" if seg_i == 0 else str(downstream_targets[seg_i - 1][1]),
                             "from_station_id": r_id,
                             "from_station_name": r_st.get('station_name', ''),
                             "to_station_id": target_water_id,
                             "to_station_name": target_st.get('station_name', ''),
                             "total_distance_km": round(total_dist_km, 2),
-                            "distance_km": round(overland_dist_km, 2),
+                            "distance_km": round(overland_dist_km, 2) if seg_i == 0 else round(channel_dist_km, 2),
                             "channel_distance_km": round(channel_dist_km, 2),
+                            "segment_length_km": round(seg_len_km, 2),
                             "response_lag_minutes": lag_avg_m,
                             "response_lag_minutes_min": lag_min_m,
                             "response_lag_minutes_max": lag_max_m,
@@ -1108,14 +1714,17 @@ def build_flow_paths_and_relations(
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(full_coords, tolerance_deg=0.00035)
+                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035)
                         }
                     }
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
+                    prev_gauge_node = v_node
             else:
-                # Hit the river, but NO water station within 60km.
+                # Hit the river, but NO water station within the cascade reach.
                 # Stop at the river, don't wander off.
+                if overland_dist_km < min_flow_km:
+                    continue  # D2: below minimum flow length -> skip tiny stubs
                 z_water = sample_elevation(entry_pt[0], entry_pt[1])
                 dz = max(0.0, z_rain - z_water)
                 overland_slope = (dz / (overland_dist_km * 1000.0)) if overland_dist_km > 0.001 else 0.01
@@ -1161,10 +1770,11 @@ def build_flow_paths_and_relations(
                 features.append(feature)
         else:
             # Case 3: Standalone overland drainage along terrain D8 (never hit OSM river)
+            branch_seed_cells[r_id] = list(overland_cells)
             if len(overland_coords) >= 2:
                 coords = merge_coordinates([[lon, lat]], overland_coords)
                 dist_km = linestring_length_km(coords)
-                if dist_km >= 0.5:  # Changed to 500m per user request
+                if dist_km >= min_flow_km:  # D2: user-defined minimum flow length (1km)
                     z_end = sample_elevation(coords[-1][0], coords[-1][1])
                     dz = max(0.0, z_rain - z_end)
                     slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.01
@@ -1207,6 +1817,60 @@ def build_flow_paths_and_relations(
                     }
                     features.append(feature)
 
+    # E3: Drainage branches — upstream D8 channel network per rain station
+    if include_branches and branch_seed_cells:
+        branch_features = extract_station_drainage_branches(
+            branch_seed_cells, fdir, acc, transform, crs=crs,
+            min_branch_acc=branch_min_acc, min_length_km=min_flow_km,
+            southern_limit_lat=southern_limit_lat
+        )
+        if branch_features:
+            features.extend(branch_features)
+            print(f"        Drainage Branches: {len(branch_features)} features "
+                  f"for {len(branch_seed_cells)} rain station path(s)")
+
+    # F: OSM river network as a separate display layer (feature_type="osm_river").
+    # NO length filter — the full OSM network is preserved; simplified with the same
+    # 35m tolerance to bound file size.
+    if include_osm_layer and osm_waterways_geojson and osm_waterways_geojson.get("features"):
+        n_osm_added = 0
+        for feat in osm_waterways_geojson.get("features", []):
+            geom = feat.get("geometry")
+            if not geom or geom.get("type") not in ("LineString", "MultiLineString"):
+                continue
+            props = feat.get("properties", {})
+            if geom.get("type") == "LineString":
+                parts = [geom.get("coordinates", [])]
+            else:
+                parts = geom.get("coordinates", [])
+            osm_id = str(props.get("osm_id", ""))
+            for part_i, part in enumerate(parts):
+                if len(part) < 2:
+                    continue
+                part_len_km = linestring_length_km(part)
+                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035)
+                if len(coords_s) < 2:
+                    continue
+                fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
+                features.append({
+                    "type": "Feature",
+                    "id": fid,
+                    "properties": {
+                        "feature_type": "osm_river",
+                        "osm_id": osm_id,
+                        "river_name": props.get("name", "") or props.get("name_th", "") or props.get("name_en", ""),
+                        "waterway": props.get("waterway", "stream"),
+                        "length_km": round(part_len_km, 2)
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": coords_s
+                    }
+                })
+                n_osm_added += 1
+        if n_osm_added:
+            print(f"        OSM River Layer: {n_osm_added} features (feature_type=osm_river, no length filter)")
+
     # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}
     for r_prop in rainfall_relations:
@@ -1248,17 +1912,8 @@ def delineate_station_catchments(
         except Exception:
             transformer = None
 
-    # Map D8 reverse lookups
-    reverse_d8 = {
-        1: (0, -1),
-        2: (-1, -1),
-        4: (-1, 0),
-        8: (-1, 1),
-        16: (0, 1),
-        32: (1, 1),
-        64: (1, 0),
-        128: (1, -1),
-    }
+    # Map D8 reverse lookups (module-level REVERSE_D8: code -> upstream neighbor offset)
+    reverse_d8 = REVERSE_D8
 
     from collections import deque
     try:

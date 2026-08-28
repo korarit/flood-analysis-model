@@ -32,7 +32,11 @@ from scripts.modules.graph_topology import (
     build_flow_paths_and_relations
 )
 from scripts.modules.backend_exporter import export_backend_station_relations
-from scripts.fetch_basin_gis import fetch_osm_waterways
+from scripts.fetch_basin_gis import (
+    fetch_osm_waterways,
+    fetch_osm_water_polygons,
+    fetch_basin_boundary
+)
 
 
 def generate_basin_flow_paths(
@@ -40,7 +44,13 @@ def generate_basin_flow_paths(
     basin_dir: str,
     terrain_dir: str,
     force: bool = False,
-    burn_depth: float = 15.0
+    burn_depth: float = 15.0,
+    polygon_burn_depth: float = None,
+    min_flow_km: float = 1.0,
+    cascade_max_km: float = 60.0,
+    branch_min_acc: int = 500,
+    include_branches: bool = True,
+    include_osm_layer: bool = True
 ):
     """
     Generates high-precision hybrid flow paths and station relations for a river basin.
@@ -58,6 +68,8 @@ def generate_basin_flow_paths(
     gauge_relations_path = os.path.join(station_dir, "station-relations.json")
     rain_relations_path = os.path.join(station_dir, "rainfall-relations.json")
     osm_waterways_path = os.path.join(gis_dir, "osm_waterways.geojson")
+    water_polygons_path = os.path.join(gis_dir, "osm_water_polygons.geojson")
+    boundary_path = os.path.join(gis_dir, f"{basin}_boundary.geojson")
     relations_frontend_path = os.path.join(processed_dir, "relations_frontend.json")
     final_station_data_path = os.path.join(basin_dir, "final_station_data.json")
 
@@ -70,11 +82,35 @@ def generate_basin_flow_paths(
         print(f"  ❌ ERROR: No water level stations found in {station_dir}!", file=sys.stderr)
         return
 
-    # 2. Fetch or Load OpenStreetMap Waterways
+    # 2. Fetch or Load OpenStreetMap Waterways (scoped to the official basin polygon)
     print("  [2/5] Loading OpenStreetMap River Network...")
-    osm_waterways = fetch_osm_waterways(basin, osm_waterways_path, water_st + rain_st, force=force)
+    boundary_geojson = None
+    if os.path.exists(boundary_path) and os.path.getsize(boundary_path) > 500:
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as f:
+                boundary_geojson = json.load(f)
+        except Exception:
+            boundary_geojson = None
+    if boundary_geojson is None:
+        try:
+            boundary_geojson = fetch_basin_boundary(basin, boundary_path, water_st + rain_st)
+        except Exception as ex:
+            print(f"  [WARN] Could not obtain basin boundary; OSM query falls back to station bbox: {ex}")
+
+    osm_waterways = fetch_osm_waterways(
+        basin, osm_waterways_path, water_st + rain_st, force=force,
+        basin_boundary_geojson=boundary_geojson
+    )
     n_osm = len(osm_waterways.get("features", []))
     print(f"        Loaded {n_osm:,} OSM river/stream features.")
+
+    # 2b. OpenStreetMap Water Polygons (reservoirs / wide rivers) for stream burning
+    water_polygons = fetch_osm_water_polygons(
+        basin, water_polygons_path, water_st + rain_st, force=force,
+        basin_boundary_geojson=boundary_geojson
+    )
+    n_poly = len(water_polygons.get("features", []))
+    print(f"        Loaded {n_poly:,} OSM water polygon features.")
 
     # 3. Load or Condition DEM Raster with Smart Caching
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
@@ -91,6 +127,8 @@ def generate_basin_flow_paths(
 
     if has_cached_rasters:
         print("  [3/5] [CACHE] Loading cached Flow Direction, Accumulation, and Conditioned DEM...")
+        if n_poly > 0 and force is False:
+            print("        [NOTE] Cached conditioned DEM reused — water-polygon burn changes require --force to re-burn.")
         with rasterio.open(fdir_path) as src_fdir:
             fdir = src_fdir.read(1).astype(np.uint8)
             transform = src_fdir.transform
@@ -113,7 +151,9 @@ def generate_basin_flow_paths(
         # Apply Stream Burning to DEM if OSM is available
         if n_osm > 0:
             filled_dem = burn_stream_network_into_dem(
-                filled_dem, transform, osm_waterways, crs=crs, burn_depth_m=burn_depth, nodata=nodata
+                filled_dem, transform, osm_waterways, crs=crs, burn_depth_m=burn_depth, nodata=nodata,
+                water_polygons_geojson=water_polygons if n_poly > 0 else None,
+                polygon_burn_depth_m=(polygon_burn_depth if polygon_burn_depth is not None else max(1.0, burn_depth - 5.0))
             )
 
         # Compute Flow Direction & Accumulation
@@ -134,15 +174,21 @@ def generate_basin_flow_paths(
     # 4. Snap Stations to OSM Rivers and Stream Channel
     print("  [4/5] Snapping stations to OSM River Channels...")
     snapped_water_st = snap_stations_to_stream(
-        water_st, fdir, acc, transform, osm_waterways_geojson=osm_waterways, crs=crs
+        water_st, fdir, acc, transform, osm_waterways_geojson=osm_waterways, crs=crs,
+        water_polygons_geojson=water_polygons if n_poly > 0 else None
     )
     save_json(snapped_water_st, station_mapping_path)
 
-    # 5. Build Hybrid Flow Paths (Gauge-to-Gauge & Rain-to-Gauge)
-    print("  [5/5] Tracing Hybrid Flow Paths (OSM Rivers + D8 Hydrology)...")
+    # 5. Build Hybrid Flow Paths (Gauge-to-Gauge & Rain-to-Gauge with downstream cascade)
+    print("  [5/5] Tracing Hybrid Flow Paths (OSM Rivers + D8 Hydrology + Drainage Branches)...")
     flow_paths_geojson, gauge_relations, rain_relations = build_flow_paths_and_relations(
         snapped_water_st, rain_st, fdir, acc, filled_dem, transform,
-        osm_waterways_geojson=osm_waterways, crs=crs
+        osm_waterways_geojson=osm_waterways, crs=crs,
+        min_flow_km=min_flow_km,
+        cascade_max_km=cascade_max_km,
+        branch_min_acc=branch_min_acc,
+        include_branches=include_branches,
+        include_osm_layer=include_osm_layer
     )
 
     save_geojson(flow_paths_geojson, flow_paths_path, indent=None)
@@ -225,6 +271,18 @@ def main():
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of --dir)")
     parser.add_argument("--force", action="store_true", help="Force re-generation of flow paths")
     parser.add_argument("--burn-depth", type=float, default=15.0, help="Stream burn depth in meters (default: 15.0)")
+    parser.add_argument("--polygon-burn-depth", type=float, default=None,
+                        help="Water polygon burn depth in meters (default: burn-depth - 5)")
+    parser.add_argument("--min-flow-km", type=float, default=1.0,
+                        help="Minimum flow path length in km (default: 1.0)")
+    parser.add_argument("--rain-cascade-km", type=float, default=60.0,
+                        help="Maximum downstream cascade reach along the river backbone in km (default: 60)")
+    parser.add_argument("--branch-min-acc", type=int, default=500,
+                        help="Minimum flow accumulation (cells) for drainage branches (default: 500)")
+    parser.add_argument("--no-branches", action="store_true",
+                        help="Disable per-rain-station drainage branch extraction (faster on low-RAM machines)")
+    parser.add_argument("--no-osm-layer", action="store_true",
+                        help="Disable the OSM river display layer (feature_type=osm_river) in flow_paths.geojson")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -253,7 +311,13 @@ def main():
             basin_dir=basin_dir,
             terrain_dir=terrain_basin_dir,
             force=args.force,
-            burn_depth=args.burn_depth
+            burn_depth=args.burn_depth,
+            polygon_burn_depth=args.polygon_burn_depth,
+            min_flow_km=args.min_flow_km,
+            cascade_max_km=args.rain_cascade_km,
+            branch_min_acc=args.branch_min_acc,
+            include_branches=not args.no_branches,
+            include_osm_layer=not args.no_osm_layer
         )
 
 
