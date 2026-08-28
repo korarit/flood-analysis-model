@@ -114,6 +114,31 @@ def _json_serialize_default(obj: Any) -> Any:
     return str(obj)
 
 
+def dumps_compact_json(data: Any) -> str:
+    """Serializes to compact JSON (single pass) — reused by raw and gzip writers."""
+    return json.dumps(data, ensure_ascii=False, separators=(',', ':'), default=_json_serialize_default)
+
+
+def write_geojson_pair(data: Dict[str, Any], filepath: str, write_gzip: bool = True) -> Tuple[int, int]:
+    """
+    G3: writes a compact .geojson and (optionally) its .gz sibling, serializing once.
+    Returns (raw_bytes, gz_bytes).
+    """
+    payload = dumps_compact_json(data)
+    os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(payload)
+    gz_path = filepath + ".gz"
+    gz_bytes = 0
+    if write_gzip:
+        import gzip
+        with open(gz_path, 'wb') as fh:
+            with gzip.GzipFile(fileobj=fh, mode='wb', compresslevel=9, mtime=0) as gz:
+                gz.write(payload.encode('utf-8'))
+        gz_bytes = os.path.getsize(gz_path)
+    return len(payload.encode('utf-8')), gz_bytes
+
+
 def load_geojson(filepath: str) -> Dict[str, Any]:
     """Load a GeoJSON file."""
     with open(filepath, 'r', encoding='utf-8') as f:

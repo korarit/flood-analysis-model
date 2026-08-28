@@ -17,10 +17,22 @@ Exit code 0 = PASS, 1 = issues found.
 """
 
 import argparse
+import gzip
 import json
 import math
 import sys
 from collections import Counter
+
+
+def load_geojson_any(path):
+    """Loads a .geojson or .geojson.gz file (sniffs gzip magic bytes)."""
+    with open(path, 'rb') as fh:
+        magic = fh.read(2)
+    if magic == b'\x1f\x8b':
+        with gzip.open(path, 'rt', encoding='utf-8') as f:
+            return json.load(f)
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
 
 def seg_km(a, b):
@@ -32,6 +44,7 @@ def validate(geojson, max_jump_km, min_length_km):
     report = {
         "total_features": len(features),
         "by_type": Counter(),
+        "points_by_type": Counter(),
         "jumps": [],
         "mid_path_jumps": 0,
         "end_jumps": 0,
@@ -42,8 +55,10 @@ def validate(geojson, max_jump_km, min_length_km):
 
     for feat in features:
         props = feat.get("properties", {})
-        report["by_type"][props.get("feature_type", "unknown")] += 1
+        ftype = props.get("feature_type", "unknown")
+        report["by_type"][ftype] += 1
         coords = feat.get("geometry", {}).get("coordinates", [])
+        report["points_by_type"][ftype] += len(coords)
         if len(coords) < 2:
             report["degenerate"] += 1
             continue
@@ -90,8 +105,7 @@ def main():
     parser.add_argument("--top", type=int, default=20, help="How many worst jumps to print")
     args = parser.parse_args()
 
-    with open(args.geojson, 'r', encoding='utf-8') as f:
-        geojson = json.load(f)
+    geojson = load_geojson_any(args.geojson)
 
     report = validate(geojson, args.max_jump_km, args.min_length_km)
 
@@ -100,9 +114,9 @@ def main():
     print("=" * 72)
     print(f"File                  : {args.geojson}")
     print(f"Total features        : {report['total_features']}")
-    print("By feature_type       :")
+    print("By feature_type (features / points):")
     for ftype, n in sorted(report["by_type"].items()):
-        print(f"    {ftype:<35s} {n}")
+        print(f"    {ftype:<35s} {n:>7,} / {report['points_by_type'][ftype]:>9,}")
     print(f"Degenerate (<2 pts)   : {report['degenerate']}")
     print(f"Stub segments (<5m)   : {report['stubs']}")
     print(f"Jumps > {args.max_jump_km:g} km      : {len(report['jumps'])} "

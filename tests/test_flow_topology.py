@@ -250,9 +250,14 @@ def _build_synthetic_basin():
 
     # Gauges ~2km apart so cascade segments pass the 1km minimum
     water = [st_at(30, "W30"), st_at(400, "W400"), st_at(600, "W600")]
-    # Rain station on the east hillslope, draining via the row-165 tributary
-    rain = [{"station_id": "R1", "station_name": "rain_R1",
-             "latitude": y0 - (150 + 0.5) * RES, "longitude": x0 + (130 + 0.5) * RES}]
+    # Two rain stations in the SAME tributary catchment (row-165 trib) — their shared
+    # upstream branch network must dedupe into one feature with shared_with
+    rain = [
+        {"station_id": "R1", "station_name": "rain_R1",
+         "latitude": y0 - (150 + 0.5) * RES, "longitude": x0 + (130 + 0.5) * RES},
+        {"station_id": "R2", "station_name": "rain_R2",
+         "latitude": y0 - (158 + 0.5) * RES, "longitude": x0 + (126 + 0.5) * RES},
+    ]
 
     return dict(H=H, W=W, x0=x0, y0=y0, transform=transform, dem=burned,
                 fdir=fdir, acc=acc, osm=osm, water=water, rain=rain)
@@ -314,12 +319,21 @@ def test_end_to_end_synthetic_basin():
             gap = seg_km_local(coords[i], coords[i + 1])
             assert gap <= 2.01, f"{feat['id']} has {gap:.2f} km straight segment at idx {i}"
 
-    # Drainage branches tied to the rain station exist
+    # Drainage branches tied to the rain station exist; identical networks shared by
+    # R1/R2 must be deduped into one feature carrying shared_with
     branch_feats = [f for f in features
                     if f["properties"].get("feature_type") == "rainfall_drainage_branch"]
     assert branch_feats, "expected at least one drainage branch for R1"
-    assert all(f["properties"].get("from_station_id") == "R1" for f in branch_feats)
+    assert all(f["properties"].get("from_station_id") in ("R1", "R2") for f in branch_feats)
     assert all(f["properties"]["branch_length_km"] >= 1.0 for f in branch_feats)
+    assert any("R2" in (f["properties"].get("shared_with") or []) for f in branch_feats), \
+        "R1/R2 share the same upstream network -> expect shared_with dedupe"
+    # no duplicated geometries remain
+    seen_geoms = set()
+    for f in branch_feats:
+        key = tuple(map(tuple, f["geometry"]["coordinates"]))
+        assert key not in seen_geoms, f"unduplicated branch geometry: {f['id']}"
+        seen_geoms.add(key)
 
     # OSM river display layer is present, separable, and NOT length-filtered
     osm_feats = [f for f in features if f["properties"].get("feature_type") == "osm_river"]
@@ -331,6 +345,32 @@ def test_end_to_end_synthetic_basin():
             "rainfall_drainage_branch", "osm_river"} <= layer_types
 
 
+def test_branch_cap_and_dedupe():
+    """G1/G2: per-station cap (longest kept) + cross-station geometry dedupe."""
+    from collections import Counter
+    B = _build_synthetic_basin()
+    col = lambda r: _channel_col(r)
+
+    # Two stations with overlapping upstream networks; both enter the channel at row 200
+    seeds = {
+        "RA": [(r, col(r)) for r in range(200, 320)],
+        "RB": [(r, col(r)) for r in range(200, 325)],
+    }
+    # cap = 1 -> at most one branch per station
+    feats, truncated = extract_station_drainage_branches(
+        seeds, B["fdir"], B["acc"], B["transform"], crs=None,
+        min_branch_acc=500, min_length_km=0.2, max_branches_per_station=1
+    )
+    assert not truncated
+    per = Counter(f["properties"]["from_station_id"] for f in feats)
+    assert all(v <= 1 for v in per.values()), f"cap violated: {per}"
+    # RA/RB walk the identical channel with the same entry cell -> deduped to ONE feature
+    assert len(feats) == 1, f"expected 1 deduped feature, got {len(feats)}"
+    assert feats[0]["properties"]["from_station_id"] == "RA"
+    assert feats[0]["properties"].get("shared_with") == ["RB"]
+    assert feats[0]["id"].startswith("branch_RA_")
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -339,6 +379,7 @@ def main():
         test_merge_coordinates,
         test_burn_polygons,
         test_end_to_end_synthetic_basin,
+        test_branch_cap_and_dedupe,
     ]
     for t in tests:
         t()

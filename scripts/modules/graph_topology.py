@@ -385,7 +385,8 @@ def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[fl
 def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
-    max_step_km: float = 0.5
+    max_step_km: float = 0.5,
+    label: str = ""
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
@@ -394,16 +395,19 @@ def simplify_linestring_coords(
     Strictly splits at any artificial straight-line jump > max_step_km (500m): only the
     contiguous chunk starting at the path origin is kept (endpoints are always re-appended
     so both ends stay exact), and the discard is reported.
+    `label` identifies the calling feature in diagnostics.
     """
     if not coords or len(coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords]
 
     # 1. Topological Continuity Sanitization: split at any artificial leap > max_step_km
     chunks: List[List[List[float]]] = [[coords[0]]]
+    max_jump_km = 0.0
     for i in range(len(coords) - 1):
         p1, p2 = coords[i], coords[i + 1]
         d_km = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
         if d_km > max_step_km:
+            max_jump_km = max(max_jump_km, d_km)
             chunks.append([p2])
         else:
             chunks[-1].append(p2)
@@ -412,7 +416,9 @@ def simplify_linestring_coords(
     if len(chunks) > 1:
         dropped = sum(len(ch) for ch in chunks[1:])
         if dropped >= 5:
-            print(f"  [WARN] simplify_linestring: split at {len(chunks) - 1} jump(s) > {max_step_km}km; "
+            who = f" [{label}]" if label else ""
+            print(f"  [WARN] simplify_linestring{who}: split at {len(chunks) - 1} jump(s) "
+                  f"(max {max_jump_km:.1f}km) > {max_step_km}km; "
                   f"kept {len(clean_coords)} pts from origin, discarded {dropped} pts")
         # Preserve the exact final destination point ONLY when the end gap is a small
         # station-access stub (<= 2km); a large mid-path jump must NOT be re-drawn.
@@ -787,8 +793,9 @@ def extract_station_drainage_branches(
     min_branch_acc: int = 500,
     min_length_km: float = 1.0,
     max_cells_per_station: int = 400_000,
-    southern_limit_lat: Optional[float] = None
-) -> List[Dict[str, Any]]:
+    southern_limit_lat: Optional[float] = None,
+    max_branches_per_station: int = 30
+) -> Tuple[List[Dict[str, Any]], bool]:
     """
     E3: Extracts upstream D8 channel branches (dendritic tributaries) draining into each
     rain station's overland flow path. One feature per branch, tagged with the owning
@@ -800,7 +807,12 @@ def extract_station_drainage_branches(
       2. Channel heads = branch cells with no in-branch upstream neighbor (trunk excluded).
       3. Walk each head downstream until it reaches the trunk (seed path) or an
          already-walked junction -> contiguous, non-overlapping reach LineStrings.
-      4. Filter by length >= min_length_km.
+      4. Filter by length >= min_length_km, cap to the longest
+         `max_branches_per_station` branches per station.
+      5. Dedupe identical geometries shared across stations (properties["shared_with"]).
+
+    Returns (features, truncated) where truncated=True means the cell guard fired
+    (caller may retry with a higher min_branch_acc).
     """
     nrows, ncols = fdir.shape
 
@@ -826,6 +838,7 @@ def extract_station_drainage_branches(
 
     visited = np.zeros((nrows, ncols), dtype=bool)
     features: List[Dict[str, Any]] = []
+    any_truncated = False
 
     for r_id, seed_cells in branch_seeds.items():
         if not seed_cells:
@@ -863,8 +876,9 @@ def extract_station_drainage_branches(
             visited[vr, vc] = False
 
         if truncated:
+            any_truncated = True
             print(f"  [WARN] Drainage branches for rain station {r_id} truncated at "
-                  f"{max_cells_per_station:,} cells (increase --branch-min-acc to limit)")
+                  f"{max_cells_per_station:,} cells")
         if len(branch_cells) < 2:
             continue
 
@@ -881,7 +895,7 @@ def extract_station_drainage_branches(
         heads = [cell for cell in branch_cells if upstream_deg.get(cell, 0) == 0 and cell not in seed_set]
 
         walked: Set[Tuple[int, int]] = set()
-        branch_idx = 0
+        station_branches: List[Tuple[float, Dict[str, Any]]] = []
         for (hr, hc) in heads:
             pts: List[Tuple[int, int]] = []
             curr = (hr, hc)
@@ -923,25 +937,56 @@ def extract_station_drainage_branches(
             if length_km < min_length_km:
                 continue
 
-            branch_idx += 1
-            features.append({
+            station_branches.append((length_km, {
                 "type": "Feature",
-                "id": f"branch_{r_id}_{branch_idx:03d}",
                 "properties": {
                     "feature_type": "rainfall_drainage_branch",
                     "from_station_id": r_id,
-                    "branch_index": branch_idx,
                     "branch_length_km": round(length_km, 2),
                     "flow_acc_cells": int(acc[hr, hc]),
                     "branch_cells": len(pts)
                 },
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035,
+                                                             label=f"branch_{r_id}")
                 }
-            })
+            }))
 
-    return features
+        # G2: cap the number of branches per station (keep the longest ones)
+        if max_branches_per_station and len(station_branches) > max_branches_per_station:
+            station_branches.sort(key=lambda x: -x[0])
+            station_branches = station_branches[:max_branches_per_station]
+        features.extend(fd for _, fd in station_branches)
+
+    # G1: dedupe identical branch geometries shared across rain stations —
+    # keep one feature, record the other owners in properties["shared_with"]
+    by_geom_key: Dict[Tuple, Dict[str, Any]] = {}
+    deduped: List[Dict[str, Any]] = []
+    for feat in features:
+        geom_key = tuple(
+            (round(lon, 5), round(lat, 5))
+            for lon, lat in feat["geometry"]["coordinates"]
+        )
+        owner = by_geom_key.get(geom_key)
+        if owner is not None:
+            shared = owner["properties"].setdefault("shared_with", [])
+            sid = feat["properties"]["from_station_id"]
+            if sid not in shared:
+                shared.append(sid)
+        else:
+            by_geom_key[geom_key] = feat
+            deduped.append(feat)
+
+    # Reassign stable ids after dedupe/cap
+    id_counters: Dict[str, int] = {}
+    for feat in deduped:
+        r_id = feat["properties"]["from_station_id"]
+        id_counters[r_id] = id_counters.get(r_id, 0) + 1
+        feat["properties"]["branch_index"] = id_counters[r_id]
+        feat["id"] = f"branch_{r_id}_{id_counters[r_id]:03d}"
+
+    return deduped, any_truncated
 
 
 def compute_rainfall_lag_bounds(
@@ -999,7 +1044,9 @@ def build_flow_paths_and_relations(
     cascade_max_km: float = 60.0,
     branch_min_acc: int = 500,
     include_branches: bool = True,
-    include_osm_layer: bool = True
+    include_osm_layer: bool = True,
+    branch_max_cells: int = 400_000,
+    branch_max_count: int = 30
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
@@ -1246,7 +1293,7 @@ def build_flow_paths_and_relations(
                 },
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                 }
             }
             features.append(feature)
@@ -1326,7 +1373,7 @@ def build_flow_paths_and_relations(
                     },
                     "geometry": {
                         "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                     }
                 }
                 features.append(feature)
@@ -1355,7 +1402,7 @@ def build_flow_paths_and_relations(
                     },
                     "geometry": {
                         "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                     }
                 }
                 features.append(feature)
@@ -1474,7 +1521,7 @@ def build_flow_paths_and_relations(
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                         }
                     }
                     features.append(feature)
@@ -1556,7 +1603,7 @@ def build_flow_paths_and_relations(
                             },
                             "geometry": {
                                 "type": "LineString",
-                                "coordinates": simplify_linestring_coords(coords2, tolerance_deg=0.00035)
+                                "coordinates": simplify_linestring_coords(coords2, tolerance_deg=0.00035, label=feature_id)
                             }
                         }
                         features.append(feature)
@@ -1714,7 +1761,7 @@ def build_flow_paths_and_relations(
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035)
+                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id)
                         }
                     }
                     features.append(feature)
@@ -1764,7 +1811,7 @@ def build_flow_paths_and_relations(
                     },
                     "geometry": {
                         "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                     }
                 }
                 features.append(feature)
@@ -1812,22 +1859,35 @@ def build_flow_paths_and_relations(
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035)
+                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
                         }
                     }
                     features.append(feature)
 
-    # E3: Drainage branches — upstream D8 channel network per rain station
+    # E3: Drainage branches — upstream D8 channel network per rain station.
+    # On large basins the upstream network of a main-river station can exceed the cell
+    # guard: escalate min_branch_acc (x4, max 2 retries) so the layer degrades gracefully
+    # to bigger channels instead of being truncated arbitrarily.
     if include_branches and branch_seed_cells:
-        branch_features = extract_station_drainage_branches(
-            branch_seed_cells, fdir, acc, transform, crs=crs,
-            min_branch_acc=branch_min_acc, min_length_km=min_flow_km,
-            southern_limit_lat=southern_limit_lat
-        )
+        eff_branch_acc = branch_min_acc
+        branch_features: List[Dict[str, Any]] = []
+        for attempt in range(3):
+            branch_features, truncated = extract_station_drainage_branches(
+                branch_seed_cells, fdir, acc, transform, crs=crs,
+                min_branch_acc=eff_branch_acc, min_length_km=min_flow_km,
+                max_cells_per_station=branch_max_cells,
+                southern_limit_lat=southern_limit_lat,
+                max_branches_per_station=branch_max_count
+            )
+            if not truncated:
+                break
+            eff_branch_acc *= 4
+            print(f"  [WARN] Retrying drainage branches with --branch-min-acc={eff_branch_acc} "
+                  f"(attempt {attempt + 2}/3)")
         if branch_features:
             features.extend(branch_features)
             print(f"        Drainage Branches: {len(branch_features)} features "
-                  f"for {len(branch_seed_cells)} rain station path(s)")
+                  f"for {len(branch_seed_cells)} rain station path(s) (acc>={eff_branch_acc})")
 
     # F: OSM river network as a separate display layer (feature_type="osm_river").
     # NO length filter — the full OSM network is preserved; simplified with the same
@@ -1848,10 +1908,10 @@ def build_flow_paths_and_relations(
                 if len(part) < 2:
                     continue
                 part_len_km = linestring_length_km(part)
-                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035)
+                fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
+                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid)
                 if len(coords_s) < 2:
                     continue
-                fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
                 features.append({
                     "type": "Feature",
                     "id": fid,

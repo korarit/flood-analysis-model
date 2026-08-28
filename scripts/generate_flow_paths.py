@@ -21,7 +21,12 @@ import rasterio
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from scripts.modules.gis_utils import save_geojson, save_json, load_stations_for_basin
+from scripts.modules.gis_utils import (
+    save_geojson,
+    save_json,
+    load_stations_for_basin,
+    write_geojson_pair
+)
 from scripts.modules.terrain_engine import (
     read_dem_geotiff,
     burn_stream_network_into_dem,
@@ -50,7 +55,10 @@ def generate_basin_flow_paths(
     cascade_max_km: float = 60.0,
     branch_min_acc: int = 500,
     include_branches: bool = True,
-    include_osm_layer: bool = True
+    include_osm_layer: bool = True,
+    branch_max_cells: int = 400_000,
+    branch_max_count: int = 30,
+    write_gzip: bool = True
 ):
     """
     Generates high-precision hybrid flow paths and station relations for a river basin.
@@ -188,10 +196,12 @@ def generate_basin_flow_paths(
         cascade_max_km=cascade_max_km,
         branch_min_acc=branch_min_acc,
         include_branches=include_branches,
-        include_osm_layer=include_osm_layer
+        include_osm_layer=include_osm_layer,
+        branch_max_cells=branch_max_cells,
+        branch_max_count=branch_max_count
     )
 
-    save_geojson(flow_paths_geojson, flow_paths_path, indent=None)
+    raw_bytes, gz_bytes = write_geojson_pair(flow_paths_geojson, flow_paths_path, write_gzip=write_gzip)
     save_json(gauge_relations, gauge_relations_path)
     save_json(rain_relations, rain_relations_path)
 
@@ -255,11 +265,25 @@ def generate_basin_flow_paths(
     gc.collect()
 
     elapsed = time.time() - t_start
+
+    # G4: size report per feature_type (points drive the file size)
+    type_stats: Dict[str, List[int]] = {}
+    for feat in flow_paths_geojson.get("features", []):
+        t = feat.get("properties", {}).get("feature_type", "unknown")
+        stats = type_stats.setdefault(t, [0, 0])
+        stats[0] += 1
+        stats[1] += len(feat.get("geometry", {}).get("coordinates", []))
+
     print(f"\n✅ [DONE] Generated {len(flow_paths_geojson['features'])} Flow Paths in {elapsed:.1f}s:")
-    print(f"        • Flow Paths GeoJSON : {flow_paths_path}")
     print(f"        • Gauge Relations    : {len(gauge_relations)} relations")
     print(f"        • Rainfall Relations : {len(rain_relations)} relations")
     print(f"        • Relations Frontend : {relations_frontend_path}")
+    print(f"        • Size breakdown (feature_type: features / points):")
+    for t, (n, npts) in sorted(type_stats.items(), key=lambda x: -x[1][1]):
+        print(f"            {t:<35s} {n:>7,} / {npts:>9,}")
+    print(f"        • Flow Paths GeoJSON : {flow_paths_path} ({raw_bytes / 1e6:.1f} MB)")
+    if write_gzip:
+        print(f"        • Flow Paths GeoJSON (gzip for frontend): {flow_paths_path}.gz ({gz_bytes / 1e6:.1f} MB)")
 
 
 def main():
@@ -283,6 +307,12 @@ def main():
                         help="Disable per-rain-station drainage branch extraction (faster on low-RAM machines)")
     parser.add_argument("--no-osm-layer", action="store_true",
                         help="Disable the OSM river display layer (feature_type=osm_river) in flow_paths.geojson")
+    parser.add_argument("--branch-max-cells", type=int, default=400_000,
+                        help="Max upstream cells collected per rain station for branches (default: 400000)")
+    parser.add_argument("--branch-max-count", type=int, default=30,
+                        help="Max drainage branches kept per rain station, longest first (default: 30)")
+    parser.add_argument("--no-gzip", action="store_true",
+                        help="Skip writing flow_paths.geojson.gz (raw .geojson is always written)")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -317,7 +347,10 @@ def main():
             cascade_max_km=args.rain_cascade_km,
             branch_min_acc=args.branch_min_acc,
             include_branches=not args.no_branches,
-            include_osm_layer=not args.no_osm_layer
+            include_osm_layer=not args.no_osm_layer,
+            branch_max_cells=args.branch_max_cells,
+            branch_max_count=args.branch_max_count,
+            write_gzip=not args.no_gzip
         )
 
 
