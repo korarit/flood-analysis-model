@@ -2622,7 +2622,7 @@ def build_flow_paths_and_relations(
                             pt = overland_coords[p_idx]
                             nid2, d2, m2 = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
                             if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
-                                best_idx, best_node, best_d, best_m = p_idx, nid2, m2, m2
+                                best_idx, best_node, best_d, best_m = p_idx, nid2, d2, m2
                         entry_idx, entry_node, entry_meta = best_idx, best_node, best_m
 
             # Round 6 (Phase A2): the trace stopped on an open-water boundary but no
