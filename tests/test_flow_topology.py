@@ -14,6 +14,7 @@ No real data required — builds a small synthetic DEM + OSM network and verifie
 Run:  python tests/test_flow_topology.py
 """
 
+import json
 import math
 import os
 import sys
@@ -761,6 +762,81 @@ def test_crop_geojson_to_basin():
     assert meta.get("crop_stats", {}).get("n_out") == 2
 
 
+# ---------------------------------------------------------------------------
+# 18. (round 5 / Step 1) boundary cache validation — coarse boxes are rejected
+# ---------------------------------------------------------------------------
+def _detailed_polygon_geojson(n_verts=60, source="ThaiWater (HII Official)"):
+    """(Multi)Polygon with n_verts vertices around a rough basin-ish ring."""
+    import math as _m
+    cx, cy, rx, ry = 100.7, 18.0, 0.9, 1.7
+    ring = []
+    for i in range(n_verts):
+        ang = 2.0 * _m.pi * i / n_verts
+        # deterministic wobble so the ring is concave, not a circle-fitting box
+        w = 1.0 + 0.25 * _m.sin(5 * ang)
+        ring.append([round(cx + rx * w * _m.cos(ang), 6),
+                     round(cy + ry * w * _m.sin(ang), 6)])
+    ring.append(ring[0])
+    return {"type": "FeatureCollection", "features": [{"type": "Feature",
+            "properties": {"basin_slug": "x", "source": source},
+            "geometry": {"type": "Polygon", "coordinates": [ring]}}]}
+
+
+def _box_boundary_geojson(source="Station Bounding Box Fallback"):
+    return {"type": "FeatureCollection", "features": [{"type": "Feature",
+            "properties": {"basin_slug": "x", "source": source},
+            "geometry": {"type": "Polygon", "coordinates": [[
+                [99.5, 15.5], [101.5, 15.5], [101.5, 19.9], [99.5, 19.9], [99.5, 15.5]]]}}]}
+
+
+def test_boundary_cache_rejects_coarse_box():
+    import tempfile
+    from scripts.fetch_basin_gis import load_valid_boundary
+
+    with tempfile.TemporaryDirectory() as td:
+        # 1. the classic round-4 rectangle with the fallback source label -> REJECT
+        p = os.path.join(td, "x_boundary.geojson")
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_box_boundary_geojson(), f)
+        assert load_valid_boundary("x", p) is None, "rectangular fallback cache must be rejected"
+
+        # 2. a box even with an innocent source label (< 50 vertices) -> REJECT
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_box_boundary_geojson(source="ThaiWater (HII Official)"), f)
+        assert load_valid_boundary("x", p) is None, "coarse < 50-vertex cache must be rejected"
+
+        # 3. detailed polygon with a legit source -> ACCEPT
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_detailed_polygon_geojson(), f)
+        data = load_valid_boundary("x", p)
+        assert data is not None, "a real detailed basin polygon must be accepted"
+
+        # 4. missing file -> None (no crash)
+        assert load_valid_boundary("x", os.path.join(td, "nope.geojson")) is None
+
+
+def test_generate_fails_on_coarse_boundary_cache():
+    import tempfile
+    from scripts.generate_flow_paths import resolve_basin_boundary_or_fail
+
+    with tempfile.TemporaryDirectory() as td:
+        # existing coarse rectangle -> SystemExit with a DELETE hint
+        p = os.path.join(td, "x_boundary.geojson")
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_box_boundary_geojson(), f)
+        try:
+            resolve_basin_boundary_or_fail("x", p)
+            raise AssertionError("coarse boundary cache must raise SystemExit")
+        except SystemExit as ex:
+            assert "DELETE" in str(ex), "error must tell the user to delete the bad cache"
+
+        # detailed polygon -> accepted
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_detailed_polygon_geojson(), f)
+        data = resolve_basin_boundary_or_fail("x", p)
+        assert data.get("features"), "valid boundary must pass through"
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -781,6 +857,8 @@ def main():
         test_ranked_snap_degraded_on_island_only,
         test_boundary_missing_fails_fast,
         test_crop_geojson_to_basin,
+        test_boundary_cache_rejects_coarse_box,
+        test_generate_fails_on_coarse_boundary_cache,
     ]
     for t in tests:
         t()

@@ -205,6 +205,61 @@ def _boundary_from_osm_admin(basin: str):
     return None
 
 
+BOUNDARY_MIN_VERTICES = 50  # fewer = a coarse frame / rectangular fallback, not a basin outline
+_BOUNDARY_REJECT_SOURCE_MARKERS = ("bounding box", "bbox fallback", "station bbox")
+
+
+def load_valid_boundary(basin: str, boundary_path: str, strict: bool = True) -> Optional[Dict[str, Any]]:
+    """
+    Shared strict validator for the LOCAL boundary cache (Step 1 of round 5).
+    Returns the FeatureCollection only when the cache is a REAL basin polygon:
+      - (Multi)Polygon geometry
+      - >= BOUNDARY_MIN_VERTICES vertices (a 4-5 corner box is the old rectangular
+        fallback — round 4 trusted it and the whole pipeline ran on a rectangle)
+      - source label is not the old "Station Bounding Box Fallback"
+    Returns None (with the rejection reason printed) when missing/invalid —
+    callers either refetch (fetch_basin_gis) or fail fast (generate_flow_paths).
+    """
+    if not os.path.exists(boundary_path) or os.path.getsize(boundary_path) <= 500:
+        return None
+    try:
+        with open(boundary_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except Exception as ex:
+        print(f"  [BOUNDARY] Cache unreadable ({ex}): {boundary_path}")
+        return None
+    feats = data.get("features") or []
+    if not feats:
+        print(f"  [BOUNDARY] Cache has no features: {boundary_path}")
+        return None
+    geom = (feats[0] or {}).get("geometry") or {}
+    props = feats[0].get("properties") or {}
+    if geom.get("type") not in ("Polygon", "MultiPolygon"):
+        print(f"  [BOUNDARY] Cache rejected: geometry is {geom.get('type')}, not a polygon "
+              f"({boundary_path})")
+        return None
+    source = str(props.get("source", ""))
+    if strict and any(marker in source.lower() for marker in _BOUNDARY_REJECT_SOURCE_MARKERS):
+        print(f"  [BOUNDARY] Cache rejected: source='{source}' is the rectangular fallback "
+              f"({boundary_path}) — a real basin polygon is mandatory")
+        return None
+    try:
+        from shapely.geometry import shape as _shape
+        n_verts = _boundary_vertex_count(_shape(geom))
+    except Exception:
+        n_verts = -1
+    if strict and n_verts < BOUNDARY_MIN_VERTICES:
+        print(f"  [BOUNDARY] Cache rejected: only {n_verts} vertices (< {BOUNDARY_MIN_VERTICES}) "
+              f"— coarse frame, likely the old bbox rectangle ({boundary_path})")
+        return None
+    bounds = _shape(geom).bounds if n_verts >= 0 else None
+    if bounds:
+        print(f"  [CACHE] Basin boundary OK: {n_verts:,} vertices, "
+              f"lon[{bounds[0]:.4f}, {bounds[2]:.4f}] lat[{bounds[1]:.4f}, {bounds[3]:.4f}] "
+              f"(source={source or '-'})")
+    return data
+
+
 def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Resolves the official ThaiWater River Basin Boundary Polygon with a mandatory
@@ -217,18 +272,14 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
 
-    if os.path.exists(output_path) and os.path.getsize(output_path) > 500:
-        try:
-            with open(output_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                feat = data.get('features', [{}])[0]
-                geom = feat.get('geometry', {})
-                coords = geom.get('coordinates', [])
-                if coords and geom.get('type') in ('Polygon', 'MultiPolygon'):
-                    print(f"  [CACHE] Official Basin boundary already exists: {output_path}")
-                    return data
-        except Exception:
-            pass
+    # Step 1 (round 5): the local cache must be a REAL basin polygon — coarse or
+    # rectangular caches (the round-4 root cause) are rejected and refetched.
+    cached = load_valid_boundary(basin, output_path)
+    if cached is not None:
+        return cached
+    if os.path.exists(output_path):
+        print("  [BOUNDARY] Existing boundary file rejected as coarse/rectangular — "
+              "refetching from sources (file will be overwritten)...")
 
     print(f"  [FETCH] Downloading Official Basin Boundary from ThaiWater for '{basin}'...")
     import requests

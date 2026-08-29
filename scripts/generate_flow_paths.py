@@ -41,28 +41,33 @@ from scripts.modules.backend_exporter import export_backend_station_relations
 from scripts.fetch_basin_gis import (
     fetch_osm_waterways,
     fetch_osm_water_polygons,
-    ensure_osm_cropped
+    ensure_osm_cropped,
+    load_valid_boundary
 )
 
 
 def resolve_basin_boundary_or_fail(basin: str, boundary_path: str) -> Dict[str, Any]:
     """
-    Phase 1 (G5): the basin boundary polygon is MANDATORY. When it is missing or
-    unreadable the pipeline exits with fix instructions instead of silently falling
-    back to a rectangular station bbox (the root cause of the 4-corner map bug).
+    Phase 1 (G5) + Step 1 (round 5): the basin boundary polygon is MANDATORY and must
+    be a REAL basin outline. When it is missing, unreadable, or a coarse rectangular
+    cache (the round-4 root cause: < 50 vertices / "Station Bounding Box Fallback"
+    source), the pipeline exits with fix instructions instead of silently running on
+    a rectangle. Generation NEVER auto-fetches here — boundary retrieval belongs to
+    fetch_basin_gis.py.
     """
-    if os.path.exists(boundary_path) and os.path.getsize(boundary_path) > 500:
-        try:
-            with open(boundary_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            feats = data.get('features') or []
-            geom = (feats[0] or {}).get('geometry') or {} if feats else {}
-            if geom.get('type') in ('Polygon', 'MultiPolygon'):
-                return data
-        except Exception:
-            pass
+    data = load_valid_boundary(basin, boundary_path)
+    if data is not None:
+        return data
+    if os.path.exists(boundary_path):
+        raise SystemExit(
+            f"❌ ERROR: Basin boundary file is invalid or a coarse rectangle: {boundary_path}\n"
+            f"   A real basin polygon is mandatory (rectangular fallback is disabled).\n"
+            f"   Fix: DELETE this file, then run "
+            f"`python scripts/fetch_basin_gis.py --basin {basin}` to refetch, "
+            f"then re-run this script."
+        )
     raise SystemExit(
-        f"❌ ERROR: Basin boundary polygon not found or invalid: {boundary_path}\n"
+        f"❌ ERROR: Basin boundary polygon not found: {boundary_path}\n"
         f"   A real basin polygon is mandatory (rectangular station-bbox fallback is disabled).\n"
         f"   Fix: run `python scripts/fetch_basin_gis.py --basin {basin}` first, then re-run this script."
     )
