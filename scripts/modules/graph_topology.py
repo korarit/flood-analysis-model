@@ -239,10 +239,23 @@ class DirectedRiverGraph:
         z_start = _elev(0)
         z_end = _elev(len(coords) - 1)
 
-        # Topological Direction Enforcement: flow from higher elevation to lower elevation.
-        # Unknown elevation (outside DEM / nodata) -> trust the OSM digitization direction.
+        # Topological Direction Enforcement: evaluate majority slope trend across all interior vertices
+        # to prevent localized endpoint noise (bridges, culverts, embankments) from reversing the entire way.
         segment_coords = list(coords)
-        if z_start is not None and z_end is not None and z_start < z_end - 0.5:
+        elev_drops = []
+        for i in range(len(coords) - 1):
+            z1 = _elev(i)
+            z2 = _elev(i + 1)
+            if z1 is not None and z2 is not None:
+                elev_drops.append(z1 - z2)
+
+        net_drop = sum(elev_drops) if elev_drops else None
+        if net_drop is not None and net_drop < -1.0:
+            segment_coords.reverse()
+            if seg_elevs is not None:
+                seg_elevs.reverse()
+            direction_source = "elevation_majority"
+        elif z_start is not None and z_end is not None and z_start < z_end - 0.5:
             segment_coords.reverse()
             if seg_elevs is not None:
                 seg_elevs.reverse()
@@ -1049,6 +1062,33 @@ def simplify_linestring_coords(
     if len(clean_coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords[:2]]
 
+    # 1b. Collinear Straight Run Sanitization (round 7):
+    # Detects unnatural identical-step runs along cardinal axes (>= 60 cells ~ 750m)
+    # to prevent unconditioned flat trenches from collapsing into tens-of-km straight lines.
+    if len(clean_coords) >= 60:
+        filtered_runs = [clean_coords[0]]
+        consec_dx = 0
+        consec_dy = 0
+        for i in range(1, len(clean_coords)):
+            p_prev = clean_coords[i - 1]
+            p_curr = clean_coords[i]
+            dx = round(p_curr[0] - p_prev[0], 6)
+            dy = round(p_curr[1] - p_prev[1], 6)
+            if dx == 0 and dy != 0:
+                consec_dx += 1
+            else:
+                consec_dx = 0
+            if dy == 0 and dx != 0:
+                consec_dy += 1
+            else:
+                consec_dy = 0
+
+            if consec_dx > 60 or consec_dy > 60:
+                continue
+            filtered_runs.append(p_curr)
+        if len(filtered_runs) >= 2:
+            clean_coords = filtered_runs
+
     # 2. Douglas-Peucker Simplification
     try:
         line = LineString(clean_coords)
@@ -1395,7 +1435,10 @@ def trace_downstream_path(
     river_mask: Optional[np.ndarray] = None,
     water_poly_mask: Optional[np.ndarray] = None,
     water_poly_ids: Optional[np.ndarray] = None,
-    start_poly_id: int = 0
+    start_poly_id: int = 0,
+    acc: Optional[np.ndarray] = None,
+    stream_min_acc: int = 500,
+    max_overland_cells: int = 240
 ) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
@@ -1409,6 +1452,9 @@ def trace_downstream_path(
     (e.g. a gauge on a reservoir) keeps tracing through its own polygon and only stops
     when it enters a different one, so reservoir-crossing teleports are impossible
     while downstream traces out of a reservoir still work.
+    Round 7 (Phase A4): when `acc` is provided, stops with stop_data="STREAM_STOP" once
+    flow accumulation reaches `stream_min_acc` (natural stream channel initiation), or
+    "OVERLAND_CAP_STOP" when pure overland steps reach `max_overland_cells` (~3.0 km).
     Returns (coordinates_list [[lon, lat], ...], stop_data, path_cells [(r, c), ...]).
     The cell list enables downstream reuse (e.g. upstream drainage-branch BFS).
     """
@@ -1449,6 +1495,17 @@ def trace_downstream_path(
                 and water_poly_mask[curr_r, curr_c]
                 and _poly_id_at(curr_r, curr_c) != start_poly_id):
             stop_data = WATER_POLY_STOP
+            break
+
+        # Natural stream initiation stop (round 7): when flow accumulation reaches stream_min_acc,
+        # hillslope overland runoff transitions into a natural stream channel.
+        if acc is not None and len(path_rc) > 1 and int(acc[curr_r, curr_c]) >= stream_min_acc:
+            stop_data = "STREAM_STOP"
+            break
+
+        # Pure overland distance cap: prevent wandering across distant basins on hillslope
+        if max_overland_cells and len(path_rc) >= max_overland_cells:
+            stop_data = "OVERLAND_CAP_STOP"
             break
 
         if min_lat is not None:
@@ -2550,6 +2607,8 @@ def build_flow_paths_and_relations(
         overland_coords, stop_data, overland_cells = [], None, []
         river_stopped = False
         poly_stopped = False
+        stream_stopped = False
+        cap_stopped = False
         direct_target_water_id = None
         entry_idx = None
         entry_node = None
@@ -2557,11 +2616,11 @@ def build_flow_paths_and_relations(
         prev_map = None
         # Rain station's own polygon (a station on a reservoir traces out of it first)
         rain_start_poly = poly_id_at_cell((r, c))
+        max_overland_c = int((overland_max_km or 5.0) * 1000.0 / 12.5)
+
         for _attempt in range(2):
             eff_river_mask = river_mask if _attempt == 0 else None
-            # Round 6: the open-water stop stays active on BOTH attempts — runoff must
-            # never teleport across a reservoir even when the river contact was a
-            # topology island (the transit / overland fallback handles those instead).
+            # Round 6 & 7: the open-water and stream stops stay active on BOTH attempts
             overland_coords, stop_data, overland_cells = trace_downstream_path(
                 r, c, fdir, transform, crs=crs,
                 stop_condition_fn=stop_at_water_station,
@@ -2570,16 +2629,28 @@ def build_flow_paths_and_relations(
                 river_mask=eff_river_mask,
                 water_poly_mask=water_poly_mask,
                 water_poly_ids=water_poly_ids,
-                start_poly_id=rain_start_poly
+                start_poly_id=rain_start_poly,
+                acc=acc,
+                stream_min_acc=branch_min_acc,
+                max_overland_cells=max_overland_c
             )
             river_stopped = (stop_data == RIVER_STOP)
             poly_stopped = (stop_data == WATER_POLY_STOP)
-            direct_target_water_id = stop_data if (stop_data and stop_data not in (RIVER_STOP, WATER_POLY_STOP)) else None
+            stream_stopped = (stop_data == "STREAM_STOP")
+            cap_stopped = (stop_data == "OVERLAND_CAP_STOP")
+            direct_target_water_id = stop_data if (stop_data and stop_data not in (RIVER_STOP, WATER_POLY_STOP, "STREAM_STOP", "OVERLAND_CAP_STOP")) else None
+
+            # If direct gauge hit is farther than overland_max_km (e.g. runaway D8 trace across 100+ km),
+            # redirect to stream/river ingress to enforce realistic hydrological hierarchy.
+            if direct_target_water_id and linestring_length_km(overland_coords) > (overland_max_km or 5.0):
+                stream_stopped = True
+                direct_target_water_id = None
+
             if direct_target_water_id:
                 break  # Case 1: gauge hit before any river contact
 
-            # Case 2 scan: find the river backbone contact (< 300m).
-            # When the trace stopped on a river cell, scan BACKWARDS from the end —
+            # Case 2 scan: find the river backbone contact (< 300m, or wider for mountain streams).
+            # When the trace stopped on a river/stream cell, scan BACKWARDS from the end —
             # the river contact is the path terminus. Otherwise coarse STRIDE pass
             # first, then refine backwards to the exact closest approach.
             # snap_point_to_graph projects onto edges (splitting them), so rivers
@@ -2589,7 +2660,7 @@ def build_flow_paths_and_relations(
             entry_meta = None
             if len(overland_coords) >= 2:
                 MAX_ENTRY_DIST = 0.003  # tight 300m
-                if river_stopped or poly_stopped:
+                if river_stopped or poly_stopped or stream_stopped or cap_stopped:
                     for p_idx in range(len(overland_coords) - 1, -1, -1):
                         pt = overland_coords[p_idx]
                         nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
@@ -2598,7 +2669,7 @@ def build_flow_paths_and_relations(
                             break
                     if entry_node is None:
                         pt = overland_coords[-1]
-                        nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=0.006)
+                        nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=0.015)
                         if nid is not None:
                             entry_idx, entry_node, entry_meta = len(overland_coords) - 1, nid, m
                 else:

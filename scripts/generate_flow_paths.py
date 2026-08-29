@@ -31,6 +31,7 @@ from scripts.modules.terrain_engine import (
     read_dem_geotiff,
     burn_stream_network_into_dem,
     break_exact_flats,
+    enforce_geodesic_flat_slope,
     build_river_mask,
     save_geotiff_raster
 )
@@ -210,14 +211,24 @@ def generate_basin_flow_paths(
                 polygon_burn_depth_m=(polygon_burn_depth if polygon_burn_depth is not None else max(1.0, burn_depth - 5.0))
             )
 
-        # Step 2a (round 5): break exact-constant flat plateaus (calm water returns /
-        # constant burn offsets) — without this, D8 flat resolution draws tens-of-km
-        # straight trenches along raster rows/cols (the axis-aligned teleports).
-        filled_dem = break_exact_flats(filled_dem, nodata=nodata)
-
-        # Compute Flow Direction & Accumulation
+        # Hydrological conditioning & Geodesic flat resolution:
+        # Wang & Liu (2006) fills depressions but leaves flat surfaces; enforce_geodesic_flat_slope
+        # imposes a monotonic geodesic gradient to natural outlets, eliminating straight D8 trenches.
         import pyflwdir
         is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+
+        print("        Filling depressions and conditioning terrain surface...")
+        flw_fill = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
+        if hasattr(flw_fill, 'dem') and flw_fill.dem is not None:
+            filled_dem = flw_fill.dem.astype(np.float32)
+        del flw_fill
+        gc.collect()
+
+        # Enforce geodesic slope across flat plateaus / reservoirs to outlets
+        filled_dem = enforce_geodesic_flat_slope(filled_dem, nodata=nodata)
+
+        # Compute Flow Direction & Accumulation on gradient-enforced DEM
+        print("        Computing D8 flow direction and accumulation...")
         flw = pyflwdir.from_dem(filled_dem, nodata=nodata, transform=transform, latlon=is_latlon)
         fdir = flw.to_array(ftype='d8')
         acc = flw.upstream_area(unit='cell')

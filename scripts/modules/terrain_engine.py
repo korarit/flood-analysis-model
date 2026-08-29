@@ -208,6 +208,76 @@ def fill_depressions_priority_flood(
         return dem, None
 
 
+def enforce_geodesic_flat_slope(
+    filled_dem: np.ndarray,
+    nodata: float = -9999.0,
+    slope_epsilon_m_per_cell: float = 1e-5
+) -> np.ndarray:
+    """
+    Enforces a monotonic geodesic downhill gradient across flat plateaus (filled depressions /
+    reservoirs / lakes) towards their natural downstream outlets (Wang & Liu 2006 post-conditioning).
+
+    Why this is essential:
+    Wang & Liu (2006) depression filling raises depressions to the exact sill elevation Z_sill.
+    On the resulting flat plateau, all cells share the exact same elevation, causing pyflwdir's
+    D8 routing to pop cells in raster scan order, creating tens-of-km straight trenches along
+    cardinal axes (North/South/East/West).
+
+    This function:
+    1. Identifies flat plateau cells (cells sharing elevation with equal neighbors).
+    2. Identifies boundary outlet cells (flat cells adjacent to lower valid terrain).
+    3. Computes the Multi-Source Euclidean Distance Transform from all outlets simultaneously.
+    4. Imposes a micro-slope ΔZ = epsilon * distance_from_outlet, ensuring all D8 vectors
+       smoothly and naturally curve toward the true hydrological outlet with zero straight lines.
+    """
+    valid = (filled_dem != nodata) & ~np.isnan(filled_dem)
+    if not valid.any():
+        return filled_dem
+
+    nrows, ncols = filled_dem.shape
+    has_lower_neighbor = np.zeros((nrows, ncols), dtype=bool)
+    has_equal_neighbor = np.zeros((nrows, ncols), dtype=bool)
+
+    # Fast slice-shifted 8-neighbor scan
+    for dr in (-1, 0, 1):
+        for dc in (-1, 0, 1):
+            if dr == 0 and dc == 0:
+                continue
+            r_src_start = max(0, dr)
+            r_src_end = nrows + min(0, dr)
+            c_src_start = max(0, dc)
+            c_src_end = ncols + min(0, dc)
+
+            r_dst_start = max(0, -dr)
+            r_dst_end = nrows + min(0, -dr)
+            c_dst_start = max(0, -dc)
+            c_dst_end = ncols + min(0, -dc)
+
+            src_val = filled_dem[r_src_start:r_src_end, c_src_start:c_src_end]
+            src_valid = valid[r_src_start:r_src_end, c_src_start:c_src_end]
+            dst_val = filled_dem[r_dst_start:r_dst_end, c_dst_start:c_dst_end]
+
+            has_lower_neighbor[r_dst_start:r_dst_end, c_dst_start:c_dst_end] |= (src_valid & (src_val < dst_val))
+            has_equal_neighbor[r_dst_start:r_dst_end, c_dst_start:c_dst_end] |= (src_valid & (src_val == dst_val))
+
+    flat_mask = valid & has_equal_neighbor
+    outlet_mask = flat_mask & has_lower_neighbor
+
+    if outlet_mask.any() and flat_mask.any():
+        try:
+            from scipy.ndimage import distance_transform_edt
+            dist_from_outlet = distance_transform_edt(~outlet_mask).astype(np.float32)
+            slope_mod = np.where(flat_mask, dist_from_outlet * np.float32(slope_epsilon_m_per_cell), np.float32(0.0))
+            filled_dem += slope_mod
+            print(f"  [TERRAIN] Geodesic flat slope enforced on {int(flat_mask.sum()):,} plateau cells "
+                  f"towards {int(outlet_mask.sum()):,} outlet points (max slope offset: {float(slope_mod.max()):.4f}m)")
+        except Exception as ex:
+            print(f"  [WARN] enforce_geodesic_flat_slope distance transform failed: {ex}")
+
+    # Micro-hash jitter to break any concentric equidistant ties
+    return break_exact_flats(filled_dem, nodata=nodata)
+
+
 def compute_d8_flow_direction(
     filled_dem: np.ndarray,
     transform: Affine,

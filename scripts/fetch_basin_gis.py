@@ -786,7 +786,7 @@ def _basin_query_geometry(basin_boundary_geojson: Optional[Dict[str, Any]]):
         return None, "station_bbox"
 
 
-def _overpass_poly_statements(geom: Any, tag_filter: str, max_polygons: int = 5) -> List[str]:
+def _overpass_poly_statements(geom: Any, tag_filter: str, max_polygons: int = 12) -> List[str]:
     """
     Converts a (Multi)Polygon into Overpass `poly:` filter statements.
     Simplifies each polygon to ~0.005 deg (~550m) to keep the query compact;
@@ -820,13 +820,28 @@ def _build_overpass_query(
 ) -> Tuple[str, str, str]:
     """
     Builds an Overpass QL query + fingerprint from basin polygon (preferred) or station bbox.
+    When both basin polygon and stations are available, expands the query geometry to include
+    the buffered convex hull of all stations (0.05 deg ~ 5.5 km buffer) so perimeter and ridge
+    stations never suffer from boundary-clip dead-zones.
     Returns (overpass_query, fingerprint, source_label).
     """
     stmts: List[str] = []
     source_label = "basin_polygon"
-    if geom is not None:
+    query_geom = geom
+    if geom is not None and stations:
+        try:
+            from shapely.geometry import MultiPoint
+            st_coords = [[float(s['longitude']), float(s['latitude'])]
+                         for s in stations if s.get('latitude') is not None and s.get('longitude') is not None]
+            if st_coords:
+                st_hull = MultiPoint(st_coords).convex_hull.buffer(0.05)
+                query_geom = geom.union(st_hull).buffer(0.02)
+        except Exception:
+            query_geom = geom
+
+    if query_geom is not None:
         for tf in tag_filters:
-            stmts.extend(_overpass_poly_statements(geom, tf))
+            stmts.extend(_overpass_poly_statements(query_geom, tf, max_polygons=12))
     if not stmts:
         source_label = "station_bbox"
         min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=station_bbox_buffer_deg)
@@ -911,20 +926,22 @@ def _crop_buffer_deg(buffer_m: float) -> float:
 def crop_geojson_to_basin(
     geojson: Dict[str, Any],
     basin_boundary_geojson: Optional[Dict[str, Any]],
-    buffer_m: float = 2000.0,
-    label: str = "osm"
+    buffer_m: float = 5000.0,
+    label: str = "osm",
+    stations: Optional[List[Dict[str, Any]]] = None
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """
-    Phase 2 (G1/RC3): crops every OSM feature to the real basin polygon (+ buffer)
+    Phase 2 (G1/RC3): crops every OSM feature to the real basin polygon (+ station envelope buffer)
     using shapely, BEFORE the data enters processing or the cache:
-      - features entirely outside the basin are dropped
-      - lines crossing the boundary keep only the part inside the basin
+      - features entirely outside the basin envelope are dropped
+      - lines crossing the boundary keep all parts inside the basin (preserving multi-part branches)
     Returns (cropped_geojson, stats) where stats carries the filter-report counters
     required by the Flow Layer Filter Matrix (F1).
     """
-    from shapely.geometry import shape as _shape, mapping as _mapping
+    from shapely.geometry import shape as _shape, mapping as _mapping, MultiPoint
     from shapely.prepared import prep as _prep
     from shapely.strtree import STRtree  # noqa: F401  (kept for parity with pipeline index usage)
+    from scripts.modules.gis_utils import linestring_length_km
 
     feats = geojson.get("features", []) if geojson else []
     stats = {"n_in": len(feats), "n_out": 0, "dropped_outside": 0, "clipped": 0, "crop_applied": False}
@@ -944,6 +961,12 @@ def crop_geojson_to_basin(
 
     try:
         crop_poly = basin_poly.buffer(_crop_buffer_deg(buffer_m))
+        if stations:
+            st_coords = [[float(s['longitude']), float(s['latitude'])]
+                         for s in stations if s.get('latitude') is not None and s.get('longitude') is not None]
+            if st_coords:
+                st_hull = MultiPoint(st_coords).convex_hull.buffer(_crop_buffer_deg(buffer_m))
+                crop_poly = crop_poly.union(st_hull)
         crop_poly = crop_poly.simplify(0.0005, preserve_topology=True) or crop_poly
         prepared = _prep(crop_poly)
     except Exception as ex:
@@ -976,24 +999,39 @@ def crop_geojson_to_basin(
         if gtype == "LineString":
             parts = [inter] if inter.geom_type == "LineString" else \
                 [x for x in getattr(inter, "geoms", []) if x.geom_type == "LineString"]
-            if not parts:
-                stats["dropped_outside"] += 1
-                continue
-            longest = max(parts, key=lambda p: p.length)
-            coords = [[round(x, 6), round(y, 6)] for x, y in longest.coords]
-            if len(coords) < 2:
-                stats["dropped_outside"] += 1
-                continue
-            nf = dict(feat)
-            nf["geometry"] = {"type": "LineString", "coordinates": coords}
-            props = dict(feat.get("properties", {}))
-            try:
-                props["length_km"] = round(linestring_length_km(coords), 3)
-            except Exception:
-                pass
-            nf["properties"] = props
-            out_features.append(nf)
-            stats["clipped"] += 1
+            # Keep all parts that have length >= 50m (0.05 km)
+            valid_parts = [p for p in parts if len(p.coords) >= 2 and linestring_length_km(list(p.coords)) >= 0.05]
+            if not valid_parts:
+                if parts and len(parts[0].coords) >= 2:
+                    valid_parts = [max(parts, key=lambda p: p.length)]
+                else:
+                    stats["dropped_outside"] += 1
+                    continue
+            if len(valid_parts) == 1:
+                coords = [[round(x, 6), round(y, 6)] for x, y in valid_parts[0].coords]
+                nf = dict(feat)
+                nf["geometry"] = {"type": "LineString", "coordinates": coords}
+                props = dict(feat.get("properties", {}))
+                try:
+                    props["length_km"] = round(linestring_length_km(coords), 3)
+                except Exception:
+                    pass
+                nf["properties"] = props
+                out_features.append(nf)
+                stats["clipped"] += 1
+            else:
+                coords_multi = [[[round(x, 6), round(y, 6)] for x, y in p.coords] for p in valid_parts]
+                nf = dict(feat)
+                nf["geometry"] = {"type": "MultiLineString", "coordinates": coords_multi}
+                props = dict(feat.get("properties", {}))
+                try:
+                    total_len = sum(linestring_length_km(list(p.coords)) for p in valid_parts)
+                    props["length_km"] = round(total_len, 3)
+                except Exception:
+                    pass
+                nf["properties"] = props
+                out_features.append(nf)
+                stats["clipped"] += 1
         elif gtype == "Polygon":
             if inter.geom_type not in ("Polygon", "MultiPolygon"):
                 stats["dropped_outside"] += 1
@@ -1129,7 +1167,7 @@ def fetch_osm_waterways(
     # never persist (or process) data scoped by a rectangular fallback.
     if source_label == "basin_polygon":
         geojson, _crop_stats = crop_geojson_to_basin(
-            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_waterways"
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_waterways", stations=stations
         )
 
     save_geojson(geojson, output_path)
@@ -1219,7 +1257,7 @@ def fetch_osm_water_polygons(
     # Phase 2 (G1): crop water polygons to the real basin polygon before caching
     if source_label == "basin_polygon":
         geojson, _crop_stats = crop_geojson_to_basin(
-            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_water_polygons"
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_water_polygons", stations=stations
         )
 
     save_geojson(geojson, output_path)
