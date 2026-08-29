@@ -261,11 +261,16 @@ def load_valid_boundary(basin: str, boundary_path: str, strict: bool = True) -> 
     return data
 
 
-def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
+def fetch_basin_boundary(
+    basin: str,
+    output_path: str,
+    stations: List[Dict[str, Any]],
+    force: bool = False
+) -> Dict[str, Any]:
     """
     Resolves the official ThaiWater River Basin Boundary Polygon with a mandatory
     fallback chain (NO rectangular station-bbox fallback — G5/F3):
-      1) local cache file `{basin}_boundary.geojson`
+      1) local cache file `{basin}_boundary.geojson` (skipped with force=True)
       2) thaiwater.net basin.json
       3) dissolve of already-downloaded `{basin}_subbasins.geojson`
       4) OSM administrative boundary relation (Nominatim)
@@ -273,14 +278,17 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
 
-    # Step 1 (round 5): the local cache must be a REAL basin polygon — coarse or
-    # rectangular caches (the round-4 root cause) are rejected and refetched.
-    cached = load_valid_boundary(basin, output_path)
-    if cached is not None:
-        return cached
-    if os.path.exists(output_path):
-        print("  [BOUNDARY] Existing boundary file rejected as coarse/rectangular — "
-              "refetching from sources (file will be overwritten)...")
+    if force:
+        print("  [FORCE] Re-fetching basin boundary from sources (cache will be overwritten)...")
+    else:
+        # Step 1 (round 5): the local cache must be a REAL basin polygon — coarse or
+        # rectangular caches (the round-4 root cause) are rejected and refetched.
+        cached = load_valid_boundary(basin, output_path)
+        if cached is not None:
+            return cached
+        if os.path.exists(output_path):
+            print("  [BOUNDARY] Existing boundary file rejected as coarse/rectangular — "
+                  "refetching from sources (file will be overwritten)...")
 
     print(f"  [FETCH] Downloading Official Basin Boundary from ThaiWater for '{basin}'...")
     import requests
@@ -563,7 +571,8 @@ def download_alos_palsar_dem(
     stations: List[Dict[str, Any]],
     username: Optional[str],
     password: Optional[str],
-    chunk_size: int = 10
+    chunk_size: int = 10,
+    force: bool = False
 ) -> str:
     """
     Searches and downloads ALOS PALSAR RTC 12.5m DEM tiles from NASA ASF DAAC into terrain_dir.
@@ -576,9 +585,11 @@ def download_alos_palsar_dem(
     extracted_dir = os.path.join(tiles_dir, "extracted")
     os.makedirs(extracted_dir, exist_ok=True)
 
-    if os.path.exists(raw_dem_path) and os.path.getsize(raw_dem_path) > 1000:
+    if not force and os.path.exists(raw_dem_path) and os.path.getsize(raw_dem_path) > 1000:
         print(f"  [CACHE] Mosaic DEM already exists: {raw_dem_path}")
         return raw_dem_path
+    if force and os.path.exists(raw_dem_path):
+        print(f"  [FORCE] Re-downloading & re-mosaicking the ALOS DEM (raw_dem.tif will be overwritten)...")
 
     # Check credentials
     user = username or os.environ.get("EARTHDATA_USER")
@@ -1352,11 +1363,20 @@ def main():
     parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username")
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
     parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
-    parser.add_argument("--force-osm", action="store_true", help="Force re-download OSM waterways")
+    parser.add_argument("--force", action="store_true",
+                        help="Force re-fetch of the basin boundary AND OSM waterways/polygons "
+                             "(overwrites their caches; DEM untouched)")
+    parser.add_argument("--force-osm", action="store_true",
+                        help="Force re-download of OSM waterways/polygons only (boundary cache kept)")
+    parser.add_argument("--force-dem", action="store_true",
+                        help="Force re-download & re-mosaic of the ALOS DEM from NASA ASF (heavy)")
     parser.add_argument("--crop-buffer-m", type=float, default=2000.0,
                         help="Buffer in meters applied to the basin polygon when cropping OSM data "
                              "(default: 2000; keeps hydrology connected at the basin edge)")
     args = parser.parse_args()
+
+    force_all = args.force
+    force_osm = force_all or args.force_osm
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
 
@@ -1385,7 +1405,7 @@ def main():
         # 1. Basin Boundary (in dataset/{basin}/gis/) — MANDATORY (G5): no polygon, no pipeline
         boundary_path = os.path.join(basin_dir, "gis", f"{b}_boundary.geojson")
         try:
-            fetch_basin_boundary(b, boundary_path, all_st)
+            fetch_basin_boundary(b, boundary_path, all_st, force=force_all)
         except RuntimeError as ex:
             print(f"❌ ERROR: {ex}", file=sys.stderr)
             sys.exit(1)
@@ -1402,16 +1422,17 @@ def main():
         except Exception:
             boundary_geojson = None
         osm_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
-        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm,
+        fetch_osm_waterways(b, osm_path, all_st, force=force_osm,
                             basin_boundary_geojson=boundary_geojson, crop_buffer_m=args.crop_buffer_m)
 
         # 3b. OpenStreetMap Water Polygons for reservoirs / wide rivers (stream burning support)
         water_polygons_path = os.path.join(basin_dir, "gis", "osm_water_polygons.geojson")
-        fetch_osm_water_polygons(b, water_polygons_path, all_st, force=args.force_osm,
+        fetch_osm_water_polygons(b, water_polygons_path, all_st, force=force_osm,
                                  basin_boundary_geojson=boundary_geojson, crop_buffer_m=args.crop_buffer_m)
 
         # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
-        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password, chunk_size=args.chunk_size)
+        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password,
+                                 chunk_size=args.chunk_size, force=args.force_dem)
 
 
 if __name__ == "__main__":

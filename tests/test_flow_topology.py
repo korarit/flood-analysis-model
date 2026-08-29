@@ -944,6 +944,67 @@ def test_sanitize_osm_way_jumps():
     assert st["n_ways_in"] == 4 and st["n_ways_dropped"] == 1 and st["n_split"] >= 1
 
 
+# ---------------------------------------------------------------------------
+# 21. (round 5) fetch_basin_gis --force: boundary cache is bypassed & overwritten
+# ---------------------------------------------------------------------------
+def test_force_boundary_refetches_over_cache():
+    import tempfile
+    import types
+    from scripts import fetch_basin_gis as fbg
+
+    with tempfile.TemporaryDirectory() as td:
+        p = os.path.join(td, "x_boundary.geojson")
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(_detailed_polygon_geojson(), f)
+        with open(p, 'r', encoding='utf-8') as f:
+            content_before = f.read()
+
+        # fake ThaiWater response with a DIFFERENT geometry (around lon 102.5)
+        ring = [[102.5 + 0.1 * math.cos(2 * math.pi * i / 60),
+                 18.5 + 0.2 * math.sin(2 * math.pi * i / 60)] for i in range(60)]
+        ring.append(ring[0])
+        fake_feature = {"type": "Feature",
+                        "properties": {"BASIN_T": "ลุ่มน้ำx", "BASIN_CODE": "99"},
+                        "geometry": {"type": "Polygon", "coordinates": [ring]}}
+        calls = {"get": 0}
+
+        class FakeResp:
+            status_code = 200
+            def json(self):
+                return {"type": "FeatureCollection", "features": [fake_feature]}
+
+        def fake_get(url, timeout=30, **kw):
+            calls["get"] += 1
+            return FakeResp()
+
+        fake_requests = types.ModuleType("requests")
+        fake_requests.get = fake_get
+        saved = sys.modules.get("requests")
+        sys.modules["requests"] = fake_requests
+        try:
+            # WITHOUT force: the valid cache is served, network untouched
+            data = fbg.fetch_basin_boundary("x", p, [])
+            assert calls["get"] == 0, "valid cache must not trigger a refetch"
+            assert data["features"][0]["geometry"]["coordinates"][0][0][0] < 102.0
+
+            # WITH force: network called once, cache overwritten with the new geometry
+            data2 = fbg.fetch_basin_boundary("x", p, [], force=True)
+            assert calls["get"] == 1, "force must refetch from the source chain"
+            first_pt = data2["features"][0]["geometry"]["coordinates"][0][0]
+            assert abs(first_pt[0] - ring[0][0]) < 1e-6, "forced result must be the fetched geometry"
+        finally:
+            if saved is not None:
+                sys.modules["requests"] = saved
+            else:
+                sys.modules.pop("requests", None)
+
+        # the file on disk now holds the forced (fetched) boundary
+        with open(p, 'r', encoding='utf-8') as f:
+            content_after = f.read()
+        assert content_after != content_before
+        assert "102.5" in content_after
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -968,6 +1029,7 @@ def main():
         test_generate_fails_on_coarse_boundary_cache,
         test_break_exact_flats_removes_trenches,
         test_sanitize_osm_way_jumps,
+        test_force_boundary_refetches_over_cache,
     ]
     for t in tests:
         t()
