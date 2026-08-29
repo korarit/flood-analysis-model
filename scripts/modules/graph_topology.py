@@ -1948,19 +1948,20 @@ def build_water_body_transits(
             props = feats[i].get("properties", {}) or {}
         outlet_comp = find(outlet_node)
         interior = [nid for nid, pv in node_poly_by_id.items() if pv == pid]
-        comp_nodes: Dict[int, int] = {}
+        # per foreign component: the node closest to the outlet gets the transit edge
+        best_for_comp: Dict[int, Tuple[float, int]] = {}
         for nid in interior:
             comp = find(nid)
             if comp == outlet_comp:
                 continue
-            # keep the node of each foreign component closest to the outlet
             p = river_graph.nodes[nid]
             d = (p[0] - o_lon) ** 2 + (p[1] - o_lat) ** 2
-            if comp not in comp_nodes or d < comp_nodes[comp]:
-                comp_nodes[comp] = nid
+            cur = best_for_comp.get(comp)
+            if cur is None or d < cur[0]:
+                best_for_comp[comp] = (d, nid)
 
         n_edges = 0
-        for comp, nid in comp_nodes.items():
+        for comp, (_d, nid) in best_for_comp.items():
             if n_edges >= max_transit_edges_per_poly:
                 break
             z_n = river_graph.nodes[nid][2]
