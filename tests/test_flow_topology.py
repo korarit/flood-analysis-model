@@ -323,16 +323,15 @@ def test_end_to_end_synthetic_basin():
             gap = seg_km_local(coords[i], coords[i + 1])
             assert gap <= 2.01, f"{feat['id']} has {gap:.2f} km straight segment at idx {i}"
 
-    # Drainage branches tied to the rain station exist; identical networks shared by
-    # R1/R2 must be deduped into one feature carrying shared_with
+    # Drainage branches tied to the rain station exist; with round-6 FIRST-CLAIM
+    # ownership every branch is owned by exactly one LOCAL station (R1 or R2) —
+    # a far-away station can never steal branches, so no shared_with is needed.
     branch_feats = [f for f in features
                     if f["properties"].get("feature_type") == "rainfall_drainage_branch"]
     assert branch_feats, "expected at least one drainage branch for R1"
     assert all(f["properties"].get("from_station_id") in ("R1", "R2") for f in branch_feats)
     assert all(f["properties"]["branch_length_km"] >= 1.0 for f in branch_feats)
-    assert any("R2" in (f["properties"].get("shared_with") or []) for f in branch_feats), \
-        "R1/R2 share the same upstream network -> expect shared_with dedupe"
-    # no duplicated geometries remain
+    # no duplicated geometries (each channel head yields exactly one reach)
     seen_geoms = set()
     for f in branch_feats:
         key = tuple(map(tuple, f["geometry"]["coordinates"]))
@@ -524,30 +523,54 @@ def test_river_first_cascade_with_mask():
     assert p0["total_distance_km"] > p0["distance_km"], "channel part must add distance"
 
 
-def test_branch_cap_and_dedupe():
-    """G1/G2: per-station cap (longest kept) + cross-station geometry dedupe."""
+def test_branch_first_claim_ownership():
+    """Round 6 (Phase B): a branch belongs to the station whose path the water
+    reaches FIRST walking downstream — a far-away downstream station can never
+    steal upstream branches (the round-5 whole-basin ownership bug)."""
     from collections import Counter
     B = _build_synthetic_basin()
     col = lambda r: _channel_col(r)
 
-    # Two stations with overlapping upstream networks; both enter the channel at row 200
     seeds = {
         "RA": [(r, col(r)) for r in range(200, 320)],
         "RB": [(r, col(r)) for r in range(200, 325)],
+        # RC sits FAR downstream: heads NORTH of RA's path end must never be
+        # attributed to RC even though their water eventually passes RC's path.
+        "RC": [(r, col(r)) for r in range(700, 720)],
     }
-    # cap = 1 -> at most one branch per station
     feats, truncated = extract_station_drainage_branches(
         seeds, B["fdir"], B["acc"], B["transform"], crs=None,
-        min_branch_acc=500, min_length_km=0.2, max_branches_per_station=1
+        min_branch_acc=500, min_length_km=0.2, max_branches_per_station=5
     )
     assert not truncated
     per = Counter(f["properties"]["from_station_id"] for f in feats)
-    assert all(v <= 1 for v in per.values()), f"cap violated: {per}"
-    # RA/RB walk the identical channel with the same entry cell -> deduped to ONE feature
-    assert len(feats) == 1, f"expected 1 deduped feature, got {len(feats)}"
-    assert feats[0]["properties"]["from_station_id"] == "RA"
-    assert feats[0]["properties"].get("shared_with") == ["RB"]
-    assert feats[0]["id"].startswith("branch_RA_")
+    assert per.get("RA", 0) >= 1, f"expected RA-owned branches, got {per}"
+    # first-claim ownership replaces the shared_with dedupe mechanism entirely
+    assert all("shared_with" not in f["properties"] for f in feats)
+    # per-owner cap still enforced (longest kept)
+    assert all(v <= 5 for v in per.values())
+    # ANTI-STEAL: every RC-owned branch must lie entirely SOUTH of RA's path end
+    # (row 320) — RC can only own reaches that drain into ITS OWN path segment.
+    rc_south_limit = B["y0"] - 320 * RES
+    for f in feats:
+        if f["properties"]["from_station_id"] == "RC":
+            max_lat = max(pt[1] for pt in f["geometry"]["coordinates"])
+            assert max_lat <= rc_south_limit + 1e-9, \
+                f"RC stole a branch north of its catchment: {f['id']} max_lat={max_lat}"
+
+    # Processing ORDER must not decide ownership for DISTINCT catchments: reversing
+    # the station order keeps RC's ownership and the RA∪RB total identical (RA/RB
+    # genuinely share trunk cells, so either may own those — both are local).
+    seeds_rev = {"RC": seeds["RC"], "RB": seeds["RB"], "RA": seeds["RA"]}
+    feats_rev, _ = extract_station_drainage_branches(
+        seeds_rev, B["fdir"], B["acc"], B["transform"], crs=None,
+        min_branch_acc=500, min_length_km=0.2, max_branches_per_station=5
+    )
+    per_rev = Counter(f["properties"]["from_station_id"] for f in feats_rev)
+    assert per_rev.get("RC", 0) == per.get("RC", 0), \
+        f"RC ownership must be order-independent: {per} vs {per_rev}"
+    assert per_rev.get("RA", 0) + per_rev.get("RB", 0) == per.get("RA", 0) + per.get("RB", 0), \
+        f"RA/RB total ownership must be order-independent: {per} vs {per_rev}"
 
 
 # ---------------------------------------------------------------------------
@@ -1014,6 +1037,180 @@ def test_force_boundary_refetches_over_cache():
         assert "102.5" in content_after
 
 
+# ---------------------------------------------------------------------------
+# 22. (round 6 / Phase A2) open-water D8 stop: trace stops at water polygons,
+#     except when it STARTS inside the same polygon (gauges on reservoirs)
+# ---------------------------------------------------------------------------
+def test_water_poly_stop_stops_d8():
+    from scripts.modules.graph_topology import WATER_POLY_STOP
+    H, W = 40, 10
+    fdir = np.zeros((H, W), dtype=np.uint8)
+    fdir[:, :] = 4  # everything flows south
+    transform = Affine(RES, 0, 100.0, 0, -RES, 18.3)
+
+    poly_ids = np.zeros((H, W), dtype=np.uint16)
+    poly_ids[10:20, :] = 1  # one reservoir across rows 10-19
+    poly_mask = poly_ids > 0
+
+    # Overland trace from the north must stop at the SHORELINE, not cross the water
+    coords, stop_data, cells = trace_downstream_path(
+        0, 5, fdir, transform, crs=None, water_poly_mask=poly_mask,
+        water_poly_ids=poly_ids, max_steps=100
+    )
+    assert stop_data == WATER_POLY_STOP, f"trace must stop at the shoreline, got {stop_data!r}"
+    assert cells[-1] == (10, 5), f"must stop at the first water cell, got {cells[-1]}"
+    assert len(cells) == 11, "must not trace across the reservoir"
+
+    # A trace STARTING INSIDE the reservoir keeps going through its own polygon and
+    # only stops if it enters a DIFFERENT one (here: never) — gauges on reservoirs work.
+    coords2, stop_data2, cells2 = trace_downstream_path(
+        12, 5, fdir, transform, crs=None, water_poly_mask=poly_mask,
+        water_poly_ids=poly_ids, start_poly_id=1, max_steps=100
+    )
+    assert stop_data2 is None, f"own-polygon cells must not stop the trace, got {stop_data2!r}"
+    assert len(cells2) > 10 and cells2[-1][0] >= 20
+
+    # Entering a DIFFERENT polygon still stops
+    poly_ids2 = poly_ids.copy()
+    poly_ids2[25:30, :] = 2
+    coords3, stop_data3, cells3 = trace_downstream_path(
+        12, 5, fdir, transform, crs=None, water_poly_mask=(poly_ids2 > 0),
+        water_poly_ids=poly_ids2, start_poly_id=1, max_steps=100
+    )
+    assert stop_data3 == WATER_POLY_STOP and cells3[-1] == (25, 5)
+
+
+# ---------------------------------------------------------------------------
+# 23. (round 6 / Phase A3) reservoir transit: disconnected backbone components
+#     around a lake get connected through the outlet node
+# ---------------------------------------------------------------------------
+def test_reservoir_transit_connects_components():
+    from scripts.modules.graph_topology import build_water_body_transits
+
+    H, W = 300, 60
+    x0, y0 = 100.0, 18.3
+    transform = Affine(RES, 0, x0, 0, -RES, y0)
+
+    # uniform southward accumulation with the dam cell INSIDE the lake at its
+    # downstream end (row 140, col 30 = where the lower way exits the water)
+    acc = np.full((H, W), 1000, dtype=np.int32)
+    acc[140, 30] = 99_000
+
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    elev_fn = lambda lo, la: 200.0 + (la - 18.0) * 2000.0
+
+    # Upstream way: ends at the NORTH shoreline of the lake (row 120)
+    upper = [[x0 + 0.003, y0 - (r + 0.5) * RES] for r in range(100, 121)]
+    g.add_river_segment(upper, sample_elev_fn=elev_fn, river_name="upper", osm_id="1")
+    # Downstream way: starts at the SOUTH shoreline (row 140) and flows past the dam
+    lower = [[x0 + 0.003, y0 - (r + 0.5) * RES] for r in range(140, 261)]
+    g.add_river_segment(lower, sample_elev_fn=elev_fn, river_name="lower", osm_id="2")
+    g.finalize_connectivity()
+    g.build_spatial_index()
+
+    # The lake spans rows 120-140 — a gap the two ways never bridge
+    lake = {"type": "FeatureCollection", "features": [
+        {"type": "Feature", "properties": {"osm_id": 777, "name": "test_reservoir"},
+         "geometry": {"type": "Polygon", "coordinates": [[
+             [x0 + 0.001, y0 - 120 * RES], [x0 + 0.006, y0 - 120 * RES],
+             [x0 + 0.006, y0 - 141 * RES], [x0 + 0.001, y0 - 141 * RES],
+             [x0 + 0.001, y0 - 120 * RES]]]}}
+    ]}
+
+    transits, poly_ids, stats = build_water_body_transits(
+        g, lake, transform, (H, W), acc, crs=None, min_area_cells=10
+    )
+    assert poly_ids is not None and poly_ids.max() >= 1
+    assert stats["with_outlet"] >= 1, "the outlet cell (acc max) must snap to the backbone"
+    assert 0 in transits, f"expected a transit for polygon 0, got {transits}"
+
+    # The upper way's end must now route to the lower way's downstream end
+    head, _ = g.find_nearest_node(100.003, y0 - 100 * RES, max_dist_deg=0.01)
+    mouth, _ = g.find_nearest_node(100.003, y0 - 260 * RES, max_dist_deg=0.01)
+    coords, dist = g.shortest_path(head, mouth, max_dist_km=50.0)
+    assert coords is not None, "transit edge must bridge the lake gap"
+    assert dist > 0.0
+    # the route contains ONE straight hop across the lake (the transit edge)
+    transit_hops = [i for i in range(len(coords) - 1)
+                    if math.hypot(coords[i][0] - coords[i + 1][0],
+                                  coords[i][1] - coords[i + 1][1]) > 15 * RES]
+    assert len(transit_hops) == 1, f"expected exactly one transit hop, got {transit_hops}"
+
+
+# ---------------------------------------------------------------------------
+# 24. (round 6 / Phase A2) end-to-end: gauge chain crosses a lake via the
+#     backbone (centerline / transit) — never via a D8 straight teleport
+# ---------------------------------------------------------------------------
+def test_end_to_end_lake_crossing():
+    B = _build_synthetic_basin()
+
+    # A lake across the main channel between gauges W400 (row 400) and W600 (row 600)
+    x0, y0 = B["x0"], B["y0"]
+    c_lo = min(_channel_col(r) for r in range(495, 546)) - 8
+    c_hi = max(_channel_col(r) for r in range(495, 546)) + 8
+    lake = {"type": "FeatureCollection", "features": [
+        {"type": "Feature", "properties": {"osm_id": 555, "name": "synth_lake"},
+         "geometry": {"type": "Polygon", "coordinates": [[
+             [x0 + c_lo * RES, y0 - 495 * RES], [x0 + c_hi * RES, y0 - 495 * RES],
+             [x0 + c_hi * RES, y0 - 545 * RES], [x0 + c_lo * RES, y0 - 545 * RES],
+             [x0 + c_lo * RES, y0 - 495 * RES]]]}}
+    ]}
+
+    snapped = snap_stations_to_stream(
+        B["water"], B["fdir"], B["acc"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None
+    )
+    geojson, gauge_relations, _rr = build_flow_paths_and_relations(
+        snapped, B["rain"], B["fdir"], B["acc"], B["dem"], B["transform"],
+        osm_waterways_geojson=B["osm"], crs=None,
+        min_flow_km=1.0, cascade_max_km=60.0, branch_min_acc=500,
+        include_branches=False, branch_min_km=1.0,
+        water_polygons_geojson=lake
+    )
+
+    # The gauge chain W400 -> W600 must still exist (routed around/through the lake
+    # via the OSM centerline + transit), never dropped.
+    pairs = {(r.get("from_station_id"), r.get("to_station_id")) for r in gauge_relations}
+    assert ("W400", "W600") in pairs, f"W400->W600 lost across the lake: {pairs}"
+
+    feat = next(f for f in geojson["features"]
+                if f["properties"].get("from_station_id") == "W400"
+                and f["properties"].get("to_station_id") == "W600")
+    coords = feat["geometry"]["coordinates"]
+    # no D8 straight teleport across the lake: segments stay below ~1km
+    for i in range(len(coords) - 1):
+        gap = seg_km_local(coords[i], coords[i + 1])
+        assert gap <= 1.01, f"{feat['id']} has a {gap:.2f} km straight segment (lake teleport?)"
+
+
+# ---------------------------------------------------------------------------
+# 25. (round 6 / Phase D) validator: axis-aligned teleports FAIL unless the
+#     feature is an honest tagged reservoir_transit
+# ---------------------------------------------------------------------------
+def test_validator_axis_jump_detection():
+    import importlib
+    vf = importlib.import_module("scripts.validate_flow_paths")
+
+    def feat(fid, ftype, coords, **props):
+        return {"type": "Feature", "id": fid,
+                "properties": dict({"feature_type": ftype}, **props),
+                "geometry": {"type": "LineString", "coordinates": coords}}
+
+    geojson = {"type": "FeatureCollection", "_meta": {}, "features": [
+        # 30km due-south teleport (the round-5/6 defect)
+        feat("bad", "gauge_to_gauge_flowpath",
+             [[100.5, 18.10], [100.5, 18.101], [100.5, 17.83]]),
+        # same teleport but honestly tagged as a reservoir transit -> exempt
+        feat("ok", "rainfall_to_gauge_flowpath",
+             [[100.8, 18.48], [100.8, 18.18]],
+             reservoir_transit=True),
+    ]}
+    rep = vf.validate(geojson, max_jump_km=1.0, min_length_km=0.1)
+    assert rep["axis_jumps"] == 1, f"exactly one untagged axis teleport expected: {rep['axis_jumps']}"
+    assert rep["axis_jumps_transit"] == 1, "tagged transit must be counted separately"
+    assert rep["jumps"][0]["axis"] in ("N-S", "E-W")
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -1023,7 +1220,7 @@ def main():
         test_burn_polygons,
         test_end_to_end_synthetic_basin,
         test_branch_min_km_default,
-        test_branch_cap_and_dedupe,
+        test_branch_first_claim_ownership,
         test_noding_crossing_ways_connect,
         test_endpoint_weld_connects_gapped_ways,
         test_snap_point_to_graph_splits_edge,
@@ -1039,6 +1236,10 @@ def main():
         test_break_exact_flats_removes_trenches,
         test_sanitize_osm_way_jumps,
         test_force_boundary_refetches_over_cache,
+        test_water_poly_stop_stops_d8,
+        test_reservoir_transit_connects_components,
+        test_end_to_end_lake_crossing,
+        test_validator_axis_jump_detection,
     ]
     for t in tests:
         t()

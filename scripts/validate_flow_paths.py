@@ -216,6 +216,8 @@ def validate(geojson, max_jump_km, min_length_km):
         "jumps": [],
         "mid_path_jumps": 0,
         "end_jumps": 0,
+        "axis_jumps": 0,
+        "axis_jumps_transit": 0,
         "stubs": 0,
         "degenerate": 0,
         "max_jump_km": 0.0,
@@ -230,6 +232,7 @@ def validate(geojson, max_jump_km, min_length_km):
         if len(coords) < 2:
             report["degenerate"] += 1
             continue
+        is_transit = bool(props.get("reservoir_transit"))
 
         for i in range(len(coords) - 1):
             d = seg_km(coords[i], coords[i + 1])
@@ -242,14 +245,28 @@ def validate(geojson, max_jump_km, min_length_km):
                     report["mid_path_jumps"] += 1
                 else:
                     report["end_jumps"] += 1
+                # Round 6: classify axis-aligned teleports (N-S / E-W straight walls).
+                # These are D8 flat-resolution trenches, NOT real rivers. A tagged
+                # reservoir_transit hop is an honest straight crossing and is exempt.
+                dlon_m = abs(coords[i + 1][0] - coords[i][0]) * 111.32 * 0.95
+                dlat_m = abs(coords[i + 1][1] - coords[i][1]) * 110.54
+                axis = ""
+                if min(dlon_m, dlat_m) <= 50.0:
+                    axis = "N-S" if dlon_m < dlat_m else "E-W"
+                    if is_transit:
+                        report["axis_jumps_transit"] += 1
+                    else:
+                        report["axis_jumps"] += 1
                 report["jumps"].append({
                     "feature_id": feat.get("id", ""),
-                    "feature_type": props.get("feature_type", ""),
+                    "feature_type": ftype,
                     "from_station_id": props.get("from_station_id", ""),
                     "to_station_id": props.get("to_station_id", ""),
                     "jump_km": round(d, 2),
                     "at_index": i,
                     "kind": kind,
+                    "axis": axis,
+                    "reservoir_transit": is_transit,
                 })
 
         total_len = sum(seg_km(coords[i], coords[i + 1]) for i in range(len(coords) - 1))
@@ -326,7 +343,9 @@ def check_layer_integrity(geojson):
         "degraded_attaches": 0,
         "meta": {"has_meta": bool(geojson.get("_meta")),
                  "osm_source_label": None,
-                 "filter_report_ok": False},
+                 "filter_report_ok": False,
+                 "osm_audit_ok": False,
+                 "jump_split": None},
         "checked_flowpaths": 0,
     }
 
@@ -353,10 +372,13 @@ def check_layer_integrity(geojson):
         if props.get("attach_quality") == "degraded":
             report["degraded_attaches"] += 1
         attach_osm = str(props.get("attach_osm_id") or "")
+        # Round 6: an honest straight reservoir-transit hop is exempt from the
+        # "must sit on an osm_river line" checks (it spans open water by design).
+        is_transit = bool(props.get("reservoir_transit"))
 
         # Pure overland paths (never contacted a river) are exempt — their endpoints
         # are terrain pits by design and the routing field records that honestly.
-        if str(props.get("routing", "")).startswith("overland"):
+        if str(props.get("routing", "")).startswith("overland") or is_transit:
             continue
 
         end = coords[-1]
@@ -391,6 +413,11 @@ def check_layer_integrity(geojson):
         isinstance(clip_stats.get(t), dict) and clip_stats[t].get("n_out", 0) >= 0
         for t in needed if t in present_types
     )
+    # Round 6 (Phase C/D): OSM layer audit counters must be present — without them
+    # it is impossible to verify that no OSM way was silently deleted.
+    jump_split = filters.get("osm_way_jump_split")
+    report["meta"]["jump_split"] = jump_split
+    report["meta"]["osm_audit_ok"] = isinstance(jump_split, dict) and "n_ways_in" in jump_split
     return report
 
 
@@ -478,6 +505,8 @@ def main():
     print(f"Stub segments (<5m)   : {report['stubs']}")
     print(f"Jumps > {args.max_jump_km:g} km      : {len(report['jumps'])} "
           f"(mid_path={report['mid_path_jumps']}, at_end={report['end_jumps']})")
+    print(f"Axis-aligned teleports: {report['axis_jumps']} "
+          f"(+{report['axis_jumps_transit']} tagged reservoir_transit — exempt)")
     print(f"Worst jump            : {report['max_jump_km']:.2f} km")
 
     if report.get("below_min_length"):
@@ -486,7 +515,9 @@ def main():
     if report["jumps"]:
         print("\nWORST JUMPS:")
         for j in report["jumps"][:args.top]:
-            print(f"    {j['jump_km']:>8.2f} km  [{j['kind']:<8s}]  {j['feature_id']} "
+            axis = f" [{j['axis']}]" if j.get("axis") else ""
+            tr = " (transit)" if j.get("reservoir_transit") else ""
+            print(f"    {j['jump_km']:>8.2f} km  [{j['kind']:<8s}]{axis}{tr}  {j['feature_id']} "
                   f"({j['feature_type']}, from={j['from_station_id']} to={j['to_station_id'] or '-'}) @ idx {j['at_index']}")
 
     orphan_fail = False
@@ -515,6 +546,11 @@ def main():
         print(f"    Output `_meta` present        : {m['has_meta']}")
         print(f"    OSM source label              : {m['osm_source_label'] or '-'}")
         print(f"    Per-layer filter report (F1)  : {'OK' if m['filter_report_ok'] else 'MISSING'}")
+        print(f"    OSM jump-split audit counters : {'OK' if m['osm_audit_ok'] else 'MISSING'}")
+        if isinstance(m.get("jump_split"), dict):
+            js = m["jump_split"]
+            print(f"        ways {js.get('n_ways_in', '-')} -> {js.get('n_ways_out', '-')}, "
+                  f"dropped: {js.get('n_ways_dropped', '-')}, parts dropped: {js.get('n_parts_dropped', '-')}")
         print(f"    osm_river features w/ basin_clipped : {len(v2['osm_river_clipped'])} (must be 0 — G2)")
         print(f"    Flow paths checked (endpoints)      : {v2['checked_flowpaths']:,}")
         print(f"    Floating endpoints (> {ATTACH_TOL_KM * 1000:.0f} m from any river, not at gauge): {len(v2['floating_endpoints'])}")
@@ -534,8 +570,14 @@ def main():
             v2_fail_reasons.append("attach points off the referenced river (G4)")
         if not m["has_meta"] or not m["filter_report_ok"]:
             v2_fail_reasons.append("missing per-layer filter report (F1/F4)")
+        if not m["osm_audit_ok"]:
+            v2_fail_reasons.append("missing OSM jump-split audit counters (cannot verify OSM integrity)")
         if (m["osm_source_label"] or "") == "station_bbox":
             v2_fail_reasons.append("OSM source is station_bbox — rectangular fallback is forbidden (F3/G5)")
+        if report["axis_jumps"] > 0:
+            v2_fail_reasons.append(
+                f"{report['axis_jumps']} axis-aligned straight teleports "
+                "(D8 flat trenches / untagged water crossings)")
 
         if args.boundary:
             outside, examples, skipped = check_points_inside_basin(geojson, args.boundary)

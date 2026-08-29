@@ -272,6 +272,7 @@ def generate_basin_flow_paths(
         branch_max_count=branch_max_count,
         branch_min_km=branch_min_km,
         river_mask=river_mask,
+        water_polygons_geojson=water_polygons if n_poly > 0 else None,
         overland_max_km=overland_max_km,
         basin_boundary_geojson=boundary_geojson,
         clip_to_basin=clip_to_basin

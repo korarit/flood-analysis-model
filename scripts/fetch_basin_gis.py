@@ -1253,6 +1253,7 @@ def sanitize_osm_way_jumps(
         return geojson
     out_features: List[Dict[str, Any]] = []
     n_in = n_out = n_split = n_parts_dropped = n_ways_dropped = 0
+    dropped_osm_ids: List[str] = []
     for feat in geojson.get("features", []):
         geom = feat.get("geometry") or {}
         if geom.get("type") != "LineString":
@@ -1284,6 +1285,7 @@ def sanitize_osm_way_jumps(
         n_parts_dropped += n_parts_before - len(parts)
         if not parts:
             n_ways_dropped += 1
+            dropped_osm_ids.append(str(feat.get("properties", {}).get("osm_id", "") or feat.get("id", "")))
             continue
         n_split += 1
         if len(parts) == 1:
@@ -1308,6 +1310,9 @@ def sanitize_osm_way_jumps(
     meta["way_jump_stats"] = {
         "n_ways_in": n_in, "n_ways_out": n_out, "n_split": n_split,
         "n_ways_dropped": n_ways_dropped, "n_parts_dropped": n_parts_dropped,
+        # Round 6 (Phase C): audit trail of every way removed entirely, so the
+        # validator (and humans) can verify nothing was silently deleted.
+        "dropped_osm_ids": dropped_osm_ids[:200],
         "max_jump_km": max_jump_km, "min_part_km": min_part_km,
     }
     geojson = dict(geojson)

@@ -598,36 +598,125 @@ def build_river_mask(
     return mask
 
 
+def build_water_polygon_mask(
+    water_polygons_geojson: Dict[str, Any],
+    transform: Affine,
+    out_shape: Tuple[int, int],
+    crs: Any = None
+) -> Tuple[Optional[np.ndarray], Optional[np.ndarray]]:
+    """
+    Round 6 (Phase A2): rasterizes OSM water polygons (reservoirs / lakes / wide rivers)
+    into (mask, ids):
+      mask = bool array, True on open-water cells
+      ids  = uint16 array, 0 = none, else feature_index+1 of the polygon covering the cell
+    Used to STOP D8 traces at open-water boundaries (water must not be traced
+    cell-by-cell across a reservoir — it enters the OSM backbone / reservoir transit
+    instead) and to keep drainage-branch BFS out of water bodies.
+    Returns (None, None) when no polygons are available / rasterization fails.
+    """
+    if not water_polygons_geojson or not water_polygons_geojson.get("features"):
+        return None, None
+
+    from rasterio.features import rasterize
+    from shapely.geometry import shape
+
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            inv_transformer = None
+
+    def _to_raster_crs(geom_dict):
+        if inv_transformer is not None:
+            from shapely.ops import transform as shp_transform
+            geom_obj = shape(geom_dict)
+            return shp_transform(lambda x, y: inv_transformer.transform(x, y), geom_obj)
+        return shape(geom_dict)
+
+    shapes = []
+    n_used = 0
+    for feat in water_polygons_geojson.get("features", []):
+        geom = feat.get("geometry")
+        if not geom or geom.get("type") not in ("Polygon", "MultiPolygon"):
+            continue
+        try:
+            shapes.append((_to_raster_crs(geom), n_used + 1))
+            n_used += 1
+        except Exception:
+            continue
+
+    if not shapes:
+        return None, None
+    try:
+        ids = rasterize(
+            shapes,
+            out_shape=tuple(out_shape),
+            transform=transform,
+            fill=0,
+            dtype=np.uint16,
+            all_touched=False
+        )
+    except Exception as ex:
+        print(f"  [WARN] Water polygon mask rasterization failed: {ex}.")
+        return None, None
+    mask = ids > 0
+    if not mask.any():
+        return None, None
+    return mask, ids
+
+
 def break_exact_flats(
     dem: np.ndarray,
     nodata: float = -9999.0,
     period: int = 64
 ) -> np.ndarray:
     """
-    Breaks EXACT-constant flat plateaus in place (Step 2a, round 5).
+    Breaks D8 straight-trench artifacts in place (round 6 rewrite — hash ULP noise).
 
-    Calm water surfaces in the raw RTC DEM (and constant polygon-burn offsets) make
-    huge regions share one identical float32 elevation. D8 flat resolution on such a
-    symmetric plateau draws tens-of-km STRAIGHT trenches along raster rows/columns —
-    the axis-aligned teleports seen in the flow output (verified: a 2,384-cell
-    same-code run sits exactly on a 2,389-cell identical-value run).
+    pyflwdir's depression fill (Wang & Liu 2006, used inside `pyflwdir.from_dem`)
+    assigns D8 by heap pop order, and its fill raises depressions to their sill level
+    EXACTLY (delv = z0 - z1, no epsilon). Two degenerate cases therefore produce
+    tens-of-km STRAIGHT trenches along raster rows/columns/diagonals:
+      1. EXACT-constant plateaus (calm water returns, constant polygon-burn offsets):
+         every plateau cell pops at the same elevation, so the pop order degenerates
+         into raster/insertion order (verified: a 2,384-cell same-code run sits exactly
+         on a 2,389-cell identical-value run).
+      2. Planar slopes: a cell's lower neighbours pop at identical elevations and the
+         heap tie-break (row, col) claims every cell from the same side, drawing one
+         continuous diagonal for the whole slope.
+    The round-5 sawtooth fixed both but encoded a systematic (row+col) mod P pattern
+    whose equal-"gutter" lines re-created 30-40 km axis-aligned jumps on the real
+    Sirikit reservoir plateau (v5 output, --force on).
 
-    Fix: superpose a deterministic sawtooth micro-gradient along raster order —
-    a per-cell increment of exactly 1 float32 ULP of the local elevation, wrapping
-    every `period` cells. Within any `period`-cell stretch the surface is strictly
-    monotonic, so D8 can never chain more than `period` identical-direction steps
-    across a flat; the wrap drop (~period ULPs ≈ sub-mm) is far below any burn depth
-    and is healed by pyflwdir's depression fill (verified: no pits remain, straight
-    runs drop from 398 to 63 cells on a synthetic plateau). Natural sloped cells are
-    unaffected: the added offset is orders of magnitude below real terrain slopes.
+    Round-6 fix: superpose a deterministic per-cell micro-noise of ULP scale with NO
+    spatial structure (integer hash of row/col). Adjacent cells almost never tie, so
+    the fill's pop order follows scrambled micro-topography instead of raster order —
+    straight runs collapse to a couple of cells — while the macro drainage is still
+    decided by the depression sill, i.e. hydrologically identical. The absolute offset
+    stays sub-millimetre wherever the float32 ULP allows (the amplitude adapts to the
+    local ULP), always far below any burn depth or real terrain relief. Tiny pits
+    created by the noise are healed by pyflwdir's fill.
+
+    `period` is kept for API compatibility and is no longer used.
     """
     valid = (dem != nodata) & ~np.isnan(dem)
+    if not valid.any():
+        return dem
     nrows, ncols = dem.shape
-    r = np.arange(nrows, dtype=np.float64)[:, None]
-    c = np.arange(ncols, dtype=np.float64)[None, :]
-    k = np.fmod(r + c, float(period)) - (period // 2)          # -P/2 .. P/2 sawtooth
-    ulp = np.maximum(np.abs(dem) * 2.0 ** -23, 2.0 ** -30)     # float32 ULP of local elevation
-    dem += np.where(valid, (k * ulp).astype(np.float32), 0.0)
+
+    # float32 ULP of the local elevation (bounded away from zero near nodata/0 m)
+    ulp = np.maximum(np.abs(dem) * np.float32(2.0 ** -23), np.float32(2.0 ** -30))
+    # noise amplitude in ULPs: keep the absolute offset <= ~0.5 mm where the ULP
+    # allows it, but never below 64 ULPs (enough distinct levels to break local ties)
+    amp = np.clip(np.float32(0.0005) / ulp, np.float32(64.0), np.float32(1024.0)).astype(np.int64)
+    rr = np.arange(nrows, dtype=np.int64)[:, None]
+    cc = np.arange(ncols, dtype=np.int64)[None, :]
+    h = np.abs(rr * np.int64(73856093) ^ cc * np.int64(19349663)) % np.int64(1024)
+    noise = (h % amp).astype(np.float32) * ulp
+    dem += np.where(valid, noise, np.float32(0.0)).astype(np.float32)
     return dem
 
 

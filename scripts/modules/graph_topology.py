@@ -25,6 +25,11 @@ from .terrain_engine import D8_DELTAS
 # (OSM waterway footprint) before reaching any gauge footprint.
 RIVER_STOP = "__river_stop__"
 
+# Sentinel returned when the trace stops on an OSM water POLYGON cell (reservoir /
+# lake / wide river surface). Open water must not be traced cell-by-cell: the flow
+# enters the backbone / reservoir transit instead (round 6, Phase A2).
+WATER_POLY_STOP = "__water_poly_stop__"
+
 
 def _point_seg_project(px: float, py: float, ax: float, ay: float, bx: float, by: float):
     """
@@ -1387,7 +1392,10 @@ def trace_downstream_path(
     stop_condition_fn=None,
     min_lat: Optional[float] = None,
     max_steps: int = 5000,
-    river_mask: Optional[np.ndarray] = None
+    river_mask: Optional[np.ndarray] = None,
+    water_poly_mask: Optional[np.ndarray] = None,
+    water_poly_ids: Optional[np.ndarray] = None,
+    start_poly_id: int = 0
 ) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
@@ -1395,6 +1403,12 @@ def trace_downstream_path(
     When `river_mask` is provided (OSM waterway footprint), the trace also stops — with
     stop_data=RIVER_STOP — as soon as it steps onto a river cell AFTER the first cell,
     so overland runoff merges into the nearest river instead of crossing it.
+    Round 6 (Phase A2): when `water_poly_mask` is provided (OSM water polygons), the
+    trace stops — with stop_data=WATER_POLY_STOP — on the FIRST open-water cell whose
+    polygon id differs from `start_poly_id`. A trace that STARTS inside a water body
+    (e.g. a gauge on a reservoir) keeps tracing through its own polygon and only stops
+    when it enters a different one, so reservoir-crossing teleports are impossible
+    while downstream traces out of a reservoir still work.
     Returns (coordinates_list [[lon, lat], ...], stop_data, path_cells [(r, c), ...]).
     The cell list enables downstream reuse (e.g. upstream drainage-branch BFS).
     """
@@ -1403,6 +1417,11 @@ def trace_downstream_path(
     visited: Set[Tuple[int, int]] = set()
     stop_data = None
     path_rc = []
+
+    def _poly_id_at(r: int, c: int) -> int:
+        if water_poly_ids is not None and 0 <= r < nrows and 0 <= c < ncols:
+            return int(water_poly_ids[r, c])
+        return 0
 
     for _ in range(max_steps):
         if not (0 <= curr_r < nrows and 0 <= curr_c < ncols):
@@ -1422,6 +1441,14 @@ def trace_downstream_path(
         # The starting cell is exempt (a station already on a river must trace away).
         if river_mask is not None and len(path_rc) > 1 and river_mask[curr_r, curr_c]:
             stop_data = RIVER_STOP
+            break
+
+        # Open-water stop (round 6): stop on the first water-polygon cell that is not
+        # the polygon the trace started in (start cell exempt, own polygon exempt).
+        if (water_poly_mask is not None and len(path_rc) > 1
+                and water_poly_mask[curr_r, curr_c]
+                and _poly_id_at(curr_r, curr_c) != start_poly_id):
+            stop_data = WATER_POLY_STOP
             break
 
         if min_lat is not None:
@@ -1487,22 +1514,33 @@ def extract_station_drainage_branches(
     southern_limit_lat: Optional[float] = None,
     max_branches_per_station: int = 30,
     river_mask: Optional[np.ndarray] = None,
-    river_merge_max_cells: int = 50
+    river_merge_max_cells: int = 50,
+    water_poly_mask: Optional[np.ndarray] = None
 ) -> Tuple[List[Dict[str, Any]], bool]:
     """
-    E3: Extracts upstream D8 channel branches (dendritic tributaries) draining into each
-    rain station's overland flow path. One feature per branch, tagged with the owning
-    rain station (from_station_id).
+    E3 (round 6 rewrite — FIRST-CLAIM ownership): upstream D8 channel branches
+    (dendritic tributaries) draining into the rain stations' flow paths, one feature
+    per branch tagged with the OWNING rain station (from_station_id).
 
-    Algorithm per station — O(K) time / O(K) RAM in collected channel cells (mask reused):
-      1. Reverse BFS upstream from the path cells; a neighbor joins only when
-         acc >= min_branch_acc (real channels, not hillslope noise).
-      2. Channel heads = branch cells with no in-branch upstream neighbor (trunk excluded).
-      3. Walk each head downstream until it reaches the trunk (seed path) or an
-         already-walked junction -> contiguous, non-overlapping reach LineStrings.
-      4. Filter by length >= min_length_km, cap to the longest
-         `max_branches_per_station` branches per station.
-      5. Dedupe identical geometries shared across stations (properties["shared_with"]).
+    Round-5 bug this replaces: the per-station reverse BFS had NO boundary, so every
+    station whose path touched a major channel claimed the ENTIRE upstream network of
+    that channel; the geometry dedupe then kept whichever station was processed FIRST
+    as the owner — one far-away station (1137134 on nan) ended up owning ~20 branches
+    scattered over the whole basin with 60-70 stations in `shared_with`.
+
+    Round-6 algorithm (one global pass, O(K) amortized):
+      1. FIRST-CLAIM station ownership of every seed (path) cell — dict insertion
+         order = station processing order; overlapping path cells resolve to the
+         first station, but all such candidates are LOCAL to that cell anyway.
+      2. ONE global reverse BFS upstream from all seeds claims the shared channel
+         network once (acc >= min_branch_acc; cells inside open water polygons are
+         never claimed — branches must not run across reservoirs).
+      3. Channel heads (claimed cells with no in-branch upstream neighbour) walk D8
+         DOWNSTREAM until they reach the first owned seed cell — that station owns
+         the whole reach. This is the hydrologic first-contact semantics: a branch
+         belongs to the station whose path the water actually reaches first, so a
+         far-away downstream station can never steal upstream branches.
+      4. Per-owner length filter / cap (longest first) + stable ids.
 
     Returns (features, truncated) where truncated=True means the cell guard fired
     (caller may retry with a higher min_branch_acc).
@@ -1529,173 +1567,168 @@ def extract_station_drainage_branches(
             lons, lats = xs, ys
         return [[round(float(lo), 6), round(float(la), 6)] for lo, la in zip(lons, lats)]
 
-    visited = np.zeros((nrows, ncols), dtype=bool)
-    features: List[Dict[str, Any]] = []
-    any_truncated = False
-
+    # 1. first-claim ownership of seed cells
+    station_of_cell: Dict[Tuple[int, int], str] = {}
     for r_id, seed_cells in branch_seeds.items():
-        if not seed_cells:
-            continue
-        seed_set = set(seed_cells)
-        branch_cells: List[Tuple[int, int]] = []
-        branch_set: Set[Tuple[int, int]] = set()
-        stack: List[Tuple[int, int]] = []
+        for cell in seed_cells:
+            station_of_cell.setdefault(cell, r_id)
+    if not station_of_cell:
+        return [], False
 
-        def _claim(r: int, c: int) -> None:
-            if 0 <= r < nrows and 0 <= c < ncols and not visited[r, c]:
-                visited[r, c] = True
-                branch_cells.append((r, c))
-                branch_set.add((r, c))
-                stack.append((r, c))
+    # 2. one global reverse BFS upstream from ALL seeds (shared network claimed once)
+    visited = np.zeros((nrows, ncols), dtype=bool)
+    branch_cells: List[Tuple[int, int]] = []
+    branch_set: Set[Tuple[int, int]] = set()
+    stack: List[Tuple[int, int]] = []
+    for cell in station_of_cell.keys():
+        if 0 <= cell[0] < nrows and 0 <= cell[1] < ncols and not visited[cell[0], cell[1]]:
+            visited[cell[0], cell[1]] = True
+            branch_cells.append(cell)
+            branch_set.add(cell)
+            stack.append(cell)
 
-        for (r, c) in seed_cells:
-            _claim(r, c)
-
-        truncated = False
-        while stack:
-            r, c = stack.pop()
-            for code, (dr, dc) in REVERSE_D8.items():
-                nr, nc = r + dr, c + dc
-                if (0 <= nr < nrows and 0 <= nc < ncols and not visited[nr, nc]
-                        and acc[nr, nc] >= min_branch_acc and int(fdir[nr, nc]) == code):
-                    # (nr, nc) drains into (r, c) -> genuine upstream channel cell
-                    _claim(nr, nc)
-            if len(branch_cells) > max_cells_per_station:
-                truncated = True
-                break
-
-        # Reset visited cells only (O(K)) so the mask can be reused by the next station
-        for (vr, vc) in branch_cells:
-            visited[vr, vc] = False
-
-        if truncated:
+    any_truncated = False
+    # Cell guard scaled to the number of participating stations (the BFS is global now)
+    max_cells_total = max_cells_per_station * max(1, len(branch_seeds))
+    while stack:
+        r, c = stack.pop()
+        for code, (dr, dc) in REVERSE_D8.items():
+            nr, nc = r + dr, c + dc
+            if (0 <= nr < nrows and 0 <= nc < ncols and not visited[nr, nc]
+                    and acc[nr, nc] >= min_branch_acc and int(fdir[nr, nc]) == code):
+                if water_poly_mask is not None and water_poly_mask[nr, nc]:
+                    continue  # round 6: never claim channel cells inside open water
+                # (nr, nc) drains into (r, c) -> genuine upstream channel cell
+                visited[nr, nc] = True
+                branch_cells.append((nr, nc))
+                branch_set.add((nr, nc))
+                stack.append((nr, nc))
+        if len(branch_cells) > max_cells_total:
             any_truncated = True
-            print(f"  [WARN] Drainage branches for rain station {r_id} truncated at "
-                  f"{max_cells_per_station:,} cells")
-        if len(branch_cells) < 2:
+            print(f"  [WARN] Drainage branches truncated at {max_cells_total:,} cells "
+                  f"(global guard over {len(branch_seeds)} stations)")
+            break
+
+    # 3. in-branch in-degree -> channel heads (cells that no in-branch cell flows into).
+    # Seed cells are never heads — branches are tributaries only.
+    upstream_deg: Dict[Tuple[int, int], int] = {}
+    for (r, c) in branch_cells:
+        for code, (dr, dc) in REVERSE_D8.items():
+            nr, nc = r + dr, c + dc
+            if (nr, nc) in branch_set and int(fdir[nr, nc]) == code:
+                # (nr, nc) drains into (r, c): increments the IN-degree of (r, c)
+                upstream_deg[(r, c)] = upstream_deg.get((r, c), 0) + 1
+
+    heads = [cell for cell in branch_cells
+             if upstream_deg.get(cell, 0) == 0 and cell not in station_of_cell]
+
+    # 4. walk each head downstream to the FIRST owned seed cell (memoized — cells
+    # shared by many head walks resolve once, so the total work stays O(K))
+    resolved: Dict[Tuple[int, int], Optional[str]] = {}
+    per_owner: Dict[str, List[Tuple[float, Dict[str, Any]]]] = {}
+    n_orphan = 0
+    for (hr, hc) in heads:
+        chain: List[Tuple[int, int]] = []
+        river_ext = 0
+        river_merged = False
+        owner: Optional[str] = None
+        curr = (hr, hc)
+        while True:
+            own = station_of_cell.get(curr)
+            if own is not None:
+                owner = own
+                break
+            if curr in resolved:
+                owner = resolved[curr]
+                break
+            chain.append(curr)
+            code = int(fdir[curr[0], curr[1]])
+            if code not in D8_DELTAS:
+                break
+            dr, dc = D8_DELTAS[code]
+            nxt = (curr[0] + dr, curr[1] + dc)
+            if nxt in branch_set:
+                river_ext = 0
+                curr = nxt
+                continue
+            # River-merge extension: the claimed set can end a few cells short of the
+            # OSM river (junction cell below --branch-min-acc). Keep walking while the
+            # D8 step stays on river-mask cells so the branch visually meets the river.
+            if (river_mask is not None
+                    and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols
+                    and river_mask[nxt[0], nxt[1]]
+                    and river_ext < river_merge_max_cells):
+                river_ext += 1
+                river_merged = True
+                curr = nxt
+                continue
+            break
+
+        for cell in chain:
+            resolved[cell] = owner
+        if owner is None:
+            n_orphan += 1
+            continue
+        # the terminating (owned seed) cell closes the reach for geometric continuity
+        if chain and station_of_cell.get(curr) is not None:
+            chain.append(curr)
+        if len(chain) < 2:
             continue
 
-        # In-branch in-degree -> channel heads (cells that no in-branch cell flows into)
-        upstream_deg: Dict[Tuple[int, int], int] = {}
-        for (r, c) in branch_cells:
-            for code, (dr, dc) in REVERSE_D8.items():
-                nr, nc = r + dr, c + dc
-                if (nr, nc) in branch_set and int(fdir[nr, nc]) == code:
-                    # (nr, nc) drains into (r, c): increments the IN-degree of (r, c)
-                    upstream_deg[(r, c)] = upstream_deg.get((r, c), 0) + 1
-
-        # Trunk (seed path) cells are never heads — branches are tributaries only
-        heads = [cell for cell in branch_cells if upstream_deg.get(cell, 0) == 0 and cell not in seed_set]
-
-        walked: Set[Tuple[int, int]] = set()
-        station_branches: List[Tuple[float, Dict[str, Any]]] = []
-        for (hr, hc) in heads:
-            pts: List[Tuple[int, int]] = []
-            river_ext = 0
-            river_merged = False
-            curr = (hr, hc)
-            while True:
-                if curr in walked:
-                    pts.append(curr)  # junction with an already-traced channel
+        coords = cells_to_coords(chain)
+        if southern_limit_lat is not None:
+            filtered = []
+            for pt in coords:
+                if pt[1] >= southern_limit_lat:
+                    filtered.append(pt)
+                else:
+                    filtered.append([pt[0], round(southern_limit_lat, 6)])
                     break
-                if curr in seed_set:
-                    pts.append(curr)  # reached the station's trunk path
-                    break
-                walked.add(curr)
-                pts.append(curr)
-                code = int(fdir[curr[0], curr[1]])
-                if code not in D8_DELTAS:
-                    break
-                dr, dc = D8_DELTAS[code]
-                nxt = (curr[0] + dr, curr[1] + dc)
-                if nxt in branch_set:
-                    river_ext = 0
-                    curr = nxt
-                    continue
-                # River-merge extension: the claimed set can end a few cells short of the
-                # OSM river (junction cell below --branch-min-acc). Keep walking while the
-                # D8 step stays on river-mask cells so the branch visually meets the river.
-                if (river_mask is not None
-                        and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols
-                        and river_mask[nxt[0], nxt[1]]
-                        and river_ext < river_merge_max_cells):
-                    river_ext += 1
-                    river_merged = True
-                    curr = nxt
-                    continue
-                break
+            coords = filtered
+        if len(coords) < 2:
+            continue
 
-            if len(pts) < 2:
-                continue
+        length_km = linestring_length_km(coords)
+        if length_km < min_length_km:
+            continue
 
-            coords = cells_to_coords(pts)
-            if southern_limit_lat is not None:
-                filtered = []
-                for pt in coords:
-                    if pt[1] >= southern_limit_lat:
-                        filtered.append(pt)
-                    else:
-                        filtered.append([pt[0], round(southern_limit_lat, 6)])
-                        break
-                coords = filtered
-            if len(coords) < 2:
-                continue
+        per_owner.setdefault(owner, []).append((length_km, {
+            "type": "Feature",
+            "properties": {
+                "feature_type": "rainfall_drainage_branch",
+                "from_station_id": owner,
+                "branch_length_km": round(length_km, 2),
+                "flow_acc_cells": int(acc[hr, hc]),
+                "branch_cells": len(chain),
+                "river_merge": river_merged
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035,
+                                                         label=f"branch_{owner}")
+            }
+        }))
 
-            length_km = linestring_length_km(coords)
-            if length_km < min_length_km:
-                continue
+    if n_orphan:
+        print(f"  [BRANCH] {n_orphan:,} channel reach(es) dropped: their downstream walk "
+              f"never reached any station path (no owner — first-claim semantics)")
 
-            station_branches.append((length_km, {
-                "type": "Feature",
-                "properties": {
-                    "feature_type": "rainfall_drainage_branch",
-                    "from_station_id": r_id,
-                    "branch_length_km": round(length_km, 2),
-                    "flow_acc_cells": int(acc[hr, hc]),
-                    "branch_cells": len(pts),
-                    "river_merge": river_merged
-                },
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035,
-                                                             label=f"branch_{r_id}")
-                }
-            }))
+    # 5. assemble with per-owner cap (longest kept) + stable ids
+    features: List[Dict[str, Any]] = []
+    for r_id, lst in per_owner.items():
+        if max_branches_per_station and len(lst) > max_branches_per_station:
+            lst.sort(key=lambda x: -x[0])
+            lst = lst[:max_branches_per_station]
+        features.extend(fd for _, fd in lst)
 
-        # G2: cap the number of branches per station (keep the longest ones)
-        if max_branches_per_station and len(station_branches) > max_branches_per_station:
-            station_branches.sort(key=lambda x: -x[0])
-            station_branches = station_branches[:max_branches_per_station]
-        features.extend(fd for _, fd in station_branches)
-
-    # G1: dedupe identical branch geometries shared across rain stations —
-    # keep one feature, record the other owners in properties["shared_with"]
-    by_geom_key: Dict[Tuple, Dict[str, Any]] = {}
-    deduped: List[Dict[str, Any]] = []
-    for feat in features:
-        geom_key = tuple(
-            (round(lon, 5), round(lat, 5))
-            for lon, lat in feat["geometry"]["coordinates"]
-        )
-        owner = by_geom_key.get(geom_key)
-        if owner is not None:
-            shared = owner["properties"].setdefault("shared_with", [])
-            sid = feat["properties"]["from_station_id"]
-            if sid not in shared:
-                shared.append(sid)
-        else:
-            by_geom_key[geom_key] = feat
-            deduped.append(feat)
-
-    # Reassign stable ids after dedupe/cap
     id_counters: Dict[str, int] = {}
-    for feat in deduped:
+    for feat in features:
         r_id = feat["properties"]["from_station_id"]
         id_counters[r_id] = id_counters.get(r_id, 0) + 1
         feat["properties"]["branch_index"] = id_counters[r_id]
         feat["id"] = f"branch_{r_id}_{id_counters[r_id]:03d}"
 
-    return deduped, any_truncated
+    return features, any_truncated
 
 
 def compute_rainfall_lag_bounds(
@@ -1740,6 +1773,211 @@ def compute_rainfall_lag_bounds(
     return lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h
 
 
+def build_water_body_transits(
+    river_graph: "DirectedRiverGraph",
+    water_polygons_geojson: Optional[Dict[str, Any]],
+    transform: Affine,
+    out_shape: Tuple[int, int],
+    acc: np.ndarray,
+    crs: Any = None,
+    min_area_cells: int = 50,
+    max_transit_edges_per_poly: int = 50
+) -> Tuple[Dict[int, Dict[str, Any]], Optional[np.ndarray], Dict[str, Any]]:
+    """
+    Round 6 (Phase A2/A3 — generic for every basin, nothing hardcoded):
+
+    Open water bodies (OSM water polygons: reservoirs / lakes / wide rivers) break the
+    OSM backbone: river centerlines usually STOP at the shoreline (mappers do not draw
+    centerlines across lakes), so the graph splits into islands and D8 used to teleport
+    straight across the water. For every polygon this helper:
+
+      1. finds the OUTLET cell = highest flow-accumulation cell inside the polygon
+         (the dam / spill point of a reservoir, the downstream exit of a wide river);
+      2. snaps it onto the backbone (splitting edges at the projection);
+      3. connects every backbone component that has nodes INSIDE the polygon but is
+         disconnected from the outlet with a transit edge (closest node -> outlet,
+         direction checked by elevation). When OSM DOES map a centerline through the
+         water, its nodes already share the outlet's component and NO transit edge is
+         added, so the real geometry always wins over the straight fallback.
+
+    Returns (transits, poly_ids, stats):
+      transits[poly_index] = {outlet_node, outlet_lonlat, osm_id, name, mode}
+      poly_ids             = uint16 raster of polygon indices (+1) from the same
+                             rasterization used here (shared with the D8 water stop)
+    """
+    from scripts.modules.terrain_engine import build_water_polygon_mask
+
+    empty_stats = {"polygons": 0, "with_outlet": 0, "transit_edges": 0, "skipped_small": 0}
+    try:
+        mask, poly_ids = build_water_polygon_mask(water_polygons_geojson, transform, out_shape, crs=crs)
+    except Exception as ex:
+        print(f"  [WARN] build_water_body_transits: mask failed ({ex})")
+        return {}, None, empty_stats
+    if poly_ids is None:
+        return {}, None, empty_stats
+
+    n_poly = int(poly_ids.max())
+    feats = [f for f in (water_polygons_geojson or {}).get("features", [])
+             if (f.get("geometry") or {}).get("type") in ("Polygon", "MultiPolygon")]
+    # NOTE: poly_ids values map to the ORDER of successfully rasterized features;
+    # build_water_polygon_mask rasterizes the same filter (Polygon/MultiPolygon), so
+    # feature i in `feats` corresponds to poly id i+1 when the counts match.
+    if len(feats) != n_poly:
+        # fall back to a per-feature correspondence only when counts agree; otherwise
+        # keep the mask for stopping but skip per-poly outlet refinement.
+        feats = feats[:n_poly]
+
+    nrows, ncols = out_shape
+    is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
+    inv_transformer = None
+    if not is_geographic and crs is not None:
+        try:
+            from pyproj import Transformer
+            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        except Exception:
+            inv_transformer = None
+
+    def lonlat_to_rc(lons, lats):
+        if inv_transformer is not None:
+            lons, lats = inv_transformer.transform(lons, lats)
+        col_f, row_f = (~transform) * (lons, lats)
+        return np.floor(row_f).astype(np.int64), np.floor(col_f).astype(np.int64)
+
+    # vectorized node -> cell mapping (one pass over all nodes). Interior detection
+    # uses a 3x3-max-filtered id raster so shoreline nodes that rasterize 1 cell
+    # outside the polygon (center-based rasterization) still count as interior.
+    node_ids = list(river_graph.nodes.keys())
+    if not node_ids:
+        return {}, poly_ids, empty_stats
+    n_lon = np.array([river_graph.nodes[n][0] for n in node_ids], dtype=np.float64)
+    n_lat = np.array([river_graph.nodes[n][1] for n in node_ids], dtype=np.float64)
+    n_row, n_col = lonlat_to_rc(n_lon, n_lat)
+    n_in = (n_row >= 0) & (n_row < nrows) & (n_col >= 0) & (n_col < ncols)
+    node_poly = np.zeros(len(node_ids), dtype=np.int64)
+    if n_in.any():
+        try:
+            from scipy.ndimage import maximum_filter
+            poly_ids_dil = maximum_filter(poly_ids, size=3)
+        except Exception:
+            poly_ids_dil = poly_ids
+        node_poly[n_in] = poly_ids_dil[n_row[n_in], n_col[n_in]].astype(np.int64)
+    node_poly_by_id = dict(zip(node_ids, node_poly.tolist()))
+
+    # undirected component root per node (union-find over adj)
+    parent: Dict[int, int] = {}
+
+    def find(x: int) -> int:
+        r = x
+        while parent[r] != r:
+            r = parent[r]
+        while parent[x] != r:
+            parent[x], x = r, parent[x]
+        return r
+
+    for nid in river_graph.nodes:
+        parent[nid] = nid
+    for a, outs in river_graph.adj.items():
+        for (b, _d) in outs:
+            ra, rb = find(a), find(b)
+            if ra != rb:
+                parent[ra] = rb
+
+    transits: Dict[int, Dict[str, Any]] = {}
+    stats = dict(empty_stats)
+    stats["polygons"] = n_poly
+
+    for i in range(n_poly):
+        pid = i + 1
+        rows_i, cols_i = np.nonzero(poly_ids == pid)
+        if rows_i.size < min_area_cells:
+            stats["skipped_small"] += 1
+            continue
+        r0, r1 = int(rows_i.min()), int(rows_i.max()) + 1
+        c0, c1 = int(cols_i.min()), int(cols_i.max()) + 1
+        sub_ids = poly_ids[r0:r1, c0:c1]
+        sub_acc = np.where(sub_ids == pid, acc[r0:r1, c0:c1], np.int32(-1))
+        flat_idx = int(np.argmax(sub_acc))
+        if int(sub_acc.flat[flat_idx]) <= 0:
+            continue
+        orow = r0 + flat_idx // sub_acc.shape[1]
+        ocol = c0 + flat_idx % sub_acc.shape[1]
+        # outlet cell -> lon/lat (cell center)
+        xs = transform[2] + (ocol + 0.5) * transform[0] + (orow + 0.5) * transform[1]
+        ys = transform[5] + (ocol + 0.5) * transform[3] + (orow + 0.5) * transform[4]
+        if inv_transformer is not None:
+            o_lon, o_lat = inv_transformer.transform(xs, ys)
+            o_lon, o_lat = float(o_lon), float(o_lat)
+        else:
+            o_lon, o_lat = float(xs), float(ys)
+
+        outlet_node, _d, _m = river_graph.snap_point_to_graph_ranked(o_lon, o_lat, max_dist_deg=0.01)
+        if outlet_node is None:
+            outlet_node, _d = river_graph.snap_point_to_graph(o_lon, o_lat, max_dist_deg=0.01)
+        if outlet_node is None:
+            continue
+        stats["with_outlet"] += 1
+
+        props = {}
+        if i < len(feats):
+            props = feats[i].get("properties", {}) or {}
+        outlet_comp = find(outlet_node)
+        interior = [nid for nid, pv in node_poly_by_id.items() if pv == pid]
+        comp_nodes: Dict[int, int] = {}
+        for nid in interior:
+            comp = find(nid)
+            if comp == outlet_comp:
+                continue
+            # keep the node of each foreign component closest to the outlet
+            p = river_graph.nodes[nid]
+            d = (p[0] - o_lon) ** 2 + (p[1] - o_lat) ** 2
+            if comp not in comp_nodes or d < comp_nodes[comp]:
+                comp_nodes[comp] = nid
+
+        n_edges = 0
+        for comp, nid in comp_nodes.items():
+            if n_edges >= max_transit_edges_per_poly:
+                break
+            z_n = river_graph.nodes[nid][2]
+            z_o = river_graph.nodes[outlet_node][2]
+            if z_n is not None and z_o is not None and z_n < z_o - 0.5:
+                continue  # that fragment sits BELOW the outlet — never route uphill
+            seg = [[river_graph.nodes[nid][0], river_graph.nodes[nid][1]], [o_lon, o_lat]]
+            edge = {
+                "coords": seg,
+                "length_km": max(0.001, linestring_length_km(seg)),
+                "z_start": z_n, "z_end": z_o,
+                "dz": max(0.0, (z_n - z_o) if (z_n is not None and z_o is not None) else 0.0),
+                "river_name": str(props.get("name", "") or ""),
+                "direction_source": "reservoir_transit",
+                "way": -1,
+                "reservoir_transit": {
+                    "poly_index": i,
+                    "osm_id": str(props.get("osm_id", "") or ""),
+                    "name": str(props.get("name", "") or props.get("name_th", "") or ""),
+                    "mode": "straight"
+                }
+            }
+            river_graph.adj.setdefault(nid, []).append((outlet_node, edge))
+            river_graph._index_edge(nid, outlet_node)
+            parent[nid] = outlet_comp
+            n_edges += 1
+        stats["transit_edges"] += n_edges
+
+        transits[i] = {
+            "outlet_node": outlet_node,
+            "outlet_lonlat": [round(o_lon, 6), round(o_lat, 6)],
+            "osm_id": str(props.get("osm_id", "") or ""),
+            "name": str(props.get("name", "") or props.get("name_th", "") or ""),
+            "mode": "transit_edges" if n_edges else "backbone"
+        }
+
+    print(f"  [TRANSIT] water bodies: {stats['polygons']} rasterized, "
+          f"{stats['with_outlet']} with backbone outlet, "
+          f"{stats['transit_edges']} transit edges added "
+          f"(small skipped: {stats['skipped_small']})")
+    return transits, poly_ids, stats
+
+
 def build_flow_paths_and_relations(
     water_stations: List[Dict[str, Any]],
     rain_stations: List[Dict[str, Any]],
@@ -1758,6 +1996,7 @@ def build_flow_paths_and_relations(
     branch_max_count: int = 30,
     branch_min_km: float = 1.0,
     river_mask: Optional[np.ndarray] = None,
+    water_polygons_geojson: Optional[Dict[str, Any]] = None,
     overland_max_km: float = 5.0,
     basin_boundary_geojson: Optional[Dict[str, Any]] = None,
     clip_to_basin: bool = True
@@ -1772,6 +2011,8 @@ def build_flow_paths_and_relations(
     - Drainage Branches: per-rain-station upstream D8 channel network (dendritic tributaries)
     - OSM River Layer: the raw OSM waterway network as its own display layer
       (feature_type="osm_river"), separable in the frontend like the branches
+    - Water-body handling (round 6): D8 never traces across OSM water polygons;
+      open water is crossed via OSM centerlines / reservoir-transit edges instead.
     - Southern Limit: Strictly bounded to southernmost water station + 5 km.
 
     Returns:
@@ -1913,6 +2154,22 @@ def build_flow_paths_and_relations(
         if nid:
             water_node_map[st_id] = nid
 
+    # 2b. Water-body transits (round 6, Phase A2/A3): outlet nodes + transit edges
+    # for OSM water polygons, then the open-water D8 stop mask shared by all traces.
+    # Must run BEFORE compute_gauge_reachability so ranking sees transit edges.
+    water_transits, water_poly_ids, _transit_stats = build_water_body_transits(
+        river_graph, water_polygons_geojson, transform, (nrows, ncols), acc, crs=crs
+    )
+    water_poly_mask = (water_poly_ids > 0) if water_poly_ids is not None else None
+
+    def poly_id_at_cell(cell: Tuple[int, int]) -> int:
+        if water_poly_ids is None:
+            return 0
+        r, c = cell
+        if 0 <= r < nrows and 0 <= c < ncols:
+            return int(water_poly_ids[r, c])
+        return 0
+
     features = []
     gauge_relations = []
     rainfall_relations = []
@@ -1973,12 +2230,21 @@ def build_flow_paths_and_relations(
         # Identify downstream candidate via D8 downhill step
         code = int(fdir[start_r, start_c])
         first_r, first_c = (start_r + D8_DELTAS[code][0], start_c + D8_DELTAS[code][1]) if code in D8_DELTAS else (start_r, start_c)
+        # Round 6: a gauge sitting IN open water keeps tracing through its own polygon
+        # (start_poly_id) and only stops when it enters a DIFFERENT water body.
+        start_poly = poly_id_at_cell((start_r, start_c))
         raster_coords, target_station_id, _ = trace_downstream_path(
             first_r, first_c, fdir, transform, crs=crs,
             stop_condition_fn=make_stop_fn(st_id),
             min_lat=southern_limit_lat,
-            max_steps=5000
+            max_steps=5000,
+            water_poly_mask=water_poly_mask,
+            water_poly_ids=water_poly_ids,
+            start_poly_id=start_poly
         )
+        # stop sentinels (RIVER_STOP / WATER_POLY_STOP) are NOT station ids
+        if target_station_id in (RIVER_STOP, WATER_POLY_STOP):
+            target_station_id = None
 
         if target_station_id:
             target_st = next((s for s in water_stations if s['station_id'] == target_station_id), None)
@@ -2063,6 +2329,33 @@ def build_flow_paths_and_relations(
                     end_lon, end_lat = pt
                     z_end = sample_elevation(end_lon, end_lat)
                     break
+            # Round 6 (Phase A2): D8 ended on an open-water boundary (reservoir /
+            # lake) with no attachable backbone nearby — attach the water body's
+            # OUTLET node via the reservoir transit instead of leaving the gauge
+            # hanging (the outlet was precomputed by build_water_body_transits).
+            transit_meta = None
+            if nid is None:
+                end_poly = poly_id_at_cell((start_r, start_c))  # fallback below uses trace end
+                end_cell = raster_coords[-1] if raster_coords else None
+                if end_cell is not None:
+                    r_end, c_end = rowcol(transform, end_cell[0], end_cell[1])
+                    end_poly = poly_id_at_cell((int(r_end), int(c_end))) if water_poly_ids is not None else 0
+                tr = water_transits.get(end_poly - 1) if end_poly else None
+                if tr and tr.get("outlet_node") is not None:
+                    onode = tr["outlet_node"]
+                    o_lon, o_lat = tr["outlet_lonlat"]
+                    seg = [[end_lon, end_lat], [o_lon, o_lat]]
+                    if linestring_length_km(seg) <= 80.0:
+                        nid = onode
+                        end_lon, end_lat = o_lon, o_lat
+                        z_end = sample_elevation(end_lon, end_lat)
+                        transit_meta = {
+                            "attach_osm_id": tr.get("osm_id", ""),
+                            "attach_class": "reservoir_transit",
+                            "attach_quality": "ok",
+                            "reservoir_transit": True,
+                            "transit_mode": "straight"
+                        }
             if nid is not None:
                 dist_map, prev_map = get_sssp(nid)
                 candidates = []
@@ -2090,6 +2383,10 @@ def build_flow_paths_and_relations(
                             backbone_target = target_st
 
             if backbone_target is not None and backbone_coords:
+                if transit_meta:
+                    # draw the straight reservoir-transit hop between the D8 end
+                    # (shoreline) and the outlet node on the backbone
+                    coords = merge_coordinates(coords, [[end_lon, end_lat]])
                 coords = merge_coordinates(coords, backbone_coords)
                 dist_km = linestring_length_km(coords)
                 tgt_lon = float(backbone_target.get('longitude', 0.0))
@@ -2120,6 +2417,8 @@ def build_flow_paths_and_relations(
                     "upstream_elev_m": round(z_up, 2),
                     "downstream_elev_m": round(z_down, 2),
                 }
+                if transit_meta:
+                    backbone_props.update(transit_meta)
                 if attach_meta:
                     backbone_props.update(attach_meta)
                 feature = {
@@ -2223,22 +2522,32 @@ def build_flow_paths_and_relations(
         # terrain (no river stop) so gauge relations are not lost to mapping gaps.
         overland_coords, stop_data, overland_cells = [], None, []
         river_stopped = False
+        poly_stopped = False
         direct_target_water_id = None
         entry_idx = None
         entry_node = None
         downstream_targets: List[Tuple[float, str, Dict[str, Any]]] = []
         prev_map = None
+        # Rain station's own polygon (a station on a reservoir traces out of it first)
+        rain_start_poly = poly_id_at_cell((r, c))
         for _attempt in range(2):
             eff_river_mask = river_mask if _attempt == 0 else None
+            # Round 6: the open-water stop stays active on BOTH attempts — runoff must
+            # never teleport across a reservoir even when the river contact was a
+            # topology island (the transit / overland fallback handles those instead).
             overland_coords, stop_data, overland_cells = trace_downstream_path(
                 r, c, fdir, transform, crs=crs,
                 stop_condition_fn=stop_at_water_station,
                 min_lat=southern_limit_lat,
                 max_steps=5000,
-                river_mask=eff_river_mask
+                river_mask=eff_river_mask,
+                water_poly_mask=water_poly_mask,
+                water_poly_ids=water_poly_ids,
+                start_poly_id=rain_start_poly
             )
             river_stopped = (stop_data == RIVER_STOP)
-            direct_target_water_id = stop_data if (stop_data and stop_data != RIVER_STOP) else None
+            poly_stopped = (stop_data == WATER_POLY_STOP)
+            direct_target_water_id = stop_data if (stop_data and stop_data not in (RIVER_STOP, WATER_POLY_STOP)) else None
             if direct_target_water_id:
                 break  # Case 1: gauge hit before any river contact
 
@@ -2253,7 +2562,7 @@ def build_flow_paths_and_relations(
             entry_meta = None
             if len(overland_coords) >= 2:
                 MAX_ENTRY_DIST = 0.003  # tight 300m
-                if river_stopped:
+                if river_stopped or poly_stopped:
                     for p_idx in range(len(overland_coords) - 1, -1, -1):
                         pt = overland_coords[p_idx]
                         nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
@@ -2287,8 +2596,33 @@ def build_flow_paths_and_relations(
                             pt = overland_coords[p_idx]
                             nid2, d2, m2 = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
                             if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
-                                best_idx, best_node, best_d, best_m = p_idx, nid2, d2, m2
+                                best_idx, best_node, best_d, best_m = p_idx, nid2, m2, m2
                         entry_idx, entry_node, entry_meta = best_idx, best_node, best_m
+
+            # Round 6 (Phase A2): the trace stopped on an open-water boundary but no
+            # backbone centerline is reachable there (mappers rarely draw rivers across
+            # reservoirs). Enter the backbone at the water body's OUTLET node through
+            # the precomputed reservoir transit instead of losing the gauge chain.
+            if entry_node is None and poly_stopped and overland_coords:
+                end_poly = poly_id_at_cell(overland_cells[-1]) if overland_cells else 0
+                tr = water_transits.get(end_poly - 1) if end_poly else None
+                if tr and tr.get("outlet_node") is not None:
+                    o_lon, o_lat = tr["outlet_lonlat"]
+                    hop = math.hypot((o_lon - overland_coords[-1][0]) * 111.32 * 0.95,
+                                     (o_lat - overland_coords[-1][1]) * 110.54)
+                    if hop <= 80.0:
+                        overland_coords = overland_coords + [[o_lon, o_lat]]
+                        if overland_cells:
+                            overland_cells = overland_cells + [overland_cells[-1]]
+                        entry_idx = len(overland_coords) - 1
+                        entry_node = tr["outlet_node"]
+                        entry_meta = {
+                            "attach_osm_id": tr.get("osm_id", ""),
+                            "attach_class": "reservoir_transit",
+                            "attach_quality": "ok",
+                            "reservoir_transit": True,
+                            "transit_mode": "straight"
+                        }
 
             # D1: collect ALL downstream-receiving gauges (hydrological cascade), ordered
             # by channel distance from the entry node. Directed backbone edges guarantee
@@ -2403,7 +2737,10 @@ def build_flow_paths_and_relations(
                         nr2, nc2, fdir, transform, crs=crs,
                         stop_condition_fn=stop_at_water_station_excluding(visited_targets),
                         min_lat=southern_limit_lat,
-                        max_steps=5000
+                        max_steps=5000,
+                        water_poly_mask=water_poly_mask,
+                        water_poly_ids=water_poly_ids,
+                        start_poly_id=poly_id_at_cell(resume_cell)
                     )
                     if not next_target_id or len(seg_coords2) < 2:
                         break
@@ -2501,6 +2838,15 @@ def build_flow_paths_and_relations(
                     chain = river_graph.reconstruct_node_path(prev_map, entry_node, v_node)
                     if not chain:
                         continue
+                    # Round 6: tag segments whose backbone chain uses a reservoir
+                    # transit edge (an honest straight hop across open water) so the
+                    # validator does not flag it as a D8 flat teleport.
+                    chain_tr = None
+                    for _t in range(1, len(chain)):
+                        _pe = prev_map.get(chain[_t])
+                        if _pe and _pe[1].get("reservoir_transit"):
+                            chain_tr = _pe[1]["reservoir_transit"]
+                            break
 
                     # Cut the channel piece for this segment
                     if seg_i == 0 or prev_gauge_node not in chain:
@@ -2565,6 +2911,10 @@ def build_flow_paths_and_relations(
                     }
                     if entry_meta:
                         seg_props.update(entry_meta)
+                    if chain_tr:
+                        seg_props["reservoir_transit"] = True
+                        seg_props["transit_osm_id"] = chain_tr.get("osm_id", "")
+                        seg_props["transit_mode"] = chain_tr.get("mode", "straight")
                     feature = {
                         "type": "Feature",
                         "id": feature_id,
@@ -2631,7 +2981,6 @@ def build_flow_paths_and_relations(
                 features.append(feature)
         else:
             # Case 3: Standalone overland drainage along terrain D8 (never hit OSM river)
-            branch_seed_cells[r_id] = list(overland_cells)
             if len(overland_coords) >= 2:
                 coords = merge_coordinates([[lon, lat]], overland_coords)
                 overland_capped = False
@@ -2651,6 +3000,12 @@ def build_flow_paths_and_relations(
                             break
                     if overland_capped and cut_idx >= 2:
                         coords = coords[:cut_idx + 1]
+                # Round 6 (Phase B): branch seeds follow the DRAWN path (post-cap) —
+                # uncapped wild D8 traces used to seed basin-wide branch networks.
+                if overland_capped:
+                    branch_seed_cells[r_id] = list(overland_cells[:max(2, cut_idx)])
+                else:
+                    branch_seed_cells[r_id] = list(overland_cells)
                 dist_km = linestring_length_km(coords)
                 if dist_km >= min_flow_km:  # D2: user-defined minimum flow length (1km)
                     z_end = sample_elevation(coords[-1][0], coords[-1][1])
@@ -2710,7 +3065,8 @@ def build_flow_paths_and_relations(
                 max_cells_per_station=branch_max_cells,
                 southern_limit_lat=southern_limit_lat,
                 max_branches_per_station=branch_max_count,
-                river_mask=river_mask
+                river_mask=river_mask,
+                water_poly_mask=water_poly_mask
             )
             if not truncated:
                 break
@@ -2821,6 +3177,13 @@ def build_flow_paths_and_relations(
     osm_meta = (osm_waterways_geojson or {}).get("_meta") or {}
     filter_report["osm_source"] = osm_meta.get("source", "unknown")
     filter_report["osm_crop_polygon"] = osm_meta.get("crop_polygon", "")
+    # Round 6 (Phase C): OSM layer audit counters — the validator (and humans) must be
+    # able to account for every way that was split or dropped before reaching the output
+    # (answers "did the pipeline silently delete OSM lines?").
+    if osm_meta.get("way_jump_stats"):
+        filter_report["osm_way_jump_split"] = osm_meta["way_jump_stats"]
+    if osm_meta.get("crop_stats"):
+        filter_report["osm_crop"] = osm_meta["crop_stats"]
     for lt, st in sorted(filter_report["basin_clip"].items()):
         if isinstance(st, dict):
             print(f"        [FILTER] {lt}: n_in={st['n_in']:,} -> n_out={st['n_out']:,} "

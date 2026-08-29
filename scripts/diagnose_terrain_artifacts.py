@@ -153,10 +153,26 @@ def check_water_polygons(path, hubs=None):
     for g in garbage[:10]:
         print(f"      osm_id={g['osm_id']} verts={g['vertices']} area={g['area_km2']}km2 bounds={g['bounds']}")
     hub_hits = None
+    big_bounds = []
+    for feat in data.get("features", []):
+        geom = feat.get("geometry") or {}
+        if geom.get("type") not in ("Polygon", "MultiPolygon"):
+            continue
+        try:
+            from shapely.geometry import shape
+            b = shape(geom).bounds
+            if (b[2] - b[0]) * (b[3] - b[1]) > 0.005:  # ~sub-km² and up
+                big_bounds.append(b)
+        except Exception:
+            continue
     if hubs:
         hub_hits = sum(1 for (x, y), _n in hubs
                        if any(b[0] <= x <= b[2] and b[1] <= y <= b[3] for b in (g["bounds"] for g in garbage)))
+        poly_hits = sum(1 for (x, y), _n in hubs
+                        if any(b[0] <= x <= b[2] and b[1] <= y <= b[3] for b in big_bounds))
         print(f"    flow-file hubs inside garbage polygons: {hub_hits}")
+        print(f"    flow-file hubs inside ANY water polygon: {poly_hits} "
+              f"(round 6: those teleports are now stopped by the water-polygon D8 stop)")
     if garbage:
         print("    >>> LIKELY ROOT CAUSE: these burn as flat plateaus; their EDGES become")
         print("        the axis-aligned D8 trenches. Fix = Step 2 polygon filter.")
@@ -199,6 +215,42 @@ def check_waterways(path):
     if jumps:
         print("    >>> These become straight edges in the backbone graph.")
     return {"status": "ok", "jumps": jumps}
+
+
+# ---------------------------------------------------------------------------
+# 3b. OSM layer audit — was anything silently deleted? (round 6, Phase 0)
+# ---------------------------------------------------------------------------
+def check_osm_audit(path):
+    print("\n" + "=" * 74)
+    print("3b. OSM LAYER AUDIT — jump-split / crop counters (answers 'was OSM deleted?')")
+    print("=" * 74)
+    if not os.path.exists(path):
+        print(f"    MISSING: {path}")
+        return {"status": "missing"}
+    data = load_geojson_any(path)
+    meta = data.get("_meta") or {}
+    jump = meta.get("way_jump_stats") or {}
+    crop = meta.get("crop_stats") or {}
+    print(f"    features on disk      : {len(data.get('features', [])):,}")
+    print(f"    cache source          : {meta.get('source', '-')}")
+    print(f"    crop_polygon fingerprint: {'yes' if meta.get('crop_polygon') else 'NO'}")
+    if crop:
+        print(f"    crop stats            : n_in={crop.get('n_in', '-')} n_out={crop.get('n_out', '-')} "
+              f"dropped_outside={crop.get('dropped_outside', '-')} clipped={crop.get('clipped', '-')}")
+    else:
+        print("    crop stats            : MISSING (legacy cache — re-run fetch with --force-osm)")
+    if jump:
+        print(f"    jump-split stats      : ways {jump.get('n_ways_in', '-')} -> {jump.get('n_ways_out', '-')} "
+              f"(split: {jump.get('n_split', '-')}, ways dropped: {jump.get('n_ways_dropped', '-')}, "
+              f"parts dropped: {jump.get('n_parts_dropped', '-')})")
+        dropped = jump.get("dropped_osm_ids") or []
+        if dropped:
+            print(f"    dropped way osm_ids   : {', '.join(str(d) for d in dropped[:50])}"
+                  + (" ..." if len(dropped) > 50 else ""))
+    else:
+        print("    jump-split stats      : MISSING (sanitize never ran on this cache)")
+        return {"status": "no_audit", "n_features": len(data.get("features", []))}
+    return {"status": "ok", "jump": jump, "crop": crop}
 
 
 # ---------------------------------------------------------------------------
@@ -429,6 +481,7 @@ def main():
         "water_polygons": check_water_polygons(
             os.path.join(basin_dir, "gis", "osm_water_polygons.geojson"), hubs),
         "waterways": check_waterways(os.path.join(basin_dir, "gis", "osm_waterways.geojson")),
+        "osm_audit": check_osm_audit(os.path.join(basin_dir, "gis", "osm_waterways.geojson")),
         "rasters": check_rasters(terrain_dir, hubs, strip_rows=args.strip_rows),
     }
 
@@ -445,6 +498,10 @@ def main():
         suspects += 1
     if report["waterways"].get("jumps"):
         print(f"  [X] {len(report['waterways']['jumps'])} waterway jump(s) -> way split (Step 2)")
+        suspects += 1
+    if report["osm_audit"].get("status") == "no_audit":
+        print("  [X] OSM cache has no jump-split/crop audit counters -> refetch with --force-osm "
+              "(cannot verify whether OSM ways were silently dropped)")
         suspects += 1
     r = report["rasters"]
     void = sum(v.get("runs", {}).get("void_row", 0) for v in r.values() if isinstance(v, dict))
