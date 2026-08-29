@@ -1829,19 +1829,33 @@ def build_water_body_transits(
 
     nrows, ncols = out_shape
     is_geographic = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
-    inv_transformer = None
+    # TWO distinct transformers for projected rasters (round 6 hotfix): raster
+    # coordinates -> lon/lat for the outlet cell, and lon/lat -> raster coordinates
+    # for the node mapping. Using one transformer for both directions fed projected
+    # metres into pyproj as degrees and produced inf (OverflowError in the snap).
+    to_lonlat = None    # raster crs -> EPSG:4326
+    to_raster = None    # EPSG:4326 -> raster crs
     if not is_geographic and crs is not None:
         try:
             from pyproj import Transformer
-            inv_transformer = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+            to_lonlat = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+            to_raster = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
         except Exception:
-            inv_transformer = None
+            to_lonlat = None
+            to_raster = None
 
     def lonlat_to_rc(lons, lats):
-        if inv_transformer is not None:
-            lons, lats = inv_transformer.transform(lons, lats)
+        if to_raster is not None:
+            lons, lats = to_raster.transform(lons, lats)
         col_f, row_f = (~transform) * (lons, lats)
         return np.floor(row_f).astype(np.int64), np.floor(col_f).astype(np.int64)
+
+    def cell_to_lonlat(col, row):
+        x = transform[2] + (col + 0.5) * transform[0] + (row + 0.5) * transform[1]
+        y = transform[5] + (col + 0.5) * transform[3] + (row + 0.5) * transform[4]
+        if to_lonlat is not None:
+            x, y = to_lonlat.transform(x, y)
+        return float(x), float(y)
 
     # vectorized node -> cell mapping (one pass over all nodes). Interior detection
     # uses a 3x3-max-filtered id raster so shoreline nodes that rasterize 1 cell
@@ -1902,13 +1916,9 @@ def build_water_body_transits(
         orow = r0 + flat_idx // sub_acc.shape[1]
         ocol = c0 + flat_idx % sub_acc.shape[1]
         # outlet cell -> lon/lat (cell center)
-        xs = transform[2] + (ocol + 0.5) * transform[0] + (orow + 0.5) * transform[1]
-        ys = transform[5] + (ocol + 0.5) * transform[3] + (orow + 0.5) * transform[4]
-        if inv_transformer is not None:
-            o_lon, o_lat = inv_transformer.transform(xs, ys)
-            o_lon, o_lat = float(o_lon), float(o_lat)
-        else:
-            o_lon, o_lat = float(xs), float(ys)
+        o_lon, o_lat = cell_to_lonlat(ocol, orow)
+        if not (math.isfinite(o_lon) and math.isfinite(o_lat)):
+            continue  # CRS conversion failed for this polygon — skip its transit
 
         outlet_node, _d, _m = river_graph.snap_point_to_graph_ranked(o_lon, o_lat, max_dist_deg=0.01)
         if outlet_node is None:

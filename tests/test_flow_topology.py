@@ -1211,6 +1211,107 @@ def test_validator_axis_jump_detection():
     assert rep["jumps"][0]["axis"] in ("N-S", "E-W")
 
 
+# ---------------------------------------------------------------------------
+# 25b. (round 6 hotfix) transit outlet under a PROJECTED raster CRS: the outlet
+#      cell must be converted crs->4326 (wrong direction used to feed metres
+#      into pyproj as degrees -> inf -> OverflowError in the snap)
+# ---------------------------------------------------------------------------
+def test_transit_projected_crs_outlet():
+    import types
+    try:
+        from pyproj import Transformer  # noqa: F401
+    except ImportError:
+        # No real pyproj here: stub the crs->4326 transformer to return inf
+        # (pyproj's out-of-domain behaviour). The finiteness guard must skip
+        # such a polygon instead of crashing with OverflowError in the snap.
+        class _T:
+            def __init__(self, src, dst, **kw):
+                pass
+            def transform(self, x, y):
+                return float('inf'), float('inf')
+        fake = types.ModuleType("pyproj")
+        fake.Transformer = type("Transformer", (), {"from_crs": staticmethod(lambda s, d, **kw: _T(s, d))})
+        saved = sys.modules.get("pyproj")
+        sys.modules["pyproj"] = fake
+        try:
+            from scripts.modules.graph_topology import build_water_body_transits
+            from pyproj import Transformer  # resolves to the stub
+            crs = "EPSG:32647"
+            x0, y0 = 300000.0, 2000000.0
+            res = 30.0
+            transform = Affine(res, 0, x0, 0, -res, y0)
+            H, W = 120, 60
+            acc = np.full((H, W), 500, dtype=np.int32)
+            acc[60, 30] = 99_000
+            g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+            elev_fn = lambda lo, la: 200.0 + (la - 18.0) * 2000.0
+            g.add_river_segment([[100.253, 18.050], [100.253, 18.049]],
+                                sample_elev_fn=elev_fn, osm_id="1")
+            g.finalize_connectivity()
+            g.build_spatial_index()
+            lake = {"type": "FeatureCollection", "features": [
+                {"type": "Feature", "properties": {"osm_id": 889},
+                 "geometry": {"type": "Polygon", "coordinates": [[
+                     [100.252, 18.0495], [100.254, 18.0495],
+                     [100.254, 18.0490], [100.252, 18.0490],
+                     [100.252, 18.0495]]]}}
+            ]}
+            transits, poly_ids, stats = build_water_body_transits(
+                g, lake, transform, (H, W), acc, crs=crs, min_area_cells=2
+            )
+            assert stats["with_outlet"] == 0, "inf outlet must be skipped by the guard"
+            assert transits == {}
+            print("PASS  (stub pyproj: inf outlet skipped, no OverflowError)")
+        finally:
+            if saved is not None:
+                sys.modules["pyproj"] = saved
+            else:
+                sys.modules.pop("pyproj", None)
+        return
+    from scripts.modules.graph_topology import build_water_body_transits
+
+    crs = "EPSG:32647"  # UTM 47N
+    to_utm = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+    x0, y0 = to_utm.transform(100.25, 18.05)
+    res = 30.0
+    transform = Affine(res, 0, x0, 0, -res, y0)
+    H, W = 240, 60
+    acc = np.full((H, W), 500, dtype=np.int32)
+
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+    elev_fn = lambda lo, la: 200.0 + (la - 18.0) * 2000.0
+    upper = [[100.253, 18.05 - r * 0.0001] for r in range(0, 21)]    # ends at north shore
+    lower = [[100.253, 18.05 - r * 0.0001] for r in range(40, 101)]  # south shore -> dam
+    g.add_river_segment(upper, sample_elev_fn=elev_fn, osm_id="1")
+    g.add_river_segment(lower, sample_elev_fn=elev_fn, osm_id="2")
+    g.finalize_connectivity()
+    g.build_spatial_index()
+
+    lake = {"type": "FeatureCollection", "features": [
+        {"type": "Feature", "properties": {"osm_id": 888, "name": "utm_lake"},
+         "geometry": {"type": "Polygon", "coordinates": [[
+             [100.251, 18.048], [100.255, 18.048],
+             [100.255, 18.046], [100.251, 18.046],
+             [100.251, 18.048]]]}}
+    ]}
+    # dam cell = where the lower way leaves the lake (lon 100.253, lat 18.046)
+    xu, yu = to_utm.transform(100.253, 18.046)
+    acc[int((y0 - yu) / res), int((xu - x0) / res)] = 99_000
+
+    transits, poly_ids, stats = build_water_body_transits(
+        g, lake, transform, (H, W), acc, crs=crs, min_area_cells=10
+    )
+    assert poly_ids is not None and poly_ids.max() >= 1
+    assert stats["with_outlet"] >= 1, f"outlet snap failed: {stats}"
+    assert 0 in transits, f"expected a transit for the lake, got {transits}"
+
+    head, _ = g.find_nearest_node(100.253, 18.05, max_dist_deg=0.01)
+    mouth, _ = g.find_nearest_node(100.253, 18.05 - 100 * 0.0001, max_dist_deg=0.01)
+    coords, dist = g.shortest_path(head, mouth, max_dist_km=50.0)
+    assert coords is not None, "transit must bridge the lake gap under a projected CRS"
+    assert dist > 0.0
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -1240,6 +1341,7 @@ def main():
         test_reservoir_transit_connects_components,
         test_end_to_end_lake_crossing,
         test_validator_axis_jump_detection,
+        test_transit_projected_crs_outlet,
     ]
     for t in tests:
         t()
