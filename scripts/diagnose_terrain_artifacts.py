@@ -350,6 +350,19 @@ def check_rasters(terrain_dir, hubs=None, strip_rows=2048):
                   f"res={src.res} nodata={src.nodata}")
             report[name] = {"shape": [src.height, src.width], "dtype": src.dtypes[0]}
             runs = scan_raster(path, strip_rows)
+            # projected rasters: convert run centers to lon/lat so they can be
+            # correlated with the flow-file hubs (which are lon/lat)
+            if src.crs is not None and not src.crs.is_geographic:
+                try:
+                    from pyproj import Transformer
+                    tr = Transformer.from_crs(src.crs, "EPSG:4326", always_xy=True)
+                    for kind, lst in runs.items():
+                        if lst:
+                            lons, lats = tr.transform([p[0] for p in lst], [p[1] for p in lst])
+                            runs[kind] = [(round(lo, 4), round(la, 4), p[2])
+                                          for lo, la, p in zip(lons, lats, lst)]
+                except Exception as ex:
+                    print(f"      [WARN] cannot convert run coords to lon/lat: {ex}")
             n_reported = sum(len(v) for v in runs.values())
             print(f"      straight runs >= {RUN_MIN_CELLS} cells: {n_reported}")
             _print_runs(runs, hubs)
@@ -440,12 +453,13 @@ def main():
                 for v in r.values() if isinstance(v, dict))
     d8row = sum(v.get("runs", {}).get("d8_row_EW", 0) for v in r.values() if isinstance(v, dict))
     if void or flat:
-        print(f"  [X] DEM straight void/flat runs (void={void}, flat={flat}) -> mosaic seam suspect "
-              f"(Step 3 reproject mosaic)")
+        print(f"  [X] DEM straight void/flat runs (void={void}, flat={flat}) — "
+              f"void = tile-coverage edges (benign); exact FLAT runs are calm-water "
+              f"plateaus -> fixed by break_exact_flats (Step 2a)")
         suspects += 1
     if d8col or d8row:
         print(f"  [X] fdir straight same-code runs (col={d8col}, row={d8row}) -> the trenches "
-              f"themselves; regenerate fdir after fixes (--force)")
+              f"themselves; regenerate fdir with --force AFTER the fixes")
         suspects += 1
     if suspects == 0:
         print("  No smoking gun found — send this full report back for manual review.")

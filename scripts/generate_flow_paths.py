@@ -30,6 +30,7 @@ from scripts.modules.gis_utils import (
 from scripts.modules.terrain_engine import (
     read_dem_geotiff,
     burn_stream_network_into_dem,
+    break_exact_flats,
     build_river_mask,
     save_geotiff_raster
 )
@@ -42,6 +43,7 @@ from scripts.fetch_basin_gis import (
     fetch_osm_waterways,
     fetch_osm_water_polygons,
     ensure_osm_cropped,
+    sanitize_osm_way_jumps,
     load_valid_boundary
 )
 
@@ -139,6 +141,9 @@ def generate_basin_flow_paths(
         osm_waterways, boundary_geojson, osm_waterways_path,
         buffer_m=crop_buffer_m, label="osm_waterways"
     )
+    # Step 2b (round 5): split ways at implausible vertex jumps (idempotent —
+    # protects legacy caches that were fetched before jump-splitting existed).
+    osm_waterways = sanitize_osm_way_jumps(osm_waterways, label="osm_waterways")
     n_osm = len(osm_waterways.get("features", []))
     print(f"        Loaded {n_osm:,} OSM river/stream features.")
 
@@ -197,6 +202,11 @@ def generate_basin_flow_paths(
                 water_polygons_geojson=water_polygons if n_poly > 0 else None,
                 polygon_burn_depth_m=(polygon_burn_depth if polygon_burn_depth is not None else max(1.0, burn_depth - 5.0))
             )
+
+        # Step 2a (round 5): break exact-constant flat plateaus (calm water returns /
+        # constant burn offsets) — without this, D8 flat resolution draws tens-of-km
+        # straight trenches along raster rows/cols (the axis-aligned teleports).
+        filled_dem = break_exact_flats(filled_dem, nodata=nodata)
 
         # Compute Flow Direction & Accumulation
         import pyflwdir

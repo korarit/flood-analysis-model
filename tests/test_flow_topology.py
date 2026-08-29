@@ -837,6 +837,113 @@ def test_generate_fails_on_coarse_boundary_cache():
         assert data.get("features"), "valid boundary must pass through"
 
 
+# ---------------------------------------------------------------------------
+# 19. (round 5 / Step 2a) break_exact_flats kills the straight-trench D8 runs
+# ---------------------------------------------------------------------------
+def test_break_exact_flats_removes_trenches():
+    import pyflwdir
+    from scripts.modules.terrain_engine import break_exact_flats
+
+    H, W = 400, 300
+    res = 0.001
+    transform = Affine(res, 0, 100.0, 0, -res, 18.0)
+
+    # sloped terrain + a big EXACT-constant plateau (calm water return)
+    dem = np.tile(np.linspace(100.0, 0.0, H)[:, None], (1, W)).astype(np.float32)
+    dem[100:250, 50:250] = 50.0
+
+    def max_straight_run(fdir):
+        best = 0
+        for code in (1, 4, 16, 64):
+            m = fdir == code
+            for arr in (m, m.T):
+                for row in arr:
+                    cur = 0
+                    for v in row:
+                        cur = cur + 1 if v else 0
+                        best = max(best, cur)
+        return best
+
+    flw = pyflwdir.from_dem(dem, nodata=-9999.0, transform=transform, latlon=True)
+    fdir_before = flw.to_array(ftype='d8')
+    del flw
+    straight_before = max_straight_run(fdir_before)
+
+    fixed = break_exact_flats(dem.copy(), nodata=-9999.0)
+    flw = pyflwdir.from_dem(fixed, nodata=-9999.0, transform=transform, latlon=True)
+    fdir_after = flw.to_array(ftype='d8')
+    pits = int((fdir_after[100:250, 50:250] == 0).sum())
+    del flw
+    straight_after = max_straight_run(fdir_after)
+
+    assert straight_before > 300, f"synthetic plateau must produce a long trench first (got {straight_before})"
+    assert straight_after <= 64, f"micro-gradient must cap straight runs at ~period (got {straight_after})"
+    assert pits == 0, "the sawtooth wrap must not leave permanent pits (pyflwdir fills them)"
+    # non-flat cells keep their elevation (micro-offset is bounded by period * ulp << 1 mm)
+    slope_zone = dem[0:50, 0:50]
+    fixed_zone = fixed[0:50, 0:50]
+    assert np.max(np.abs(slope_zone.astype(np.float64) - fixed_zone)) < 0.01
+
+
+# ---------------------------------------------------------------------------
+# 20. (round 5 / Step 2b) OSM ways with implausible jumps are split / dropped
+# ---------------------------------------------------------------------------
+def test_sanitize_osm_way_jumps():
+    from scripts.fetch_basin_gis import sanitize_osm_way_jumps
+
+    def way(oid, coords):
+        return {"type": "Feature", "id": f"osm_way_{oid}",
+                "properties": {"osm_id": oid}, "geometry": {"type": "LineString", "coordinates": coords}}
+
+    fc = {"type": "FeatureCollection", "_meta": {}, "features": [
+        # 0. clean way — must pass through untouched
+        way(1, [[100.000, 18.000], [100.010, 18.000], [100.020, 18.001]]),
+        # 1. real-shape way with a ~9km two-node gap mid-way -> MultiLineString
+        #    (realistic case: osm_id=400328476's 10.7km teleport gap)
+        way(400328476, [[100.5281, 17.9941], [100.5270, 17.9850],
+                        [100.4755, 17.9108], [100.4750, 17.9060],
+                        [100.4745, 17.9010], [100.4740, 17.8960]]),
+        # 2. way whose tail is cut by a big jump -> single surviving part (LineString)
+        way(2, [[100.100, 18.100], [100.105, 18.100], [100.110, 18.100], [100.900, 18.500]]),
+        # 3. way that is ONLY one big jump (2 nodes) -> dropped entirely
+        way(4, [[100.5281, 17.9941], [100.4755, 17.9108]]),
+        # 4. polygon feature — untouched
+        {"type": "Feature", "id": "poly", "properties": {"osm_id": 3},
+         "geometry": {"type": "Polygon", "coordinates": [[[100, 18], [101, 18], [101, 19], [100, 18]]]}},
+    ]}
+    out = sanitize_osm_way_jumps(fc, max_jump_km=2.0, min_part_km=1.0)
+    by_id = {f["properties"]["osm_id"]: f for f in out["features"]}
+
+    # clean way untouched (still LineString, same coords)
+    f0 = by_id[1]
+    assert f0["geometry"]["type"] == "LineString"
+    assert f0["geometry"]["coordinates"] == [[100.000, 18.000], [100.010, 18.000], [100.020, 18.001]]
+
+    # gapped way -> MultiLineString with the gap removed, tagged jump_split
+    f1 = by_id[400328476]
+    assert f1["geometry"]["type"] == "MultiLineString"
+    assert len(f1["geometry"]["coordinates"]) == 2
+    assert f1["properties"].get("jump_split") is True
+    for part in f1["geometry"]["coordinates"]:
+        assert len(part) >= 2
+
+    # tail-cut way -> the surviving part replaces the geometry (LineString)
+    f2 = by_id[2]
+    assert f2["geometry"]["type"] == "LineString"
+    assert f2["geometry"]["coordinates"] == [[100.100, 18.100], [100.105, 18.100], [100.110, 18.100]]
+
+    # pure-jump way dropped (it IS the teleport edge)
+    assert 4 not in by_id
+
+    # idempotent: second pass changes nothing
+    out2 = sanitize_osm_way_jumps(out, max_jump_km=2.0, min_part_km=1.0)
+    assert out2["features"] == out["features"]
+
+    # meta counters (F1)
+    st = out["_meta"]["way_jump_stats"]
+    assert st["n_ways_in"] == 4 and st["n_ways_dropped"] == 1 and st["n_split"] >= 1
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -859,6 +966,8 @@ def main():
         test_crop_geojson_to_basin,
         test_boundary_cache_rejects_coarse_box,
         test_generate_fails_on_coarse_boundary_cache,
+        test_break_exact_flats_removes_trenches,
+        test_sanitize_osm_way_jumps,
     ]
     for t in tests:
         t()

@@ -27,7 +27,8 @@ from scripts.modules.gis_utils import (
     bbox_to_wkt,
     save_geojson,
     save_json,
-    linestring_length_km
+    linestring_length_km,
+    haversine_distance
 )
 
 # Official Thailand 22 Basin Boundaries Open GeoJSON Source
@@ -1109,6 +1110,10 @@ def fetch_osm_waterways(
         "features": features
     }
 
+    # Step 2b (round 5): split ways at implausible vertex jumps BEFORE caching —
+    # a 2-node 10km gap becomes a straight edge in the backbone graph otherwise.
+    geojson = sanitize_osm_way_jumps(geojson, label="osm_waterways")
+
     # Phase 2 (G1): crop to the real basin polygon BEFORE the cache is written —
     # never persist (or process) data scoped by a rectangular fallback.
     if source_label == "basin_polygon":
@@ -1208,6 +1213,90 @@ def fetch_osm_water_polygons(
 
     save_geojson(geojson, output_path)
     print(f"  [OK] Saved {len(geojson.get('features', []))} OSM water polygon features to: {output_path}")
+    return geojson
+
+
+def sanitize_osm_way_jumps(
+    geojson: Dict[str, Any],
+    max_jump_km: float = 2.0,
+    min_part_km: float = 1.0,
+    label: str = "osm_waterways"
+) -> Dict[str, Any]:
+    """
+    Step 2b (round 5): splits OSM ways at implausible internal vertex jumps
+    (verified root cause of ~10km straight teleports: e.g. way 400328476 has a
+    10.7km two-node gap that lands exactly on a flow-file hub). Each way becomes
+    contiguous chunks; chunks shorter than min_part_km are dropped.
+
+    Idempotent: sanitized data passes through unchanged (no jumps remain).
+    LineString with a single surviving chunk stays a LineString; multiple chunks
+    become a MultiLineString (supported downstream by the graph, burn, mask,
+    snapping and the osm_river display layer). `_meta` carries the counters (F1).
+    """
+    if not geojson or not (geojson.get("features") or []):
+        return geojson
+    out_features: List[Dict[str, Any]] = []
+    n_in = n_out = n_split = n_parts_dropped = n_ways_dropped = 0
+    for feat in geojson.get("features", []):
+        geom = feat.get("geometry") or {}
+        if geom.get("type") != "LineString":
+            out_features.append(feat)
+            continue
+        n_in += 1
+        coords = geom.get("coordinates") or []
+        if len(coords) < 2:
+            out_features.append(feat)
+            continue
+        # split at jumps
+        parts: List[List[List[float]]] = [[coords[0]]]
+        for i in range(1, len(coords)):
+            a, b = coords[i - 1], coords[i]
+            jump_km = haversine_distance(a[1], a[0], b[1], b[0])
+            if jump_km > max_jump_km:
+                parts.append([coords[i]])
+            else:
+                parts[-1].append(coords[i])
+        n_parts_before = len(parts)
+        parts = [p for p in parts if len(p) >= 2 and linestring_length_km(p) >= min_part_km]
+        n_parts_dropped += n_parts_before - len(parts)
+        if not parts:
+            n_ways_dropped += 1
+            continue
+        if len(parts) == 1 and len(parts[0]) == len(coords):
+            out_features.append(feat)  # untouched
+            n_out += 1
+            continue
+        n_split += 1
+        if len(parts) == 1:
+            nf = dict(feat)
+            nf["geometry"] = {"type": "LineString", "coordinates": parts[0]}
+            props = dict(feat.get("properties", {}))
+            props["length_km"] = round(linestring_length_km(parts[0]), 3)
+            nf["properties"] = props
+            out_features.append(nf)
+            n_out += 1
+        else:
+            nf = dict(feat)
+            nf["geometry"] = {"type": "MultiLineString", "coordinates": parts}
+            props = dict(feat.get("properties", {}))
+            props["length_km"] = round(sum(linestring_length_km(p) for p in parts), 3)
+            props["jump_split"] = True
+            nf["properties"] = props
+            out_features.append(nf)
+            n_out += 1
+
+    meta = dict(geojson.get("_meta") or {})
+    meta["way_jump_stats"] = {
+        "n_ways_in": n_in, "n_ways_out": n_out, "n_split": n_split,
+        "n_ways_dropped": n_ways_dropped, "n_parts_dropped": n_parts_dropped,
+        "max_jump_km": max_jump_km, "min_part_km": min_part_km,
+    }
+    geojson = dict(geojson)
+    geojson["_meta"] = meta
+    geojson["features"] = out_features
+    if n_split or n_ways_dropped:
+        print(f"  [JUMP-SPLIT] {label}: {n_in:,} ways -> {n_out:,} "
+              f"(split at jumps > {max_jump_km} km: {n_split:,}, tiny ways dropped: {n_ways_dropped:,})")
     return geojson
 
 

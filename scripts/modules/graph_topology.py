@@ -1188,13 +1188,19 @@ def snap_stations_to_stream(
     if osm_waterways_geojson and osm_waterways_geojson.get("features"):
         for feat in osm_waterways_geojson.get("features", []):
             geom = feat.get("geometry")
-            if geom and geom.get("type") == "LineString":
-                coords = geom.get("coordinates", [])
+            if not geom:
+                continue
+            props = feat.get("properties", {})
+            if geom.get("type") == "LineString":
+                parts = [geom.get("coordinates", [])]
+            elif geom.get("type") == "MultiLineString":
+                parts = geom.get("coordinates", [])
+            else:
+                continue
+            for coords in parts:
                 if len(coords) >= 2:
                     try:
-                        line_geom = LineString(coords)
-                        props = feat.get("properties", {})
-                        osm_lines.append((line_geom, props))
+                        osm_lines.append((LineString(coords), props))
                     except Exception:
                         pass
 

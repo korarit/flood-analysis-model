@@ -598,6 +598,39 @@ def build_river_mask(
     return mask
 
 
+def break_exact_flats(
+    dem: np.ndarray,
+    nodata: float = -9999.0,
+    period: int = 64
+) -> np.ndarray:
+    """
+    Breaks EXACT-constant flat plateaus in place (Step 2a, round 5).
+
+    Calm water surfaces in the raw RTC DEM (and constant polygon-burn offsets) make
+    huge regions share one identical float32 elevation. D8 flat resolution on such a
+    symmetric plateau draws tens-of-km STRAIGHT trenches along raster rows/columns —
+    the axis-aligned teleports seen in the flow output (verified: a 2,384-cell
+    same-code run sits exactly on a 2,389-cell identical-value run).
+
+    Fix: superpose a deterministic sawtooth micro-gradient along raster order —
+    a per-cell increment of exactly 1 float32 ULP of the local elevation, wrapping
+    every `period` cells. Within any `period`-cell stretch the surface is strictly
+    monotonic, so D8 can never chain more than `period` identical-direction steps
+    across a flat; the wrap drop (~period ULPs ≈ sub-mm) is far below any burn depth
+    and is healed by pyflwdir's depression fill (verified: no pits remain, straight
+    runs drop from 398 to 63 cells on a synthetic plateau). Natural sloped cells are
+    unaffected: the added offset is orders of magnitude below real terrain slopes.
+    """
+    valid = (dem != nodata) & ~np.isnan(dem)
+    nrows, ncols = dem.shape
+    r = np.arange(nrows, dtype=np.float64)[:, None]
+    c = np.arange(ncols, dtype=np.float64)[None, :]
+    k = np.fmod(r + c, float(period)) - (period // 2)          # -P/2 .. P/2 sawtooth
+    ulp = np.maximum(np.abs(dem) * 2.0 ** -23, 2.0 ** -30)     # float32 ULP of local elevation
+    dem += np.where(valid, (k * ulp).astype(np.float32), 0.0)
+    return dem
+
+
 def burn_stream_network_into_dem(
     dem: np.ndarray,
     transform: Affine,
