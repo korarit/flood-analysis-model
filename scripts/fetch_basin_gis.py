@@ -786,7 +786,7 @@ def _basin_query_geometry(basin_boundary_geojson: Optional[Dict[str, Any]]):
         return None, "station_bbox"
 
 
-def _overpass_poly_statements(geom: Any, tag_filter: str, max_polygons: int = 12) -> List[str]:
+def _overpass_poly_statements(geom: Any, tag_filter: str, max_polygons: int = 8) -> List[str]:
     """
     Converts a (Multi)Polygon into Overpass `poly:` filter statements.
     Simplifies each polygon to ~0.005 deg (~550m) to keep the query compact;
@@ -820,28 +820,21 @@ def _build_overpass_query(
 ) -> Tuple[str, str, str]:
     """
     Builds an Overpass QL query + fingerprint from basin polygon (preferred) or station bbox.
-    When both basin polygon and stations are available, expands the query geometry to include
-    the buffered convex hull of all stations (0.05 deg ~ 5.5 km buffer) so perimeter and ridge
-    stations never suffer from boundary-clip dead-zones.
+    When basin polygon is available, buffers it slightly (0.02 deg ~ 2.2 km) to ensure clean boundary coverage.
     Returns (overpass_query, fingerprint, source_label).
     """
     stmts: List[str] = []
     source_label = "basin_polygon"
-    query_geom = geom
-    if geom is not None and stations:
+    query_geom = None
+    if geom is not None:
         try:
-            from shapely.geometry import MultiPoint
-            st_coords = [[float(s['longitude']), float(s['latitude'])]
-                         for s in stations if s.get('latitude') is not None and s.get('longitude') is not None]
-            if st_coords:
-                st_hull = MultiPoint(st_coords).convex_hull.buffer(0.05)
-                query_geom = geom.union(st_hull).buffer(0.02)
+            query_geom = geom.buffer(0.02)
         except Exception:
             query_geom = geom
 
     if query_geom is not None:
         for tf in tag_filters:
-            stmts.extend(_overpass_poly_statements(query_geom, tf, max_polygons=12))
+            stmts.extend(_overpass_poly_statements(query_geom, tf, max_polygons=8))
     if not stmts:
         source_label = "station_bbox"
         min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=station_bbox_buffer_deg)
@@ -926,19 +919,18 @@ def _crop_buffer_deg(buffer_m: float) -> float:
 def crop_geojson_to_basin(
     geojson: Dict[str, Any],
     basin_boundary_geojson: Optional[Dict[str, Any]],
-    buffer_m: float = 5000.0,
-    label: str = "osm",
-    stations: Optional[List[Dict[str, Any]]] = None
+    buffer_m: float = 2000.0,
+    label: str = "osm"
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """
-    Phase 2 (G1/RC3): crops every OSM feature to the real basin polygon (+ station envelope buffer)
+    Phase 2 (G1/RC3): crops every OSM feature to the real basin polygon (+ 2km buffer)
     using shapely, BEFORE the data enters processing or the cache:
-      - features entirely outside the basin envelope are dropped
+      - features entirely outside the basin are dropped
       - lines crossing the boundary keep all parts inside the basin (preserving multi-part branches)
     Returns (cropped_geojson, stats) where stats carries the filter-report counters
     required by the Flow Layer Filter Matrix (F1).
     """
-    from shapely.geometry import shape as _shape, mapping as _mapping, MultiPoint
+    from shapely.geometry import shape as _shape, mapping as _mapping
     from shapely.prepared import prep as _prep
     from shapely.strtree import STRtree  # noqa: F401  (kept for parity with pipeline index usage)
     from scripts.modules.gis_utils import linestring_length_km
@@ -961,12 +953,6 @@ def crop_geojson_to_basin(
 
     try:
         crop_poly = basin_poly.buffer(_crop_buffer_deg(buffer_m))
-        if stations:
-            st_coords = [[float(s['longitude']), float(s['latitude'])]
-                         for s in stations if s.get('latitude') is not None and s.get('longitude') is not None]
-            if st_coords:
-                st_hull = MultiPoint(st_coords).convex_hull.buffer(_crop_buffer_deg(buffer_m))
-                crop_poly = crop_poly.union(st_hull)
         crop_poly = crop_poly.simplify(0.0005, preserve_topology=True) or crop_poly
         prepared = _prep(crop_poly)
     except Exception as ex:
@@ -1257,7 +1243,7 @@ def fetch_osm_water_polygons(
     # Phase 2 (G1): crop water polygons to the real basin polygon before caching
     if source_label == "basin_polygon":
         geojson, _crop_stats = crop_geojson_to_basin(
-            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_water_polygons", stations=stations
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_water_polygons"
         )
 
     save_geojson(geojson, output_path)

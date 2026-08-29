@@ -475,3 +475,19 @@ python scripts/validate_flow_paths.py --geojson dataset/nan/processed/flow_paths
 3. `flood-analysis-model/scripts/generate_flow_paths.py`: เชื่อมต่อ `enforce_geodesic_flat_slope` ทันทีหลัง Pit-Fill ก่อนคำนวณ Flow Direction / Accumulation
 4. `flood-analysis-model/scripts/modules/graph_topology.py`: เพิ่ม `STREAM_STOP` และ Overland Cap ใน `trace_downstream_path`, ปรับปรุง Layer 2 Ingress ใน `build_flow_paths_and_relations`, Majority Slope ใน `add_river_segment`, และ Collinear Guard ใน `simplify_linestring_coords`
 
+---
+
+# รอบแก้ที่ 8 — Boundary Natural Divides & Stream Continuity Restoration (V8)
+
+ผลการรันจริงใน `flow_paths_nan_v7.geojson`:
+1. เส้นตรงหายไปหมดจริง ($100\%$)
+2. เกิดปัญหาขอบเขตบวมเป็นวงรีบาน ๆ และ OSM rivers เพิ่มเป็น 9,499 เส้น จากการใช้ Convex Hull ถมรอยเว้าลุ่มน้ำ
+3. เส้น rainfall_to_gauge ลดลงจาก 662 เหลือ 272 เส้น (194 สถานีกลายเป็นติ่งสั้น 200m) จากการที่ `STREAM_STOP` ตัดจบก่อนถึงแม่น้ำ และ gauge_to_gauge ลดจาก 169 เหลือ 68 เส้นจาก default cap 3km
+
+## สิ่งที่แก้ในรอบ 8 (V8):
+1. **กู้คืนขอบเขตลุ่มน้ำธรรมชาติ:** ถอด Convex Hull ออกทั้งหมด ใช้ `basin_poly.buffer(2000m)` เพื่อรักษาแนวสันเขาเว้าคอดธรรมชาติ ไม่บวมเป็นวงรี และตัดแม่น้ำนอกลุ่มน้ำทิ้ง
+2. **กู้คืนเส้น Gauge $\rightarrow$ Gauge:** ปลดล็อค `max_overland_cells=0` ใน Layer 1 เพื่อให้สถานีวัดน้ำเดินตามลำน้ำสายหลักได้เต็มระยะ 10–50 km
+3. **กู้คืนเส้น Rainfall $\rightarrow$ Gauge:** ถอด `STREAM_STOP` ที่ตัดจบที่ 200 เมตรออก ให้ D8 ไหลนำทางตามร่องเขาธรรมชาติลงมาจนบรรจบแม่น้ำ OSM หรือสถานีวัดน้ำในระยะทางที่ถูกต้อง
+4. **เร่งความเร็ว $O(N)$ ใน `build_water_body_transits`:** ใช้ `scipy.ndimage.find_objects` และ Node Hash Map Pre-indexing ทำให้ขั้นตอนที่ 5 รันเสร็จสิ้นใน $<1$ วินาที
+
+
