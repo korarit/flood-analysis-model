@@ -1153,7 +1153,7 @@ def fetch_osm_waterways(
     # never persist (or process) data scoped by a rectangular fallback.
     if source_label == "basin_polygon":
         geojson, _crop_stats = crop_geojson_to_basin(
-            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_waterways", stations=stations
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_waterways"
         )
 
     save_geojson(geojson, output_path)
