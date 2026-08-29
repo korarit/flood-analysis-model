@@ -907,6 +907,9 @@ def test_sanitize_osm_way_jumps():
         way(2, [[100.100, 18.100], [100.105, 18.100], [100.110, 18.100], [100.900, 18.500]]),
         # 3. way that is ONLY one big jump (2 nodes) -> dropped entirely
         way(4, [[100.5281, 17.9941], [100.4755, 17.9108]]),
+        # 5. SHORT way (< 1 km) with NO jump — must be KEPT (the "no length filter
+        #    on OSM ways" rule: only jump-split fragments may be dropped)
+        way(5, [[100.200, 18.200], [100.204, 18.200], [100.207, 18.201]]),
         # 4. polygon feature — untouched
         {"type": "Feature", "id": "poly", "properties": {"osm_id": 3},
          "geometry": {"type": "Polygon", "coordinates": [[[100, 18], [101, 18], [101, 19], [100, 18]]]}},
@@ -918,6 +921,12 @@ def test_sanitize_osm_way_jumps():
     f0 = by_id[1]
     assert f0["geometry"]["type"] == "LineString"
     assert f0["geometry"]["coordinates"] == [[100.000, 18.000], [100.010, 18.000], [100.020, 18.001]]
+
+    # short no-jump way kept intact (regression: a 1.0km min-part filter once
+    # dropped 867 short streams from the nan basin)
+    f5 = by_id[5]
+    assert f5["geometry"]["type"] == "LineString"
+    assert len(f5["geometry"]["coordinates"]) == 3
 
     # gapped way -> MultiLineString with the gap removed, tagged jump_split
     f1 = by_id[400328476]
@@ -941,7 +950,7 @@ def test_sanitize_osm_way_jumps():
 
     # meta counters (F1)
     st = out["_meta"]["way_jump_stats"]
-    assert st["n_ways_in"] == 4 and st["n_ways_dropped"] == 1 and st["n_split"] >= 1
+    assert st["n_ways_in"] == 5 and st["n_ways_dropped"] == 1 and st["n_split"] >= 1
 
 
 # ---------------------------------------------------------------------------

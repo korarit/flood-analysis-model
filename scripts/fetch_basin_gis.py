@@ -1239,6 +1239,11 @@ def sanitize_osm_way_jumps(
     10.7km two-node gap that lands exactly on a flow-file hub). Each way becomes
     contiguous chunks; chunks shorter than min_part_km are dropped.
 
+    IMPORTANT: the length filter applies ONLY to chunks created by a jump split —
+    ways without jumps pass through untouched regardless of their length (the
+    project rule "no length filter on OSM ways" is preserved; a first version of
+    this filter accidentally dropped 867 short streams from the nan basin).
+
     Idempotent: sanitized data passes through unchanged (no jumps remain).
     LineString with a single surviving chunk stays a LineString; multiple chunks
     become a MultiLineString (supported downstream by the graph, burn, mask,
@@ -1260,22 +1265,25 @@ def sanitize_osm_way_jumps(
             continue
         # split at jumps
         parts: List[List[List[float]]] = [[coords[0]]]
+        has_jump = False
         for i in range(1, len(coords)):
             a, b = coords[i - 1], coords[i]
             jump_km = haversine_distance(a[1], a[0], b[1], b[0])
             if jump_km > max_jump_km:
+                has_jump = True
                 parts.append([coords[i]])
             else:
                 parts[-1].append(coords[i])
+        if not has_jump:
+            # no jump -> keep the way exactly as-is (NEVER length-filter intact ways)
+            out_features.append(feat)
+            n_out += 1
+            continue
         n_parts_before = len(parts)
         parts = [p for p in parts if len(p) >= 2 and linestring_length_km(p) >= min_part_km]
         n_parts_dropped += n_parts_before - len(parts)
         if not parts:
             n_ways_dropped += 1
-            continue
-        if len(parts) == 1 and len(parts[0]) == len(coords):
-            out_features.append(feat)  # untouched
-            n_out += 1
             continue
         n_split += 1
         if len(parts) == 1:
@@ -1364,8 +1372,8 @@ def main():
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
     parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--force", action="store_true",
-                        help="Force re-fetch of the basin boundary AND OSM waterways/polygons "
-                             "(overwrites their caches; DEM untouched)")
+                        help="Force re-fetch of EVERYTHING: basin boundary, OSM waterways/polygons, "
+                             "and the ALOS DEM re-download & re-mosaic (heavy)")
     parser.add_argument("--force-osm", action="store_true",
                         help="Force re-download of OSM waterways/polygons only (boundary cache kept)")
     parser.add_argument("--force-dem", action="store_true",
@@ -1375,8 +1383,8 @@ def main():
                              "(default: 2000; keeps hydrology connected at the basin edge)")
     args = parser.parse_args()
 
-    force_all = args.force
-    force_osm = force_all or args.force_osm
+    force_osm = args.force or args.force_osm
+    force_dem = args.force or args.force_dem
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
 
@@ -1405,7 +1413,7 @@ def main():
         # 1. Basin Boundary (in dataset/{basin}/gis/) — MANDATORY (G5): no polygon, no pipeline
         boundary_path = os.path.join(basin_dir, "gis", f"{b}_boundary.geojson")
         try:
-            fetch_basin_boundary(b, boundary_path, all_st, force=force_all)
+            fetch_basin_boundary(b, boundary_path, all_st, force=args.force)
         except RuntimeError as ex:
             print(f"❌ ERROR: {ex}", file=sys.stderr)
             sys.exit(1)
@@ -1432,7 +1440,7 @@ def main():
 
         # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
         download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password,
-                                 chunk_size=args.chunk_size, force=args.force_dem)
+                                 chunk_size=args.chunk_size, force=force_dem)
 
 
 if __name__ == "__main__":
