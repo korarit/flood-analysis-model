@@ -186,7 +186,14 @@ def generate_basin_flow_paths(
             filled_dem = src_dem.read(1).astype(np.float32)
             nodata = src_dem.nodata if src_dem.nodata is not None else -9999.0
     else:
-        dem_to_use = cond_dem_path if (os.path.exists(cond_dem_path) and os.path.getsize(cond_dem_path) > 1024) else raw_dem_path
+        # Round 6: --force always re-burns from the RAW DEM — the conditioned cache
+        # already carries the previous burn + noise, and conditioning on top of it
+        # would stack burn depths (and noise) every forced run.
+        if force and os.path.exists(raw_dem_path) and os.path.getsize(raw_dem_path) > 1024:
+            dem_to_use = raw_dem_path
+            print("        [FORCE] Re-burning from the raw DEM (conditioned cache bypassed).")
+        else:
+            dem_to_use = cond_dem_path if (os.path.exists(cond_dem_path) and os.path.getsize(cond_dem_path) > 1024) else raw_dem_path
 
         if not os.path.exists(dem_to_use):
             print(f"  ❌ ERROR: DEM not found in {terrain_dir}. Please run fetch_basin_gis.py first!", file=sys.stderr)
