@@ -41,8 +41,31 @@ from scripts.modules.backend_exporter import export_backend_station_relations
 from scripts.fetch_basin_gis import (
     fetch_osm_waterways,
     fetch_osm_water_polygons,
-    fetch_basin_boundary
+    ensure_osm_cropped
 )
+
+
+def resolve_basin_boundary_or_fail(basin: str, boundary_path: str) -> Dict[str, Any]:
+    """
+    Phase 1 (G5): the basin boundary polygon is MANDATORY. When it is missing or
+    unreadable the pipeline exits with fix instructions instead of silently falling
+    back to a rectangular station bbox (the root cause of the 4-corner map bug).
+    """
+    if os.path.exists(boundary_path) and os.path.getsize(boundary_path) > 500:
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            feats = data.get('features') or []
+            geom = (feats[0] or {}).get('geometry') or {} if feats else {}
+            if geom.get('type') in ('Polygon', 'MultiPolygon'):
+                return data
+        except Exception:
+            pass
+    raise SystemExit(
+        f"❌ ERROR: Basin boundary polygon not found or invalid: {boundary_path}\n"
+        f"   A real basin polygon is mandatory (rectangular station-bbox fallback is disabled).\n"
+        f"   Fix: run `python scripts/fetch_basin_gis.py --basin {basin}` first, then re-run this script."
+    )
 
 
 def generate_basin_flow_paths(
@@ -62,7 +85,8 @@ def generate_basin_flow_paths(
     branch_min_km: float = 1.0,
     overland_max_km: float = 5.0,
     clip_to_basin: bool = True,
-    write_gzip: bool = True
+    write_gzip: bool = True,
+    crop_buffer_m: float = 2000.0
 ):
     """
     Generates high-precision hybrid flow paths and station relations for a river basin.
@@ -95,23 +119,20 @@ def generate_basin_flow_paths(
         return
 
     # 2. Fetch or Load OpenStreetMap Waterways (scoped to the official basin polygon)
+    # Phase 1 (G5): boundary is mandatory — fail fast when missing, never fall back
+    # to a rectangular station bbox.
     print("  [2/5] Loading OpenStreetMap River Network...")
-    boundary_geojson = None
-    if os.path.exists(boundary_path) and os.path.getsize(boundary_path) > 500:
-        try:
-            with open(boundary_path, 'r', encoding='utf-8') as f:
-                boundary_geojson = json.load(f)
-        except Exception:
-            boundary_geojson = None
-    if boundary_geojson is None:
-        try:
-            boundary_geojson = fetch_basin_boundary(basin, boundary_path, water_st + rain_st)
-        except Exception as ex:
-            print(f"  [WARN] Could not obtain basin boundary; OSM query falls back to station bbox: {ex}")
+    boundary_geojson = resolve_basin_boundary_or_fail(basin, boundary_path)
 
     osm_waterways = fetch_osm_waterways(
         basin, osm_waterways_path, water_st + rain_st, force=force,
-        basin_boundary_geojson=boundary_geojson
+        basin_boundary_geojson=boundary_geojson, crop_buffer_m=crop_buffer_m
+    )
+    # Phase 2.8: recrop legacy caches (no crop fingerprint) with the current boundary,
+    # idempotently, so old rectangular-era caches can never pass through silently.
+    osm_waterways = ensure_osm_cropped(
+        osm_waterways, boundary_geojson, osm_waterways_path,
+        buffer_m=crop_buffer_m, label="osm_waterways"
     )
     n_osm = len(osm_waterways.get("features", []))
     print(f"        Loaded {n_osm:,} OSM river/stream features.")
@@ -119,7 +140,11 @@ def generate_basin_flow_paths(
     # 2b. OpenStreetMap Water Polygons (reservoirs / wide rivers) for stream burning
     water_polygons = fetch_osm_water_polygons(
         basin, water_polygons_path, water_st + rain_st, force=force,
-        basin_boundary_geojson=boundary_geojson
+        basin_boundary_geojson=boundary_geojson, crop_buffer_m=crop_buffer_m
+    )
+    water_polygons = ensure_osm_cropped(
+        water_polygons, boundary_geojson, water_polygons_path,
+        buffer_m=crop_buffer_m, label="osm_water_polygons"
     )
     n_poly = len(water_polygons.get("features", []))
     print(f"        Loaded {n_poly:,} OSM water polygon features.")
@@ -355,6 +380,9 @@ def main():
                         help="Do NOT clip output lines to the ThaiWater basin boundary polygon")
     parser.add_argument("--no-gzip", action="store_true",
                         help="Skip writing flow_paths.geojson.gz (raw .geojson is always written)")
+    parser.add_argument("--crop-buffer-m", type=float, default=2000.0,
+                        help="Buffer in meters applied to the basin polygon when cropping OSM data "
+                             "(default: 2000; must match the fetch_basin_gis.py crop buffer)")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -395,7 +423,8 @@ def main():
             branch_min_km=args.branch_min_km,
             overland_max_km=args.overland_max_km,
             clip_to_basin=not args.no_basin_clip,
-            write_gzip=not args.no_gzip
+            write_gzip=not args.no_gzip,
+            crop_buffer_m=args.crop_buffer_m
         )
 
 

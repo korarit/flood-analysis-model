@@ -550,7 +550,7 @@ def test_branch_cap_and_dedupe():
 
 
 # ---------------------------------------------------------------------------
-# 14. Basin-boundary clipping: all output lines are cut to the basin polygon
+# 14. Basin-boundary clipping: flow paths cut to the polygon, osm_river untouched
 # ---------------------------------------------------------------------------
 def test_basin_boundary_clipping():
     B = _build_synthetic_basin()
@@ -579,14 +579,33 @@ def test_basin_boundary_clipping():
 
     feats = geojson["features"]
     assert feats, "features inside the boundary must survive"
-    for feat in feats:
+
+    # v2 (G2): the osm_river display layer must NEVER be re-cut — it passes through
+    # exactly as it was cropped at fetch time (it may legitimately extend south).
+    osm_feats = [f for f in feats if f["properties"].get("feature_type") == "osm_river"]
+    assert osm_feats, "osm_river layer must survive the clip stage untouched"
+    assert all(not f["properties"].get("basin_clipped") for f in osm_feats), \
+        "osm_river must never carry basin_clipped (G2)"
+    assert any(f["geometry"]["coordinates"][-1][1] < cut_lat for f in osm_feats), \
+        "osm_river geometry must be byte-identical to the crop-set (extends past the boundary)"
+
+    # v2 (G3): every NON-osm_river line must be cut to the polygon (concave clip),
+    # and the W400->W600 gauge path crosses cut_lat -> at least one trimmed flowpath.
+    flow_feats = [f for f in feats if f["properties"].get("feature_type") != "osm_river"]
+    assert flow_feats
+    for feat in flow_feats:
         for lon, lat in feat["geometry"]["coordinates"]:
             assert lat >= cut_lat - 1e-9, \
                 f"{feat['id']} has coordinate outside the basin polygon: ({lon}, {lat})"
-    # The full-basin OSM display layer reaches far south (row 800) -> at least one
-    # feature must have been trimmed by the clip
-    trimmed = [f for f in feats if f["properties"].get("basin_clipped")]
-    assert trimmed, "expected at least one feature trimmed by the basin clip"
+    trimmed = [f for f in flow_feats if f["properties"].get("basin_clipped")]
+    assert trimmed, "expected at least one flow feature trimmed by the basin clip"
+
+    # Filter report (F1) must be embedded in the output `_meta`
+    meta = geojson.get("_meta") or {}
+    clip_stats = (meta.get("filters") or {}).get("basin_clip") or {}
+    assert clip_stats.get("osm_river", {}).get("clipped") == 0, "osm_river clip counter must be 0"
+    assert any(v.get("clipped", 0) > 0 for k, v in clip_stats.items() if k != "osm_river"), \
+        "at least one flow layer must report clipped features in the filter report"
 
     # With the FULL basin polygon nothing is dropped or trimmed
     full_poly = {"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[
@@ -607,6 +626,141 @@ def test_basin_boundary_clipping():
     assert len(geojson2["features"]) >= len(feats), "full boundary must keep all features"
 
 
+# ---------------------------------------------------------------------------
+# 15. (v2/Phase 4) Candidate ranking: main river beats a nearby island stream
+# ---------------------------------------------------------------------------
+def test_ranked_snap_prefers_main_river():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+
+    # Main river flowing south (elevation falls with decreasing latitude)
+    def elev_fn(lon, lat):
+        return 200.0 + (lat - 18.0) * 2000.0
+
+    main_coords = [[100.000, 18.100], [100.000, 18.000]]
+    g.add_river_segment(main_coords, sample_elev_fn=elev_fn,
+                        river_name="main", waterway_class="river", osm_id="318800000")
+
+    # Topology island: short stream fragment ~100m east of the main river,
+    # connected to nothing and flowing nowhere.
+    island_coords = [[100.0010, 18.0500], [100.0015, 18.0500]]
+    g.add_river_segment(island_coords, sample_elev_fn=elev_fn,
+                        river_name="island", waterway_class="stream", osm_id="318801683")
+
+    g.finalize_connectivity()
+    g.build_spatial_index()
+
+    # Gauge at the main river's downstream end -> main river is gauge-connected
+    south_node, _ = g.find_nearest_node(100.000, 18.000, max_dist_deg=0.01)
+    assert south_node is not None
+    g.compute_gauge_reachability({south_node})
+
+    # Query point sits ON the island stream (~0m) and ~107m from the main river.
+    # "Nearest wins" would attach the island; ranking must pick the main river.
+    q = (100.0010, 18.0500)
+    nid, dist, meta = g.snap_point_to_graph_ranked(q[0], q[1], max_dist_deg=0.003)
+    assert nid is not None, "ranked snap must find the main river"
+    assert meta is not None
+    assert meta["attach_osm_id"] == "318800000", \
+        f"must attach the main river, got {meta['attach_osm_id']}"
+    assert meta["attach_quality"] == "ok"
+    assert meta["attach_class"] == "river"
+    assert meta["attach_distance_m"] <= 300.0
+
+    # The attach node must lie exactly ON the selected main-river line (projection)
+    lon, lat, _ = g.nodes[nid]
+    assert abs(lon - 100.000) < 1e-6, "attach node must be projected onto the main river line"
+    assert abs(lat - 18.0500) < 1e-3
+
+
+def test_ranked_snap_degraded_on_island_only():
+    g = DirectedRiverGraph(snap_tolerance_deg=1e-4)
+
+    def elev_fn(lon, lat):
+        return 200.0 + (lat - 18.0) * 2000.0
+
+    g.add_river_segment([[100.0010, 18.0500], [100.0015, 18.0500]],
+                        sample_elev_fn=elev_fn, river_name="island",
+                        waterway_class="stream", osm_id="318801683")
+    g.finalize_connectivity()
+    g.build_spatial_index()
+
+    # NO gauge anywhere on the backbone -> every attachment is a topology island
+    g.compute_gauge_reachability(set())
+    nid, dist, meta = g.snap_point_to_graph_ranked(100.0012, 18.0498, max_dist_deg=0.003)
+    assert nid is not None
+    assert meta is not None and meta["attach_quality"] == "degraded", \
+        f"island-only attach must be tagged degraded, got {meta}"
+
+
+# ---------------------------------------------------------------------------
+# 16. (v2/Phase 1) Boundary missing -> generate must fail fast (no rectangle)
+# ---------------------------------------------------------------------------
+def test_boundary_missing_fails_fast():
+    import tempfile
+    from scripts.generate_flow_paths import resolve_basin_boundary_or_fail
+
+    with tempfile.TemporaryDirectory() as td:
+        missing = os.path.join(td, "x_boundary.geojson")
+        try:
+            resolve_basin_boundary_or_fail("x", missing)
+            raise AssertionError("missing boundary must raise SystemExit")
+        except SystemExit as ex:
+            msg = str(ex)
+            assert "fetch_basin_gis.py" in msg, "error must tell the user how to fix it"
+
+        # A boundary that exists but is not a polygon must also fail
+        with open(missing, 'w', encoding='utf-8') as f:
+            f.write('{"type": "FeatureCollection", "features": [{"type": "Feature", '
+                    '"properties": {}, "geometry": {"type": "Point", "coordinates": [100, 18]}}]}')
+        try:
+            resolve_basin_boundary_or_fail("x", missing)
+            raise AssertionError("non-polygon boundary must raise SystemExit")
+        except SystemExit:
+            pass
+
+
+# ---------------------------------------------------------------------------
+# 17. (v2/Phase 2) OSM features are cropped to the basin polygon at fetch time
+# ---------------------------------------------------------------------------
+def test_crop_geojson_to_basin():
+    from scripts.fetch_basin_gis import crop_geojson_to_basin, _boundary_fingerprint
+
+    basin = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {},
+              "geometry": {"type": "Polygon", "coordinates": [[
+                  [100.00, 18.00], [100.10, 18.00], [100.10, 18.10], [100.00, 18.10], [100.00, 18.00]]]}}]}
+
+    fc = {"type": "FeatureCollection", "features": [
+        {"type": "Feature", "id": "inside",
+         "properties": {"osm_id": 1},
+         "geometry": {"type": "LineString", "coordinates": [[100.02, 18.02], [100.04, 18.04]]}},
+        {"type": "Feature", "id": "outside",
+         "properties": {"osm_id": 2},
+         "geometry": {"type": "LineString", "coordinates": [[100.20, 18.20], [100.22, 18.22]]}},
+        {"type": "Feature", "id": "crossing",
+         "properties": {"osm_id": 3},
+         "geometry": {"type": "LineString", "coordinates": [[100.05, 18.05], [100.15, 18.15]]}},
+    ]}
+
+    cropped, stats = crop_geojson_to_basin(fc, basin, buffer_m=0.0, label="test")
+    assert stats["n_in"] == 3
+    assert stats["dropped_outside"] == 1, "line fully outside the basin must be dropped"
+    assert stats["clipped"] == 1, "crossing line must be clipped to the basin"
+    assert stats["n_out"] == 2
+
+    by_id = {f["id"]: f for f in cropped["features"]}
+    assert "outside" not in by_id
+    cross = by_id["crossing"]["geometry"]["coordinates"]
+    for lon, lat in cross:
+        assert 100.00 - 1e-9 <= lon <= 100.10 + 1e-9, f"clipped point outside basin: {lon}"
+        assert 18.00 - 1e-9 <= lat <= 18.10 + 1e-9, f"clipped point outside basin: {lat}"
+    # crop-set identity: inside feature must be untouched
+    assert by_id["inside"]["geometry"]["coordinates"] == [[100.02, 18.02], [100.04, 18.04]]
+
+    meta = cropped.get("_meta") or {}
+    assert meta.get("crop_polygon") == _boundary_fingerprint(basin), "crop fingerprint must be recorded"
+    assert meta.get("crop_stats", {}).get("n_out") == 2
+
+
 def main():
     tests = [
         test_graph_direction_and_connectivity,
@@ -623,6 +777,10 @@ def main():
         test_river_stop_stops_d8,
         test_river_first_cascade_with_mask,
         test_basin_boundary_clipping,
+        test_ranked_snap_prefers_main_river,
+        test_ranked_snap_degraded_on_island_only,
+        test_boundary_missing_fails_fast,
+        test_crop_geojson_to_basin,
     ]
     for t in tests:
         t()

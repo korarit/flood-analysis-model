@@ -10,12 +10,20 @@ Scans flow_paths.geojson for the known defect classes:
      geometrically cross an OSM river centerline without running alongside it,
      i.e. lines that cut across rivers instead of merging into them
   5. Feature/relation inventory per type
+  6. (v2) Layer integrity & Filter Matrix checks:
+     - osm_river must NEVER carry basin_clipped (G2 — layer passes through untouched)
+     - flow-path endpoints must sit on a gauge OR on an OSM river (<= 30m) (G4)
+     - attach metadata must reference a real river within tolerance
+     - output `_meta` must carry a filter report; OSM source must not be station_bbox
+     - (with --boundary) no flow/branch point may lie outside the basin polygon
 
-Pure standard library — no geo dependencies required.
+Pure standard library — no geo dependencies required (shapely is optional and only
+used for the --boundary point-in-polygon check).
 
 Usage:
   python scripts/validate_flow_paths.py --geojson dataset/yom/processed/flow_paths.geojson
   python scripts/validate_flow_paths.py --geojson flow.geojson --max-jump-km 0.5 --min-length-km 1.0
+  python scripts/validate_flow_paths.py --geojson flow.geojson --boundary dataset/yom/gis/yom_boundary.geojson
 Exit code 0 = PASS, 1 = issues found.
 """
 
@@ -255,6 +263,181 @@ def validate(geojson, max_jump_km, min_length_km):
     return report
 
 
+# ---------------------------------------------------------------------------
+# v2: layer integrity / Filter Matrix / endpoint attachment checks (G2-G5, F1-F4)
+# ---------------------------------------------------------------------------
+
+ATTACH_TOL_KM = 0.030  # flow-path endpoint / attach point must sit within 30m of a river
+
+FLOWPATH_TYPES = {"gauge_to_gauge_flowpath", "rainfall_to_gauge_flowpath"}
+
+
+def _build_river_segment_grid(geojson):
+    """
+    Buckets every osm_river segment into a spatial hash grid (O(1) average lookup).
+    Returns (segments, grid) where segments[i] = (x0, y0, x1, y1).
+    """
+    segments = []
+    grid = defaultdict(list)
+    for feat in geojson.get("features", []):
+        if feat.get("properties", {}).get("feature_type") != "osm_river":
+            continue
+        geom = feat.get("geometry", {})
+        coords = geom.get("coordinates", [])
+        if geom.get("type") == "MultiLineString":
+            coords = [pt for line in coords for pt in line]
+        for i in range(len(coords) - 1):
+            sid = len(segments)
+            segments.append((coords[i][0], coords[i][1], coords[i + 1][0], coords[i + 1][1]))
+            for cell in _cells_for_bbox(coords[i][0], coords[i][1], coords[i + 1][0], coords[i + 1][1]):
+                grid[cell].append(sid)
+    return segments, grid
+
+
+def _min_dist_to_river_km(px, py, segments, grid):
+    """Nearest distance (km) from point (px, py) to any osm_river segment via the grid."""
+    cx, cy = int(math.floor(px / CELL)), int(math.floor(py / CELL))
+    best = float('inf')
+    for dx in (-1, 0, 1):
+        for dy in (-1, 0, 1):
+            for sid in grid.get((cx + dx, cy + dy), ()):
+                s = segments[sid]
+                d = _pt_seg_dist_km(px, py, s[0], s[1], s[2], s[3])
+                if d < best:
+                    best = d
+    return best
+
+
+def check_layer_integrity(geojson):
+    """
+    v2 checks (G2/G4/F4):
+      1. osm_river features must never carry basin_clipped
+      2. every flow-path endpoint sits at a gauge OR on an OSM river (<= 30m),
+         or carries attach metadata; floating endpoints = FAIL
+      3. attach metadata must point at a real river line within 30m
+      4. `_meta` must contain the per-layer filter report; OSM source must not be
+         station_bbox (rectangular fallback = FAIL)
+    """
+    features = geojson.get("features", [])
+    report = {
+        "osm_river_clipped": [],
+        "floating_endpoints": [],
+        "bad_attach_points": [],
+        "degraded_attaches": 0,
+        "meta": {"has_meta": bool(geojson.get("_meta")),
+                 "osm_source_label": None,
+                 "filter_report_ok": False},
+        "checked_flowpaths": 0,
+    }
+
+    # 1. osm_river layer integrity (G2)
+    for feat in features:
+        props = feat.get("properties", {})
+        if props.get("feature_type") == "osm_river" and props.get("basin_clipped"):
+            report["osm_river_clipped"].append(feat.get("id", ""))
+
+    # 2/3. endpoint attachment (G4)
+    segments, grid = _build_river_segment_grid(geojson)
+    for feat in features:
+        props = feat.get("properties", {})
+        if props.get("feature_type") not in FLOWPATH_TYPES:
+            continue
+        geom = feat.get("geometry", {})
+        coords = geom.get("coordinates", [])
+        if geom.get("type") == "MultiLineString":
+            coords = [pt for line in coords for pt in line]
+        if len(coords) < 2:
+            continue
+        report["checked_flowpaths"] += 1
+
+        if props.get("attach_quality") == "degraded":
+            report["degraded_attaches"] += 1
+        attach_osm = str(props.get("attach_osm_id") or "")
+
+        # Pure overland paths (never contacted a river) are exempt — their endpoints
+        # are terrain pits by design and the routing field records that honestly.
+        if str(props.get("routing", "")).startswith("overland"):
+            continue
+
+        end = coords[-1]
+        at_gauge = bool(str(props.get("to_station_id") or "").strip())
+        on_river = (attach_osm != "") or (_min_dist_to_river_km(end[0], end[1], segments, grid) <= ATTACH_TOL_KM)
+        if not (at_gauge or on_river):
+            report["floating_endpoints"].append({
+                "feature_id": feat.get("id", ""),
+                "to_station_id": props.get("to_station_id", ""),
+                "endpoint": [round(end[0], 5), round(end[1], 5)],
+            })
+
+        # 3. attach metadata must reference a real river location (<= 30m)
+        if attach_osm and not at_gauge:
+            d = _min_dist_to_river_km(end[0], end[1], segments, grid)
+            if d > ATTACH_TOL_KM:
+                report["bad_attach_points"].append({
+                    "feature_id": feat.get("id", ""),
+                    "attach_osm_id": attach_osm,
+                    "distance_km": round(d, 3),
+                })
+
+    # 4. `_meta` filter report (F1/F4 + item 17: station_bbox = FAIL)
+    meta = geojson.get("_meta") or {}
+    report["meta"]["osm_source_label"] = meta.get("osm_source_label") or meta.get("source")
+    filters = meta.get("filters") or {}
+    clip_stats = filters.get("basin_clip") or {}
+    needed = {"gauge_to_gauge_flowpath", "rainfall_to_gauge_flowpath",
+              "rainfall_drainage_branch", "osm_river"}
+    present_types = {f.get("properties", {}).get("feature_type") for f in features}
+    report["meta"]["filter_report_ok"] = all(
+        isinstance(clip_stats.get(t), dict) and clip_stats[t].get("n_out", 0) >= 0
+        for t in needed if t in present_types
+    )
+    return report
+
+
+def check_points_inside_basin(geojson, boundary_path):
+    """
+    v2 (G3): with a basin boundary provided, no flow-path / branch / osm_river point
+    may lie outside the basin polygon. Uses shapely (optional) with a prepared polygon.
+    Returns (outside_count, examples, skipped_reason_or_None).
+    """
+    try:
+        from shapely.geometry import shape
+        from shapely.prepared import prep
+    except ImportError:
+        return 0, [], "shapely not installed — point-in-polygon check skipped"
+
+    try:
+        boundary = load_geojson_any(boundary_path)
+        feats = boundary.get("features", [])
+        if not feats:
+            return 0, [], "boundary file has no features"
+        poly = shape(feats[0].get("geometry"))
+        prepared = prep(poly.buffer(0.0005))  # ~55m tolerance at the edge
+    except Exception as ex:
+        return 0, [], f"cannot read boundary ({ex}) — point-in-polygon check skipped"
+
+    outside = 0
+    examples = []
+    for feat in geojson.get("features", []):
+        geom = feat.get("geometry", {})
+        coords = geom.get("coordinates", [])
+        if geom.get("type") == "MultiLineString":
+            coords = [pt for line in coords for pt in line]
+        for (x, y) in coords:
+            if not prepared.contains(_pt(x, y)):
+                outside += 1
+                if len(examples) < 10:
+                    examples.append({"feature_id": feat.get("id", ""),
+                                     "point": [round(x, 5), round(y, 5)]})
+                break  # one report per feature is enough
+    return outside, examples, None
+
+
+def _pt(x, y):
+    from shapely.geometry import Point
+    return Point(x, y)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Validate flow_paths.geojson quality")
     parser.add_argument("--geojson", required=True, help="Path to flow_paths.geojson")
@@ -268,6 +451,11 @@ def main():
                              "without following them (default: 10; 0 = fail on any)")
     parser.add_argument("--no-crossing-check", action="store_true",
                         help="Skip the river crossing analysis (faster)")
+    parser.add_argument("--boundary", type=str, default=None,
+                        help="Path to the basin boundary GeoJSON — enables the "
+                             "point-inside-basin polygon check (v2/G3)")
+    parser.add_argument("--skip-v2", action="store_true",
+                        help="Skip the v2 layer-integrity / Filter Matrix checks")
     args = parser.parse_args()
 
     geojson = load_geojson_any(args.geojson)
@@ -318,8 +506,51 @@ def main():
                       f"to={ex['to_station_id'] or '-'}): {ex['orphans']} orphan / {ex['crossings']} crossings")
         orphan_fail = cr["features_with_orphans"] > args.max_orphan_crossings
 
+    # ---- v2 checks (G2-G5, F1-F4) -----------------------------------------
+    v2_fail_reasons = []
+    if not args.skip_v2:
+        v2 = check_layer_integrity(geojson)
+        print("\nLAYER INTEGRITY & FILTER MATRIX (v2)")
+        m = v2["meta"]
+        print(f"    Output `_meta` present        : {m['has_meta']}")
+        print(f"    OSM source label              : {m['osm_source_label'] or '-'}")
+        print(f"    Per-layer filter report (F1)  : {'OK' if m['filter_report_ok'] else 'MISSING'}")
+        print(f"    osm_river features w/ basin_clipped : {len(v2['osm_river_clipped'])} (must be 0 — G2)")
+        print(f"    Flow paths checked (endpoints)      : {v2['checked_flowpaths']:,}")
+        print(f"    Floating endpoints (> {ATTACH_TOL_KM * 1000:.0f} m from any river, not at gauge): {len(v2['floating_endpoints'])}")
+        print(f"    Attach points off the referenced river: {len(v2['bad_attach_points'])}")
+        print(f"    Degraded attaches (tagged)      : {v2['degraded_attaches']}")
+        for ex in (v2["osm_river_clipped"][:5] + [f.get("feature_id") for f in v2["bad_attach_points"][:5]]):
+            print(f"        offender: {ex}")
+        for ex in v2["floating_endpoints"][:5]:
+            print(f"        floating endpoint: {ex['feature_id']} at {ex['endpoint']} "
+                  f"(to_station_id={ex['to_station_id'] or '-'})")
+
+        if v2["osm_river_clipped"]:
+            v2_fail_reasons.append("osm_river layer was re-clipped (G2 violation)")
+        if v2["floating_endpoints"]:
+            v2_fail_reasons.append("floating flow-path endpoints (G4)")
+        if v2["bad_attach_points"]:
+            v2_fail_reasons.append("attach points off the referenced river (G4)")
+        if not m["has_meta"] or not m["filter_report_ok"]:
+            v2_fail_reasons.append("missing per-layer filter report (F1/F4)")
+        if (m["osm_source_label"] or "") == "station_bbox":
+            v2_fail_reasons.append("OSM source is station_bbox — rectangular fallback is forbidden (F3/G5)")
+
+        if args.boundary:
+            outside, examples, skipped = check_points_inside_basin(geojson, args.boundary)
+            if skipped:
+                print(f"    Basin polygon check           : SKIPPED ({skipped})")
+            else:
+                print(f"    Features w/ points outside basin : {outside:,}")
+                for ex in examples[:5]:
+                    print(f"        outside: {ex['feature_id']} at {ex['point']}")
+                if outside > 0:
+                    v2_fail_reasons.append("points outside the basin polygon (G3)")
+
     failed = (report["mid_path_jumps"] > 0 or report["end_jumps"] > 0
-              or report["degenerate"] > 0 or orphan_fail)
+              or report["degenerate"] > 0 or orphan_fail
+              or bool(v2_fail_reasons))
     reasons = []
     if report["mid_path_jumps"] > 0 or report["end_jumps"] > 0:
         reasons.append("straight-line jumps")
@@ -327,8 +558,10 @@ def main():
         reasons.append("degenerate features")
     if orphan_fail:
         reasons.append("orphan river crossings")
+    reasons.extend(v2_fail_reasons)
     print("\n" + ("❌ FAIL — " + ", ".join(reasons) if failed
-                  else "✅ PASS — no straight-line jumps above threshold, no orphan river crossings"))
+                  else "✅ PASS — no straight-line jumps above threshold, no orphan river crossings, "
+                       "layer integrity & filter matrix OK"))
     sys.exit(1 if failed else 0)
 
 

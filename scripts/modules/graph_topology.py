@@ -12,6 +12,7 @@ Handles:
 
 import heapq
 import math
+import time
 from typing import Dict, List, Tuple, Any, Optional, Set
 import numpy as np
 from rasterio.transform import Affine, rowcol
@@ -137,6 +138,9 @@ class DirectedRiverGraph:
         self._edge_cells: Dict[int, List[Tuple[int, int]]] = {}
         self._edge_cell_size = 0.01
         self._next_edge_uid = 1
+        # Phase 4 (RC2/G4): per-way metadata for attach candidate ranking
+        self.way_meta: Dict[int, Dict[str, Any]] = {}   # way_id -> {osm_id, class, length_km}
+        self._nodes_reach_gauge: Optional[Set[int]] = None
 
     def _grid_coord(self, lon: float, lat: float) -> Tuple[int, int]:
         return int(math.floor(lon / self.snap_tolerance_deg)), int(math.floor(lat / self.snap_tolerance_deg))
@@ -186,7 +190,9 @@ class DirectedRiverGraph:
         coords: List[List[float]],
         sample_elev_fn=None,
         river_name: str = "",
-        elevs: Optional[List[Optional[float]]] = None
+        elevs: Optional[List[Optional[float]]] = None,
+        waterway_class: str = "stream",
+        osm_id: str = ""
     ):
         """
         Adds an OSM waterway LineString into the directed graph with full-vertex granular noding.
@@ -204,6 +210,11 @@ class DirectedRiverGraph:
         way_id = self._next_way_id
         self._next_way_id += 1
         self._source_coords.append(list(coords))
+        self.way_meta[way_id] = {
+            "osm_id": str(osm_id),
+            "class": str(waterway_class or "stream"),
+            "length_km": linestring_length_km(coords)
+        }
 
         seg_elevs: Optional[List[Optional[float]]] = None
         if elevs is not None and len(elevs) == len(coords):
@@ -656,6 +667,164 @@ class DirectedRiverGraph:
         if x_node is None:
             return None, d
         return x_node, d
+
+    # ---------------------------------------------------------------------
+    # Phase 4 (RC2/G4): quality-aware endpoint attachment
+    # ---------------------------------------------------------------------
+    def compute_gauge_reachability(self, gauge_nodes: Set[int]):
+        """
+        Precomputes, ONCE per graph, the set of nodes from which a gauge node is
+        reachable DOWNSTREAM on the backbone (reverse BFS upstream from the gauge
+        nodes). O(E) time, O(V) memory — amortized over every attach query.
+        An edge (a -> b) is 'gauge-connected' iff b is in this set.
+        """
+        if self._nodes_reach_gauge is not None:
+            return
+        reverse_adj: Dict[int, List[int]] = {}
+        for a, outs in self.adj.items():
+            for (b, _data) in outs:
+                reverse_adj.setdefault(b, []).append(a)
+        seen: Set[int] = set(gauge_nodes)
+        stack = list(gauge_nodes)
+        while stack:
+            u = stack.pop()
+            for v in reverse_adj.get(u, ()):
+                if v not in seen:
+                    seen.add(v)
+                    stack.append(v)
+        self._nodes_reach_gauge = seen
+
+    _ATTACH_CLASS_SCORE = {"river": 3.0, "canal": 2.5, "wadi": 1.0, "stream": 1.0, "drain": 0.5, "ditch": 0.5}
+
+    def _score_attach_candidate(
+        self,
+        cand: Tuple[float, int, float, Tuple[float, float], int, int]
+    ) -> Tuple[float, bool]:
+        """
+        Scores a candidate edge for endpoint attachment (higher = better):
+          +class        river/canal much better than stream/ditch
+          +connectivity way with a gauge downstream-reachable = the primary signal;
+                        an island with no gauge downstream scores NEGATIVE
+          +length       longer ways (main stems) beat short island fragments
+          -distance     proximity still matters, but never decides alone
+        Returns (score, gauge_connected).
+        """
+        d_deg, _uid, _t, _proj, a, b = cand
+        way_id = self._edge_way_id(a, b)
+        meta = self.way_meta.get(way_id, {}) if way_id else {}
+        wclass = str(meta.get("class", "stream"))
+        class_score = self._ATTACH_CLASS_SCORE.get(wclass, 1.0)
+        gauge_connected = bool(self._nodes_reach_gauge and b in self._nodes_reach_gauge)
+        conn_score = 10.0 if gauge_connected else -10.0
+        way_len_km = float(meta.get("length_km", 0.0) or 0.0)
+        length_score = min(2.0, way_len_km / 25.0)
+        dist_m = d_deg * 111_320.0 * 0.95
+        dist_penalty = dist_m / 100.0
+        score = class_score + conn_score + length_score - dist_penalty
+        return score, gauge_connected
+
+    def snap_point_to_graph_ranked(
+        self,
+        lon: float,
+        lat: float,
+        max_dist_deg: float = 0.003,
+        radii: Optional[List[float]] = None
+    ) -> Tuple[Optional[int], float, Optional[Dict[str, Any]]]:
+        """
+        Quality-aware variant of snap_point_to_graph (Phase 4.12-4.15):
+        instead of "nearest edge wins", all candidate edges within the search
+        radius are scored (class, gauge-connectivity, way length, distance) and the
+        best-scoring one is chosen; the endpoint is then projected onto that edge
+        (splitting it at the projection), so the attach point lies exactly on the
+        selected river line.
+
+        Radii escalation (Phase 4.13): the first radius only accepts candidates
+        passing the quality gate (gauge-connected OR major class). If none pass,
+        the remaining radii admit secondary candidates; when the chosen attachment
+        has no gauge downstream and is not a major class it is tagged
+        attach_quality="degraded" for the validator.
+
+        Returns (node_id or None, distance_deg, attach_meta or None).
+        attach_meta = {attach_way_id, attach_osm_id, attach_class, attach_length_km,
+                       attach_distance_m, attach_quality}
+        """
+        cand = self._nearest_edge(lon, lat, max_dist_deg)
+        if cand is None:
+            nid, d = self.find_nearest_node(lon, lat, max_dist_deg=max_dist_deg)
+            if nid is None:
+                return None, d, None
+            meta = {
+                "attach_way_id": None, "attach_osm_id": "", "attach_class": "node",
+                "attach_length_km": None, "attach_distance_m": round(d * 111_320.0 * 0.95, 1),
+                "attach_quality": "degraded"
+            }
+            return nid, d, meta
+
+        # Radii escalation: primary radius (quality-gated) -> fallback radius (ungated)
+        stages = [(max_dist_deg, True)]
+        if radii:
+            stages = [(radii[0], True)] + [(r, False) for r in radii[1:]]
+        elif max_dist_deg > 0:
+            stages = [(max_dist_deg, True), (max_dist_deg * 2.0, False)]
+
+        chosen: Optional[Tuple[float, int, float, Tuple[float, float], int, int]] = None
+        chosen_score = -float('inf')
+        chosen_connected = False
+        for (radius, gated) in stages:
+            cands = self._nearest_edges(lon, lat, radius)
+            if not cands:
+                continue
+            scored = []
+            for c in cands:
+                s, conn = self._score_attach_candidate(c)
+                scored.append((s, conn, c))
+            scored.sort(key=lambda x: -x[0])
+            if gated:
+                # quality gate: gauge-connected OR major class (river/canal) only
+                def _passes(s, conn, c) -> bool:
+                    if conn or s > 0:
+                        return True
+                    _d, _u, _t, _p, ca, cb = c
+                    wcls = str((self.way_meta.get(self._edge_way_id(ca, cb)) or {}).get("class", "stream"))
+                    return self._ATTACH_CLASS_SCORE.get(wcls, 1.0) >= 2.0
+                best = next(((s, conn, c) for (s, conn, c) in scored if _passes(s, conn, c)), None)
+            else:
+                best = scored[0] if scored else None
+            if best is not None:
+                s, conn, c = best
+                if chosen is None or s > chosen_score:
+                    chosen, chosen_score, chosen_connected = c, s, conn
+                if chosen_connected or s > 0:
+                    break
+        if chosen is None:
+            return None, float('inf'), None
+
+        d_deg, uid, t, (cx, cy), a, b = chosen
+        way_id = self._edge_way_id(a, b)
+        meta_way = self.way_meta.get(way_id, {}) if way_id else {}
+        wclass = str(meta_way.get("class", "stream"))
+
+        # Project the endpoint onto the chosen edge (split at the projection) —
+        # the returned node sits exactly on the selected river line.
+        pa, pb = self.nodes[a], self.nodes[b]
+        if math.hypot(cx - pa[0], cy - pa[1]) <= self.snap_tolerance_deg:
+            x_node = a
+        elif math.hypot(cx - pb[0], cy - pb[1]) <= self.snap_tolerance_deg:
+            x_node = b
+        else:
+            x_node = self._split_edge(uid, cx, cy, t)
+        if x_node is None:
+            return None, d_deg, None
+
+        attach_meta = {
+            "attach_way_id": way_id,
+            "attach_osm_id": str(meta_way.get("osm_id", "")),
+            "attach_class": wclass,
+            "attach_length_km": round(float(meta_way.get("length_km", 0.0) or 0.0), 3),
+            "attach_distance_m": round(d_deg * 111_320.0 * 0.95, 1),
+            "attach_quality": "ok" if (chosen_connected or self._ATTACH_CLASS_SCORE.get(wclass, 1.0) >= 2.0) else "degraded"
+        }
+        return x_node, d_deg, attach_meta
 
     def dijkstra_single_source(
         self,
@@ -1675,6 +1844,8 @@ def build_flow_paths_and_relations(
             if not geom:
                 continue
             p_name = feat.get("properties", {}).get("name", "")
+            p_class = feat.get("properties", {}).get("waterway", "stream") or "stream"
+            p_osm_id = str(feat.get("properties", {}).get("osm_id", ""))
             if geom.get("type") == "LineString":
                 line_coords_list = [geom.get("coordinates", [])]
             elif geom.get("type") == "MultiLineString":
@@ -1685,7 +1856,8 @@ def build_flow_paths_and_relations(
                 if len(coords) >= 2:
                     river_graph.add_river_segment(
                         coords, sample_elev_fn=None, river_name=p_name,
-                        elevs=batch_sample_elevations(coords)
+                        elevs=batch_sample_elevations(coords),
+                        waterway_class=p_class, osm_id=p_osm_id
                     )
     # Noding + endpoint welding: heal the fragmented OSM way graph (crossing ways
     # without shared vertices, and way ends that stop tens of meters apart) so the
@@ -1742,6 +1914,10 @@ def build_flow_paths_and_relations(
     # Downstream target nodes for backbone routing (shared by Layer 1 fallback and Layer 2).
     # SSSP results are cached per entry node with a cap to bound memory.
     target_water_nodes = set(water_node_map.values())
+    # Phase 4.12: precompute gauge-downstream reachability once per graph —
+    # attach candidate ranking uses this to prefer ways that actually flow to a gauge
+    # over topology islands (O(E) reverse BFS, amortized over every attach query).
+    river_graph.compute_gauge_reachability(target_water_nodes)
     dijkstra_cache: Dict[int, Tuple[Dict[int, float], Dict[int, Tuple[int, Dict[str, Any]]]]] = {}
     DIJKSTRA_CACHE_MAX = 256
 
@@ -1856,16 +2032,18 @@ def build_flow_paths_and_relations(
             end_lon, end_lat = raster_coords[-1]
             z_end = sample_elevation(end_lon, end_lat)
 
-            # Attach the D8 end onto the backbone by projecting onto the nearest EDGE.
-            # If the very end misses the network (pit / reservoir / nodata), scan the
-            # path backwards for the last place it ran alongside a river reach and
-            # attach there — never leave the gauge hanging with no continuation.
-            nid, d_nid = river_graph.snap_point_to_graph(end_lon, end_lat, max_dist_deg=0.003)
+            # Attach the D8 end onto the backbone by projecting onto the best-scoring
+            # EDGE (Phase 4 candidate ranking: gauge-connectivity > class > length >
+            # distance — never "nearest island wins"). If the very end misses the
+            # network (pit / reservoir / nodata), scan the path backwards for the last
+            # place it ran alongside a river reach and attach there — never leave the
+            # gauge hanging with no continuation.
+            nid, d_nid, attach_meta = river_graph.snap_point_to_graph_ranked(end_lon, end_lat, max_dist_deg=0.003)
             if nid is None:
                 scan_from = max(0, len(raster_coords) - 1000)
                 for p_idx in range(len(raster_coords) - 2, scan_from - 1, -4):
                     pt = raster_coords[p_idx]
-                    cand_nid, cand_d = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=0.003)
+                    cand_nid, cand_d, cand_meta = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=0.003)
                     if cand_nid is None:
                         continue
                     z_here = sample_elevation(pt[0], pt[1])
@@ -1875,7 +2053,7 @@ def build_flow_paths_and_relations(
                     if (z_cand is not None and z_here is not None
                             and not math.isnan(z_here) and z_cand > z_here + 2.0):
                         continue
-                    nid, d_nid = cand_nid, cand_d
+                    nid, d_nid, attach_meta = cand_nid, cand_d, cand_meta
                     end_lon, end_lat = pt
                     z_end = sample_elevation(end_lon, end_lat)
                     break
@@ -1922,23 +2100,26 @@ def build_flow_paths_and_relations(
                 slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
                 feature_id = f"flow_gauge_{st_id}_to_{backbone_target.get('station_id')}"
+                backbone_props = {
+                    "feature_type": "gauge_to_gauge_flowpath",
+                    "routing": "d8_plus_osm_backbone",
+                    "from_station_id": st_id,
+                    "from_station_name": st.get('station_name', ''),
+                    "to_station_id": str(backbone_target.get('station_id', '')),
+                    "to_station_name": backbone_target.get('station_name', ''),
+                    "distance_km": round(dist_km, 2),
+                    "backbone_distance_km": round(backbone_dist_km, 2),
+                    "river_slope": round(slope, 6),
+                    "elevation_diff_m": round(dz, 2),
+                    "upstream_elev_m": round(z_up, 2),
+                    "downstream_elev_m": round(z_down, 2),
+                }
+                if attach_meta:
+                    backbone_props.update(attach_meta)
                 feature = {
                     "type": "Feature",
                     "id": feature_id,
-                    "properties": {
-                        "feature_type": "gauge_to_gauge_flowpath",
-                        "routing": "d8_plus_osm_backbone",
-                        "from_station_id": st_id,
-                        "from_station_name": st.get('station_name', ''),
-                        "to_station_id": str(backbone_target.get('station_id', '')),
-                        "to_station_name": backbone_target.get('station_name', ''),
-                        "distance_km": round(dist_km, 2),
-                        "backbone_distance_km": round(backbone_dist_km, 2),
-                        "river_slope": round(slope, 6),
-                        "elevation_diff_m": round(dz, 2),
-                        "upstream_elev_m": round(z_up, 2),
-                        "downstream_elev_m": round(z_down, 2),
-                    },
+                    "properties": backbone_props,
                     "geometry": {
                         "type": "LineString",
                         "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
@@ -2063,42 +2244,45 @@ def build_flow_paths_and_relations(
             # whose nearest vertex is far away are still found reliably.
             entry_idx = None
             entry_node = None
+            entry_meta = None
             if len(overland_coords) >= 2:
                 MAX_ENTRY_DIST = 0.003  # tight 300m
                 if river_stopped:
                     for p_idx in range(len(overland_coords) - 1, -1, -1):
                         pt = overland_coords[p_idx]
-                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                        nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
                         if nid is not None:
-                            entry_idx, entry_node = p_idx, nid
+                            entry_idx, entry_node, entry_meta = p_idx, nid, m
                             break
                     if entry_node is None:
                         pt = overland_coords[-1]
-                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=0.006)
+                        nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=0.006)
                         if nid is not None:
-                            entry_idx, entry_node = len(overland_coords) - 1, nid
+                            entry_idx, entry_node, entry_meta = len(overland_coords) - 1, nid, m
                 else:
                     STRIDE = 8
                     coarse_idx = None
                     coarse_d = MAX_ENTRY_DIST
+                    coarse_m = None
                     for p_idx in range(0, len(overland_coords), STRIDE):
                         pt = overland_coords[p_idx]
-                        nid, d_nid = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                        nid, d_nid, m = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
                         if nid is not None and d_nid <= MAX_ENTRY_DIST:
                             coarse_idx = p_idx
                             entry_node = nid
                             coarse_d = d_nid
+                            coarse_m = m
                             break
                     if coarse_idx is not None:
                         # The coarse pass can be up to STRIDE cells past the true river approach;
                         # refine backwards to the index nearest the backbone.
-                        best_idx, best_node, best_d = coarse_idx, entry_node, coarse_d
+                        best_idx, best_node, best_d, best_m = coarse_idx, entry_node, coarse_d, coarse_m
                         for p_idx in range(coarse_idx - 1, max(0, coarse_idx - STRIDE + 1) - 1, -1):
                             pt = overland_coords[p_idx]
-                            nid2, d2 = river_graph.snap_point_to_graph(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
+                            nid2, d2, m2 = river_graph.snap_point_to_graph_ranked(pt[0], pt[1], max_dist_deg=MAX_ENTRY_DIST)
                             if nid2 is not None and d2 <= MAX_ENTRY_DIST and d2 < best_d:
-                                best_idx, best_node, best_d = p_idx, nid2, d2
-                        entry_idx, entry_node = best_idx, best_node
+                                best_idx, best_node, best_d, best_m = p_idx, nid2, d2, m2
+                        entry_idx, entry_node, entry_meta = best_idx, best_node, best_m
 
             # D1: collect ALL downstream-receiving gauges (hydrological cascade), ordered
             # by channel distance from the entry node. Directed backbone edges guarantee
@@ -2349,33 +2533,36 @@ def build_flow_paths_and_relations(
 
                     seg_len_km = linestring_length_km(seg_coords)
                     feature_id = f"flow_rain_{r_id}_to_{target_water_id}"
+                    seg_props = {
+                        "feature_type": "rainfall_to_gauge_flowpath",
+                        "cascade_segment": seg_count,
+                        "previous_gauge_id": "" if seg_i == 0 else str(downstream_targets[seg_i - 1][1]),
+                        "from_station_id": r_id,
+                        "from_station_name": r_st.get('station_name', ''),
+                        "to_station_id": target_water_id,
+                        "to_station_name": target_st.get('station_name', ''),
+                        "total_distance_km": round(total_dist_km, 2),
+                        "distance_km": round(overland_dist_km, 2) if seg_i == 0 else round(channel_dist_km, 2),
+                        "channel_distance_km": round(channel_dist_km, 2),
+                        "segment_length_km": round(seg_len_km, 2),
+                        "response_lag_minutes": lag_avg_m,
+                        "response_lag_minutes_min": lag_min_m,
+                        "response_lag_minutes_max": lag_max_m,
+                        "response_lag_hours": lag_avg_h,
+                        "response_lag_hours_min": lag_min_h,
+                        "response_lag_hours_max": lag_max_h,
+                        "elevation_diff_m": round(dz, 2),
+                        "slope": round(overland_slope, 6),
+                        "upstream_elev_m": round(z_rain, 2),
+                        "downstream_elev_m": round(z_water, 2),
+                        "influence_weight_percent": 100.0
+                    }
+                    if entry_meta:
+                        seg_props.update(entry_meta)
                     feature = {
                         "type": "Feature",
                         "id": feature_id,
-                        "properties": {
-                            "feature_type": "rainfall_to_gauge_flowpath",
-                            "cascade_segment": seg_count,
-                            "previous_gauge_id": "" if seg_i == 0 else str(downstream_targets[seg_i - 1][1]),
-                            "from_station_id": r_id,
-                            "from_station_name": r_st.get('station_name', ''),
-                            "to_station_id": target_water_id,
-                            "to_station_name": target_st.get('station_name', ''),
-                            "total_distance_km": round(total_dist_km, 2),
-                            "distance_km": round(overland_dist_km, 2) if seg_i == 0 else round(channel_dist_km, 2),
-                            "channel_distance_km": round(channel_dist_km, 2),
-                            "segment_length_km": round(seg_len_km, 2),
-                            "response_lag_minutes": lag_avg_m,
-                            "response_lag_minutes_min": lag_min_m,
-                            "response_lag_minutes_max": lag_max_m,
-                            "response_lag_hours": lag_avg_h,
-                            "response_lag_hours_min": lag_min_h,
-                            "response_lag_hours_max": lag_max_h,
-                            "elevation_diff_m": round(dz, 2),
-                            "slope": round(overland_slope, 6),
-                            "upstream_elev_m": round(z_rain, 2),
-                            "downstream_elev_m": round(z_water, 2),
-                            "influence_weight_percent": 100.0
-                        },
+                        "properties": seg_props,
                         "geometry": {
                             "type": "LineString",
                             "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id)
@@ -2403,30 +2590,33 @@ def build_flow_paths_and_relations(
                 )
 
                 feature_id = f"flow_rain_{r_id}_to_river"
+                river_entry_props = {
+                    "feature_type": "rainfall_to_gauge_flowpath",
+                    "from_station_id": r_id,
+                    "from_station_name": r_st.get('station_name', ''),
+                    "to_station_id": "",
+                    "to_station_name": "Stream Entry Point (No Gauge)",
+                    "total_distance_km": round(overland_dist_km, 2),
+                    "distance_km": round(overland_dist_km, 2),
+                    "channel_distance_km": 0.0,
+                    "response_lag_minutes": lag_avg_m,
+                    "response_lag_minutes_min": lag_min_m,
+                    "response_lag_minutes_max": lag_max_m,
+                    "response_lag_hours": lag_avg_h,
+                    "response_lag_hours_min": lag_min_h,
+                    "response_lag_hours_max": lag_max_h,
+                    "elevation_diff_m": round(dz, 2),
+                    "slope": round(overland_slope, 6),
+                    "upstream_elev_m": round(z_rain, 2),
+                    "downstream_elev_m": round(z_water, 2),
+                    "influence_weight_percent": 100.0
+                }
+                if entry_meta:
+                    river_entry_props.update(entry_meta)
                 feature = {
                     "type": "Feature",
                     "id": feature_id,
-                    "properties": {
-                        "feature_type": "rainfall_to_gauge_flowpath",
-                        "from_station_id": r_id,
-                        "from_station_name": r_st.get('station_name', ''),
-                        "to_station_id": "",
-                        "to_station_name": "Stream Entry Point (No Gauge)",
-                        "total_distance_km": round(overland_dist_km, 2),
-                        "distance_km": round(overland_dist_km, 2),
-                        "channel_distance_km": 0.0,
-                        "response_lag_minutes": lag_avg_m,
-                        "response_lag_minutes_min": lag_min_m,
-                        "response_lag_minutes_max": lag_max_m,
-                        "response_lag_hours": lag_avg_h,
-                        "response_lag_hours_min": lag_min_h,
-                        "response_lag_hours_max": lag_max_h,
-                        "elevation_diff_m": round(dz, 2),
-                        "slope": round(overland_slope, 6),
-                        "upstream_elev_m": round(z_rain, 2),
-                        "downstream_elev_m": round(z_water, 2),
-                        "influence_weight_percent": 100.0
-                    },
+                    "properties": river_entry_props,
                     "geometry": {
                         "type": "LineString",
                         "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
@@ -2568,36 +2758,67 @@ def build_flow_paths_and_relations(
         if n_osm_added:
             print(f"        OSM River Layer: {n_osm_added} features (feature_type=osm_river, no length filter)")
 
-    # Basin-boundary clipping: every output line (flow paths, branches, OSM river
-    # display layer) is cut to the official ThaiWater basin polygon. Lines crossing
-    # the boundary keep the piece connected to their from-station; lines entirely
-    # outside the basin are dropped.
+    # Basin-boundary clipping (OUTPUT filter, G3/G2): every output line EXCEPT the
+    # osm_river display layer is cut to the official ThaiWater basin polygon.
+    # osm_river is NEVER re-cut here (G2): OSM was already cropped with the real
+    # polygon (+ buffer) at fetch time (SOURCE filter), so the output layer must
+    # stay byte-identical to that crop-set — no `basin_clipped`, no double cut.
     basin_poly = _extract_basin_polygon(basin_boundary_geojson) if clip_to_basin else None
+    filter_report: Dict[str, Dict[str, Any]] = {}
     if basin_poly is not None:
         kept_features: List[Dict[str, Any]] = []
-        n_clipped = 0
-        n_dropped = 0
+        clip_stats: Dict[str, Dict[str, int]] = {}
         for feat in features:
+            props = feat.get("properties", {})
+            ftype = props.get("feature_type", "unknown")
+            st = clip_stats.setdefault(ftype, {"n_in": 0, "n_out": 0, "clipped": 0, "dropped": 0})
             g = feat.get("geometry")
-            if not g or g.get("type") != "LineString":
+            if (not g or g.get("type") != "LineString") or ftype == "osm_river":
                 kept_features.append(feat)
+                st["n_in"] += 1
+                st["n_out"] += 1
                 continue
+            st["n_in"] += 1
             coords = g.get("coordinates") or []
             if len(coords) < 2:
                 kept_features.append(feat)
+                st["n_out"] += 1
                 continue
             new_coords = _clip_line_to_basin(coords, basin_poly)
             if new_coords is None:
-                n_dropped += 1
+                st["dropped"] += 1
                 continue
             if len(new_coords) != len(coords):
-                n_clipped += 1
+                st["clipped"] += 1
                 feat["properties"]["basin_clipped"] = True
                 g["coordinates"] = new_coords
+            st["n_out"] += 1
             kept_features.append(feat)
         features = kept_features
+        n_clipped = sum(s["clipped"] for s in clip_stats.values())
+        n_dropped = sum(s["dropped"] for s in clip_stats.values())
         print(f"        Basin clip: {n_clipped:,} features trimmed to the basin polygon, "
-              f"{n_dropped:,} outside features dropped")
+              f"{n_dropped:,} outside features dropped (osm_river layer untouched — G2)")
+        filter_report["basin_clip"] = clip_stats
+    else:
+        layer_counts: Dict[str, int] = {}
+        for feat in features:
+            t = feat.get("properties", {}).get("feature_type", "unknown")
+            layer_counts[t] = layer_counts.get(t, 0) + 1
+        filter_report["basin_clip"] = {
+            t: {"n_in": n, "n_out": n, "clipped": 0, "dropped": 0} for t, n in layer_counts.items()
+        }
+        filter_report["basin_clip_disabled"] = True
+
+    # Filter Matrix report (F1/F4): per-layer n_in -> n_out summary embedded in the
+    # output `_meta` so the validator can verify every layer was filtered and reported.
+    osm_meta = (osm_waterways_geojson or {}).get("_meta") or {}
+    filter_report["osm_source"] = osm_meta.get("source", "unknown")
+    filter_report["osm_crop_polygon"] = osm_meta.get("crop_polygon", "")
+    for lt, st in sorted(filter_report["basin_clip"].items()):
+        if isinstance(st, dict):
+            print(f"        [FILTER] {lt}: n_in={st['n_in']:,} -> n_out={st['n_out']:,} "
+                  f"(clipped={st['clipped']:,}, dropped={st['dropped']:,})")
 
     # 3. Compute Dynamic Influence Weight % via Inverse Distance Weighting (IDW)
     target_groups: Dict[str, List[Dict[str, Any]]] = {}
@@ -2613,6 +2834,11 @@ def build_flow_paths_and_relations(
 
     flow_paths_geojson = {
         "type": "FeatureCollection",
+        "_meta": {
+            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "osm_source_label": filter_report["osm_source"],
+            "filters": filter_report
+        },
         "features": features
     }
     return flow_paths_geojson, gauge_relations, rainfall_relations

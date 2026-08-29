@@ -86,13 +86,136 @@ THAIWATER_BASIN_MAPPING = {
 }
 
 
+def _boundary_vertex_count(geom_obj) -> int:
+    """Counts total exterior/interior vertices of a (Multi)Polygon shapely geometry."""
+    try:
+        polys = list(geom_obj.geoms) if geom_obj.geom_type == "MultiPolygon" else [geom_obj]
+        n = 0
+        for p in polys:
+            if p.exterior is not None:
+                n += len(p.exterior.coords)
+            for ring in p.interiors:
+                n += len(ring.coords)
+        return n
+    except Exception:
+        return 0
+
+
+def _validate_boundary_geometry(geom_obj, basin: str, source: str):
+    """
+    Ensures the boundary is a real (Multi)Polygon and warns when it is too coarse
+    to be a concave basin outline (< 50 vertices is likely a rough frame).
+    """
+    if geom_obj.is_empty or geom_obj.geom_type not in ("Polygon", "MultiPolygon"):
+        raise RuntimeError(
+            f"Basin boundary for '{basin}' from {source} is not a (Multi)Polygon "
+            f"(got {geom_obj.geom_type}). Cannot continue without a real basin polygon."
+        )
+    n_verts = _boundary_vertex_count(geom_obj)
+    if n_verts < 50:
+        print(f"  [WARN] Basin boundary for '{basin}' has only {n_verts} vertices (< 50) — "
+              f"it may be a coarse frame rather than a real basin outline.")
+
+
+def _boundary_fingerprint(basin_boundary_geojson: Optional[Dict[str, Any]]) -> str:
+    """Stable fingerprint of the boundary geometry (coordinates rounded to 5 dp)."""
+    import hashlib as _hashlib
+    try:
+        from shapely.geometry import shape as _shape
+        feats = (basin_boundary_geojson or {}).get("features") or []
+        geom = (feats[0] or {}).get("geometry") if feats else None
+        if not geom:
+            return ""
+        g = _shape(geom)
+
+        def _round_coords(obj):
+            if isinstance(obj, (list, tuple)):
+                if obj and isinstance(obj[0], (int, float)):
+                    return [round(float(c), 5) for c in obj]
+                return [_round_coords(o) for o in obj]
+            return obj
+
+        g2 = _shape({"type": geom.get("type"), "coordinates": _round_coords(geom.get("coordinates"))})
+        return _hashlib.sha256(g2.wkt.encode("utf-8")).hexdigest()[:16]
+    except Exception:
+        return ""
+
+
+def _boundary_from_subbasins(basin: str, boundary_path: str):
+    """Fallback 3: dissolve already-downloaded subbasin polygons into one basin polygon."""
+    from shapely.geometry import shape as _shape
+    from shapely.ops import unary_union as _union
+
+    sub_path = os.path.join(os.path.dirname(os.path.abspath(boundary_path)), f"{basin}_subbasins.geojson")
+    if not os.path.exists(sub_path) or os.path.getsize(sub_path) <= 500:
+        return None
+    try:
+        with open(sub_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        polys = []
+        for feat in data.get('features', []):
+            geom = feat.get('geometry') or {}
+            if geom.get('type') not in ('Polygon', 'MultiPolygon'):
+                continue
+            g = _shape(geom)
+            if not g.is_empty:
+                polys.append(g)
+        if not polys:
+            return None
+        merged = _union(polys)
+        if merged.geom_type not in ('Polygon', 'MultiPolygon') or merged.is_empty:
+            return None
+        print(f"  [FALLBACK] Dissolved {len(polys)} sub-basin polygon(s) into a basin boundary.")
+        return merged, "Sub-basin dissolve (local)"
+    except Exception as ex:
+        print(f"  [WARN] Sub-basin dissolve fallback failed: {ex}")
+        return None
+
+
+def _boundary_from_osm_admin(basin: str):
+    """Fallback 4: fetch the administrative boundary polygon from OSM (Nominatim) and use it."""
+    import requests as _requests
+    from shapely.geometry import shape as _shape
+
+    b_slug = basin.lower().strip()
+    target_tuple = THAIWATER_BASIN_MAPPING.get(b_slug)
+    query = target_tuple[0] if target_tuple else basin
+    headers = {"User-Agent": "FloodAnalysisModel/1.0 (Hydrological Research)"}
+    try:
+        resp = _requests.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={"q": query, "polygon_geojson": 1, "format": "json", "limit": 5},
+            headers=headers, timeout=30
+        )
+        if resp.status_code != 200:
+            return None
+        for item in resp.json():
+            geojson = item.get('geojson') or {}
+            if geojson.get('type') not in ('Polygon', 'MultiPolygon'):
+                continue
+            try:
+                g = _shape(geojson)
+                if not g.is_empty and g.geom_type in ('Polygon', 'MultiPolygon'):
+                    print(f"  [FALLBACK] Using OSM administrative boundary for '{query}'.")
+                    return g, f"OSM boundary relation ({item.get('display_name', query)[:60]})"
+            except Exception:
+                continue
+    except Exception as ex:
+        print(f"  [WARN] OSM boundary fallback failed: {ex}")
+    return None
+
+
 def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Downloads official ThaiWater River Basin Boundary Polygon (https://www.thaiwater.net/json/boundary/basin.json)
-    or falls back to high-fidelity station hull/bounding geometry.
+    Resolves the official ThaiWater River Basin Boundary Polygon with a mandatory
+    fallback chain (NO rectangular station-bbox fallback — G5/F3):
+      1) local cache file `{basin}_boundary.geojson`
+      2) thaiwater.net basin.json
+      3) dissolve of already-downloaded `{basin}_subbasins.geojson`
+      4) OSM administrative boundary relation (Nominatim)
+    All fallbacks failing -> raises RuntimeError (fail fast; never run with a rectangle).
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.3)
 
     if os.path.exists(output_path) and os.path.getsize(output_path) > 500:
         try:
@@ -100,7 +223,6 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
                 data = json.load(f)
                 feat = data.get('features', [{}])[0]
                 geom = feat.get('geometry', {})
-                # Cache is valid if it contains real polygon coordinates (not just a 4-point box)
                 coords = geom.get('coordinates', [])
                 if coords and geom.get('type') in ('Polygon', 'MultiPolygon'):
                     print(f"  [CACHE] Official Basin boundary already exists: {output_path}")
@@ -110,7 +232,7 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
 
     print(f"  [FETCH] Downloading Official Basin Boundary from ThaiWater for '{basin}'...")
     import requests
-    from shapely.geometry import shape, mapping, box
+    from shapely.geometry import shape, mapping
 
     b_slug = basin.lower().strip()
     target_tuple = THAIWATER_BASIN_MAPPING.get(b_slug)
@@ -140,6 +262,7 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
 
     if matched_feature and matched_feature.get('geometry'):
         geom_obj = shape(matched_feature['geometry'])
+        _validate_boundary_geometry(geom_obj, basin, "ThaiWater")
         bounds = geom_obj.bounds  # (minx, miny, maxx, maxy)
         basin_name_th = matched_feature.get('properties', {}).get('BASIN_T', f"ลุ่มน้ำ{basin}")
         print(f"  [OK] Successfully matched ThaiWater Official Boundary Polygon for '{basin_name_th}'!")
@@ -162,31 +285,48 @@ def fetch_basin_boundary(basin: str, output_path: str, stations: List[Dict[str, 
                 }
             ]
         }
-    else:
-        # Fallback to station bounding box if ThaiWater is offline
-        print(f"  [WARN] ThaiWater polygon not matched for '{basin}', using station extent.")
-        basin_geom = box(min_lon, min_lat, max_lon, max_lat)
-        geojson = {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "basin_slug": basin,
-                        "basin_name_th": f"ลุ่มน้ำ{basin}",
-                        "source": "Station Bounding Box Fallback",
-                        "min_lat": min_lat,
-                        "max_lat": max_lat,
-                        "min_lon": min_lon,
-                        "max_lon": max_lon
-                    },
-                    "geometry": mapping(basin_geom)
-                }
-            ]
-        }
+        save_geojson(geojson, output_path)
+        print(f"  [OK] Saved basin boundary: {output_path}")
+        return geojson
 
+    # Fallback 3: dissolve sub-basins
+    sub_result = _boundary_from_subbasins(basin, output_path)
+    # Fallback 4: OSM administrative boundary
+    if sub_result is None:
+        sub_result = _boundary_from_osm_admin(basin)
+
+    if sub_result is None:
+        raise RuntimeError(
+            f"❌ Cannot obtain basin boundary for '{basin}' (ThaiWater, sub-basin dissolve and "
+            f"OSM fallbacks all failed). A real basin polygon is MANDATORY — rectangular "
+            f"station-bbox fallbacks are no longer allowed.\n"
+            f"   Fix: run `python scripts/fetch_basin_gis.py --basin {basin}` with network access, "
+            f"or place a valid {basin}_boundary.geojson in the basin's gis/ directory."
+        )
+
+    geom_obj, source_label = sub_result
+    _validate_boundary_geometry(geom_obj, basin, source_label)
+    bounds = geom_obj.bounds
+    geojson = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "basin_slug": basin,
+                    "basin_name_th": f"ลุ่มน้ำ{basin}",
+                    "source": source_label,
+                    "min_lat": round(bounds[1], 5),
+                    "max_lat": round(bounds[3], 5),
+                    "min_lon": round(bounds[0], 5),
+                    "max_lon": round(bounds[2], 5),
+                },
+                "geometry": mapping(geom_obj)
+            }
+        ]
+    }
     save_geojson(geojson, output_path)
-    print(f"  [OK] Saved basin boundary: {output_path}")
+    print(f"  [OK] Saved basin boundary (source={source_label}): {output_path}")
     return geojson
 
 
@@ -667,9 +807,12 @@ def _overpass_fetch(overpass_query: str) -> Tuple[Optional[Dict[str, Any]], str]
     return osm_data, last_err
 
 
-def _load_valid_cache(output_path: str, fingerprint: str, force: bool):
+def _load_valid_cache(output_path: str, fingerprint: str, force: bool, require_crop: bool = False):
     """
     Loads cached geojson only when its fingerprint matches and status is not 'failed'.
+    When require_crop is set, caches written from a rectangular station-bbox query
+    (source=station_bbox) or missing the crop fingerprint are rejected (G1/F3: the
+    rectangular fallback must never silently come back through an old cache).
     """
     if force or not os.path.exists(output_path) or os.path.getsize(output_path) <= 1024:
         return None
@@ -686,8 +829,143 @@ def _load_valid_cache(output_path: str, fingerprint: str, force: bool):
     if meta.get("fingerprint") != fingerprint:
         print(f"  [CACHE] Fingerprint mismatch (cached={meta.get('fingerprint')}, want={fingerprint}); refetching...")
         return None
+    if require_crop:
+        if meta.get("source") == "station_bbox":
+            print(f"  [CACHE] Cached OSM was fetched with a rectangular station bbox (source=station_bbox); refetching...")
+            return None
+        if not meta.get("crop_polygon"):
+            print(f"  [CACHE] Cached OSM was never cropped to the basin polygon; refetching...")
+            return None
     print(f"  [CACHE] Valid cached data (fingerprint={fingerprint}, fetched_at={meta.get('fetched_at')}): {output_path}")
     return cached
+
+
+def _crop_buffer_deg(buffer_m: float) -> float:
+    """Converts a meter buffer to degrees (latitude-scaled; Thailand ~15 deg N)."""
+    return (buffer_m or 0.0) / 111_320.0
+
+
+def crop_geojson_to_basin(
+    geojson: Dict[str, Any],
+    basin_boundary_geojson: Optional[Dict[str, Any]],
+    buffer_m: float = 2000.0,
+    label: str = "osm"
+) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    """
+    Phase 2 (G1/RC3): crops every OSM feature to the real basin polygon (+ buffer)
+    using shapely, BEFORE the data enters processing or the cache:
+      - features entirely outside the basin are dropped
+      - lines crossing the boundary keep only the part inside the basin
+    Returns (cropped_geojson, stats) where stats carries the filter-report counters
+    required by the Flow Layer Filter Matrix (F1).
+    """
+    from shapely.geometry import shape as _shape, mapping as _mapping
+    from shapely.prepared import prep as _prep
+    from shapely.strtree import STRtree  # noqa: F401  (kept for parity with pipeline index usage)
+
+    feats = geojson.get("features", []) if geojson else []
+    stats = {"n_in": len(feats), "n_out": 0, "dropped_outside": 0, "clipped": 0, "crop_applied": False}
+
+    basin_poly = None
+    feats_b = (basin_boundary_geojson or {}).get("features") or []
+    if feats_b:
+        g = (feats_b[0] or {}).get("geometry") or {}
+        if g.get("type") in ("Polygon", "MultiPolygon"):
+            try:
+                basin_poly = _shape(g)
+            except Exception:
+                basin_poly = None
+    if basin_poly is None:
+        stats["n_out"] = len(feats)
+        return geojson, stats
+
+    try:
+        crop_poly = basin_poly.buffer(_crop_buffer_deg(buffer_m))
+        crop_poly = crop_poly.simplify(0.0005, preserve_topology=True) or crop_poly
+        prepared = _prep(crop_poly)
+    except Exception as ex:
+        print(f"  [WARN] {label}: could not prepare crop polygon ({ex}); crop skipped")
+        stats["n_out"] = len(feats)
+        return geojson, stats
+
+    out_features: List[Dict[str, Any]] = []
+    for feat in feats:
+        geom = feat.get("geometry") or {}
+        gtype = geom.get("type")
+        try:
+            g = _shape(geom) if gtype else None
+        except Exception:
+            g = None
+        if g is None or g.is_empty:
+            stats["dropped_outside"] += 1
+            continue
+        # cheap bbox pre-filter (O(N)) before the expensive intersection (O(K))
+        if not prepared.intersects(g):
+            stats["dropped_outside"] += 1
+            continue
+        if crop_poly.covers(g):
+            out_features.append(feat)
+            continue
+        inter = g.intersection(crop_poly)
+        if inter.is_empty:
+            stats["dropped_outside"] += 1
+            continue
+        if gtype == "LineString":
+            parts = [inter] if inter.geom_type == "LineString" else \
+                [x for x in getattr(inter, "geoms", []) if x.geom_type == "LineString"]
+            if not parts:
+                stats["dropped_outside"] += 1
+                continue
+            longest = max(parts, key=lambda p: p.length)
+            coords = [[round(x, 6), round(y, 6)] for x, y in longest.coords]
+            if len(coords) < 2:
+                stats["dropped_outside"] += 1
+                continue
+            nf = dict(feat)
+            nf["geometry"] = {"type": "LineString", "coordinates": coords}
+            props = dict(feat.get("properties", {}))
+            try:
+                props["length_km"] = round(linestring_length_km(coords), 3)
+            except Exception:
+                pass
+            nf["properties"] = props
+            out_features.append(nf)
+            stats["clipped"] += 1
+        elif gtype == "Polygon":
+            if inter.geom_type not in ("Polygon", "MultiPolygon"):
+                stats["dropped_outside"] += 1
+                continue
+            nf = dict(feat)
+            nf["geometry"] = _mapping(inter)
+            out_features.append(nf)
+            stats["clipped"] += 1
+        elif gtype == "MultiLineString":
+            parts = [x for x in getattr(inter, "geoms", []) if x.geom_type == "LineString"]
+            if not parts:
+                stats["dropped_outside"] += 1
+                continue
+            nf = dict(feat)
+            nf["geometry"] = {"type": "MultiLineString",
+                              "coordinates": [[[round(x, 6), round(y, 6)] for x, y in p.coords] for p in parts]}
+            out_features.append(nf)
+            stats["clipped"] += 1
+        else:
+            out_features.append(feat)
+            continue
+
+    stats["n_out"] = len(out_features)
+    stats["crop_applied"] = True
+    cropped = dict(geojson) if isinstance(geojson, dict) else {"type": "FeatureCollection"}
+    cropped["features"] = out_features
+    meta = dict(cropped.get("_meta") or {})
+    meta["crop_polygon"] = _boundary_fingerprint(basin_boundary_geojson)
+    meta["crop_buffer_m"] = buffer_m
+    meta["crop_stats"] = {k: v for k, v in stats.items() if k != "crop_applied"}
+    cropped["_meta"] = meta
+    print(f"  [CROP] {label}: {stats['n_in']:,} -> {stats['n_out']:,} features "
+          f"(dropped outside basin: {stats['dropped_outside']:,}, clipped: {stats['clipped']:,}, "
+          f"buffer {buffer_m:.0f} m)")
+    return cropped, stats
 
 
 def fetch_osm_waterways(
@@ -695,7 +973,8 @@ def fetch_osm_waterways(
     output_path: str,
     stations: List[Dict[str, Any]],
     force: bool = False,
-    basin_boundary_geojson: Optional[Dict[str, Any]] = None
+    basin_boundary_geojson: Optional[Dict[str, Any]] = None,
+    crop_buffer_m: float = 2000.0
 ) -> Dict[str, Any]:
     """
     Downloads and caches high-resolution River & Stream Waterway Network from OpenStreetMap (OSM)
@@ -705,12 +984,12 @@ def fetch_osm_waterways(
     Returns standard GeoJSON FeatureCollection with `_meta` fingerprint for cache validation.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    geom, _ = _basin_query_geometry(basin_boundary_geojson)
+    geom, source_label = _basin_query_geometry(basin_boundary_geojson)
     overpass_query, fingerprint, source_label = _build_overpass_query(
         ['"waterway"~"river|stream|canal|drain|ditch"'], geom, stations
     )
 
-    cached = _load_valid_cache(output_path, fingerprint, force)
+    cached = _load_valid_cache(output_path, fingerprint, force, require_crop=(source_label == "basin_polygon"))
     if cached is not None:
         return cached
 
@@ -778,8 +1057,16 @@ def fetch_osm_waterways(
         },
         "features": features
     }
+
+    # Phase 2 (G1): crop to the real basin polygon BEFORE the cache is written —
+    # never persist (or process) data scoped by a rectangular fallback.
+    if source_label == "basin_polygon":
+        geojson, _crop_stats = crop_geojson_to_basin(
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_waterways"
+        )
+
     save_geojson(geojson, output_path)
-    print(f"  [OK] Saved {len(features)} OSM waterway features to: {output_path}")
+    print(f"  [OK] Saved {len(geojson.get('features', []))} OSM waterway features to: {output_path}")
     return geojson
 
 
@@ -788,7 +1075,8 @@ def fetch_osm_water_polygons(
     output_path: str,
     stations: List[Dict[str, Any]],
     force: bool = False,
-    basin_boundary_geojson: Optional[Dict[str, Any]] = None
+    basin_boundary_geojson: Optional[Dict[str, Any]] = None,
+    crop_buffer_m: float = 2000.0
 ) -> Dict[str, Any]:
     """
     Downloads and caches open water surfaces (natural=water, landuse=reservoir) from OSM
@@ -796,12 +1084,12 @@ def fetch_osm_water_polygons(
     (stream burning) where no waterway LineString exists.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-    geom, _ = _basin_query_geometry(basin_boundary_geojson)
+    geom, source_label = _basin_query_geometry(basin_boundary_geojson)
     overpass_query, fingerprint, source_label = _build_overpass_query(
         ['"natural"="water"', '"landuse"="reservoir"'], geom, stations
     )
 
-    cached = _load_valid_cache(output_path, fingerprint, force)
+    cached = _load_valid_cache(output_path, fingerprint, force, require_crop=(source_label == "basin_polygon"))
     if cached is not None:
         return cached
 
@@ -860,9 +1148,60 @@ def fetch_osm_water_polygons(
         },
         "features": features
     }
+
+    # Phase 2 (G1): crop water polygons to the real basin polygon before caching
+    if source_label == "basin_polygon":
+        geojson, _crop_stats = crop_geojson_to_basin(
+            geojson, basin_boundary_geojson, buffer_m=crop_buffer_m, label="osm_water_polygons"
+        )
+
     save_geojson(geojson, output_path)
-    print(f"  [OK] Saved {len(features)} OSM water polygon features to: {output_path}")
+    print(f"  [OK] Saved {len(geojson.get('features', []))} OSM water polygon features to: {output_path}")
     return geojson
+
+
+def ensure_osm_cropped(
+    geojson: Dict[str, Any],
+    basin_boundary_geojson: Optional[Dict[str, Any]],
+    output_path: str,
+    buffer_m: float = 2000.0,
+    label: str = "osm"
+) -> Dict[str, Any]:
+    """
+    Phase 2.8 (idempotent recrop at load time): when an OSM cache loaded from disk has
+    no `crop_polygon` fingerprint in its `_meta` (cache written before basin-crop was
+    introduced) or the fingerprint no longer matches the current boundary, the cached
+    features are cropped in memory and the cache is rewritten. Never requires a refetch.
+    """
+    if not geojson or not basin_boundary_geojson:
+        return geojson
+    feats = geojson.get("features") or []
+    if not feats:
+        return geojson
+    meta = geojson.get("_meta") or {}
+    if meta.get("source") == "station_bbox":
+        # Rectangular-era cache must not be silently reused — force a refetch upstream
+        raise RuntimeError(
+            f"❌ OSM cache {output_path} was created with a rectangular station-bbox query "
+            f"(source=station_bbox). A basin polygon is now mandatory.\n"
+            f"   Fix: run `python scripts/fetch_basin_gis.py --basin <slug> --force-osm` to refetch."
+        )
+    want_fp = _boundary_fingerprint(basin_boundary_geojson)
+    if meta.get("crop_polygon") == want_fp:
+        return geojson
+
+    cropped, _stats = crop_geojson_to_basin(geojson, basin_boundary_geojson, buffer_m=buffer_m, label=label)
+    m = dict(cropped.get("_meta") or {})
+    m["fingerprint"] = meta.get("fingerprint")
+    m["source"] = meta.get("source", "basin_polygon")
+    m["recropped_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    cropped["_meta"] = m
+    try:
+        save_geojson(cropped, output_path)
+        print(f"  [CROP] Rewrote cache with basin-cropped features: {output_path}")
+    except Exception as ex:
+        print(f"  [WARN] Could not rewrite cropped cache {output_path}: {ex}")
+    return cropped
 
 
 def main():
@@ -874,6 +1213,9 @@ def main():
     parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
     parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--force-osm", action="store_true", help="Force re-download OSM waterways")
+    parser.add_argument("--crop-buffer-m", type=float, default=2000.0,
+                        help="Buffer in meters applied to the basin polygon when cropping OSM data "
+                             "(default: 2000; keeps hydrology connected at the basin edge)")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -900,9 +1242,13 @@ def main():
             print(f"  [WARN] No stations found in {basin_dir}/station/. Skipping.")
             continue
 
-        # 1. Basin Boundary (in dataset/{basin}/gis/)
+        # 1. Basin Boundary (in dataset/{basin}/gis/) — MANDATORY (G5): no polygon, no pipeline
         boundary_path = os.path.join(basin_dir, "gis", f"{b}_boundary.geojson")
-        fetch_basin_boundary(b, boundary_path, all_st)
+        try:
+            fetch_basin_boundary(b, boundary_path, all_st)
+        except RuntimeError as ex:
+            print(f"❌ ERROR: {ex}", file=sys.stderr)
+            sys.exit(1)
 
         # 2. Sub-basins Boundary for 12.5m Cascade Processing
         subbasins_path = os.path.join(basin_dir, "gis", f"{b}_subbasins.geojson")
@@ -916,11 +1262,13 @@ def main():
         except Exception:
             boundary_geojson = None
         osm_path = os.path.join(basin_dir, "gis", "osm_waterways.geojson")
-        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm, basin_boundary_geojson=boundary_geojson)
+        fetch_osm_waterways(b, osm_path, all_st, force=args.force_osm,
+                            basin_boundary_geojson=boundary_geojson, crop_buffer_m=args.crop_buffer_m)
 
         # 3b. OpenStreetMap Water Polygons for reservoirs / wide rivers (stream burning support)
         water_polygons_path = os.path.join(basin_dir, "gis", "osm_water_polygons.geojson")
-        fetch_osm_water_polygons(b, water_polygons_path, all_st, force=args.force_osm, basin_boundary_geojson=boundary_geojson)
+        fetch_osm_water_polygons(b, water_polygons_path, all_st, force=args.force_osm,
+                                 basin_boundary_geojson=boundary_geojson, crop_buffer_m=args.crop_buffer_m)
 
         # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
         download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password, chunk_size=args.chunk_size)
