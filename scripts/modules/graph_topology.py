@@ -1881,6 +1881,10 @@ def build_water_body_transits(
     parent: Dict[int, int] = {}
 
     def find(x: int) -> int:
+        # Tolerant lookup: snap_point_to_graph_ranked may SPLIT an edge and create
+        # brand-new node ids after this map was built — unseen nodes root themselves
+        # and are unioned with their edge neighbours by the caller.
+        parent.setdefault(x, x)
         r = x
         while parent[r] != r:
             r = parent[r]
@@ -1893,6 +1897,15 @@ def build_water_body_transits(
     for a, outs in river_graph.adj.items():
         for (b, _d) in outs:
             ra, rb = find(a), find(b)
+            if ra != rb:
+                parent[ra] = rb
+
+    def union_new_node(nid: int) -> None:
+        """Places a freshly created (split) node into its way's component."""
+        parent.setdefault(nid, nid)
+        for (nb, _d) in river_graph.adj.get(nid, ()):
+            parent.setdefault(nb, nb)
+            ra, rb = find(nid), find(nb)
             if ra != rb:
                 parent[ra] = rb
 
@@ -1925,6 +1938,9 @@ def build_water_body_transits(
             outlet_node, _d = river_graph.snap_point_to_graph(o_lon, o_lat, max_dist_deg=0.01)
         if outlet_node is None:
             continue
+        # the snap may have split an edge and created a new node — adopt it into
+        # its way's component (a split node connects a-x-b on the same way)
+        union_new_node(outlet_node)
         stats["with_outlet"] += 1
 
         props = {}
