@@ -1966,25 +1966,54 @@ def build_water_body_transits(
             if ra != rb:
                 parent[ra] = rb
 
+    # Pre-index: map poly_id -> list of node ids in O(Nodes) once to eliminate O(K * Nodes) loop scanning
+    poly_to_nodes: Dict[int, List[int]] = {}
+    for nid, pv in node_poly_by_id.items():
+        if pv > 0:
+            poly_to_nodes.setdefault(pv, []).append(nid)
+
     transits: Dict[int, Dict[str, Any]] = {}
     stats = dict(empty_stats)
     stats["polygons"] = n_poly
 
+    # Single-pass bounding box extraction across all polygons simultaneously (O(N) vs O(N * K))
+    objects = None
+    try:
+        from scipy.ndimage import find_objects
+        objects = find_objects(poly_ids)
+    except Exception:
+        objects = None
+
     for i in range(n_poly):
         pid = i + 1
-        rows_i, cols_i = np.nonzero(poly_ids == pid)
-        if rows_i.size < min_area_cells:
-            stats["skipped_small"] += 1
-            continue
-        r0, r1 = int(rows_i.min()), int(rows_i.max()) + 1
-        c0, c1 = int(cols_i.min()), int(cols_i.max()) + 1
-        sub_ids = poly_ids[r0:r1, c0:c1]
-        sub_acc = np.where(sub_ids == pid, acc[r0:r1, c0:c1], np.int32(-1))
-        flat_idx = int(np.argmax(sub_acc))
-        if int(sub_acc.flat[flat_idx]) <= 0:
-            continue
-        orow = r0 + flat_idx // sub_acc.shape[1]
-        ocol = c0 + flat_idx % sub_acc.shape[1]
+        if objects is not None and i < len(objects) and objects[i] is not None:
+            slice_r, slice_c = objects[i]
+            sub_ids = poly_ids[slice_r, slice_c]
+            sub_mask = (sub_ids == pid)
+            if int(np.count_nonzero(sub_mask)) < min_area_cells:
+                stats["skipped_small"] += 1
+                continue
+            sub_acc = np.where(sub_mask, acc[slice_r, slice_c], np.int32(-1))
+            flat_idx = int(np.argmax(sub_acc))
+            if int(sub_acc.flat[flat_idx]) <= 0:
+                continue
+            orow = slice_r.start + flat_idx // sub_acc.shape[1]
+            ocol = slice_c.start + flat_idx % sub_acc.shape[1]
+        else:
+            rows_i, cols_i = np.nonzero(poly_ids == pid)
+            if rows_i.size < min_area_cells:
+                stats["skipped_small"] += 1
+                continue
+            r0, r1 = int(rows_i.min()), int(rows_i.max()) + 1
+            c0, c1 = int(cols_i.min()), int(cols_i.max()) + 1
+            sub_ids = poly_ids[r0:r1, c0:c1]
+            sub_acc = np.where(sub_ids == pid, acc[r0:r1, c0:c1], np.int32(-1))
+            flat_idx = int(np.argmax(sub_acc))
+            if int(sub_acc.flat[flat_idx]) <= 0:
+                continue
+            orow = r0 + flat_idx // sub_acc.shape[1]
+            ocol = c0 + flat_idx % sub_acc.shape[1]
+
         # outlet cell -> lon/lat (cell center)
         o_lon, o_lat = cell_to_lonlat(ocol, orow)
         if not (math.isfinite(o_lon) and math.isfinite(o_lat)):
@@ -2004,7 +2033,7 @@ def build_water_body_transits(
         if i < len(feats):
             props = feats[i].get("properties", {}) or {}
         outlet_comp = find(outlet_node)
-        interior = [nid for nid, pv in node_poly_by_id.items() if pv == pid]
+        interior = poly_to_nodes.get(pid, [])
         # per foreign component: the node closest to the outlet gets the transit edge
         best_for_comp: Dict[int, Tuple[float, int]] = {}
         for nid in interior:
