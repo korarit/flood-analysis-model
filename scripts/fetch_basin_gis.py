@@ -976,11 +976,6 @@ def crop_geojson_to_basin(
             stats["dropped_outside"] += 1
             continue
         
-        # Two-Step Crop: 1. Filter out features that don't touch the jagged basin
-        if not prepared_filter.intersects(g):
-            stats["dropped_outside"] += 1
-            continue
-            
         # Two-Step Crop: 2. Slice the valid features using the clean rectangular bounding box
         if slice_poly.covers(g):
             out_features.append(feat)

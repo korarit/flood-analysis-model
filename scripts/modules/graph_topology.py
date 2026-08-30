@@ -1083,7 +1083,7 @@ def simplify_linestring_coords(
     return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
 
 
-def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 3.0) -> Dict[str, Any]:
+def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 1.5) -> Dict[str, Any]:
     """
     Detects massive artificial straight lines (from D8 flat routing or OSM teleports across lakes)
     and visually hides them by converting the path into a MultiLineString with gaps.
@@ -1113,30 +1113,42 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 3.0)
     if not jump_zones:
         return {"type": "LineString", "coordinates": coords}
 
-    # 3. We found massive straight segments. Split the ORIGINAL coords list into a MultiLineString,
-    # omitting the coordinates that lie inside these jump zones.
+    # 3. We found massive straight segments. Split the ORIGINAL coords list into a MultiLineString.
+    # Use a sequential forward-search to perfectly handle duplicate coordinates (e.g. loops or snapping).
     parts = []
     current_part = []
-    skip_until_idx = -1
-
-    # Create a mapping of coordinate -> index for fast lookup
-    coord_idx = { (round(pt[0], 5), round(pt[1], 5)): i for i, pt in enumerate(coords) }
-
-    for j_start, j_end in jump_zones:
-        start_idx = coord_idx.get((j_start[0], j_start[1]), -1)
-        end_idx = coord_idx.get((j_end[0], j_end[1]), -1)
-        
-        if start_idx != -1 and end_idx != -1 and start_idx < end_idx:
-            for i in range(max(0, skip_until_idx), start_idx + 1):
+    
+    jump_idx = 0
+    i = 0
+    while i < len(coords):
+        if jump_idx < len(jump_zones):
+            j_s, j_e = jump_zones[jump_idx]
+            # Check if current coordinate matches the START of the jump
+            if round(coords[i][0], 5) == j_s[0] and round(coords[i][1], 5) == j_s[1]:
+                # End the current part here!
                 current_part.append(coords[i])
-            if len(current_part) > 1:
-                parts.append(current_part)
-            current_part = []
-            skip_until_idx = end_idx  # Skip all points strictly between start and end!
-
-    # Add the remaining points after the last jump
-    for i in range(max(0, skip_until_idx), len(coords)):
+                if len(current_part) > 1:
+                    parts.append(current_part)
+                current_part = []
+                
+                # Now search forward in the original array for the END of the jump
+                found_end = False
+                for k in range(i + 1, len(coords)):
+                    if round(coords[k][0], 5) == j_e[0] and round(coords[k][1], 5) == j_e[1]:
+                        i = k  # Fast-forward our main loop to this end point
+                        found_end = True
+                        break
+                
+                if not found_end:
+                    # Failsafe: if end point not found, just continue processing normally
+                    pass
+                
+                jump_idx += 1
+                continue # Skip the i += 1 at the bottom, so the next loop processes the END point (starting a new part)
+        
         current_part.append(coords[i])
+        i += 1
+
     if len(current_part) > 1:
         parts.append(current_part)
 
