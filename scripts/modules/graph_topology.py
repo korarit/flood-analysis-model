@@ -1087,6 +1087,22 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0,
                 # If water goes uphill significantly (dz < -1.0) or is suspiciously flat (slope < 0.0025, typical of hydro-conditioned reservoirs), it's a teleport!
                 if dz < -1.0 or slope < 0.0025:
                     is_jump = True
+                else:
+                    # Topographic Profile Check: sample elevations along the straight line
+                    # Real rivers flow downhill. If the line cuts through a hill or crosses a canyon,
+                    # it's an artificial teleport.
+                    num_samples = max(3, int(dist / 0.1))  # sample every ~100m
+                    for j in range(1, num_samples):
+                        t = j / float(num_samples)
+                        lon_m = p1[0] + (p2[0] - p1[0]) * t
+                        lat_m = p1[1] + (p2[1] - p1[1]) * t
+                        zm = sample_elev_fn(lon_m, lat_m)
+                        if zm is not None:
+                            # zm > z1 + 2.0: went uphill (cut through a hill)
+                            # zm < z2 - 2.0: went into a valley and climbed back up to z2
+                            if zm > z1 + 2.0 or zm < z2 - 2.0:
+                                is_jump = True
+                                break
                     
         if is_jump:
             jump_zones.append(( [round(p1[0], 5), round(p1[1], 5)], [round(p2[0], 5), round(p2[1], 5)] ))
