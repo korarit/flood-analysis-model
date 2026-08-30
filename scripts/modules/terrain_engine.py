@@ -33,7 +33,7 @@ def clip_dem_to_polygon(
     buffer_deg: float = 0.015
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
-    Clips DEM raster directly to a specific sub-basin polygon at native 12.5m resolution.
+    Clips DEM raster directly to a specific sub-basin polygon at native 30m resolution.
     Handles CRS coordinate transformation automatically (e.g. EPSG:4326 to UTM/native CRS).
     Returns (clipped_elev, clipped_transform, crs, nodata).
     """

@@ -2138,7 +2138,7 @@ def build_flow_paths_and_relations(
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     2-Layer Hybrid Flow Path & River Topology Generator:
-    - Layer 1: Gauge-to-Gauge River Backbone Flowpaths (12.5m Hydro-D8 routing,
+    - Layer 1: Gauge-to-Gauge River Backbone Flowpaths (30m Hydro-D8 routing,
       with OSM-backbone continuation fallback when D8 terminates early)
     - Layer 2: Rainfall-to-Gauge Overland Flowpaths (Hillslope D8 -> River Backbone),
       hydrologically-correct downstream CASCADE: one non-overlapping segment feature per
@@ -2389,7 +2389,7 @@ def build_flow_paths_and_relations(
             tgt_lon = float(target_st.get('longitude', 0.0))
             tgt_lat = float(target_st.get('latitude', 0.0))
 
-            # Continuous 12.5m DEM D8 raster coordinates: zero straight lines
+            # Continuous 30m DEM D8 raster coordinates: zero straight lines
             coords = merge_coordinates([[st_lon, st_lat]], raster_coords)
             
             # Snap the final vertex to the target station smoothly only if within 500m
@@ -2590,7 +2590,7 @@ def build_flow_paths_and_relations(
     # =========================================================================
     # LAYER 2: Rain-to-Gauge Overland Connectors (Overland -> River Backbone)
     # =========================================================================
-    # Stop condition: stops when encountering any water level station on the 12.5m grid
+    # Stop condition: stops when encountering any water level station on the 30m grid
     def stop_at_water_station(curr_r, curr_c):
         t_id = water_grid_map.get((curr_r, curr_c)) or water_prox_map.get((curr_r, curr_c))
         if t_id:
@@ -2637,7 +2637,7 @@ def build_flow_paths_and_relations(
         z_rain = sample_elevation(lon, lat)
         seg_count = 0  # cascade segment counter (Case 2 increments per emitted segment)
 
-        # 1. Trace Continuous 12.5m DEM D8 flow path downstream from rain station.
+        # 1. Trace Continuous 30m DEM D8 flow path downstream from rain station.
         # River-aware ("river first"): the trace stops (stop_data=RIVER_STOP) at the
         # FIRST OSM river footprint it reaches, so runoff merges into the adjacent
         # river instead of crossing it or running cross-country to a distant gauge.

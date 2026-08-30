@@ -566,187 +566,42 @@ def fetch_subbasins_boundary(basin: str, output_path: str, stations: List[Dict[s
     return geojson
 
 
-def download_alos_palsar_dem(
+def download_fabdem(
     terrain_dir: str,
     stations: List[Dict[str, Any]],
-    username: Optional[str],
-    password: Optional[str],
-    chunk_size: int = 10,
     force: bool = False
 ) -> str:
     """
-    Searches and downloads ALOS PALSAR RTC 12.5m DEM tiles from NASA ASF DAAC into terrain_dir.
-    Downloads in manageable chunks (default: 10 tiles/batch), unzips immediately, and deletes
-    .zip archives after extraction to prevent filling up disk storage.
+    Downloads FABDEM (30m Bare-Earth DEM) tiles from AWS Open Data.
+    FABDEM has forests and buildings removed, making it significantly more accurate
+    for hydrological flow routing than ALOS PALSAR 12.5m (which is a DSM).
     """
-    import zipfile
+    import fabdem
+    
+    os.makedirs(terrain_dir, exist_ok=True)
     raw_dem_path = os.path.join(terrain_dir, "raw_dem.tif")
-    tiles_dir = os.path.join(terrain_dir, "alos_tiles")
-    extracted_dir = os.path.join(tiles_dir, "extracted")
-    os.makedirs(extracted_dir, exist_ok=True)
-
+    
     if not force and os.path.exists(raw_dem_path) and os.path.getsize(raw_dem_path) > 1000:
-        print(f"  [CACHE] Mosaic DEM already exists: {raw_dem_path}")
+        print(f"  [CACHE] FABDEM already exists: {raw_dem_path}")
         return raw_dem_path
-    if force and os.path.exists(raw_dem_path):
-        print(f"  [FORCE] Re-downloading & re-mosaicking the ALOS DEM (raw_dem.tif will be overwritten)...")
-
-    # Check credentials
-    user = username or os.environ.get("EARTHDATA_USER")
-    pwd = password or os.environ.get("EARTHDATA_PASS")
-
-    if not user or not pwd:
-        # Check for .netrc
-        netrc_path = os.path.expanduser("~/.netrc")
-        if not os.path.exists(netrc_path):
-            print("\n" + "=" * 70, file=sys.stderr)
-            print("❌ ERROR: NASA Earthdata credentials are required for ALOS PALSAR 12.5m DEM!", file=sys.stderr)
-            print("Please provide --username and --password arguments or set EARTHDATA_USER / EARTHDATA_PASS env vars.", file=sys.stderr)
-            print("Register free at: https://urs.earthdata.nasa.gov/", file=sys.stderr)
-            print("=" * 70 + "\n", file=sys.stderr)
-            sys.exit(1)
-
-    print("  [DEM] Querying NASA ASF DAAC for ALOS PALSAR 12.5m DEM granules...")
-    import asf_search as asf
-
+        
+    print(f"  [FORCE] Downloading FABDEM 30m bare-earth DEM (raw_dem.tif will be overwritten)...")
+    
+    print("  [DEM] Calculating bounding box for FABDEM download...")
     min_lat, min_lon, max_lat, max_lon = get_station_bbox(stations, buffer_deg=0.15)
-    wkt_poly = bbox_to_wkt(min_lat, min_lon, max_lat, max_lon)
-
+    bounds = (min_lon, min_lat, max_lon, max_lat)
+    
+    print(f"  [DEM] Downloading FABDEM tiles for bbox (W: {min_lon:.4f}, S: {min_lat:.4f}, E: {max_lon:.4f}, N: {max_lat:.4f})...")
+    
     try:
-        session = asf.ASFSession().auth_with_creds(user, pwd)
-        results = asf.geo_search(
-            platform=asf.PLATFORM.ALOS,
-            processingLevel=asf.PRODUCT_TYPE.RTC_HIGH_RES,
-            intersectsWith=wkt_poly
-        )
-        # Deduplicate by unique spatial (pathNumber, frameNumber) to avoid downloading duplicate temporal passes
-        unique_granules = {}
-        for g in results:
-            key = (g.properties.get('pathNumber'), g.properties.get('frameNumber'))
-            if key not in unique_granules:
-                unique_granules[key] = g
-
-        granules_list = list(unique_granules.values())
-        total_granules = len(granules_list)
-        print(f"  [DEM] Found {len(results)} total granules -> filtered to {total_granules} unique spatial tiles.")
-
-        # Process in chunks of chunk_size to optimize disk space
-        num_chunks = math.ceil(total_granules / float(chunk_size)) if chunk_size > 0 else 1
-        print(f"  [DEM] Chunked Download & Extraction: {num_chunks} batches (Batch size: {chunk_size} tiles/batch)...")
-
-        for chunk_idx in range(num_chunks):
-            start_i = chunk_idx * chunk_size
-            end_i = min(total_granules, (chunk_idx + 1) * chunk_size)
-            chunk_granules = granules_list[start_i:end_i]
-            chunk_results = asf.ASFSearchResults(chunk_granules)
-
-            print(f"\n  ┌─ [Chunk {chunk_idx + 1}/{num_chunks}] Downloading {len(chunk_granules)} tiles ({start_i + 1}-{end_i} of {total_granules})...")
-            chunk_results.download(path=tiles_dir, session=session, processes=4)
-
-            # Unzip each downloaded .zip immediately and delete .zip to reclaim disk space
-            zip_files = glob.glob(os.path.join(tiles_dir, "*.zip"))
-            extracted_count = 0
-            freed_bytes = 0
-
-            for zf_path in zip_files:
-                try:
-                    file_size = os.path.getsize(zf_path)
-                    with zipfile.ZipFile(zf_path, 'r') as zf:
-                        for member in zf.namelist():
-                            if member.endswith(".dem.tif") or member.endswith("_dem.tif"):
-                                filename = os.path.basename(member)
-                                target_dest = os.path.join(extracted_dir, filename)
-                                if not os.path.exists(target_dest):
-                                    with zf.open(member) as source, open(target_dest, "wb") as target:
-                                        target.write(source.read())
-                                extracted_count += 1
-                    # Remove .zip archive to save disk space
-                    os.remove(zf_path)
-                    freed_bytes += file_size
-                except Exception as ex:
-                    print(f"  │  [WARN] Failed to extract/cleanup {zf_path}: {ex}")
-
-            freed_mb = freed_bytes / (1024 * 1024)
-            print(f"  └─ ✅ [Chunk {chunk_idx + 1}/{num_chunks}] Extracted {extracted_count} DEM files, deleted .zip archives (Freed {freed_mb:.1f} MB disk space)")
-
+        # fabdem downloads and mosaics automatically
+        fabdem.download(bounds, output_path=raw_dem_path, show_progress=False)
+        print(f"  [OK] Successfully downloaded and mosaicked FABDEM: {raw_dem_path}")
     except Exception as e:
-        print(f"❌ ERROR: Failed to download ALOS PALSAR DEM from ASF: {e}", file=sys.stderr)
+        print(f"❌ ERROR: Failed to download FABDEM: {e}", file=sys.stderr)
         sys.exit(1)
-
-    # Find and mosaic all downloaded/extracted *.dem.tif files
-    dem_files = glob.glob(os.path.join(extracted_dir, "**", "*dem.tif"), recursive=True) + \
-                glob.glob(os.path.join(tiles_dir, "**", "*dem.tif"), recursive=True)
-    dem_files = list(set([f for f in dem_files if not f.endswith("raw_dem.tif")]))
-
-    if not dem_files:
-        print(f"❌ ERROR: No DEM GeoTIFF files found in {tiles_dir}", file=sys.stderr)
-        sys.exit(1)
-
-    print(f"\n  [MOSAIC] Merging {len(dem_files)} DEM tiles into {raw_dem_path} (Low-RAM Streaming Engine)...")
-    stream_mosaic_geotiffs(dem_files, raw_dem_path)
+        
     return raw_dem_path
-
-
-def stream_mosaic_geotiffs(dem_files: List[str], output_path: str, nodata: float = -9999.0):
-    """
-    Memory-efficient streaming mosaic that writes GeoTIFF tiles directly into the
-    destination raster on disk window by window, without loading multi-gigabyte arrays into RAM.
-    Requires only ~30-50 MB RAM regardless of how large the river basin is.
-    """
-    from rasterio.transform import from_bounds
-    from rasterio.windows import from_bounds as window_from_bounds
-
-    srcs = [rasterio.open(f) for f in dem_files]
-    try:
-        min_xs = [s.bounds.left for s in srcs]
-        min_ys = [s.bounds.bottom for s in srcs]
-        max_xs = [s.bounds.right for s in srcs]
-        max_ys = [s.bounds.top for s in srcs]
-
-        left = min(min_xs)
-        bottom = min(min_ys)
-        right = max(max_xs)
-        top = max(max_ys)
-
-        res_x = srcs[0].res[0]
-        res_y = srcs[0].res[1]
-        crs = srcs[0].crs
-
-        width = int(round((right - left) / res_x))
-        height = int(round((top - bottom) / res_y))
-        transform = from_bounds(left, bottom, right, top, width, height)
-
-        print(f"  [MOSAIC] Streaming {len(dem_files)} tiles into disk ({height:,} x {width:,} cells, Low-RAM mode)...")
-
-        out_meta = {
-            "driver": "GTiff",
-            "height": height,
-            "width": width,
-            "count": 1,
-            "dtype": "float32",
-            "crs": crs,
-            "transform": transform,
-            "nodata": nodata,
-            "compress": "deflate",
-            "tiled": True,
-            "blockxsize": 512,
-            "blockysize": 512
-        }
-
-        with rasterio.open(output_path, "w", **out_meta) as dst:
-            for idx, s in enumerate(srcs, 1):
-                data = s.read(1)
-                win = window_from_bounds(s.bounds.left, s.bounds.bottom, s.bounds.right, s.bounds.top, transform=transform)
-                win = win.round_offsets().round_shape()
-                dst.write(data, 1, window=win)
-                del data
-                if idx % 10 == 0 or idx == len(srcs):
-                    print(f"        Streamed {idx}/{len(dem_files)} tiles to disk...")
-
-        print(f"  [OK] Successfully created mosaic DEM: {output_path}")
-    finally:
-        for s in srcs:
-            s.close()
 
 
 # Overpass mirrors are tried in order until one returns a complete response
@@ -1398,20 +1253,17 @@ def ensure_osm_cropped(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Fetch GIS boundaries, HydroRIVERS, OSM Waterways, and ALOS PALSAR 12.5m DEM")
+    parser = argparse.ArgumentParser(description="Fetch GIS boundaries, HydroRIVERS, OSM Waterways, and FABDEM 30m DEM")
     parser.add_argument("--basin", type=str, default="yom", help="River basin slug (e.g. yom, nan, ping, wang, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
-    parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username")
-    parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password")
-    parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--force", action="store_true",
                         help="Force re-fetch of EVERYTHING: basin boundary, OSM waterways/polygons, "
-                             "and the ALOS DEM re-download & re-mosaic (heavy)")
+                             "and the FABDEM re-download (heavy)")
     parser.add_argument("--force-osm", action="store_true",
                         help="Force re-download of OSM waterways/polygons only (boundary cache kept)")
     parser.add_argument("--force-dem", action="store_true",
-                        help="Force re-download & re-mosaic of the ALOS DEM from NASA ASF (heavy)")
+                        help="Force re-download of FABDEM 30m (heavy)")
     parser.add_argument("--crop-buffer-m", type=float, default=2000.0,
                         help="Buffer in meters applied to the basin polygon when cropping OSM data "
                              "(default: 2000; keeps hydrology connected at the basin edge)")
@@ -1472,9 +1324,8 @@ def main():
         fetch_osm_water_polygons(b, water_polygons_path, all_st, force=force_osm,
                                  basin_boundary_geojson=boundary_geojson, crop_buffer_m=args.crop_buffer_m)
 
-        # 4. ALOS PALSAR 12.5m DEM (in terrain/{basin}/) with Chunked Download & Auto-Cleanup
-        download_alos_palsar_dem(terrain_basin_dir, all_st, args.username, args.password,
-                                 chunk_size=args.chunk_size, force=force_dem)
+        # 4. FABDEM 30m Bare-Earth DEM (in terrain/{basin}/)
+        download_fabdem(terrain_basin_dir, all_st, force=force_dem)
 
 
 if __name__ == "__main__":
