@@ -72,49 +72,17 @@ def clip_dem_to_polygon(
 
 
 def read_dem_geotiff(
-    dem_path: str,
-    max_cells: int = 200_000_000
+    dem_path: str
 ) -> Tuple[np.ndarray, Affine, Any, float]:
     """
-    Read DEM raster with memory-adaptive scaling.
-    If grid size exceeds max_cells (default 200 Million cells, ~20m resolution), downsamples adaptively
-    to fit comfortably within RAM while preserving full hydrological fidelity.
+    Read DEM raster at native resolution.
+    With FABDEM (30m), the memory footprint is naturally optimized, so we load it at 100% scale
+    to preserve maximum hydrological routing accuracy.
     """
-    from rasterio.enums import Resampling
-
-    env_max = os.environ.get("MAX_DEM_CELLS")
-    if env_max:
-        try:
-            max_cells = int(env_max)
-        except Exception:
-            pass
-
     with rasterio.open(dem_path) as src:
         nodata = src.nodata if src.nodata is not None else -9999.0
-        orig_h, orig_w = src.height, src.width
-        total_cells = orig_h * orig_w
-
-        if total_cells > max_cells:
-            scale = math.sqrt(max_cells / float(total_cells))
-            new_h = max(100, int(orig_h * scale))
-            new_w = max(100, int(orig_w * scale))
-            print(f"  [RAM OPT] Large DEM detected ({total_cells:,} cells).")
-            print(f"            Scaling adaptively to {new_h:,} x {new_w:,} ({new_h * new_w:,} cells, Low-RAM)...")
-            
-            elev = src.read(
-                1,
-                out_shape=(new_h, new_w),
-                resampling=Resampling.bilinear
-            ).astype(np.float32)
-
-            transform = src.transform * src.transform.scale(
-                (src.width / new_w),
-                (src.height / new_h)
-            )
-        else:
-            elev = src.read(1).astype(np.float32)
-            transform = src.transform
-
+        elev = src.read(1).astype(np.float32)
+        transform = src.transform
         crs = src.crs
 
     return elev, transform, crs, nodata

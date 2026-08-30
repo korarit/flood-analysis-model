@@ -110,8 +110,8 @@ def build_basin_station_chain(basin: str, basin_dir: str, terrain_dir: str):
     filled_dem, transform, crs, nodata = read_dem_geotiff(dem_to_use)
     
     if os.path.exists(fdir_path) and os.path.exists(acc_path) and os.path.getsize(fdir_path) > 1024:
-        fdir, _, _, _ = read_dem_geotiff(fdir_path, max_cells=25_000_000)
-        acc, _, _, _ = read_dem_geotiff(acc_path, max_cells=25_000_000)
+        fdir, _, _, _ = read_dem_geotiff(fdir_path)
+        acc, _, _, _ = read_dem_geotiff(acc_path)
     else:
         import pyflwdir
         is_latlon = (crs is None) or getattr(crs, 'is_geographic', False) or (str(crs) == "EPSG:4326")
