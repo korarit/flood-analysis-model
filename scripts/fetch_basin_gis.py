@@ -952,9 +952,13 @@ def crop_geojson_to_basin(
         return geojson, stats
 
     try:
-        crop_poly = basin_poly.buffer(_crop_buffer_deg(buffer_m))
-        crop_poly = crop_poly.simplify(0.0005, preserve_topology=True) or crop_poly
-        prepared = _prep(crop_poly)
+        # Step 1: Filter Polygon (jagged shape to filter out pure garbage)
+        filter_poly = basin_poly.buffer(_crop_buffer_deg(buffer_m))
+        filter_poly = filter_poly.simplify(0.0005, preserve_topology=True) or filter_poly
+        prepared_filter = _prep(filter_poly)
+        
+        # Step 2: Slice Polygon (bounding box to cut cleanly without jagged edges)
+        slice_poly = basin_poly.envelope.buffer(_crop_buffer_deg(buffer_m))
     except Exception as ex:
         print(f"  [WARN] {label}: could not prepare crop polygon ({ex}); crop skipped")
         stats["n_out"] = len(feats)
@@ -971,14 +975,17 @@ def crop_geojson_to_basin(
         if g is None or g.is_empty:
             stats["dropped_outside"] += 1
             continue
-        # cheap bbox pre-filter (O(N)) before the expensive intersection (O(K))
-        if not prepared.intersects(g):
+        
+        # Two-Step Crop: 1. Filter out features that don't touch the jagged basin
+        if not prepared_filter.intersects(g):
             stats["dropped_outside"] += 1
             continue
-        if crop_poly.covers(g):
+            
+        # Two-Step Crop: 2. Slice the valid features using the clean rectangular bounding box
+        if slice_poly.covers(g):
             out_features.append(feat)
             continue
-        inter = g.intersection(crop_poly)
+        inter = g.intersection(slice_poly)
         if inter.is_empty:
             stats["dropped_outside"] += 1
             continue

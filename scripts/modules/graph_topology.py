@@ -1018,8 +1018,7 @@ def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
     max_step_km: float = 0.5,
-    label: str = "",
-    allow_truncation: bool = True
+    label: str = ""
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
@@ -1028,8 +1027,6 @@ def simplify_linestring_coords(
     Strictly splits at any artificial straight-line jump > max_step_km (500m): only the
     contiguous chunk starting at the path origin is kept (endpoints are always re-appended
     so both ends stay exact), and the discard is reported.
-    If allow_truncation=True (for pure D8 overland traces), runs an aggressive DP pass
-    (tolerance 200m) to detect and truncate massive D8 trenches (> 4.0km straight).
     `label` identifies the calling feature in diagnostics.
     """
     if not coords or len(coords) < 2:
@@ -1074,44 +1071,79 @@ def simplify_linestring_coords(
         simplified = line.simplify(tolerance_deg, preserve_topology=True)
         if simplified.geom_type == 'LineString':
             simp_pts = [[round(p[0], 5), round(p[1], 5)] for p in simplified.coords]
-            
-            # 3. Truncate Artificial D8 Trenches (perfectly straight segments > 4.0 km)
-            if allow_truncation:
-                # Use aggressive tolerance (0.002 deg ~ 200m) to collapse curves caused by Earth's curvature
-                aggro_line = line.simplify(0.002, preserve_topology=False)
-                if aggro_line.geom_type == 'LineString':
-                    aggro_pts = list(aggro_line.coords)
-                    trench_cutoff_idx = -1
-                    max_straight_km = 4.0
-                    for i in range(len(aggro_pts) - 1):
-                        p1, p2 = aggro_pts[i], aggro_pts[i + 1]
-                        seg_len = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
-                        if seg_len > max_straight_km:
-                            # Found a massive fundamentally straight segment.
-                            # Find this point in the standard simp_pts array to truncate it.
-                            trench_start = [round(p1[0], 5), round(p1[1], 5)]
-                            for j, pt in enumerate(simp_pts):
-                                if pt[0] == trench_start[0] and pt[1] == trench_start[1]:
-                                    trench_cutoff_idx = j
-                                    break
-                            
-                            who = f" [{label}]" if label else ""
-                            print(f"  [WARN] simplify_linestring{who}: truncated artificial D8 straight trench of {seg_len:.1f}km > {max_straight_km}km")
-                            break
-                            
-                    if trench_cutoff_idx != -1:
-                        simp_pts = simp_pts[:trench_cutoff_idx + 1]
 
             if len(simp_pts) >= 2:
                 # Strictly preserve exact origin coordinate
                 simp_pts[0] = [round(clean_coords[0][0], 5), round(clean_coords[0][1], 5)]
-                # Strictly preserve exact destination coordinate ONLY if we didn't truncate the path
-                if len(simp_pts) == len(simplified.coords):
-                    simp_pts[-1] = [round(clean_coords[-1][0], 5), round(clean_coords[-1][1], 5)]
+                # Strictly preserve exact destination coordinate
+                simp_pts[-1] = [round(clean_coords[-1][0], 5), round(clean_coords[-1][1], 5)]
                 return simp_pts
     except Exception:
         pass
     return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
+
+
+def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 3.0) -> Dict[str, Any]:
+    """
+    Detects massive artificial straight lines (from D8 flat routing or OSM teleports across lakes)
+    and visually hides them by converting the path into a MultiLineString with gaps.
+    This preserves the feature's topological properties (start/end) without breaking the graph.
+    """
+    if not coords or len(coords) < 2:
+        return {"type": "LineString", "coordinates": coords}
+
+    # 1. Use aggressive DP (0.002 deg) to collapse the Earth's curvature.
+    # This reveals fundamentally straight teleports that were slightly curved by Lat/Lon projection.
+    try:
+        aggro_line = LineString(coords).simplify(0.002, preserve_topology=False)
+        if aggro_line.geom_type != 'LineString':
+            return {"type": "LineString", "coordinates": coords}
+        aggro_pts = list(aggro_line.coords)
+    except Exception:
+        return {"type": "LineString", "coordinates": coords}
+
+    # 2. Identify the start and end points of any massive straight segment
+    jump_zones = []
+    for i in range(len(aggro_pts) - 1):
+        p1, p2 = aggro_pts[i], aggro_pts[i + 1]
+        dist = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
+        if dist > max_straight_km:
+            jump_zones.append(( [round(p1[0], 5), round(p1[1], 5)], [round(p2[0], 5), round(p2[1], 5)] ))
+
+    if not jump_zones:
+        return {"type": "LineString", "coordinates": coords}
+
+    # 3. We found massive straight segments. Split the ORIGINAL coords list into a MultiLineString,
+    # omitting the coordinates that lie inside these jump zones.
+    parts = []
+    current_part = []
+    skip_until_idx = -1
+
+    # Create a mapping of coordinate -> index for fast lookup
+    coord_idx = { (round(pt[0], 5), round(pt[1], 5)): i for i, pt in enumerate(coords) }
+
+    for j_start, j_end in jump_zones:
+        start_idx = coord_idx.get((j_start[0], j_start[1]), -1)
+        end_idx = coord_idx.get((j_end[0], j_end[1]), -1)
+        
+        if start_idx != -1 and end_idx != -1 and start_idx < end_idx:
+            for i in range(max(0, skip_until_idx), start_idx + 1):
+                current_part.append(coords[i])
+            if len(current_part) > 1:
+                parts.append(current_part)
+            current_part = []
+            skip_until_idx = end_idx  # Skip all points strictly between start and end!
+
+    # Add the remaining points after the last jump
+    for i in range(max(0, skip_until_idx), len(coords)):
+        current_part.append(coords[i])
+    if len(current_part) > 1:
+        parts.append(current_part)
+
+    if len(parts) <= 1:
+        return {"type": "LineString", "coordinates": coords}
+    
+    return {"type": "MultiLineString", "coordinates": parts}
 
 
 def _extract_basin_polygon(basin_boundary_geojson: Optional[Dict[str, Any]]):
@@ -1771,11 +1803,7 @@ def extract_station_drainage_branches(
                 "branch_cells": len(chain),
                 "river_merge": river_merged
             },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035,
-                                                         label=f"branch_{owner}")
-            }
+            "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=f"branch_{owner}"))
         }))
 
     if n_orphan:
@@ -2409,10 +2437,7 @@ def build_flow_paths_and_relations(
                     "upstream_elev_m": round(z_up, 2),
                     "downstream_elev_m": round(z_down, 2),
                 },
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id, allow_truncation=False)
-                }
+                "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
             }
             features.append(feature)
             gauge_relations.append(feature["properties"])
@@ -2550,10 +2575,7 @@ def build_flow_paths_and_relations(
                     "type": "Feature",
                     "id": feature_id,
                     "properties": backbone_props,
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
-                    }
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
                 }
                 features.append(feature)
                 gauge_relations.append(feature["properties"])
@@ -2579,10 +2601,7 @@ def build_flow_paths_and_relations(
                         "upstream_elev_m": round(z_up, 2),
                         "downstream_elev_m": round(z_down, 2),
                     },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
-                    }
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
                 }
                 features.append(feature)
 
@@ -2846,10 +2865,7 @@ def build_flow_paths_and_relations(
                             "downstream_elev_m": round(z_water, 2),
                             "influence_weight_percent": 100.0
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
-                        }
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
                     }
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
@@ -2931,10 +2947,7 @@ def build_flow_paths_and_relations(
                                 "downstream_elev_m": round(z_water2, 2),
                                 "influence_weight_percent": 100.0
                             },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": simplify_linestring_coords(coords2, tolerance_deg=0.00035, label=feature_id)
-                            }
+                            "geometry": hide_straight_jumps(simplify_linestring_coords(coords2, tolerance_deg=0.00035, label=feature_id))
                         }
                         features.append(feature)
                         rainfall_relations.append(feature["properties"])
@@ -3053,10 +3066,7 @@ def build_flow_paths_and_relations(
                         "type": "Feature",
                         "id": feature_id,
                         "properties": seg_props,
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id, allow_truncation=False)
-                        }
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id))
                     }
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
@@ -3107,10 +3117,7 @@ def build_flow_paths_and_relations(
                     "type": "Feature",
                     "id": feature_id,
                     "properties": river_entry_props,
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
-                    }
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
                 }
                 features.append(feature)
         else:
@@ -3178,10 +3185,7 @@ def build_flow_paths_and_relations(
                             "downstream_elev_m": round(z_end, 2),
                             "influence_weight_percent": 100.0
                         },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
-                        }
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
                     }
                     features.append(feature)
 
@@ -3232,7 +3236,7 @@ def build_flow_paths_and_relations(
                     continue
                 part_len_km = linestring_length_km(part)
                 fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
-                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid, allow_truncation=False)
+                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid)
                 if len(coords_s) < 2:
                     continue
                 features.append({
@@ -3245,10 +3249,7 @@ def build_flow_paths_and_relations(
                         "waterway": props.get("waterway", "stream"),
                         "length_km": round(part_len_km, 2)
                     },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": coords_s
-                    }
+                    "geometry": hide_straight_jumps(coords_s)
                 })
                 n_osm_added += 1
         if n_osm_added:
