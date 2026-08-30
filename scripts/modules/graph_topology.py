@@ -1051,7 +1051,7 @@ def simplify_linestring_coords(
     return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
 
 
-def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0) -> Dict[str, Any]:
+def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0, sample_elev_fn=None) -> Dict[str, Any]:
     """
     Detects massive artificial straight lines (from D8 flat routing or OSM teleports across lakes)
     and visually hides them by converting the path into a MultiLineString with gaps.
@@ -1075,7 +1075,19 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0)
     for i in range(len(aggro_pts) - 1):
         p1, p2 = aggro_pts[i], aggro_pts[i + 1]
         dist = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
+        is_jump = False
         if dist > max_straight_km:
+            is_jump = True
+        elif dist > 0.5 and sample_elev_fn is not None:
+            z1 = sample_elev_fn(p1[0], p1[1])
+            z2 = sample_elev_fn(p2[0], p2[1])
+            if z1 is not None and z2 is not None:
+                dz = z1 - z2
+                # If water goes uphill significantly (dz < -1.0) or is totally flat over >500m (abs(dz) < 0.5), it's a teleport!
+                if dz < -1.0 or abs(dz) < 0.5:
+                    is_jump = True
+                    
+        if is_jump:
             jump_zones.append(( [round(p1[0], 5), round(p1[1], 5)], [round(p2[0], 5), round(p2[1], 5)] ))
 
     if not jump_zones:
@@ -1461,7 +1473,8 @@ def trace_downstream_path(
     water_poly_mask: Optional[np.ndarray] = None,
     water_poly_ids: Optional[np.ndarray] = None,
     start_poly_id: int = 0,
-    max_overland_cells: int = 0
+    max_overland_cells: int = 0,
+    sample_elev_fn: Optional[Any] = None
 ) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
@@ -1787,7 +1800,7 @@ def extract_station_drainage_branches(
                 "branch_cells": len(chain),
                 "river_merge": river_merged
             },
-            "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=f"branch_{owner}"))
+            "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=f"branch_{owner}"), sample_elev_fn=sample_elev_fn)
         }))
 
     if n_orphan:
@@ -2559,7 +2572,7 @@ def build_flow_paths_and_relations(
                     "type": "Feature",
                     "id": feature_id,
                     "properties": backbone_props,
-                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                 }
                 features.append(feature)
                 gauge_relations.append(feature["properties"])
@@ -2585,7 +2598,7 @@ def build_flow_paths_and_relations(
                         "upstream_elev_m": round(z_up, 2),
                         "downstream_elev_m": round(z_down, 2),
                     },
-                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                 }
                 features.append(feature)
 
@@ -2849,7 +2862,7 @@ def build_flow_paths_and_relations(
                             "downstream_elev_m": round(z_water, 2),
                             "influence_weight_percent": 100.0
                         },
-                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                     }
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
@@ -2931,7 +2944,7 @@ def build_flow_paths_and_relations(
                                 "downstream_elev_m": round(z_water2, 2),
                                 "influence_weight_percent": 100.0
                             },
-                            "geometry": hide_straight_jumps(simplify_linestring_coords(coords2, tolerance_deg=0.00035, label=feature_id))
+                            "geometry": hide_straight_jumps(simplify_linestring_coords(coords2, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                         }
                         features.append(feature)
                         rainfall_relations.append(feature["properties"])
@@ -3050,7 +3063,7 @@ def build_flow_paths_and_relations(
                         "type": "Feature",
                         "id": feature_id,
                         "properties": seg_props,
-                        "geometry": hide_straight_jumps(simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id))
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                     }
                     features.append(feature)
                     rainfall_relations.append(feature["properties"])
@@ -3101,7 +3114,7 @@ def build_flow_paths_and_relations(
                     "type": "Feature",
                     "id": feature_id,
                     "properties": river_entry_props,
-                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
+                    "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                 }
                 features.append(feature)
         else:
@@ -3169,7 +3182,7 @@ def build_flow_paths_and_relations(
                             "downstream_elev_m": round(z_end, 2),
                             "influence_weight_percent": 100.0
                         },
-                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id))
+                        "geometry": hide_straight_jumps(simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id), sample_elev_fn=sample_elevation)
                     }
                     features.append(feature)
 
@@ -3188,7 +3201,8 @@ def build_flow_paths_and_relations(
                 southern_limit_lat=southern_limit_lat,
                 max_branches_per_station=branch_max_count,
                 river_mask=river_mask,
-                water_poly_mask=water_poly_mask
+                water_poly_mask=water_poly_mask,
+                sample_elev_fn=sample_elevation
             )
             if not truncated:
                 break
