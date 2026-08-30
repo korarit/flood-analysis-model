@@ -1017,50 +1017,18 @@ def merge_coordinates(*coord_lists: Optional[List[List[float]]]) -> List[List[fl
 def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
-    max_step_km: float = 0.5,
     label: str = ""
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
     Eliminates redundant collinear raster stair steps while preserving curves, bends,
     and exact station endpoints.
-    Strictly splits at any artificial straight-line jump > max_step_km (500m): only the
-    contiguous chunk starting at the path origin is kept (endpoints are always re-appended
-    so both ends stay exact), and the discard is reported.
     `label` identifies the calling feature in diagnostics.
     """
     if not coords or len(coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords]
 
-    # 1. Topological Continuity Sanitization: split at any artificial leap > max_step_km
-    chunks: List[List[List[float]]] = [[coords[0]]]
-    max_jump_km = 0.0
-    for i in range(len(coords) - 1):
-        p1, p2 = coords[i], coords[i + 1]
-        d_km = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
-        if d_km > max_step_km:
-            max_jump_km = max(max_jump_km, d_km)
-            chunks.append([p2])
-        else:
-            chunks[-1].append(p2)
-
-    clean_coords = chunks[0]
-    if len(chunks) > 1:
-        dropped = sum(len(ch) for ch in chunks[1:])
-        if dropped >= 5:
-            who = f" [{label}]" if label else ""
-            print(f"  [WARN] simplify_linestring{who}: split at {len(chunks) - 1} jump(s) "
-                  f"(max {max_jump_km:.1f}km) > {max_step_km}km; "
-                  f"kept {len(clean_coords)} pts from origin, discarded {dropped} pts")
-        # Preserve the exact final destination point ONLY when the end gap is a small
-        # station-access stub (<= 2km); a large mid-path jump must NOT be re-drawn.
-        tail = coords[-1]
-        tail_gap_km = math.hypot(
-            (tail[0] - clean_coords[-1][0]) * 111.32 * 0.95,
-            (tail[1] - clean_coords[-1][1]) * 110.54
-        )
-        if 1e-9 < tail_gap_km <= 2.0:
-            clean_coords.append(tail)
+    clean_coords = coords
 
     if len(clean_coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords[:2]]
