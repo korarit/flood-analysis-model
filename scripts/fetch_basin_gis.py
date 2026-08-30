@@ -1075,7 +1075,7 @@ def fetch_osm_waterways(
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     geom, source_label = _basin_query_geometry(basin_boundary_geojson)
     overpass_query, fingerprint, source_label = _build_overpass_query(
-        ['"waterway"~"river|stream|canal|drain|ditch"'], geom, stations
+        ['"waterway"'], geom, stations
     )
 
     cached = _load_valid_cache(output_path, fingerprint, force, require_crop=(source_label == "basin_polygon"))

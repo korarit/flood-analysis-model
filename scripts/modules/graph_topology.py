@@ -2179,7 +2179,7 @@ def build_flow_paths_and_relations(
       receiving gauge along the flow (entry->G1, G1->G2, ...), relations for every gauge passed
     - Drainage Branches: per-rain-station upstream D8 channel network (dendritic tributaries)
     - OSM River Layer: the raw OSM waterway network as its own display layer
-      (feature_type="osm_river"), separable in the frontend like the branches
+      (feature_type="osm_waterway"), separable in the frontend like the branches
     - Water-body handling (round 6): D8 never traces across OSM water polygons;
       open water is crossed via OSM centerlines / reservoir-transit edges instead.
     - Southern Limit: Strictly bounded to southernmost water station + 5 km.
@@ -3232,7 +3232,7 @@ def build_flow_paths_and_relations(
             print(f"        Drainage Branches: {len(branch_features)} features "
                   f"for {len(branch_seed_cells)} rain station path(s) (acc>={eff_branch_acc})")
 
-    # F: OSM river network as a separate display layer (feature_type="osm_river").
+    # F: OSM river network as a separate display layer (feature_type="osm_waterway").
     # NO length filter — the full OSM network is preserved; simplified with the same
     # 35m tolerance to bound file size.
     if include_osm_layer and osm_waterways_geojson and osm_waterways_geojson.get("features"):
@@ -3251,7 +3251,7 @@ def build_flow_paths_and_relations(
                 if len(part) < 2:
                     continue
                 part_len_km = linestring_length_km(part)
-                fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
+                fid = f"osm_waterway_{osm_id}" if len(parts) == 1 else f"osm_waterway_{osm_id}_{part_i}"
                 coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid)
                 if len(coords_s) < 2:
                     continue
@@ -3259,7 +3259,7 @@ def build_flow_paths_and_relations(
                     "type": "Feature",
                     "id": fid,
                     "properties": {
-                        "feature_type": "osm_river",
+                        "feature_type": "osm_waterway",
                         "osm_id": osm_id,
                         "river_name": props.get("name", "") or props.get("name_th", "") or props.get("name_en", ""),
                         "waterway": props.get("waterway", "stream"),
@@ -3272,11 +3272,11 @@ def build_flow_paths_and_relations(
                 })
                 n_osm_added += 1
         if n_osm_added:
-            print(f"        OSM River Layer: {n_osm_added} features (feature_type=osm_river, no length filter)")
+            print(f"        OSM River Layer: {n_osm_added} features (feature_type=osm_waterway, no length filter)")
 
     # Basin-boundary clipping (OUTPUT filter, G3/G2): every output line EXCEPT the
-    # osm_river display layer is cut to the official ThaiWater basin polygon.
-    # osm_river is NEVER re-cut here (G2): OSM was already cropped with the real
+    # osm_waterway display layer is cut to the official ThaiWater basin polygon.
+    # osm_waterway is NEVER re-cut here (G2): OSM was already cropped with the real
     # polygon (+ buffer) at fetch time (SOURCE filter), so the output layer must
     # stay byte-identical to that crop-set — no `basin_clipped`, no double cut.
     basin_poly = _extract_basin_polygon(basin_boundary_geojson) if clip_to_basin else None
@@ -3289,7 +3289,7 @@ def build_flow_paths_and_relations(
             ftype = props.get("feature_type", "unknown")
             st = clip_stats.setdefault(ftype, {"n_in": 0, "n_out": 0, "clipped": 0, "dropped": 0})
             g = feat.get("geometry")
-            if (not g or g.get("type") != "LineString") or ftype == "osm_river":
+            if (not g or g.get("type") != "LineString") or ftype == "osm_waterway":
                 kept_features.append(feat)
                 st["n_in"] += 1
                 st["n_out"] += 1
@@ -3314,7 +3314,7 @@ def build_flow_paths_and_relations(
         n_clipped = sum(s["clipped"] for s in clip_stats.values())
         n_dropped = sum(s["dropped"] for s in clip_stats.values())
         print(f"        Basin clip: {n_clipped:,} features trimmed to the basin polygon, "
-              f"{n_dropped:,} outside features dropped (osm_river layer untouched — G2)")
+              f"{n_dropped:,} outside features dropped (osm_waterway layer untouched — G2)")
         filter_report["basin_clip"] = clip_stats
     else:
         layer_counts: Dict[str, int] = {}
