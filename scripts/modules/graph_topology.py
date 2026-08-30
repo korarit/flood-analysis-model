@@ -296,8 +296,11 @@ class DirectedRiverGraph:
                     "way": way_id
                 }
 
-                # Primary downstream edge (enforce downstream flow only)
-                self.adj[prev_node].append((curr_node, edge_data))
+                # V8.2.1: Block teleportation by ignoring any single edge jump > 2.0 km.
+                # This prevents routing over massive OSM gaps while preserving the visual line on the map.
+                if length_km <= 2.0:
+                    # Primary downstream edge (enforce downstream flow only)
+                    self.adj[prev_node].append((curr_node, edge_data))
 
             prev_node = curr_node
 
@@ -1015,7 +1018,8 @@ def simplify_linestring_coords(
     coords: List[List[float]],
     tolerance_deg: float = 0.00035,
     max_step_km: float = 0.5,
-    label: str = ""
+    label: str = "",
+    allow_truncation: bool = True
 ) -> List[List[float]]:
     """
     Simplifies LineString coordinates using Douglas-Peucker algorithm (tolerance ~35m).
@@ -1024,6 +1028,8 @@ def simplify_linestring_coords(
     Strictly splits at any artificial straight-line jump > max_step_km (500m): only the
     contiguous chunk starting at the path origin is kept (endpoints are always re-appended
     so both ends stay exact), and the discard is reported.
+    If allow_truncation=True (for pure D8 overland traces), runs an aggressive DP pass
+    (tolerance 200m) to detect and truncate massive D8 trenches (> 4.0km straight).
     `label` identifies the calling feature in diagnostics.
     """
     if not coords or len(coords) < 2:
@@ -1070,20 +1076,31 @@ def simplify_linestring_coords(
             simp_pts = [[round(p[0], 5), round(p[1], 5)] for p in simplified.coords]
             
             # 3. Truncate Artificial D8 Trenches (perfectly straight segments > 4.0 km)
-            # Natural rivers are never perfectly straight for 4km without a bend. A massive 
-            # single segment implies pyflwdir routed across a perfectly flat artifact area.
-            max_straight_km = 4.0
-            truncated_pts = [simp_pts[0]]
-            for i in range(len(simp_pts) - 1):
-                p1, p2 = simp_pts[i], simp_pts[i + 1]
-                seg_len = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
-                if seg_len > max_straight_km:
-                    who = f" [{label}]" if label else ""
-                    print(f"  [WARN] simplify_linestring{who}: truncated artificial straight trench of {seg_len:.1f}km > {max_straight_km}km")
-                    break
-                truncated_pts.append(p2)
-                
-            simp_pts = truncated_pts
+            if allow_truncation:
+                # Use aggressive tolerance (0.002 deg ~ 200m) to collapse curves caused by Earth's curvature
+                aggro_line = line.simplify(0.002, preserve_topology=False)
+                if aggro_line.geom_type == 'LineString':
+                    aggro_pts = list(aggro_line.coords)
+                    trench_cutoff_idx = -1
+                    max_straight_km = 4.0
+                    for i in range(len(aggro_pts) - 1):
+                        p1, p2 = aggro_pts[i], aggro_pts[i + 1]
+                        seg_len = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
+                        if seg_len > max_straight_km:
+                            # Found a massive fundamentally straight segment.
+                            # Find this point in the standard simp_pts array to truncate it.
+                            trench_start = [round(p1[0], 5), round(p1[1], 5)]
+                            for j, pt in enumerate(simp_pts):
+                                if pt[0] == trench_start[0] and pt[1] == trench_start[1]:
+                                    trench_cutoff_idx = j
+                                    break
+                            
+                            who = f" [{label}]" if label else ""
+                            print(f"  [WARN] simplify_linestring{who}: truncated artificial D8 straight trench of {seg_len:.1f}km > {max_straight_km}km")
+                            break
+                            
+                    if trench_cutoff_idx != -1:
+                        simp_pts = simp_pts[:trench_cutoff_idx + 1]
 
             if len(simp_pts) >= 2:
                 # Strictly preserve exact origin coordinate
@@ -2394,7 +2411,7 @@ def build_flow_paths_and_relations(
                 },
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id)
+                    "coordinates": simplify_linestring_coords(coords, tolerance_deg=0.00035, label=feature_id, allow_truncation=False)
                 }
             }
             features.append(feature)
@@ -3038,7 +3055,7 @@ def build_flow_paths_and_relations(
                         "properties": seg_props,
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id)
+                            "coordinates": simplify_linestring_coords(seg_coords, tolerance_deg=0.00035, label=feature_id, allow_truncation=False)
                         }
                     }
                     features.append(feature)
@@ -3215,7 +3232,7 @@ def build_flow_paths_and_relations(
                     continue
                 part_len_km = linestring_length_km(part)
                 fid = f"osm_river_{osm_id}" if len(parts) == 1 else f"osm_river_{osm_id}_{part_i}"
-                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid)
+                coords_s = simplify_linestring_coords(part, tolerance_deg=0.00035, label=fid, allow_truncation=False)
                 if len(coords_s) < 2:
                     continue
                 features.append({

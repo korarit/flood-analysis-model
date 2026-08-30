@@ -1257,6 +1257,9 @@ def sanitize_osm_way_jumps(
     min_part_km: float = 0.05,
     label: str = "osm_waterways"
 ) -> Dict[str, Any]:
+    # V8.2.1: Bypassed. Modifying raw OSM geometry creates visual gaps in the display layer.
+    # Teleport blocking is now handled purely internally by DirectedRiverGraph during routing.
+    return geojson
     """
     Step 2b (round 5): splits OSM ways at implausible internal vertex jumps
     (verified root cause of ~10km straight teleports: e.g. way 400328476 has a
