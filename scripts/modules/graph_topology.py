@@ -1060,20 +1060,12 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0,
     if not coords or len(coords) < 2:
         return {"type": "LineString", "coordinates": coords}
 
-    # 1. Use aggressive DP (0.002 deg) to collapse the Earth's curvature.
-    # This reveals fundamentally straight teleports that were slightly curved by Lat/Lon projection.
-    try:
-        aggro_line = LineString(coords).simplify(0.002, preserve_topology=False)
-        if aggro_line.geom_type != 'LineString':
-            return {"type": "LineString", "coordinates": coords}
-        aggro_pts = list(aggro_line.coords)
-    except Exception:
-        return {"type": "LineString", "coordinates": coords}
-
-    # 2. Identify the start and end points of any massive straight segment
-    jump_zones = []
-    for i in range(len(aggro_pts) - 1):
-        p1, p2 = aggro_pts[i], aggro_pts[i + 1]
+    # 1. Identify the start and end points of any massive straight segment directly from the simplified coords.
+    # We no longer use a secondary aggressive simplification (aggro_line) because it creates false straight chords 
+    # across natural river bends, causing the topographic check to falsely flag and delete real river bends.
+    jump_segment_indices = set()
+    for i in range(len(coords) - 1):
+        p1, p2 = coords[i], coords[i + 1]
         dist = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
         is_jump = False
         if dist > max_straight_km:
@@ -1084,13 +1076,11 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0,
             if z1 is not None and z2 is not None:
                 dz = z1 - z2
                 slope = dz / (dist * 1000.0)
-                # If water goes uphill significantly (dz < -1.0) or is suspiciously flat (slope < 0.0025, typical of hydro-conditioned reservoirs), it's a teleport!
+                # If water goes uphill significantly (dz < -1.0) or is suspiciously flat (slope < 0.0025)
                 if dz < -1.0 or slope < 0.0025:
                     is_jump = True
                 else:
-                    # Topographic Profile Check: sample elevations along the straight line
-                    # Real rivers flow downhill. If the line cuts through a hill or crosses a canyon,
-                    # it's an artificial teleport.
+                    # Topographic Profile Check: sample elevations along this straight segment
                     num_samples = max(3, int(dist / 0.1))  # sample every ~100m
                     for j in range(1, num_samples):
                         t = j / float(num_samples)
@@ -1098,53 +1088,31 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0,
                         lat_m = p1[1] + (p2[1] - p1[1]) * t
                         zm = sample_elev_fn(lon_m, lat_m)
                         if zm is not None:
-                            # zm > z1 + 2.0: went uphill (cut through a hill)
-                            # zm < z2 - 2.0: went into a valley and climbed back up to z2
+                            # If it goes uphill or dips into a valley and climbs back
                             if zm > z1 + 2.0 or zm < z2 - 2.0:
                                 is_jump = True
                                 break
                     
         if is_jump:
-            jump_zones.append(( [round(p1[0], 5), round(p1[1], 5)], [round(p2[0], 5), round(p2[1], 5)] ))
+            jump_segment_indices.add(i)
 
-    if not jump_zones:
+    if not jump_segment_indices:
         return {"type": "LineString", "coordinates": coords}
 
-    # 3. We found massive straight segments. Split the ORIGINAL coords list into a MultiLineString.
-    # Use a sequential forward-search to perfectly handle duplicate coordinates (e.g. loops or snapping).
+    # 2. We found massive straight segments. Split the ORIGINAL coords list into a MultiLineString.
     parts = []
-    current_part = []
+    current_part = [coords[0]]
     
-    jump_idx = 0
-    i = 0
-    while i < len(coords):
-        if jump_idx < len(jump_zones):
-            j_s, j_e = jump_zones[jump_idx]
-            # Check if current coordinate matches the START of the jump
-            if round(coords[i][0], 5) == j_s[0] and round(coords[i][1], 5) == j_s[1]:
-                # End the current part here!
-                current_part.append(coords[i])
-                if len(current_part) > 1:
-                    parts.append(current_part)
-                current_part = []
-                
-                # Now search forward in the original array for the END of the jump
-                found_end = False
-                for k in range(i + 1, len(coords)):
-                    if round(coords[k][0], 5) == j_e[0] and round(coords[k][1], 5) == j_e[1]:
-                        i = k  # Fast-forward our main loop to this end point
-                        found_end = True
-                        break
-                
-                if not found_end:
-                    # Failsafe: if end point not found, just continue processing normally
-                    pass
-                
-                jump_idx += 1
-                continue # Skip the i += 1 at the bottom, so the next loop processes the END point (starting a new part)
-        
-        current_part.append(coords[i])
-        i += 1
+    for i in range(len(coords) - 1):
+        if i in jump_segment_indices:
+            # Segment from i to i+1 is a jump. End current part here.
+            if len(current_part) > 1:
+                parts.append(current_part)
+            # Start the next part at i+1 (the end of the jump)
+            current_part = [coords[i + 1]]
+        else:
+            # Normal segment, add the next point to the current part
+            current_part.append(coords[i + 1])
 
     if len(current_part) > 1:
         parts.append(current_part)
