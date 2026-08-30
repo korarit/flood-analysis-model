@@ -1083,8 +1083,9 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0,
             z2 = sample_elev_fn(p2[0], p2[1])
             if z1 is not None and z2 is not None:
                 dz = z1 - z2
-                # If water goes uphill significantly (dz < -1.0) or is totally flat over >500m (abs(dz) < 0.5), it's a teleport!
-                if dz < -1.0 or abs(dz) < 0.5:
+                slope = dz / (dist * 1000.0)
+                # If water goes uphill significantly (dz < -1.0) or is suspiciously flat (slope < 0.0025, typical of hydro-conditioned reservoirs), it's a teleport!
+                if dz < -1.0 or slope < 0.0025:
                     is_jump = True
                     
         if is_jump:
