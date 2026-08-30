@@ -1473,8 +1473,7 @@ def trace_downstream_path(
     water_poly_mask: Optional[np.ndarray] = None,
     water_poly_ids: Optional[np.ndarray] = None,
     start_poly_id: int = 0,
-    max_overland_cells: int = 0,
-    sample_elev_fn: Optional[Any] = None
+    max_overland_cells: int = 0
 ) -> Tuple[List[List[float]], Optional[Any], List[Tuple[int, int]]]:
     """
     Traces D8 flow path downstream cell by cell with high performance vectorized coordinate conversion.
@@ -1601,7 +1600,8 @@ def extract_station_drainage_branches(
     max_branches_per_station: int = 30,
     river_mask: Optional[np.ndarray] = None,
     river_merge_max_cells: int = 50,
-    water_poly_mask: Optional[np.ndarray] = None
+    water_poly_mask: Optional[np.ndarray] = None,
+    sample_elev_fn: Optional[Any] = None
 ) -> Tuple[List[Dict[str, Any]], bool]:
     """
     E3 (round 6 rewrite — FIRST-CLAIM ownership): upstream D8 channel branches
