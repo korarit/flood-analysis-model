@@ -4,7 +4,7 @@ import json
 import argparse
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from scripts.modules.gis_fetcher import save_json
+from scripts.modules.gis_utils import save_json
 from scripts.modules.graph_topology import compute_rainfall_lag_bounds
 
 def patch_travel_times(basin: str, basin_dir: str):

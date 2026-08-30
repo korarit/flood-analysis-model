@@ -7,7 +7,7 @@ import numpy as np
 # Adjust sys.path to allow importing modules when running from anywhere
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from scripts.modules.gis_fetcher import load_stations_for_basin, save_geojson
+from scripts.modules.gis_utils import load_stations_for_basin, save_geojson
 from scripts.modules.terrain_engine import read_dem_geotiff
 from scripts.modules.graph_topology import snap_stations_to_stream, delineate_station_catchments
 
