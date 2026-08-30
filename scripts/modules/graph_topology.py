@@ -1152,8 +1152,12 @@ def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 1.5)
     if len(current_part) > 1:
         parts.append(current_part)
 
-    if len(parts) <= 1:
-        return {"type": "LineString", "coordinates": coords}
+    if len(parts) == 0:
+        # The entire line consisted of massive jumps. Hide it completely!
+        return {"type": "MultiLineString", "coordinates": []}
+    elif len(parts) == 1:
+        # Only one non-jumping segment survived.
+        return {"type": "LineString", "coordinates": parts[0]}
     
     return {"type": "MultiLineString", "coordinates": parts}
 
@@ -3261,7 +3265,10 @@ def build_flow_paths_and_relations(
                         "waterway": props.get("waterway", "stream"),
                         "length_km": round(part_len_km, 2)
                     },
-                    "geometry": hide_straight_jumps(coords_s)
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": coords_s
+                    }
                 })
                 n_osm_added += 1
         if n_osm_added:
