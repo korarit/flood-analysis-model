@@ -1254,7 +1254,7 @@ def fetch_osm_water_polygons(
 def sanitize_osm_way_jumps(
     geojson: Dict[str, Any],
     max_jump_km: float = 2.0,
-    min_part_km: float = 1.0,
+    min_part_km: float = 0.05,
     label: str = "osm_waterways"
 ) -> Dict[str, Any]:
     """

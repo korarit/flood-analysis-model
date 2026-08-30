@@ -1068,10 +1068,29 @@ def simplify_linestring_coords(
         simplified = line.simplify(tolerance_deg, preserve_topology=True)
         if simplified.geom_type == 'LineString':
             simp_pts = [[round(p[0], 5), round(p[1], 5)] for p in simplified.coords]
+            
+            # 3. Truncate Artificial D8 Trenches (perfectly straight segments > 4.0 km)
+            # Natural rivers are never perfectly straight for 4km without a bend. A massive 
+            # single segment implies pyflwdir routed across a perfectly flat artifact area.
+            max_straight_km = 4.0
+            truncated_pts = [simp_pts[0]]
+            for i in range(len(simp_pts) - 1):
+                p1, p2 = simp_pts[i], simp_pts[i + 1]
+                seg_len = math.hypot((p2[0] - p1[0]) * 111.32 * 0.95, (p2[1] - p1[1]) * 110.54)
+                if seg_len > max_straight_km:
+                    who = f" [{label}]" if label else ""
+                    print(f"  [WARN] simplify_linestring{who}: truncated artificial straight trench of {seg_len:.1f}km > {max_straight_km}km")
+                    break
+                truncated_pts.append(p2)
+                
+            simp_pts = truncated_pts
+
             if len(simp_pts) >= 2:
-                # Strictly preserve exact origin and destination coordinates
+                # Strictly preserve exact origin coordinate
                 simp_pts[0] = [round(clean_coords[0][0], 5), round(clean_coords[0][1], 5)]
-                simp_pts[-1] = [round(clean_coords[-1][0], 5), round(clean_coords[-1][1], 5)]
+                # Strictly preserve exact destination coordinate ONLY if we didn't truncate the path
+                if len(simp_pts) == len(simplified.coords):
+                    simp_pts[-1] = [round(clean_coords[-1][0], 5), round(clean_coords[-1][1], 5)]
                 return simp_pts
     except Exception:
         pass
