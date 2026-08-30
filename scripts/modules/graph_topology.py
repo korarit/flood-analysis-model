@@ -2405,6 +2405,16 @@ def build_flow_paths_and_relations(
             slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
             feature_id = f"flow_gauge_{st_id}_to_{target_station_id}"
+            
+            # Calculate Kinematic Wave Travel Time for pure channel flow
+            lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
+                overland_dist_km=0.0,
+                overland_slope=0.0,
+                channel_dist_km=dist_km,
+                channel_slope=slope,
+                total_dz_m=dz
+            )
+
             feature = {
                 "type": "Feature",
                 "id": feature_id,
@@ -2415,6 +2425,12 @@ def build_flow_paths_and_relations(
                     "to_station_id": target_station_id,
                     "to_station_name": target_st.get('station_name', ''),
                     "distance_km": round(dist_km, 2),
+                    "travel_time_minutes": lag_avg_m,
+                    "travel_time_minutes_min": lag_min_m,
+                    "travel_time_minutes_max": lag_max_m,
+                    "travel_time_hours": lag_avg_h,
+                    "travel_time_hours_min": lag_min_h,
+                    "travel_time_hours_max": lag_max_h,
                     "river_slope": round(slope, 6),
                     "elevation_diff_m": round(dz, 2),
                     "upstream_elev_m": round(z_up, 2),
@@ -2536,6 +2552,16 @@ def build_flow_paths_and_relations(
                 slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
 
                 feature_id = f"flow_gauge_{st_id}_to_{backbone_target.get('station_id')}"
+                
+                # Calculate Kinematic Wave Travel Time for pure channel flow
+                lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
+                    overland_dist_km=0.0,
+                    overland_slope=0.0,
+                    channel_dist_km=dist_km,
+                    channel_slope=slope,
+                    total_dz_m=dz
+                )
+
                 backbone_props = {
                     "feature_type": "gauge_to_gauge_flowpath",
                     "routing": "d8_plus_osm_backbone",
@@ -2545,6 +2571,12 @@ def build_flow_paths_and_relations(
                     "to_station_name": backbone_target.get('station_name', ''),
                     "distance_km": round(dist_km, 2),
                     "backbone_distance_km": round(backbone_dist_km, 2),
+                    "travel_time_minutes": lag_avg_m,
+                    "travel_time_minutes_min": lag_min_m,
+                    "travel_time_minutes_max": lag_max_m,
+                    "travel_time_hours": lag_avg_h,
+                    "travel_time_hours_min": lag_min_h,
+                    "travel_time_hours_max": lag_max_h,
                     "river_slope": round(slope, 6),
                     "elevation_diff_m": round(dz, 2),
                     "upstream_elev_m": round(z_up, 2),
