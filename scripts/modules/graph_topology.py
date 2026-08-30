@@ -1062,34 +1062,7 @@ def simplify_linestring_coords(
     if len(clean_coords) < 2:
         return [[round(p[0], 5), round(p[1], 5)] for p in coords[:2]]
 
-    # 1b. Collinear Straight Run Sanitization (round 7):
-    # Detects unnatural identical-step runs along cardinal axes (>= 60 cells ~ 750m)
-    # to prevent unconditioned flat trenches from collapsing into tens-of-km straight lines.
-    if len(clean_coords) >= 60:
-        filtered_runs = [clean_coords[0]]
-        consec_dx = 0
-        consec_dy = 0
-        for i in range(1, len(clean_coords)):
-            p_prev = clean_coords[i - 1]
-            p_curr = clean_coords[i]
-            dx = round(p_curr[0] - p_prev[0], 6)
-            dy = round(p_curr[1] - p_prev[1], 6)
-            if dx == 0 and dy != 0:
-                consec_dx += 1
-            else:
-                consec_dx = 0
-            if dy == 0 and dx != 0:
-                consec_dy += 1
-            else:
-                consec_dy = 0
-
-            if consec_dx > 60 or consec_dy > 60:
-                continue
-            filtered_runs.append(p_curr)
-        if len(filtered_runs) >= 2:
-            clean_coords = filtered_runs
-
-    # 2. Douglas-Peucker Simplification
+    # 2. Douglas-Peucker Simplification (preserves natural curves, bends, and exact station endpoints)
     try:
         line = LineString(clean_coords)
         simplified = line.simplify(tolerance_deg, preserve_topology=True)
@@ -1677,39 +1650,51 @@ def extract_station_drainage_branches(
     n_orphan = 0
     for (hr, hc) in heads:
         chain: List[Tuple[int, int]] = []
-        river_ext = 0
-        river_merged = False
         owner: Optional[str] = None
         curr = (hr, hc)
         while True:
             own = station_of_cell.get(curr)
             if own is not None:
                 owner = own
+                chain.append(curr)
                 break
             if curr in resolved:
                 owner = resolved[curr]
+                chain.append(curr)
                 break
             chain.append(curr)
+
+            # River confluence stop: terminate the branch at the point it meets the OSM river channel
+            if river_mask is not None and len(chain) > 1 and river_mask[curr[0], curr[1]]:
+                for dr in (-2, -1, 0, 1, 2):
+                    for dc in (-2, -1, 0, 1, 2):
+                        chk = (curr[0] + dr, curr[1] + dc)
+                        if chk in station_of_cell:
+                            owner = station_of_cell[chk]
+                            break
+                    if owner is not None:
+                        break
+                break
+
             code = int(fdir[curr[0], curr[1]])
             if code not in D8_DELTAS:
                 break
             dr, dc = D8_DELTAS[code]
             nxt = (curr[0] + dr, curr[1] + dc)
             if nxt in branch_set:
-                river_ext = 0
                 curr = nxt
                 continue
-            # River-merge extension: the claimed set can end a few cells short of the
-            # OSM river (junction cell below --branch-min-acc). Keep walking while the
-            # D8 step stays on river-mask cells so the branch visually meets the river.
-            if (river_mask is not None
-                    and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols
-                    and river_mask[nxt[0], nxt[1]]
-                    and river_ext < river_merge_max_cells):
-                river_ext += 1
-                river_merged = True
-                curr = nxt
-                continue
+            if river_mask is not None and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols and river_mask[nxt[0], nxt[1]]:
+                chain.append(nxt)
+                for dr in (-2, -1, 0, 1, 2):
+                    for dc in (-2, -1, 0, 1, 2):
+                        chk = (nxt[0] + dr, nxt[1] + dc)
+                        if chk in station_of_cell:
+                            owner = station_of_cell[chk]
+                            break
+                    if owner is not None:
+                        break
+                break
             break
 
         for cell in chain:
@@ -1717,9 +1702,6 @@ def extract_station_drainage_branches(
         if owner is None:
             n_orphan += 1
             continue
-        # the terminating (owned seed) cell closes the reach for geometric continuity
-        if chain and station_of_cell.get(curr) is not None:
-            chain.append(curr)
         if len(chain) < 2:
             continue
 

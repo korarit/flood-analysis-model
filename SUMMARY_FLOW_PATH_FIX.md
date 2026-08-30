@@ -490,4 +490,17 @@ python scripts/validate_flow_paths.py --geojson dataset/nan/processed/flow_paths
 3. **กู้คืนเส้น Rainfall $\rightarrow$ Gauge:** ถอด `STREAM_STOP` ที่ตัดจบที่ 200 เมตรออก ให้ D8 ไหลนำทางตามร่องเขาธรรมชาติลงมาจนบรรจบแม่น้ำ OSM หรือสถานีวัดน้ำในระยะทางที่ถูกต้อง
 4. **เร่งความเร็ว $O(N)$ ใน `build_water_body_transits`:** ใช้ `scipy.ndimage.find_objects` และ Node Hash Map Pre-indexing ทำให้ขั้นตอนที่ 5 รันเสร็จสิ้นใน $<1$ วินาที
 
+---
+
+# รอบแก้ที่ 8.1 — True Douglas-Peucker & Tributary Confluence Termination (V8.1)
+
+ผลการตรวจสอบ `flow_paths_nan_v8.geojson`:
+1. พบเส้นตรงเทเลพอร์ต 51.66 km ในสถานี 5488 (`flow_gauge_5488_downstream`) และ 1.5–2.8 km ในกิ่งของสถานี 1430 (`branch_1430_007, 010, 012, 019, 025, 028`)
+2. กิ่งสาขาของสถานี 1430 ไหลล้นลงไปในแม่น้ำสายหลักแล้ววิ่งทับซ้อนกันเองตามแนวแม่น้ำน่าน ($100.833^\circ$)
+
+## สิ่งที่แก้ใน V8.1:
+1. **กำจัดเส้นตรงเทเลพอร์ต 51.66 km ถาวร:** ลบบล็อก `if consec_dx > 60: continue` ออกจาก `simplify_linestring_coords` เพื่อไม่ให้โค้ดตัดพิกัดแม่น้ำทิ้งกลางคัน และคืนการทำงานให้ Douglas-Peucker มาตรฐาน (~35m tolerance)
+2. **หยุดกิ่งสาขาที่จุดบรรจบแม่น้ำ (River Confluence Stop):** ใน `extract_station_drainage_branches` สั่งหยุดการเดินกิ่งสาขาทันทีที่แตะแม่น้ำ OSM (`river_mask`) ทำให้กิ่งสาขาเป็นลำธารบนภูเขาที่ไหลลงสู่แม่น้ำสายหลักอย่างสะอาด ไม่ไหลล้นลงมาทับซ้อนกันเองในแม่น้ำ
+
+
 
