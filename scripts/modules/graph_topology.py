@@ -1670,6 +1670,7 @@ def extract_station_drainage_branches(
     for (hr, hc) in heads:
         chain: List[Tuple[int, int]] = []
         owner: Optional[str] = None
+        river_merged = False
         curr = (hr, hc)
         while True:
             own = station_of_cell.get(curr)
@@ -1685,6 +1686,7 @@ def extract_station_drainage_branches(
 
             # River confluence stop: terminate the branch at the point it meets the OSM river channel
             if river_mask is not None and len(chain) > 1 and river_mask[curr[0], curr[1]]:
+                river_merged = True
                 for dr in (-2, -1, 0, 1, 2):
                     for dc in (-2, -1, 0, 1, 2):
                         chk = (curr[0] + dr, curr[1] + dc)
@@ -1704,6 +1706,7 @@ def extract_station_drainage_branches(
                 curr = nxt
                 continue
             if river_mask is not None and 0 <= nxt[0] < nrows and 0 <= nxt[1] < ncols and river_mask[nxt[0], nxt[1]]:
+                river_merged = True
                 chain.append(nxt)
                 for dr in (-2, -1, 0, 1, 2):
                     for dc in (-2, -1, 0, 1, 2):
