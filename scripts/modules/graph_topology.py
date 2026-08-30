@@ -1051,7 +1051,7 @@ def simplify_linestring_coords(
     return [[round(p[0], 5), round(p[1], 5)] for p in clean_coords]
 
 
-def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 1.5) -> Dict[str, Any]:
+def hide_straight_jumps(coords: List[List[float]], max_straight_km: float = 4.0) -> Dict[str, Any]:
     """
     Detects massive artificial straight lines (from D8 flat routing or OSM teleports across lakes)
     and visually hides them by converting the path into a MultiLineString with gaps.
