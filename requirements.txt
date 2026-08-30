@@ -16,8 +16,8 @@ scipy>=1.12.0
 scikit-learn>=1.4.0
 numba>=0.58.0
 
-# Remote Sensing & Data Fetching (NASA ASF DAAC ALOS PALSAR 12.5m DEM)
-asf_search>=12.0.0
+# Remote Sensing & Data Fetching (FABDEM 30m Bare-Earth)
+fabdem>=0.2.2
 requests>=2.31.0
 urllib3>=2.0.0
 
