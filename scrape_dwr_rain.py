@@ -37,7 +37,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-BASE_URL = "https://ews.dwr.go.th/ews/show-rain"
+BASE_URL = "https://ews1.dwr.go.th/ews/show-rain"
 BASINS = ["yom", "nan", "ping", "wang", "chao-phraya"]
 
 HEADERS = {
