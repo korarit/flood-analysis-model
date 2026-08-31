@@ -144,9 +144,6 @@ def main():
     parser.add_argument("--basin", type=str, default="yom", help="Target river basin (yom, nan, ping, wang, chao-phraya, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Root dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
-    parser.add_argument("--username", "-u", type=str, default=None, help="NASA Earthdata username for ALOS PALSAR 12.5m DEM")
-    parser.add_argument("--password", "-p", type=str, default=None, help="NASA Earthdata password for ALOS PALSAR 12.5m DEM")
-    parser.add_argument("--chunk-size", type=int, default=10, help="Number of DEM tiles per download chunk to optimize disk space (default: 10)")
     parser.add_argument("--threshold", type=int, default=300, help="Stream delineation cell accumulation threshold")
     args = parser.parse_args()
 

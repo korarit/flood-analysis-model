@@ -125,8 +125,8 @@ flood-analysis-model/
 │   │   └── processed/                              (ไฟล์โมเดลพร้อมใช้งาน และ GeoJSON แผนที่)
 ├── terrain/                                        <-- [Terrain & DEM Raster Data (--terrain-dir)]
 │   ├── yom/
-│   │   ├── alos_tiles/                             (Zip tiles & extracted .dem.tif)
-│   │   ├── raw_dem.tif                             (Mosaic DEM 12.5m รวม)
+│   │   ├── fabdem_tiles/                             (Zip tiles & extracted .dem.tif)
+│   │   ├── raw_dem.tif                             (Mosaic DEM 30m รวม)
 │   │   ├── conditioned_dem.tif                     (DEM หลังทำ Pit Filling)
 │   │   ├── flow_direction.tif                      (D8 Flow Direction Raster)
 │   │   └── flow_accumulation.tif                   (Flow Accumulation Raster)
@@ -148,7 +148,7 @@ flood-analysis-model/
 | :--- | :--- |
 | [`scripts/run_model_pipeline.py`](scripts/run_model_pipeline.py) | **Master Script**: สั่งรัน Pipeline ครบทั้ง 6 ขั้นตอนอัตโนมัติจบในคำสั่งเดียว |
 | [`scripts/generate_flow_paths.py`](scripts/generate_flow_paths.py) | **Standalone Flow Path Generator**: รันสร้าง/อัปเดตเฉพาะ `flow_paths.geojson` และ Station Relations ด้วยโมเดล Hybrid (OSM + D8) จบในไม่กี่วินาที |
-| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, OpenStreetMap Waterways, HydroRIVERS, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata ลงใน `terrain/` |
+| [`scripts/fetch_basin_gis.py`](scripts/fetch_basin_gis.py) | Step 1: ดาวน์โหลดขอบเขตลุ่มน้ำ, OpenStreetMap Waterways, HydroRIVERS, และ FABDEM 30m DEM จาก AWS Open Data ลงใน `terrain/` |
 | [`scripts/build_river_network.py`](scripts/build_river_network.py) | Step 2: ทำ Pit Filling, คำนวณ D8 Flow Direction, Flow Accumulation, และสกัด `river_network.geojson` |
 | [`scripts/build_station_chain.py`](scripts/build_station_chain.py) | Step 3: Snap สถานีเข้าแนวแม่น้ำ OSM, ลากเส้นทางน้ำไหล Hybrid Flow Paths, และตัดขอบเขตลุ่มน้ำย่อย `catchments.geojson` |
 | [`scripts/train_response_model.py`](scripts/train_response_model.py) | Step 4: ตรวจจับน้ำขึ้นต่อเนื่อง $\ge 4$ ชม., วิเคราะห์ช่วงน้ำนิ่งแช่, คำนวณ Observed Travel Time, และเทรน ML Model |
@@ -162,8 +162,8 @@ flood-analysis-model/
 ระบบถูกออกแบบให้สามารถรันแยกเฉพาะส่วนที่ต้องการอัปเดตได้ โดยไม่ต้องรันไปป์ไลน์ใหม่ตั้งแต่ต้น (ช่วยประหยัดเวลาประมวลผล)
 
 #### 🛰️ (1) ดาวน์โหลด GIS & DEM (`fetch_basin_gis.py`)
-ดาวน์โหลดขอบเขตลุ่มน้ำ, OSM Waterways, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata
-* **Arguments:** `--basin` (yom, nan, all), `--dir`, `--terrain-dir`, `--username`, `--password`, `--force-osm`
+ดาวน์โหลดขอบเขตลุ่มน้ำ, OSM Waterways, และ FABDEM 30m DEM จาก AWS Open Data
+* **Arguments:** `--basin` (yom, nan, all), `--dir`, `--terrain-dir`, ``--force-osm`
 ```bash
 ./venv/bin/python scripts/fetch_basin_gis.py --basin yom
 ```
@@ -222,18 +222,13 @@ flood-analysis-model/
 ### 4.3 ตัวอย่างคำสั่งการรัน Master Script (Full 6-Step Pipeline)
 
 ```bash
-# 1. รันลุ่มน้ำยม (ระบุ NASA Earthdata Login สำหรับโหลด ALOS PALSAR 12.5m DEM)
-./venv/bin/python scripts/run_model_pipeline.py --basin yom --username <earthdata_user> --password <earthdata_pass>
-
-# 2. หรือตั้งค่าใน Environment Variables
-export EARTHDATA_USER="your_username"
-export EARTHDATA_PASS="your_password"
+# 1. รันลุ่มน้ำยม (ค่า Default จะดึงจาก AWS Open Data อัตโนมัติ)
 ./venv/bin/python scripts/run_model_pipeline.py --basin yom
 
-# 3. กำหนดโฟลเดอร์ terrain อิสระจาก dataset ด้วย --terrain-dir
+# 2. กำหนดโฟลเดอร์ terrain อิสระจาก dataset ด้วย --terrain-dir
 ./venv/bin/python scripts/run_model_pipeline.py --basin yom --dir ./dataset --terrain-dir ./terrain
 
-# 4. รันครบทุก 5 ลุ่มน้ำหลัก
+# 3. รันครบทุก 5 ลุ่มน้ำหลัก
 ./venv/bin/python scripts/run_model_pipeline.py --basin all
 ```
 
@@ -244,7 +239,7 @@ export EARTHDATA_PASS="your_password"
 * `dataset/{basin}/gis/{basin}_boundary.geojson` — รูปปิด Polygon ขอบเขตลุ่มน้ำ
 * `dataset/{basin}/gis/{basin}_subbasins.geojson` — รูปปิด Polygon ขอบเขตลุ่มน้ำย่อยแบบเรียงลำดับต้นน้ำสู่ท้ายน้ำ (Topological)
 * `dataset/{basin}/gis/osm_waterways.geojson` — โครงข่ายแม่น้ำ ลำห้วย คลอง จาก OpenStreetMap
-* `terrain/{basin}/raw_dem.tif` — โมเสกภาพแบบจำลองความสูงภูมิประเทศ ALOS PALSAR 12.5m DEM
+* `terrain/{basin}/raw_dem.tif` — โมเสกภาพแบบจำลองความสูงภูมิประเทศ FABDEM 30m DEM
 * `dataset/{basin}/response/rainfall-thresholds.json` — เกณฑ์ฝนสะสมกระตุ้นน้ำหลากและเตือนภัยแยกรายคู่สถานีฝน-น้ำ
 * `dataset/{basin}/processed/station_relations_db.json` — Payload สำหรับตาราง `station_relations` ใน PostgreSQL
 * `dataset/{basin}/processed/relations_frontend.json` — โครงสร้างข้อมูลสำหรับหน้า `StationRelations.tsx` บน Frontend
