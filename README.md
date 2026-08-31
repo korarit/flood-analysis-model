@@ -159,71 +159,62 @@ flood-analysis-model/
 
 ### 4.2 สคริปต์ด่วนเฉพาะจุด (Standalone Fast Utilities)
 
-#### 🌊 (1) สร้าง/อัปเดตเฉพาะ Flow Paths & ความสัมพันธ์แม่น้ำ (`generate_flow_paths.py`):
+ระบบถูกออกแบบให้สามารถรันแยกเฉพาะส่วนที่ต้องการอัปเดตได้ โดยไม่ต้องรันไปป์ไลน์ใหม่ตั้งแต่ต้น (ช่วยประหยัดเวลาประมวลผล)
+
+#### 🛰️ (1) ดาวน์โหลด GIS & DEM (`fetch_basin_gis.py`)
+ดาวน์โหลดขอบเขตลุ่มน้ำ, OSM Waterways, และ ALOS PALSAR 12.5m DEM จาก NASA Earthdata
+* **Arguments:** `--basin` (yom, nan, all), `--dir`, `--terrain-dir`, `--username`, `--password`, `--force-osm`
 ```bash
-# รันอัปเดตเส้นทางน้ำ Hybrid (OSM River Lines + D8 Hydrology)
+./venv/bin/python scripts/fetch_basin_gis.py --basin yom
+```
+
+#### 🌊 (2) สร้าง Flow Paths พื้นฐาน (`generate_flow_paths.py`)
+ลากเส้นทางการไหลของน้ำแบบ Hybrid (Rain-to-Gauge ใช้ DEM, Gauge-to-Gauge ใช้ DEM D8)
+* **Arguments:** `--basin`, `--dir`, `--terrain-dir`, `--force`
+```bash
 ./venv/bin/python scripts/generate_flow_paths.py --basin yom --force
 ```
 
-#### 🌧️ (2) อัปเดตเฉพาะเกณฑ์ฝนสะสมกระตุ้นน้ำหลาก (`calculate_rainfall_thresholds.py`):
+#### 📍 (3) สร้างขอบเขตพื้นที่รับน้ำย่อย (`generate_catchments.py`)
+สกัด Polygon พื้นที่รับน้ำ (Catchment Area) เฉพาะของแต่ละสถานีจาก Flow Accumulation
+* **Arguments:** `--basin`, `--dir`, `--terrain-dir`
 ```bash
-# อัปเดตเฉพาะลุ่มน้ำยม (ใช้เวลาเพียง 2-5 วินาที)
-./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin yom --update-existing
-
-# อัปเดตครบทุก 5 ลุ่มน้ำหลัก
-./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin all --update-existing
+./venv/bin/python scripts/generate_catchments.py --basin yom
 ```
 
-#### เกณฑ์ฝนที่คำนวณได้ในแต่ละคู่สถานี (4 ช่วงเวลา $\times$ 4 สภาวะดิน):
-* **4 ช่วงเวลาหลัก**: `3h` (ฝนฉับพลัน), `24h` (ฝน 1 วัน), `72h` (ฝนมรสุม 3 วัน), `168h` (ดินอิ่มตัว 7 วัน)
-* **4 ตัวชี้วัดสภาวะดิน (Zero Hardcoding - ML Clustering)**:
-  * `inceptionRainMm`: ฝนที่เริ่มทำให้น้ำในลำน้ำเริ่มขยับขึ้น ($\ge 0.20$ ม.) ในสภาวะดินปกติ
-  * `warningRainMm`: ฝนที่ทำให้น้ำแตะระดับเตือนภัย ($BankLevel - 0.50$ ม. หรือ $P_{85}$) ในสภาวะดินปกติ
-  * `wetSoilWarningRainMm`: เกณฑ์ฝนเตือนภัยเมื่อ **ดินอิ่มน้ำ** (ฝน 7 วันก่อนหน้าสูง) *(Worst-Case / เตือนภัยเร็ว)*
-  * `drySoilWarningRainMm`: เกณฑ์ฝนเตือนภัยเมื่อ **ดินแห้งแล้ง** *(ดินช่วยดูดซับน้ำ)*
-
----
-
-#### 🛰️ (3) ดาวน์โหลด GIS Boundaries, OSM Waterways และ ALOS PALSAR 12.5m DEM (`fetch_basin_gis.py`):
-สคริปต์ **Step 1** ทำหน้าที่รวบรวมข้อมูลเชิงพื้นที่ (Spatial & GIS) และแบบจำลองความสูงภูมิประเทศดิจิทัล (DEM) อัตโนมัติ:
-1. **Basin Boundary (`{basin}_boundary.geojson`)**: สร้างกรอบขอบเขตลุ่มน้ำจากพิกัดสถานีทั้งหมดพร้อม Buffer
-2. **Sub-basins Partitioning (`{basin}_subbasins.geojson`)**: แบ่งขอบเขตรูปสี่เหลี่ยมลุ่มน้ำย่อยแบบเรียงลำดับต้นน้ำสู่ท้ายน้ำ (Topological cascade) เพื่อใช้ตัดต่อประมวลผลโมเดลความละเอียดสูง 12.5m
-3. **OpenStreetMap Waterways (`osm_waterways.geojson`)**: ดาวน์โหลดโครงข่ายแม่น้ำ ลำห้วย คลอง ผ่าน Overpass API พร้อมคำนวณความยาวลำน้ำ (km)
-4. **ALOS PALSAR 12.5m RTC DEM (`raw_dem.tif`)**: ค้นหาและดาวน์โหลด DEM ความละเอียด 12.5m จาก NASA ASF DAAC แบบ Chunked Download (ดาวน์โหลดทีละ batch -> แตกไฟล์ `.dem.tif` -> ลบ `.zip` ทันทีเพื่อประหยัดพื้นที่ดิสก์) และรวมเป็น Mosaic ขนาดใหญ่ด้วย Low-RAM Streaming Engine (~30-50MB RAM)
-
-##### สิ่งที่ต้องเตรียมก่อนรัน (Prerequisites):
-- มีข้อมูลสถานีอยู่ใน `dataset/{basin}/station/` (`*waterlevel*.csv` หรือ `*rain*.csv`) เพื่อนำพิกัดมาคำนวณ Bounding Box
-- สมัครบัญชี **NASA Earthdata** ฟรีที่ [urs.earthdata.nasa.gov](https://urs.earthdata.nasa.gov/) สำหรับดาวน์โหลด ALOS PALSAR DEM
-
-##### พารามิเตอร์ของคำสั่ง (Command-line Arguments):
-| Argument | Type | Default | คำอธิบาย |
-| :--- | :--- | :--- | :--- |
-| `--basin` | `str` | `yom` | รหัสลุ่มน้ำเป้าหมาย (`yom`, `nan`, `ping`, `wang`, `chao-phraya`, หรือ `all`) |
-| `--dir` | `str` | `./dataset` | โฟลเดอร์จัดเก็บข้อมูลสถานีและไฟล์ GIS GeoJSON |
-| `--terrain-dir` | `str` | `./terrain` | โฟลเดอร์จัดเก็บไฟล์ DEM GeoTIFF ขนาดใหญ่ (แยกอิสระจาก dataset) |
-| `--username`, `-u` | `str` | `None` | NASA Earthdata Username (หรืออ่านจาก `EARTHDATA_USER` env var / `~/.netrc`) |
-| `--password`, `-p` | `str` | `None` | NASA Earthdata Password (หรืออ่านจาก `EARTHDATA_PASS` env var / `~/.netrc`) |
-| `--chunk-size` | `int` | `10` | จำนวน tiles ที่ดาวน์โหลดต่อ batch เพื่อประหยัดพื้นที่ดิสก์ก่อนแตกไฟล์ |
-| `--force-osm` | `flag` | `False` | บังคับดาวน์โหลดข้อมูล OSM Waterways ใหม่แม้จะมีไฟล์แคชเดิมอยู่แล้ว |
-
-##### ตัวอย่างคำสั่งการใช้งาน:
+#### 🗺️ (4) ลากเส้นความสัมพันธ์น้ำ-น้ำแบบแม่นยำสูง (`generate_osm_waterlevel_relations.py`)
+สร้างเส้นทางน้ำไหล (Gauge-to-Gauge) โดยใช้โครงข่าย Vector จาก OSM เพียวๆ (ไม่พึ่งพารูปแบบ Grid ของ DEM) ช่วยเพิ่มความแม่นยำของระยะทางและเวลา (Kinematic Wave) ให้ตรงกับแม่น้ำจริง
+* **Arguments:** `--basin`, `--dir`, `--terrain-dir`, `--force`
 ```bash
-# 1. รันลุ่มน้ำยม โดยระบุ Earthdata Username/Password
-./venv/bin/python scripts/fetch_basin_gis.py --basin yom --username <your_user> --password <your_pass>
+./venv/bin/python scripts/generate_osm_waterlevel_relations.py --basin yom
+```
 
-# 2. รันโดยใช้ Environment Variables (ไม่ต้องพิมพ์รหัสผ่านใน Command Line)
-export EARTHDATA_USER="your_username"
-export EARTHDATA_PASS="your_password"
-./venv/bin/python scripts/fetch_basin_gis.py --basin yom
+#### ⚡ (5) ซ่อมแซม Travel Time ด่วน (`patch_travel_times.py`)
+สคริปต์ฉุกเฉินสำหรับแก้ปัญหาเวลาเป็น 0 โดยมันจะคำนวณ Kinematic Wave Travel Time แทรกเข้าไปในไฟล์ `station-relations.json` เดิมทันทีโดยไม่ต้องรันเส้นทาง DEM ใหม่ (ประหยัดเวลาไปได้ 5 นาที)
+* **Arguments:** `--basin`, `--dir`
+```bash
+./venv/bin/python scripts/patch_travel_times.py --basin yom
+```
 
-# 3. กำหนดโฟลเดอร์ Dataset และ Terrain แยกกัน
-./venv/bin/python scripts/fetch_basin_gis.py --basin nan --dir ./dataset --terrain-dir ./terrain
+#### 🤖 (6) เทรนโมเดลเวลาการเดินทางน้ำ (`train_response_model.py`)
+ดึงข้อมูลประวัติระดับน้ำย้อนหลัง (Water Level Dataset) มาวิเคราะห์ Peak Matching หาค่า Empirical Travel Time (เวลาที่น้ำเดินทางจริงๆ) และสร้าง Model พยากรณ์เวลา
+* **Arguments:** `--basin`, `--dir`
+```bash
+./venv/bin/python scripts/train_response_model.py --basin yom
+```
 
-# 4. บังคับดาวน์โหลด OSM Waterways ใหม่อีกครั้ง (Bypass Cache)
-./venv/bin/python scripts/fetch_basin_gis.py --basin yom --force-osm
+#### 🌧️ (7) อัปเดตเกณฑ์ฝนเตือนภัย (`calculate_rainfall_thresholds.py`)
+ใช้ AI (K-Means Clustering) เรียนรู้สภาวะดิน (Wet/Normal/Dry) ของแต่ละลุ่มน้ำ และคำนวณเกณฑ์ฝนสะสมกระตุ้นน้ำหลากใหม่ (3h, 24h, 72h, 168h) แยกรายสถานี
+* **Arguments:** `--basin`, `--dir`, `--update-existing`
+```bash
+./venv/bin/python scripts/calculate_rainfall_thresholds.py --basin yom --update-existing
+```
 
-# 5. รันดาวน์โหลดครบทุก 5 ลุ่มน้ำ
-./venv/bin/python scripts/fetch_basin_gis.py --basin all
+#### 📦 (8) ส่งออกข้อมูลไปใช้งาน (`export_backend_dataset.py`)
+รวบรวมไฟล์ JSON ย่อยๆ ทั้งหมด สังเคราะห์และประกอบร่างเป็น `relations_frontend.json` (สำหรับ UI) และ Database Payload
+* **Arguments:** `--basin`, `--dir`
+```bash
+./venv/bin/python scripts/export_backend_dataset.py --basin yom
 ```
 
 ---
