@@ -42,10 +42,17 @@ def generate_osm_relations(basin: str, basin_dir: str, terrain_dir: str, force: 
     # 2. Load DEM for elevation sampling
     cond_dem_path = os.path.join(terrain_dir, "cond_dem.tif")
     if not os.path.exists(cond_dem_path):
+        for candidate in ["dem.tif", f"{basin}_cond_dem.tif", f"{basin}_dem.tif", "elevation.tif"]:
+            candidate_path = os.path.join(terrain_dir, candidate)
+            if os.path.exists(candidate_path):
+                cond_dem_path = candidate_path
+                break
+
+    if not os.path.exists(cond_dem_path):
         print(f"  ❌ ERROR: Missing DEM at {cond_dem_path}")
         return
     
-    print("  [2/4] Loading DEM for slope calculations...")
+    print(f"  [2/4] Loading DEM from {cond_dem_path} for slope calculations...")
     dem, transform, crs, nodata = read_dem_geotiff(cond_dem_path)
     
     def sample_elevation(lon: float, lat: float) -> float:
@@ -190,19 +197,32 @@ def generate_osm_relations(basin: str, basin_dir: str, terrain_dir: str, force: 
 
 def main():
     parser = argparse.ArgumentParser(description="Generate pure OSM vector-based Gauge-to-Gauge relations")
-    parser.add_argument("--basin", type=str, default="nan", help="River basin slug (e.g. yom, nan, ping, all)")
-    parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
-    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory")
+    parser.add_argument("--basin", type=str, default="nan", help="River basin slug (e.g. yom, nan, ping, wang, chao-phraya, all)")
+    parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory (supports root e.g. ./dataset or basin dir e.g. ./dataset/nan)")
+    parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     parser.add_argument("--force", action="store_true", help="Force re-generation of relations")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
 
     for b in basin_list:
-        basin_dir = os.path.join(args.dir, b)
-        terrain_basin_dir = os.path.join(args.terrain_dir, b)
-        if not os.path.exists(terrain_basin_dir) and os.path.exists(args.terrain_dir):
+        # Smart path resolution for --dir (supports both './dataset' and './dataset/nan')
+        if os.path.basename(os.path.normpath(args.dir)) == b:
+            basin_dir = args.dir
+        else:
+            basin_dir = os.path.join(args.dir, b)
+
+        # Smart path resolution for --terrain-dir
+        if os.path.basename(os.path.normpath(args.terrain_dir)) == b:
             terrain_basin_dir = args.terrain_dir
+        else:
+            terrain_basin_dir = os.path.join(args.terrain_dir, b)
+            if not os.path.exists(terrain_basin_dir) and os.path.exists(args.terrain_dir):
+                terrain_basin_dir = args.terrain_dir
+
+        if not os.path.exists(basin_dir):
+            print(f"❌ ERROR: Basin directory not found: {basin_dir} (Check --dir path)", file=sys.stderr)
+            continue
 
         generate_osm_relations(b, basin_dir, terrain_basin_dir, force=args.force)
 
