@@ -161,10 +161,20 @@ def scrape_dwr_chunk_session(
     # Reverse walk-back with midnight crossing detection & boundary cutoff
     for i in range(len(raw_cats) - 1, -1, -1):
         t_curr = raw_cats[i]
+        raw_val_str = str(raw_rains[i]).strip().lower()
+
+        # Skip invalid / null / undefined values completely
+        if raw_val_str in ("", "null", "none", "nan", "-", "--", "undefined"):
+            continue
+
         try:
-            val = float(raw_rains[i])
-        except ValueError:
-            val = 0.0
+            val = float(raw_val_str)
+        except (ValueError, TypeError):
+            continue
+
+        # Skip abnormal / negative sensor glitch values (e.g. -999 or negative rainfall)
+        if val < 0.0 or val > 500.0:
+            continue
 
         if i < len(raw_cats) - 1:
             t_prev = raw_cats[i + 1]
@@ -235,12 +245,19 @@ def scrape_dwr_station_date_session(
         if hourly_only and mm != "00":
             continue
 
-        iso_dt = f"{target_date} {hh}:{mm}:00"
-        try:
-            val = float(raw_val)
-        except ValueError:
-            val = 0.0
+        raw_val_str = str(raw_val).strip().lower()
+        if raw_val_str in ("", "null", "none", "nan", "-", "--", "undefined"):
+            continue
 
+        try:
+            val = float(raw_val_str)
+        except (ValueError, TypeError):
+            continue
+
+        if val < 0.0 or val > 500.0:
+            continue
+
+        iso_dt = f"{target_date} {hh}:{mm}:00"
         records.append({
             "station_code": station_code,
             "datetime": iso_dt,
