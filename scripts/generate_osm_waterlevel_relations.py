@@ -1,223 +1,215 @@
+"""
+Generate Complete Waterlevel-to-Waterlevel Gauge Relations & Flow Paths
+
+Uses the comprehensive Hybrid Flow Path Engine (OSM River Backbone + D8 Hydrology + DEM Conditioning)
+to accurately trace downstream gauge-to-gauge connectivity, travel times, slopes, and flow path geometry.
+
+Outputs:
+1. dataset/{basin}/station/osm-waterlevel-relations.json (Raw ML & Hydrology Relations)
+2. dataset/{basin}/processed/relation_waterlevel_frontend.json (Frontend UI Relations)
+"""
+
 import os
 import sys
 import json
-import math
+import gzip
 import argparse
-import numpy as np
+from typing import Dict, List, Any
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from scripts.modules.gis_utils import load_stations_for_basin, save_json, linestring_length_km
-from scripts.modules.terrain_engine import read_dem_geotiff
-from scripts.modules.graph_topology import DirectedRiverGraph, compute_rainfall_lag_bounds, simplify_linestring_coords
+from scripts.modules.gis_utils import load_stations_for_basin, save_json
+from scripts.generate_flow_paths import generate_basin_flow_paths
+
+
+def extract_waterlevel_relations_from_flow_paths(
+    basin_dir: str,
+    flow_paths_data: Dict[str, Any],
+    water_stations: List[Dict[str, Any]]
+) -> tuple:
+    """
+    Extracts gauge-to-gauge relations and formats frontend JSON from full flow path features.
+    """
+    water_st_by_id = {str(st.get("station_id", "")).strip(): st for st in water_stations}
+    gauge_features = []
+    raw_relations = []
+    frontend_map: Dict[str, Dict[str, Any]] = {}
+
+    # Initialize all water stations in frontend map
+    for st in water_stations:
+        st_id = str(st.get("station_id", "")).strip()
+        if st_id:
+            frontend_map[st_id] = {
+                "stationId": st_id,
+                "stationName": st.get("station_name", ""),
+                "stationType": "water_level",
+                "influencingStations": [],
+                "downstreamStations": []
+            }
+
+    for feat in flow_paths_data.get("features", []):
+        props = feat.get("properties", {})
+        ftype = props.get("feature_type", "")
+        if ftype != "gauge_to_gauge_flowpath":
+            continue
+
+        from_id = str(props.get("from_station_id", props.get("station_id", ""))).strip()
+        to_id = str(props.get("to_station_id", props.get("target_station_id", ""))).strip()
+
+        if not from_id or not to_id:
+            continue
+
+        from_st = water_st_by_id.get(from_id, {})
+        to_st = water_st_by_id.get(to_id, {})
+
+        from_name = props.get("from_station_name") or from_st.get("station_name", "")
+        to_name = props.get("to_station_name") or to_st.get("station_name", "")
+
+        dist_km = float(props.get("distance_km", 0.0))
+        tt_hours = float(props.get("travel_time_hours", 0.0))
+        tt_min_h = float(props.get("travel_time_hours_min", tt_hours * 0.8))
+        tt_max_h = float(props.get("travel_time_hours_max", tt_hours * 1.2))
+
+        tt_avg_m = int(props.get("travel_time_minutes", int(round(tt_hours * 60))))
+        tt_min_m = int(props.get("travel_time_minutes_min", int(round(tt_min_h * 60))))
+        tt_max_m = int(props.get("travel_time_minutes_max", int(round(tt_max_h * 60))))
+
+        slope = float(props.get("river_slope", 0.0001))
+        dz = float(props.get("elevation_diff_m", 0.0))
+        z_up = float(props.get("upstream_elev_m", 0.0))
+        z_down = float(props.get("downstream_elev_m", 0.0))
+
+        raw_rel = {
+            "feature_type": "gauge_to_gauge_flowpath",
+            "routing": "hybrid_osm_d8",
+            "from_station_id": from_id,
+            "from_station_name": from_name,
+            "to_station_id": to_id,
+            "to_station_name": to_name,
+            "distance_km": round(dist_km, 2),
+            "river_slope": round(slope, 6),
+            "elevation_diff_m": round(dz, 2),
+            "upstream_elev_m": round(z_up, 2),
+            "downstream_elev_m": round(z_down, 2),
+            "travel_time_minutes": tt_avg_m,
+            "travel_time_minutes_min": tt_min_m,
+            "travel_time_minutes_max": tt_max_m,
+            "travel_time_hours": round(tt_hours, 2),
+            "travel_time_hours_min": round(tt_min_h, 2),
+            "travel_time_hours_max": round(tt_max_h, 2),
+            "coordinates": feat.get("geometry", {}).get("coordinates", [])
+        }
+        raw_relations.append(raw_rel)
+
+        # Frontend map
+        if from_id not in frontend_map:
+            frontend_map[from_id] = {
+                "stationId": from_id,
+                "stationName": from_name,
+                "stationType": "water_level",
+                "influencingStations": [],
+                "downstreamStations": []
+            }
+
+        frontend_map[from_id]["downstreamStations"].append({
+            "stationId": to_id,
+            "stationName": to_name,
+            "stationType": "water_level",
+            "distanceKm": round(dist_km, 2),
+            "travelTimeMinutes": tt_avg_m,
+            "travelTimeMinutesMin": tt_min_m,
+            "travelTimeMinutesMax": tt_max_m,
+            "travelTimeHours": round(tt_hours, 2),
+            "travelTimeHoursMin": round(tt_min_h, 2),
+            "travelTimeHoursMax": round(tt_max_h, 2),
+            "riverSlope": round(slope, 6),
+            "elevationDiffM": round(dz, 2),
+            "confidence": props.get("confidence", "HIGH"),
+            "responseType": props.get("response_type", "ESTIMATED")
+        })
+
+    return raw_relations, list(frontend_map.values())
+
 
 def generate_osm_relations(basin: str, basin_dir: str, terrain_dir: str, force: bool = False):
     print(f"\n==================================================================")
-    print(f"🗺️ Generating OSM Water Level Relations for Basin: {basin.upper()}")
+    print(f"🗺️ Generating Full OSM & Hydrology Water Level Relations: {basin.upper()}")
     print(f"==================================================================")
 
     station_dir = os.path.join(basin_dir, "station")
-    gis_dir = os.path.join(basin_dir, "gis")
     processed_dir = os.path.join(basin_dir, "processed")
     os.makedirs(station_dir, exist_ok=True)
     os.makedirs(processed_dir, exist_ok=True)
 
     out_raw_path = os.path.join(station_dir, "osm-waterlevel-relations.json")
     out_frontend_path = os.path.join(processed_dir, "relation_waterlevel_frontend.json")
+    flow_paths_path = os.path.join(processed_dir, "flow_paths.geojson")
+    flow_paths_gz_path = os.path.join(processed_dir, "flow_paths.geojson.gz")
 
     if not force and os.path.exists(out_raw_path) and os.path.exists(out_frontend_path):
-        print(f"  [CACHE] OSM Relations already exist. Use --force to regenerate.")
+        print(f"  [CACHE] Water level relations already exist.")
+        print(f"          Raw ML    : {out_raw_path}")
+        print(f"          Frontend  : {out_frontend_path}")
+        print(f"          (Use --force to re-generate from full flow paths)")
         return
 
-    # 1. Load Stations and OSM Waterways
+    # 1. Load water stations
     water_st, _ = load_stations_for_basin(basin_dir)
-    osm_path = os.path.join(gis_dir, "osm_waterways.geojson")
-    if not os.path.exists(osm_path):
-        print(f"  ❌ ERROR: Missing OSM waterways at {osm_path}")
+    if not water_st:
+        print(f"  ❌ ERROR: No water level stations found in {basin_dir}")
         return
 
-    print("  [1/4] Loading OSM Waterways...")
-    with open(osm_path, 'r', encoding='utf-8') as f:
-        osm_data = json.load(f)
+    # 2. Check or build full flow paths
+    flow_paths_data = None
+    if not force:
+        if os.path.exists(flow_paths_path) and os.path.getsize(flow_paths_path) > 100:
+            print(f"  [1/2] Loading existing Full Flow Paths from {flow_paths_path}...")
+            with open(flow_paths_path, 'r', encoding='utf-8') as f:
+                flow_paths_data = json.load(f)
+        elif os.path.exists(flow_paths_gz_path) and os.path.getsize(flow_paths_gz_path) > 100:
+            print(f"  [1/2] Loading existing Full Flow Paths from {flow_paths_gz_path}...")
+            with gzip.open(flow_paths_gz_path, 'rt', encoding='utf-8') as f:
+                flow_paths_data = json.load(f)
 
-    # 2. Load DEM for elevation sampling
-    cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
-    if not os.path.exists(cond_dem_path):
-        for candidate in ["cond_dem.tif", "dem.tif", "raw_dem.tif", f"{basin}_cond_dem.tif", f"{basin}_dem.tif", "elevation.tif"]:
-            candidate_path = os.path.join(terrain_dir, candidate)
-            if os.path.exists(candidate_path):
-                cond_dem_path = candidate_path
-                break
+    if flow_paths_data is None:
+        print(f"  [1/2] Generating Full Flow Paths using generate_basin_flow_paths...")
+        generate_basin_flow_paths(
+            basin=basin,
+            basin_dir=basin_dir,
+            terrain_dir=terrain_dir,
+            force=force
+        )
+        if os.path.exists(flow_paths_path):
+            with open(flow_paths_path, 'r', encoding='utf-8') as f:
+                flow_paths_data = json.load(f)
 
-    if not os.path.exists(cond_dem_path):
-        print(f"  ❌ ERROR: Missing DEM at {cond_dem_path}")
+    if not flow_paths_data:
+        print(f"  ❌ ERROR: Could not generate or load flow paths for basin: {basin}")
         return
-    
-    print(f"  [2/4] Loading DEM from {cond_dem_path} for slope calculations...")
-    dem, transform, crs, nodata = read_dem_geotiff(cond_dem_path)
-    
-    def sample_elevation(lon: float, lat: float) -> float:
-        try:
-            # Handle PyProj transformation if necessary, otherwise direct affine
-            r, c = ~transform * (lon, lat)
-            r, c = int(r), int(c)
-            r = max(0, min(r, dem.shape[0] - 1))
-            c = max(0, min(c, dem.shape[1] - 1))
-            val = float(dem[r, c])
-            if val == nodata or val < -100:
-                return 0.0
-            return val
-        except Exception:
-            return 0.0
 
-    # 3. Build Directed River Graph
-    print("  [3/4] Building Directed River Graph from OSM...")
-    river_graph = DirectedRiverGraph(snap_tolerance_deg=0.00035)
-    
-    for feat in osm_data.get('features', []):
-        geom = feat.get('geometry', {})
-        props = feat.get('properties', {})
-        name = props.get('name', '')
-        waterway_class = props.get('waterway', 'stream')
-        osm_id = props.get('osm_id', '')
-
-        if geom.get('type') == 'LineString':
-            river_graph.add_river_segment(
-                geom['coordinates'],
-                sample_elev_fn=sample_elevation,
-                river_name=name,
-                waterway_class=waterway_class,
-                osm_id=osm_id
-            )
-        elif geom.get('type') == 'MultiLineString':
-            for line in geom['coordinates']:
-                river_graph.add_river_segment(
-                    line,
-                    sample_elev_fn=sample_elevation,
-                    river_name=name,
-                    waterway_class=waterway_class,
-                    osm_id=osm_id
-                )
-
-    river_graph.finalize_connectivity()
-    river_graph.build_spatial_index()
-    print(f"        Graph built with {len(river_graph.nodes)} nodes and {len(river_graph.adj)} interconnected junctions.")
-
-    # 4. Snap Stations and Trace Downstream
-    print("  [4/4] Snapping stations and tracing downstream topology...")
-    
-    # Map station ID to Graph Node ID
-    station_nodes = {}
-    node_to_station = {}
-    for st in water_st:
-        st_id = str(st['station_id'])
-        lon, lat = float(st['longitude']), float(st['latitude'])
-        # Use ranked snapping to prioritize main river classes
-        nid, d_deg, attach_meta = river_graph.snap_point_to_graph_ranked(lon, lat, max_dist_deg=0.03) # ~3km
-        if nid is not None:
-            station_nodes[st_id] = nid
-            node_to_station[nid] = st
-    
-    target_nodes_set = set(node_to_station.keys())
-    print(f"        Successfully snapped {len(station_nodes)}/{len(water_st)} water stations to OSM graph.")
-
-    raw_relations = []
-    frontend_map = {}
-
-    for st in water_st:
-        st_id = str(st['station_id'])
-        frontend_map[st_id] = {
-            "stationId": st_id,
-            "influencingStations": [],
-            "downstreamStations": []
-        }
-        
-        start_node = station_nodes.get(st_id)
-        if start_node is None:
-            continue
-            
-        # Trace downstream (Dijkstra) up to 250km searching for the NEXT station node
-        dist, prev = river_graph.dijkstra_single_source(start_node, target_nodes_set, max_dist_km=250.0)
-        
-        # Find the closest reachable station that is NOT itself
-        best_target_node = None
-        min_dist = float('inf')
-        for t_node in target_nodes_set:
-            if t_node != start_node and t_node in dist:
-                if dist[t_node] < min_dist:
-                    min_dist = dist[t_node]
-                    best_target_node = t_node
-                    
-        if best_target_node is not None:
-            target_st = node_to_station[best_target_node]
-            target_id = str(target_st['station_id'])
-            
-            # Reconstruct exact OSM coordinates
-            coords = river_graph.reconstruct_path_from_prev(prev, start_node, best_target_node)
-            if not coords:
-                continue
-                
-            dist_km = linestring_length_km(coords)
-            z_up = sample_elevation(float(st['longitude']), float(st['latitude']))
-            z_down = sample_elevation(float(target_st['longitude']), float(target_st['latitude']))
-            dz = max(0.0, z_up - z_down)
-            slope = (dz / (dist_km * 1000.0)) if dist_km > 0.001 else 0.0001
-            
-            lag_min_m, lag_avg_m, lag_max_m, lag_min_h, lag_avg_h, lag_max_h = compute_rainfall_lag_bounds(
-                overland_dist_km=0.0, overland_slope=0.0,
-                channel_dist_km=dist_km, channel_slope=slope, total_dz_m=dz
-            )
-            
-            # Format 1: Raw Relation for ML (Similar to station-relations.json)
-            raw_props = {
-                "feature_type": "gauge_to_gauge_flowpath",
-                "routing": "osm_pure_vector",
-                "from_station_id": st_id,
-                "from_station_name": st.get('station_name', ''),
-                "to_station_id": target_id,
-                "to_station_name": target_st.get('station_name', ''),
-                "distance_km": round(dist_km, 2),
-                "river_slope": round(slope, 6),
-                "elevation_diff_m": round(dz, 2),
-                "upstream_elev_m": round(z_up, 2),
-                "downstream_elev_m": round(z_down, 2),
-                "travel_time_minutes": lag_avg_m,
-                "travel_time_minutes_min": lag_min_m,
-                "travel_time_minutes_max": lag_max_m,
-                "travel_time_hours": lag_avg_h,
-                "travel_time_hours_min": lag_min_h,
-                "travel_time_hours_max": lag_max_h
-            }
-            raw_relations.append(raw_props)
-            
-            # Format 2: Frontend Object directly inside the script
-            frontend_map[st_id]["downstreamStations"].append({
-                "stationId": target_id,
-                "stationName": target_st.get('station_name', ''),
-                "stationType": "water_level",
-                "distanceKm": round(dist_km, 2),
-                "travelTimeMinutes": lag_avg_m,
-                "travelTimeMinutesMin": lag_min_m,
-                "travelTimeMinutesMax": lag_max_m,
-                "travelTimeHours": lag_avg_h,
-                "travelTimeHoursMin": lag_min_h,
-                "travelTimeHoursMax": lag_max_h,
-                "confidence": "HIGH",
-                "responseType": "ESTIMATED"
-            })
+    # 3. Extract and export full gauge-to-gauge relations
+    print(f"  [2/2] Extracting Waterlevel-to-Waterlevel relations from Full Flow Paths...")
+    raw_relations, frontend_relations = extract_waterlevel_relations_from_flow_paths(
+        basin_dir=basin_dir,
+        flow_paths_data=flow_paths_data,
+        water_stations=water_st
+    )
 
     save_json(raw_relations, out_raw_path)
-    save_json(list(frontend_map.values()), out_frontend_path)
-    
-    print(f"        Extracted {len(raw_relations)} pure OSM waterlevel-to-waterlevel connections.")
-    print(f"        ✅ Saved raw ML relations to: {out_raw_path}")
-    print(f"        ✅ Saved frontend relations to: {out_frontend_path}")
+    save_json(frontend_relations, out_frontend_path)
+
+    print(f"\n  ✅ Successfully generated full waterlevel flow path relations:")
+    print(f"        • Total Gauge-to-Gauge Connections : {len(raw_relations)}")
+    print(f"        • Total Stations in Frontend Map   : {len(frontend_relations)}")
+    print(f"        • Saved Raw ML Relations           : {out_raw_path}")
+    print(f"        • Saved Frontend Relations         : {out_frontend_path}")
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate pure OSM vector-based Gauge-to-Gauge relations")
+    parser = argparse.ArgumentParser(description="Generate full flow-path based Water Level Gauge-to-Gauge relations")
     parser.add_argument("--basin", type=str, default="nan", help="River basin slug (e.g. yom, nan, ping, wang, chao-phraya, all)")
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory (supports root e.g. ./dataset or basin dir e.g. ./dataset/nan)")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
-    parser.add_argument("--force", action="store_true", help="Force re-generation of relations")
+    parser.add_argument("--force", action="store_true", help="Force re-generation of relations and flow paths")
     args = parser.parse_args()
 
     basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
@@ -242,6 +234,7 @@ def main():
             continue
 
         generate_osm_relations(b, basin_dir, terrain_basin_dir, force=args.force)
+
 
 if __name__ == "__main__":
     main()
