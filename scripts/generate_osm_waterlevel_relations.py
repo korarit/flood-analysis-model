@@ -76,12 +76,29 @@ def generate_osm_relations(basin: str, basin_dir: str, terrain_dir: str, force: 
     for feat in osm_data.get('features', []):
         geom = feat.get('geometry', {})
         props = feat.get('properties', {})
+        name = props.get('name', '')
+        waterway_class = props.get('waterway', 'stream')
+        osm_id = props.get('osm_id', '')
+
         if geom.get('type') == 'LineString':
-            river_graph.add_river_segment(geom['coordinates'], props, sample_elev_fn=sample_elevation)
+            river_graph.add_river_segment(
+                geom['coordinates'],
+                sample_elev_fn=sample_elevation,
+                river_name=name,
+                waterway_class=waterway_class,
+                osm_id=osm_id
+            )
         elif geom.get('type') == 'MultiLineString':
             for line in geom['coordinates']:
-                river_graph.add_river_segment(line, props, sample_elev_fn=sample_elevation)
+                river_graph.add_river_segment(
+                    line,
+                    sample_elev_fn=sample_elevation,
+                    river_name=name,
+                    waterway_class=waterway_class,
+                    osm_id=osm_id
+                )
 
+    river_graph.finalize_connectivity()
     river_graph.build_spatial_index()
     print(f"        Graph built with {len(river_graph.nodes)} nodes and {len(river_graph.adj)} interconnected junctions.")
 
