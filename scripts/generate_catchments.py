@@ -22,9 +22,21 @@ def generate_basin_catchments(
     print(f"🌊 Generating Catchment Polygons for Basin: {basin.upper()}")
     print(f"==================================================================")
 
-    fdir_path = os.path.join(terrain_dir, "fdir.tif")
-    acc_path = os.path.join(terrain_dir, "acc.tif")
-    cond_dem_path = os.path.join(terrain_dir, "cond_dem.tif")
+    fdir_path = os.path.join(terrain_dir, "flow_direction.tif")
+    if not os.path.exists(fdir_path):
+        fdir_path = os.path.join(terrain_dir, "fdir.tif")
+
+    acc_path = os.path.join(terrain_dir, "flow_accumulation.tif")
+    if not os.path.exists(acc_path):
+        acc_path = os.path.join(terrain_dir, "acc.tif")
+
+    cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
+    if not os.path.exists(cond_dem_path):
+        for candidate in ["cond_dem.tif", "dem.tif", "raw_dem.tif", f"{basin}_cond_dem.tif", f"{basin}_dem.tif", "elevation.tif"]:
+            candidate_path = os.path.join(terrain_dir, candidate)
+            if os.path.exists(candidate_path):
+                cond_dem_path = candidate_path
+                break
     
     catchments_path = os.path.join(basin_dir, "gis", "catchments.geojson")
     processed_catchments_path = os.path.join(basin_dir, "processed", "catchments.geojson")
@@ -48,10 +60,10 @@ def generate_basin_catchments(
         with open(osm_waterways_path, 'r', encoding='utf-8') as f:
             osm_waterways = json.load(f)
 
-    # 2. Load Cached Flow Rasters (fdir, acc)
+    # 2. Load Cached Flow Rasters (flow_direction, flow_accumulation)
     print(f"  [2/3] Loading cached flow direction and accumulation matrices...")
     if not (os.path.exists(fdir_path) and os.path.exists(acc_path)):
-        print(f"  ❌ ERROR: Cached flow rasters not found in {terrain_dir}.", file=sys.stderr)
+        print(f"  ❌ ERROR: Cached flow rasters not found in {terrain_dir} ({fdir_path}, {acc_path}).", file=sys.stderr)
         print("          Please run `python scripts/generate_flow_paths.py` first to build them!", file=sys.stderr)
         return
 

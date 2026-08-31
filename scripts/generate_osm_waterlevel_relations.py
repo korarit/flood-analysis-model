@@ -40,9 +40,9 @@ def generate_osm_relations(basin: str, basin_dir: str, terrain_dir: str, force: 
         osm_data = json.load(f)
 
     # 2. Load DEM for elevation sampling
-    cond_dem_path = os.path.join(terrain_dir, "cond_dem.tif")
+    cond_dem_path = os.path.join(terrain_dir, "conditioned_dem.tif")
     if not os.path.exists(cond_dem_path):
-        for candidate in ["dem.tif", f"{basin}_cond_dem.tif", f"{basin}_dem.tif", "elevation.tif"]:
+        for candidate in ["cond_dem.tif", "dem.tif", "raw_dem.tif", f"{basin}_cond_dem.tif", f"{basin}_dem.tif", "elevation.tif"]:
             candidate_path = os.path.join(terrain_dir, candidate)
             if os.path.exists(candidate_path):
                 cond_dem_path = candidate_path
