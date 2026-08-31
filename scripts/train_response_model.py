@@ -139,6 +139,15 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
     with open(station_relations_path, 'r', encoding='utf-8') as f:
         import json
         station_relations = json.load(f)
+        
+    osm_relations_path = os.path.join(station_dir, "osm-waterlevel-relations.json")
+    if os.path.exists(osm_relations_path):
+        with open(osm_relations_path, 'r', encoding='utf-8') as f:
+            osm_relations = json.load(f)
+            # Remove old DEM gauge-to-gauge relations and replace with OSM ones
+            station_relations = [rel for rel in station_relations if rel.get('feature_type') != 'gauge_to_gauge_flowpath']
+            station_relations.extend(osm_relations)
+            print(f"        [OSM] Replaced DEM gauge routes with {len(osm_relations)} pure OSM vector routes.")
 
     alias_map = build_station_alias_map(basin_dir)
     wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)

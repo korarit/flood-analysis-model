@@ -89,6 +89,16 @@ def run_pipeline_for_basin(
     print(f"  ⏱️ Step 3 completed in {t3_elapsed:.1f}s")
 
     # -------------------------------------------------------------
+    # Step 3.5: OSM Vector-based Gauge-to-Gauge Topology
+    # -------------------------------------------------------------
+    t0 = time.time()
+    print(f"\n[Step 3.5/6] Building pure OSM topological water level relations...")
+    from scripts.generate_osm_waterlevel_relations import generate_osm_relations
+    generate_osm_relations(basin, basin_dir, terrain_basin_dir, force=False)
+    t35_elapsed = time.time() - t0
+    print(f"  ⏱️ Step 3.5 completed in {t35_elapsed:.1f}s")
+
+    # -------------------------------------------------------------
     # Step 4: Travel Time & Hydrological Response Model
     # -------------------------------------------------------------
     t0 = time.time()
@@ -122,6 +132,7 @@ def run_pipeline_for_basin(
     print(f"   • Step 1 (GIS/DEM Fetch)        : {t1_elapsed:.1f}s")
     print(f"   • Step 2 (Terrain/Rivers)       : {t2_elapsed:.1f}s")
     print(f"   • Step 3 (Station Chain)        : {t3_elapsed:.1f}s")
+    print(f"   • Step 3.5 (OSM Relations)      : {t35_elapsed:.1f}s")
     print(f"   • Step 4 (Response Travel Time) : {t4_elapsed:.1f}s")
     print(f"   • Step 5 (Rain Trigger Engine)  : {t5_elapsed:.1f}s")
     print(f"   • Step 6 (Backend Export)       : {t6_elapsed:.1f}s")
