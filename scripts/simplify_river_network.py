@@ -13,6 +13,10 @@ Tiers:
 import argparse
 import json
 import math
+import os
+import sys
+from typing import List, Dict, Any, Tuple, Optional, Generator
+
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from scripts.modules.basin_registry import get_all_slugs, get_basin

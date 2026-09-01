@@ -79,10 +79,22 @@ def process_basin_terrain(
     southern_limit_lat = round(min(water_lats) - (5.0 / 111.0), 5) if water_lats else None
     effective_min_lat = southern_limit_lat if southern_limit_lat is not None else bbox_min_lat
 
-    # 2. Fetch or Load 100% of OSM Waterways in BBox
+    # 2. Fetch or Load 100% of OSM Waterways in BBox / Basin Boundary
     from scripts.fetch_basin_gis import fetch_osm_waterways
     osm_waterways_path = os.path.join(gis_dir, "osm_waterways.geojson")
-    osm_geojson = fetch_osm_waterways(basin, osm_waterways_path, all_st, force=force)
+    boundary_path = os.path.join(gis_dir, f"{basin}_boundary.geojson")
+    boundary_geojson = None
+    if os.path.exists(boundary_path):
+        try:
+            with open(boundary_path, 'r', encoding='utf-8') as bf:
+                boundary_geojson = json.load(bf)
+        except Exception:
+            boundary_geojson = None
+
+    osm_geojson = fetch_osm_waterways(
+        basin, osm_waterways_path, all_st, force=force,
+        basin_boundary_geojson=boundary_geojson
+    )
     osm_features = osm_geojson.get("features", [])
     print(f"\n🌊 [STEP 2] Building Complete River Network from 100% OSM Waterways ({len(osm_features):,} features)...")
 
