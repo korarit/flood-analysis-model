@@ -37,7 +37,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 from scripts.modules.basin_registry import get_all_slugs, get_basin
 
-BASE_URL = "https://ews1.dwr.go.th/ews/show-rain"
+BASE_URL = "http://ews1.dwr.go.th/ews/show-rain"
 BASINS = get_all_slugs()
 
 
