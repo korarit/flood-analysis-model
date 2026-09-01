@@ -88,36 +88,66 @@ def load_basin_station_codes(dataset_dir: Path, target_basins: List[str]) -> Dic
             "wl_mou": set(),
         }
         
+        if not stn_dir.exists():
+            print(f"  [WARN] Station directory not found: {stn_dir}")
+            print(f"         Please run 'python generate_station_dataset.py --basin {basin}' first.")
+            continue
+
         # Rain HII + MOU
-        rain_hii_file = stn_dir / f"{basin}_rain_stations_hii.json"
-        if rain_hii_file.exists():
-            with open(rain_hii_file, "r", encoding="utf-8") as f:
-                items = json.load(f)
-                for it in items:
-                    oldcode = (it.get("station") or {}).get("tele_station_oldcode", "").strip()
-                    if oldcode:
-                        if oldcode.upper().startswith("MOU"):
-                            basin_stations[basin]["rain_mou"].add(oldcode)
-                        else:
-                            basin_stations[basin]["rain_hii"].add(oldcode)
+        rain_files = [
+            stn_dir / f"{basin}_rain_stations_hii.json",
+            stn_dir / f"{basin}_rainfall_stations_hii.json",
+            stn_dir / f"{basin}_rain_stations.json",
+            stn_dir / f"{basin}_rainfall_stations.json",
+        ]
+        rain_loaded = False
+        for rf in rain_files:
+            if rf.exists() and not rain_loaded:
+                with open(rf, "r", encoding="utf-8") as f:
+                    items = json.load(f)
+                    for it in items:
+                        oldcode = (it.get("station") or {}).get("tele_station_oldcode", "").strip()
+                        if oldcode:
+                            if oldcode.upper().startswith("MOU"):
+                                basin_stations[basin]["rain_mou"].add(oldcode)
+                            else:
+                                basin_stations[basin]["rain_hii"].add(oldcode)
+                rain_loaded = True
 
         # Waterlevel HII + MOU
-        wl_hii_file = stn_dir / f"{basin}_waterlevel_stations_hii.json"
-        if wl_hii_file.exists():
-            with open(wl_hii_file, "r", encoding="utf-8") as f:
-                items = json.load(f)
-                for it in items:
-                    oldcode = (it.get("station") or {}).get("tele_station_oldcode", "").strip()
-                    if oldcode:
-                        # oldcode might be G23069-RES033 or MOUxxx
-                        raw_code = oldcode.split("-")[-1] if "-" in oldcode else oldcode
-                        if raw_code.upper().startswith("MOU"):
-                            basin_stations[basin]["wl_mou"].add(raw_code)
-                        else:
-                            basin_stations[basin]["wl_hii"].add(raw_code)
-                            basin_stations[basin]["wl_hii"].add(oldcode)
+        wl_files = [
+            stn_dir / f"{basin}_waterlevel_stations_hii.json",
+            stn_dir / f"{basin}_waterlevel_stations.json",
+        ]
+        wl_loaded = False
+        for wf in wl_files:
+            if wf.exists() and not wl_loaded:
+                with open(wf, "r", encoding="utf-8") as f:
+                    items = json.load(f)
+                    for it in items:
+                        oldcode = (it.get("station") or {}).get("tele_station_oldcode", "").strip()
+                        if oldcode:
+                            # oldcode might be G23069-RES033 or MOUxxx
+                            raw_code = oldcode.split("-")[-1] if "-" in oldcode else oldcode
+                            if raw_code.upper().startswith("MOU"):
+                                basin_stations[basin]["wl_mou"].add(raw_code)
+                            else:
+                                basin_stations[basin]["wl_hii"].add(raw_code)
+                                basin_stations[basin]["wl_hii"].add(oldcode)
+                wl_loaded = True
+
+        total_stn = (
+            len(basin_stations[basin]["rain_hii"])
+            + len(basin_stations[basin]["rain_mou"])
+            + len(basin_stations[basin]["wl_hii"])
+            + len(basin_stations[basin]["wl_mou"])
+        )
+        if total_stn == 0:
+            print(f"  [WARN] No HII/MOU stations found in {stn_dir}.")
+            print(f"         Please run 'python generate_station_dataset.py --basin {basin}' first.")
 
     return basin_stations
+
 
 
 def fetch_file_content(url: str, timeout: int = 15) -> Optional[str]:
@@ -233,6 +263,7 @@ def download_hii_data(
 
 def main():
     parser = argparse.ArgumentParser(description="Download historical HII rainfall and water level data.")
+    parser.add_argument("--dir", default=None, help="Root directory for dataset (default: dataset/)")
     parser.add_argument("--basin", default="all", help="Target basin: yom, nan, ping, wang, chao-phraya, or all")
     parser.add_argument("--start", default="202501", help="Start month (YYYYMM), default: 202501")
     parser.add_argument("--end", default="202607", help="End month (YYYYMM), default: 202607")
@@ -241,7 +272,14 @@ def main():
     args = parser.parse_args()
 
     base_dir = Path(__file__).parent
-    dataset_dir = base_dir / "dataset"
+    if args.dir:
+        d_path = Path(args.dir).resolve()
+        if d_path.name in BASINS and (args.basin != "all" and d_path.name == args.basin.lower()):
+            dataset_dir = d_path.parent
+        else:
+            dataset_dir = d_path
+    else:
+        dataset_dir = base_dir / "dataset"
 
     target_basins = BASINS if args.basin == "all" else [args.basin.lower()]
     months = generate_month_list(args.start, args.end)
@@ -254,6 +292,7 @@ def main():
         smoke_test=args.smoke_test,
         catalogs_to_run=catalogs,
     )
+
 
 
 if __name__ == "__main__":
