@@ -6797,7 +6797,7 @@
     "warning_level_msl": null,
     "critical_level_msl": null,
     "ground_level": null,
-    "qmax": 2880.0
+    "qmax": 2862.0
   },
   {
     "station_code": "C.บางปะอิน",
@@ -7197,7 +7197,7 @@
     "warning_level_msl": 30.95,
     "critical_level_msl": 31.45,
     "ground_level": 19.799999237060547,
-    "qmax": 1955.0
+    "qmax": 1910.0
   },
   {
     "station_code": "K.3A",
@@ -7537,7 +7537,7 @@
     "warning_level_msl": 210.9,
     "critical_level_msl": 211.4,
     "ground_level": 198.1999969482422,
-    "qmax": 0.0
+    "qmax": null
   },
   {
     "station_code": "KH.123",
