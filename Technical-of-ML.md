@@ -108,11 +108,11 @@ flowchart TD
    * ค้นหาช่วงเวลาที่ระดับน้ำสูงขึ้นต่อเนื่องอย่างน้อย 4 ชั่วโมง (`min_rise_hours = 4`) โดยยอมรับสัญญาณรบกวนของเซนเซอร์ไม่เกิน 1 ซม.
    * ติดตามยอดน้ำสูงสุด (`peak_val`) และหาช่วงขอบของยอดน้ำทรงตัว (Plateau Window) ที่ระดับน้ำเปลี่ยนแปลงไม่เกิน 2 ซม. (`plateau_diff_threshold = 0.02`)
    * คำนวณจุดสำคัญ 3 จุด:
-     $$\text{Plateau Midpoint} = \frac{T_{\text{plateau\_start}} + T_{\text{plateau\_end}}}{2}$$
-     $$\text{Volume Centroid} = T_{\text{rise\_start}} + \frac{\sum (h_t - h_{\text{base}}) \cdot \Delta t}{\sum (h_t - h_{\text{base}})}$$
+     $$T_{\text{plateau-mid}} = \frac{T_{\text{plateau-start}} + T_{\text{plateau-end}}}{2}$$
+     $$T_{\text{centroid}} = T_{\text{rise-start}} + \frac{\sum (h_t - h_{\text{base}}) \cdot \Delta t}{\sum (h_t - h_{\text{base}})}$$
 
 2. **การจับคู่คลื่นน้ำข้ามสถานี (`calculate_observed_travel_time`):**
-   * ตรวจสอบว่ายอดน้ำที่สถานี B เกิดหลังสถานี A ภายในช่วงเวลา $0.5 \le \Delta t \le 72.0\text{ ชั่วโมง}$
+   * ตรวจสอบว่ายอดน้ำที่สถานี B เกิดหลังสถานี A ภายในช่วงเวลา $0.5 \le \Delta t \le 72.0\text{ ชม.}$
    * กรองเหตุการณ์ฝนตกเฉพาะที่ (Local Flash Flood) ออกอัตโนมัติ เพราะหากสถานี B มีน้ำขึ้นแต่สถานี A ไม่มีน้ำขึ้น Event นั้นจะไม่มีคู่ Match และถูกคัดทิ้ง
 
 ---
@@ -121,10 +121,10 @@ flowchart TD
 
 | ค่าเอาต์พุต | สมการ / วิธีคำนวณ | ความหมายและเหตุผลทางชลศาสตร์ |
 | :--- | :--- | :--- |
-| **Typical Travel Time** (`travel_time_hours`) | $\text{Median}(\Delta t_{\text{plateau\_mid}})$ | ค่ามัธยฐานของเวลาระหว่างจุดกึ่งกลางยอดน้ำทรงตัว เป็นค่าตัวแทนความเร็วเฉลี่ยของมวลน้ำก้อนใหญ่ (ทนทานต่อ Outlier) |
-| **Minimum Travel Time** (`travel_time_hours_min`) | $\text{Percentile}_{10}(\Delta t_{\text{wave\_front}}) \times 0.70$ | อิงจากจุดเริ่มต้นหัวคลื่นน้ำ (Wave Front Arrival) พร้อมใส่ **Safety Factor $-30\%$** เพื่อใช้ในการเตือนภัยล่วงหน้าแบบ Early Warning (กรณีน้ำหลากไหลเร็วเต็มตลิ่ง) |
-| **Maximum Travel Time** (`travel_time_hours_max`) | $\text{Percentile}_{90}(\Delta t_{\text{plateau\_mid}})$ | อิงจากเปอร์เซ็นไทล์ที่ 90 เพื่อรองรับกรณีน้ำแผ่ออกทุ่ง/ลานพักน้ำ ทำให้คลื่นน้ำเดินทางช้ากว่าปกติ |
-| **Average Holding Hours** (`avg_holding_duration_hours`) | $\text{Mean}(T_{\text{plateau\_end}} - T_{\text{plateau\_start}})$ | ระยะเวลาเฉลี่ยที่ระดับน้ำเอ่อค้างอยู่บนยอด ก่อนจะเริ่มลดระดับลง |
+| **Typical Travel Time** (`travel_time_hours`) | `Median(Plateau Midpoint Lag)` | ค่ามัธยฐานของเวลาระหว่างจุดกึ่งกลางยอดน้ำทรงตัว เป็นค่าตัวแทนความเร็วเฉลี่ยของมวลน้ำก้อนใหญ่ (ทนทานต่อ Outlier) |
+| **Minimum Travel Time** (`travel_time_hours_min`) | `Percentile-10(Wave Front Lag) × 0.70` | อิงจากจุดเริ่มต้นหัวคลื่นน้ำ (Wave Front Arrival) พร้อมใส่ **Safety Factor -30%** เพื่อใช้ในการเตือนภัยล่วงหน้าแบบ Early Warning (กรณีน้ำหลากไหลเร็วเต็มตลิ่ง) |
+| **Maximum Travel Time** (`travel_time_hours_max`) | `Percentile-90(Plateau Midpoint Lag)` | อิงจากเปอร์เซ็นไทล์ที่ 90 เพื่อรองรับกรณีน้ำแผ่ออกทุ่ง/ลานพักน้ำ ทำให้คลื่นน้ำเดินทางช้ากว่าปกติ |
+| **Average Holding Hours** (`avg_holding_duration_hours`) | `Mean(Plateau End - Plateau Start)` | ระยะเวลาเฉลี่ยที่ระดับน้ำเอ่อค้างอยู่บนยอด ก่อนจะเริ่มลดระดับลง |
 
 ---
 
@@ -132,15 +132,15 @@ flowchart TD
 
 สำหรับคู่สถานีที่ไม่มีประวัติข้อมูลระดับน้ำ (Unobserved Pairs) โมเดลจะฝึกสอน **Ridge Regression** จากคู่สถานีที่มีข้อมูลในลุ่มน้ำเดียวกัน:
 
-$$\min_{\mathbf{w}} \left\{ \|\mathbf{y} - \mathbf{X}\mathbf{w}\|_2^2 + \alpha \|\mathbf{w}\|_2^2 \right\}$$
+$$\min_{\mathbf{w}} \left( \|\mathbf{y} - \mathbf{X}\mathbf{w}\|_2^2 + \alpha \|\mathbf{w}\|_2^2 \right)$$
 
 โดย Feature Vector ถูกสร้างตามหลักชลศาสตร์:
-$$\mathbf{x} = \left[ \text{Distance (km)}, \sqrt{\max(0.00001, \text{Slope})}, \Delta Z \text{ (m)} \right]$$
+$$\mathbf{x} = \left[ \text{Distance}, \sqrt{\max(0.00001, \text{Slope})}, \Delta Z \right]$$
 
 หากไม่มีข้อมูลคู่สถานีในลุ่มน้ำเพียงพอ ($n < 3$) ระบบจะ Fallback ไปใช้สมการความเร็วคลื่นน้ำเชิงกายภาพ (Manning Kinematic Approximation):
-$$v_{\text{bankfull}} = \max\left(3.8, \min\left(11.5, 7.2 \times \left(\frac{S}{0.001}\right)^{0.22}\right)\right) \text{ km/h}$$
-$$v_{\text{lowflow}} = \max\left(1.8, \min\left(5.5, 3.6 \times \left(\frac{S}{0.001}\right)^{0.18}\right)\right) \text{ km/h}$$
-$$v_{\text{mean}} = \max\left(2.5, \min\left(9.0, 5.2 \times \left(\frac{S}{0.001}\right)^{0.20}\right)\right) \text{ km/h}$$
+$$v_{\text{bankfull}} = \max\left(3.8, \min\left(11.5, 7.2 \times (S / 0.001)^{0.22}\right)\right) \text{ km/h}$$
+$$v_{\text{lowflow}} = \max\left(1.8, \min\left(5.5, 3.6 \times (S / 0.001)^{0.18}\right)\right) \text{ km/h}$$
+$$v_{\text{mean}} = \max\left(2.5, \min\left(9.0, 5.2 \times (S / 0.001)^{0.20}\right)\right) \text{ km/h}$$
 
 ---
 
@@ -198,8 +198,8 @@ flowchart TD
       (ดินแห้ง)                                (ดินปกติ)                               (ดินอิ่มตัวน้ำ)
 ```
 
-* $\text{dry\_bound} = \frac{C_{\text{dry}} + C_{\text{normal}}}{2}$
-* $\text{wet\_bound} = \frac{C_{\text{normal}} + C_{\text{wet}}}{2}$
+* $\text{Dry Bound} = \frac{C_{\text{dry}} + C_{\text{normal}}}{2}$
+* $\text{Wet Bound} = \frac{C_{\text{normal}} + C_{\text{wet}}}{2}$
 
 ---
 
@@ -222,10 +222,10 @@ $$T_{\text{trigger}} = T_{\text{rise}} - \text{Lag}_{\text{catchment}}$$
 
 | ชื่อพารามิเตอร์ | วิธีการคำนวณทางสถิติ | ความหมายและการนำไปแจ้งเตือน |
 | :--- | :--- | :--- |
-| `inceptionRainMm` | $\text{Median}(\text{Rain}_{\text{inception}})$ | **เกณฑ์ฝนเริ่มตอบสนอง:** ปริมาณฝนสะสมขั้นต่ำที่เริ่มทำให้ระดับน้ำในลำน้ำกระดิกตัวสูงขึ้น |
-| `warningRainMm` | $\text{Median}(\text{Rain}_{\text{warning, normal}})$ | **เกณฑ์ฝนเตือนภัยสภาวะดินปกติ:** ปริมาณฝนสะสมที่ทำให้ระดับน้ำแตะระดับวิกฤต/ล้นตลิ่ง |
-| `wetSoilWarningRainMm` | $\text{Percentile}_{30}(\text{Rain}_{\text{warning, wet}})$ หรือ $0.68 \times \text{Warning}$ | **เกณฑ์ฝนเตือนภัยเมื่อดินอิ่มตัวน้ำ:** เกณฑ์จะลดลง $\approx 30-35\%$ เพราะดินไม่สามารถดูดซับน้ำได้อีกแล้ว ฝนตกเพียงเล็กน้อยจะกลายเป็นน้ำท่าทันที |
-| `drySoilWarningRainMm` | $\text{Percentile}_{75}(\text{Rain}_{\text{warning, dry}})$ หรือ $1.45 \times \text{Warning}$ | **เกณฑ์ฝนเตือนภัยเมื่อดินแห้ง:** เกณฑ์จะสูงขึ้น $\approx 45-50\%$ เนื่องจากดินและพื้นที่รับน้ำช่วยดูดซับน้ำก้อนแรกไว้ (Initial Abstraction Loss) |
+| `inceptionRainMm` | `Median(Inception Events)` | **เกณฑ์ฝนเริ่มตอบสนอง:** ปริมาณฝนสะสมขั้นต่ำที่เริ่มทำให้ระดับน้ำในลำน้ำกระดิกตัวสูงขึ้น |
+| `warningRainMm` | `Median(Warning Events ในดิน Normal)` | **เกณฑ์ฝนเตือนภัยสภาวะดินปกติ:** ปริมาณฝนสะสมที่ทำให้ระดับน้ำแตะระดับวิกฤต/ล้นตลิ่ง |
+| `wetSoilWarningRainMm` | `Percentile-30(Warning ในดิน Wet) หรือ 0.68 × Warning` | **เกณฑ์ฝนเตือนภัยเมื่อดินอิ่มตัวน้ำ:** เกณฑ์จะลดลง $\approx 30-35\%$ เพราะดินไม่สามารถดูดซับน้ำได้อีกแล้ว ฝนตกเพียงเล็กน้อยจะกลายเป็นน้ำท่าทันที |
+| `drySoilWarningRainMm` | `Percentile-75(Warning ในดิน Dry) หรือ 1.45 × Warning` | **เกณฑ์ฝนเตือนภัยเมื่อดินแห้ง:** เกณฑ์จะสูงขึ้น $\approx 45-50\%$ เนื่องจากดินและพื้นที่รับน้ำช่วยดูดซับน้ำก้อนแรกไว้ (Initial Abstraction Loss) |
 
 ---
 
