@@ -12,7 +12,9 @@ from typing import Dict, List, Any
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import save_geojson, save_json, load_stations_for_basin
+
 from scripts.modules.terrain_engine import read_dem_geotiff
 from scripts.modules.graph_topology import (
     snap_stations_to_stream,
@@ -199,7 +201,8 @@ def main():
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of dataset --dir)")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
+
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
         terrain_basin_dir = os.path.join(args.terrain_dir, b)

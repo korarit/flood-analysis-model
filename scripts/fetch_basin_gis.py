@@ -59,32 +59,12 @@ def load_stations_for_basin(basin_dir: str) -> Tuple[List[Dict[str, Any]], List[
     return water_stations, rain_stations
 
 
+from scripts.modules.basin_registry import get_thaiwater_mapping, get_all_slugs, get_basin
+
 # Mapping of Basin Slug to ThaiWater BASIN_T Name and Code
 THAIWATER_BASIN_URL = "https://www.thaiwater.net/json/boundary/basin.json"
-THAIWATER_BASIN_MAPPING = {
-    "salawin": ("สาละวิน", "1"),
-    "khong-north": ("โขงเหนือ", "2"),
-    "khong-ne": ("โขงตะวันออกเฉียงเหนือ", "3"),
-    "chi": ("ชี", "4"),
-    "mun": ("มูล", "5"),
-    "ping": ("ปิง", "6"),
-    "wang": ("วัง", "7"),
-    "yom": ("ยม", "8"),
-    "nan": ("น่าน", "9"),
-    "chao-phraya": ("เจ้าพระยา", "10"),
-    "sakaekrang": ("สะแกกรัง", "11"),
-    "pa-sak": ("ป่าสัก", "12"),
-    "tha-chin": ("ท่าจีน", "13"),
-    "mae-klong": ("แม่กลอง", "14"),
-    "bang-pakong": ("บางปะกง", "15"),
-    "tonle-sap": ("โตนเลสาป", "16"),
-    "east-coast": ("ชายฝั่งทะเลตะวันออก", "17"),
-    "phetchaburi": ("เพชรบุรี-ประจวบคีรีขันธ์", "18"),
-    "south-east-upper": ("ภาคใต้ฝั่งตะวันออกตอนบน", "19"),
-    "songkhla-lake": ("ทะเลสาบสงขลา", "20"),
-    "south-east-lower": ("ภาคใต้ฝั่งตะวันออกตอนล่าง", "21"),
-    "south-west": ("ภาคใต้ฝั่งตะวันตก", "22"),
-}
+THAIWATER_BASIN_MAPPING = get_thaiwater_mapping()
+
 
 
 def _boundary_vertex_count(geom_obj) -> int:
@@ -1272,7 +1252,7 @@ def main():
     force_osm = args.force or args.force_osm
     force_dem = args.force or args.force_dem
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
 
     for b in basin_list:
         # Smart path resolution for --dir (supports both './dataset' and './dataset/nan')

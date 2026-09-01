@@ -35,10 +35,11 @@ import urllib3
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 
 BASE_URL = "https://ews1.dwr.go.th/ews/show-rain"
-BASINS = ["yom", "nan", "ping", "wang", "chao-phraya"]
+BASINS = get_all_slugs()
+
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

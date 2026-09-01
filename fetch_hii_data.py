@@ -50,7 +50,11 @@ HII_CATALOGS = {
     },
 }
 
-BASINS = ["yom", "nan", "ping", "wang", "chao-phraya"]
+from scripts.modules.basin_registry import get_all_slugs, get_basin
+
+BASINS = get_all_slugs()
+
+
 
 
 def generate_month_list(start_year_month: str = "202501", end_year_month: str = "202607") -> List[str]:

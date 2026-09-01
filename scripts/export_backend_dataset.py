@@ -15,8 +15,10 @@ from typing import Dict, List, Any
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import save_json, load_geojson, save_geojson
 from scripts.modules.backend_exporter import export_backend_station_relations
+
 
 
 def export_basin_model_dataset(basin: str, basin_dir: str):
@@ -95,7 +97,7 @@ def main():
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
         export_basin_model_dataset(b, basin_dir)

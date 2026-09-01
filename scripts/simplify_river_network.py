@@ -13,12 +13,12 @@ Tiers:
 import argparse
 import json
 import math
-import os
-import sys
-import time
-from typing import List, Tuple, Generator, Dict, Any
+# Add parent directory to sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 
 CELL_AREA_KM2_12_5M = (12.5 * 12.5) / 1_000_000.0  # 0.00015625 km2
+
 
 
 def perpendicular_distance(pt: List[float], line_start: List[float], line_end: List[float]) -> float:
@@ -288,7 +288,8 @@ def main():
     else:
         min_acc = def_min_acc
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
+
 
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)

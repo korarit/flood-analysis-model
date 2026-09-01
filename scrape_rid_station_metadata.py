@@ -46,14 +46,10 @@ HEADERS = {
     "Content-Type": "application/json; charset=utf-8",
 }
 
-# Mapping of basin slugs to RID Basin Names / IDs
-TARGET_BASIN_MAP = {
-    "yom": {"id": 8, "name_th": "ลุ่มน้ำยม", "name_en": "Yom River Basin"},
-    "nan": {"id": 9, "name_th": "ลุ่มน้ำน่าน", "name_en": "Nan River Basin"},
-    "ping": {"id": 6, "name_th": "ลุ่มน้ำปิง", "name_en": "Ping River Basin"},
-    "wang": {"id": 7, "name_th": "ลุ่มน้ำวัง", "name_en": "Wang River Basin"},
-    "chao-phraya": {"id": 10, "name_th": "ลุ่มน้ำเจ้าพระยา", "name_en": "Chao Phraya Basin"},
-}
+from scripts.modules.basin_registry import get_all_slugs, get_basin, get_rid_mapping
+
+TARGET_BASIN_MAP = get_rid_mapping()
+
 
 
 def create_http_session() -> requests.Session:

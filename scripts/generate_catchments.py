@@ -6,8 +6,9 @@ import numpy as np
 
 # Adjust sys.path to allow importing modules when running from anywhere
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import load_stations_for_basin, save_geojson
+
 from scripts.modules.terrain_engine import read_dem_geotiff
 from scripts.modules.graph_topology import snap_stations_to_stream, delineate_station_catchments
 
@@ -100,7 +101,8 @@ def main():
     parser.add_argument("--force", action="store_true", help="Force re-generation of catchments")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
+
 
     for b in basin_list:
         # Smart path resolution for --dir

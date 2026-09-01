@@ -39,14 +39,11 @@ HEADERS = {
     "Content-Type": "application/json; charset=utf-8",
 }
 
-# Mapping of basin slugs to RID BasinID and relevant Utok offices
-BASIN_RID_MAP = {
-    "yom": {"basin_id": 8, "utok_ids": [1, 2], "name_th": "ลุ่มน้ำยม"},
-    "nan": {"basin_id": 9, "utok_ids": [1, 2], "name_th": "ลุ่มน้ำน่าน"},
-    "ping": {"basin_id": 6, "utok_ids": [1, 2], "name_th": "ลุ่มน้ำปิง"},
-    "wang": {"basin_id": 7, "utok_ids": [1, 2], "name_th": "ลุ่มน้ำวัง"},
-    "chao-phraya": {"basin_id": 10, "utok_ids": [5], "name_th": "ลุ่มน้ำเจ้าพระยา"},
-}
+from scripts.modules.basin_registry import get_rid_mapping, get_all_slugs, get_basin
+
+# Mapping of basin slugs to RID BasinID and relevant Utok offices (22 Basins)
+BASIN_RID_MAP = get_rid_mapping()
+
 
 
 def format_duration(seconds: float) -> str:

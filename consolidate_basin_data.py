@@ -36,10 +36,10 @@ from datetime import datetime
 from collections import defaultdict
 from typing import Dict, List, Set, Any, Optional, Tuple
 
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 
-BASINS = ["yom", "nan", "ping", "wang", "chao-phraya"]
+BASINS = get_all_slugs()
+
 
 DEFAULT_START_DATE = "2025-01-01 00:00:00"
 DEFAULT_END_DATE = "2026-07-31 23:00:00"

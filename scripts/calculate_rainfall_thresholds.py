@@ -25,7 +25,9 @@ from typing import Dict, List, Set, Any, Optional
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import save_json, load_stations_for_basin
+
 from scripts.train_response_model import build_station_alias_map, load_hourly_waterlevel_series
 from scripts.modules.hydrology_model import (
     load_hourly_rainfall_series,
@@ -107,10 +109,6 @@ def calculate_basin_rainfall_thresholds(
     hourly_wl_path = os.path.join(processed_dir, f"{basin}_hourly_waterlevel.csv")
     wl_stations_path = os.path.join(station_dir, f"{basin}_waterlevel_stations.json")
 
-    if not os.path.exists(hourly_rain_path) or not os.path.exists(hourly_wl_path):
-        print(f"❌ ERROR: Processed time-series files not found in {processed_dir}. Run consolidate_basin_data.py first!", file=sys.stderr)
-        return []
-
     print(f"\n🌧️ [STEP 5] Calculating ML Rainfall Trigger Thresholds for Basin: {basin.upper()}")
 
     # 1. Load or Generate Rainfall Relations & Station Metadata
@@ -142,8 +140,19 @@ def calculate_basin_rainfall_thresholds(
 
     alias_map = build_station_alias_map(basin_dir)
     print("  [1/4] Loading Hourly Time-Series (Rainfall & Water Level)...")
-    wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)
-    rain_series = load_hourly_rainfall_series(hourly_rain_path, station_aliases=alias_map)
+    if os.path.exists(hourly_wl_path):
+        wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)
+    else:
+        print(f"  [FALLBACK] {hourly_wl_path} not found. Using Regional ML Thresholds fallback.")
+        wl_series = {}
+
+    if os.path.exists(hourly_rain_path):
+        rain_series = load_hourly_rainfall_series(hourly_rain_path, station_aliases=alias_map)
+    else:
+        print(f"  [FALLBACK] {hourly_rain_path} not found. Using Regional ML Thresholds fallback.")
+        rain_series = {}
+
+
 
     # 2. Process Observed Rain-to-Gauge Pairs
     total_relations = len(rainfall_relations)
@@ -232,7 +241,8 @@ def main():
     parser.add_argument("--update-existing", action="store_true", default=True, help="Update existing relation and export files in-place")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
+
 
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)

@@ -15,7 +15,9 @@ from datetime import datetime
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import save_json, load_geojson, load_stations_for_basin
+
 from scripts.modules.hydrology_model import (
     parse_timestamp,
     detect_flood_rise_and_plateau_events,
@@ -129,9 +131,6 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
     if not os.path.exists(station_relations_path):
         print(f"❌ ERROR: station-relations.json not found in {station_dir}. Run 03_build_station_chain.py first!", file=sys.stderr)
         sys.exit(1)
-    if not os.path.exists(hourly_wl_path):
-        print(f"❌ ERROR: {hourly_wl_path} not found. Run consolidate_basin_data.py first!", file=sys.stderr)
-        sys.exit(1)
 
     print(f"\n📊 [STEP 4] Training Travel Time & Response Model for Basin: {basin.upper()}")
 
@@ -150,7 +149,11 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
             print(f"        [OSM] Replaced DEM gauge routes with {len(osm_relations)} pure OSM vector routes.")
 
     alias_map = build_station_alias_map(basin_dir)
-    wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)
+    if os.path.exists(hourly_wl_path):
+        wl_series = load_hourly_waterlevel_series(hourly_wl_path, station_aliases=alias_map)
+    else:
+        print(f"  [FALLBACK] {hourly_wl_path} not found. Using Kinematic & Hydraulic Physics fallback for travel time estimates.")
+        wl_series = {}
 
     # 2. Detect Flood Events for each station
     print("  [1/4] Detecting 4-hour continuous rise events and plateau holding periods...")
@@ -162,7 +165,7 @@ def run_response_model_pipeline(basin: str, basin_dir: str):
             station_events[st_id] = events
             total_events += len(events)
 
-    print(f"        Detected flood events across active stations.")
+    print(f"        Detected {total_events} flood events across active stations.")
 
     # 3. Calculate Observed Travel Times for connected station pairs
     print("  [2/4] Calculating Observed Travel Times for connected station pairs...")
@@ -229,10 +232,11 @@ def main():
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
         run_response_model_pipeline(b, basin_dir)
+
 
 
 if __name__ == "__main__":

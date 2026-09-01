@@ -4,8 +4,10 @@ import json
 import argparse
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 from scripts.modules.gis_utils import save_json
 from scripts.modules.graph_topology import compute_rainfall_lag_bounds
+
 
 def patch_travel_times(basin: str, basin_dir: str):
     print(f"\n==================================================================")
@@ -64,7 +66,8 @@ def main():
     parser.add_argument("--dir", type=str, default="./dataset", help="Dataset directory")
     args = parser.parse_args()
 
-    basin_list = ["yom", "nan", "ping", "wang", "chao-phraya"] if args.basin == "all" else [args.basin]
+    basin_list = get_all_slugs() if args.basin == "all" else [args.basin]
+
     for b in basin_list:
         basin_dir = os.path.join(args.dir, b)
         patch_travel_times(b, basin_dir)

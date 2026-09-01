@@ -18,47 +18,10 @@ from typing import Dict, List, Any, Optional
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-# ----------------------------------------------------------------------
-# Constants & Reference Lookups
-# ----------------------------------------------------------------------
+from scripts.modules.basin_registry import get_all_basins, get_basin
 
-BASINS = [
-    {
-        "slug": "yom",
-        "code_num": 8,
-        "code_str": "08",
-        "name_th": "ลุ่มน้ำยม",
-        "name_en": "Yom River Basin",
-    },
-    {
-        "slug": "nan",
-        "code_num": 9,
-        "code_str": "09",
-        "name_th": "ลุ่มน้ำน่าน",
-        "name_en": "Nan River Basin",
-    },
-    {
-        "slug": "ping",
-        "code_num": 6,
-        "code_str": "06",
-        "name_th": "ลุ่มน้ำปิง",
-        "name_en": "Ping River Basin",
-    },
-    {
-        "slug": "wang",
-        "code_num": 7,
-        "code_str": "07",
-        "name_th": "ลุ่มน้ำวัง",
-        "name_en": "Wang River Basin",
-    },
-    {
-        "slug": "chao-phraya",
-        "code_num": 10,
-        "code_str": "10",
-        "name_th": "ลุ่มน้ำเจ้าพระยา",
-        "name_en": "Chao Phraya Basin",
-    },
-]
+BASINS = get_all_basins()
+
 
 # Yom River Sub-basins (08xx)
 YOM_SUB_BASINS: Dict[str, Dict[str, str]] = {
@@ -405,10 +368,11 @@ def save_dataset_files(stations: List[Dict[str, Any]], json_path: Path, csv_path
 def process_all_basins(
     rain_input_path: Path,
     waterlevel_input_path: Path,
-    output_dir: Path
+    output_dir: Path,
+    target_basins: Optional[List[str]] = None,
 ):
     print("=" * 80)
-    print("  WATER ANALYSIS MODEL - BASIN STATION DATASET GENERATOR")
+    print("  WATER ANALYSIS MODEL - BASIN STATION DATASET GENERATOR (22 BASINS)")
     print("=" * 80)
 
     # 1. Load raw data
@@ -429,16 +393,23 @@ def process_all_basins(
             wl_all_features.extend(fc.get("features", []))
     print(f"    -> โหลดข้อมูลสถานีระดับน้ำดิบสำเร็จ: {len(wl_all_features):,} รายการ")
 
+    # Filter basins if specified
+    active_basins = BASINS
+    if target_basins and "all" not in target_basins:
+        target_slugs = set(s.lower() for s in target_basins)
+        active_basins = [b for b in BASINS if b["slug"] in target_slugs]
+
     # 2. Process each basin
-    print(f"\n[2/3] กำลังประมวลผลแยกข้อมูลตาม 5 ลุ่มน้ำหลัก...")
+    print(f"\n[2/3] กำลังประมวลผลแยกข้อมูลตาม {len(active_basins)} ลุ่มน้ำ...")
 
     summary_report = []
 
-    for basin_info in BASINS:
+    for basin_info in active_basins:
         slug = basin_info["slug"]
         code_num = basin_info["code_num"]
         code_str = basin_info["code_str"]
         name_th = basin_info["name_th"]
+        tw_name = basin_info.get("thaiwater_name", "")
 
         # Ensure directory structure: dataset/{basin}/station, rainfall, waterlevel
         basin_station_dir = output_dir / slug / "station"
@@ -463,9 +434,9 @@ def process_all_basins(
             match = False
             if sub_id.startswith(code_str):
                 match = True
-            elif basin_obj.get("id") == code_num or basin_obj.get("basin_code") == code_num:
+            elif name_th in b_name or (tw_name and tw_name in b_name):
                 match = True
-            elif name_th in b_name or basin_info["name_en"] in str(basin_obj.get("basin_name")):
+            elif basin_info["name_en"].lower() in str(basin_obj.get("basin_name")).lower():
                 match = True
 
             if match:
@@ -535,7 +506,7 @@ def process_all_basins(
             match = False
             if b_code == code_str:
                 match = True
-            elif name_th in b_name:
+            elif name_th in b_name or (tw_name and tw_name in b_name):
                 match = True
 
             if match:
@@ -637,20 +608,30 @@ def process_all_basins(
         total_wl_all += r['wl_total']
         total_wl_rid += r['wl_rid']
     print("-" * 88)
-    print(f"รวมสถานีฝนทั้งหมดทุก 5 ลุ่มน้ำ: {total_rain_all:,} สถานี")
-    print(f"รวมสถานีระดับน้ำทั้งหมดทุก 5 ลุ่มน้ำ: {total_wl_all:,} สถานี (เป็นของกรมชลประทาน RID: {total_wl_rid:,} สถานี)")
+    print(f"รวมสถานีฝนทั้งหมด: {total_rain_all:,} สถานี")
+    print(f"รวมสถานีระดับน้ำทั้งหมด: {total_wl_all:,} สถานี (เป็นของกรมชลประทาน RID: {total_wl_rid:,} สถานี)")
     print(f"จัดเก็บไฟล์เรียบร้อยที่โฟลเดอร์: {output_dir.resolve()}")
     print("=" * 80)
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Extract station lists by river basin (22 basins)")
+    parser.add_argument("--basin", type=str, default="all", help="Target basin slug (or 'all')")
+    parser.add_argument("--dir", type=str, default="./dataset", help="Output dataset directory")
+    args = parser.parse_args()
+
     base_dir = Path(__file__).parent
     rain_input = base_dir / "response-api-rainstation.json"
     wl_input = base_dir / "reqponse-api-waterlevel.json"
-    out_dir = base_dir / "dataset"
+    out_dir = Path(args.dir)
+
+    target_basins = None if args.basin == "all" else [args.basin]
 
     process_all_basins(
         rain_input_path=rain_input,
         waterlevel_input_path=wl_input,
-        output_dir=out_dir
+        output_dir=out_dir,
+        target_basins=target_basins,
     )
+

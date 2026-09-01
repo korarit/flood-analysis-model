@@ -26,10 +26,12 @@ import argparse
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
-if sys.stdout and hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
+# Add parent directory to sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.modules.basin_registry import get_all_slugs, get_basin
 
-BASIN_LIST = ["yom", "nan", "ping", "wang", "chao-phraya"]
+BASIN_LIST = get_all_slugs()
+
 
 
 def load_json_file(file_path: Path) -> Optional[Any]:
