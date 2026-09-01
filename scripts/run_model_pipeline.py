@@ -91,8 +91,8 @@ def run_pipeline_for_basin(
     os.makedirs(terrain_basin_dir, exist_ok=True)
 
     basin_info = get_basin(basin)
-    th_name = basin_info.name_th if basin_info else basin
-    en_name = basin_info.name_en if basin_info else basin
+    th_name = basin_info.get("name_th", basin) if basin_info else basin
+    en_name = basin_info.get("name_en", basin) if basin_info else basin
 
     print("\n" + "═" * 78)
     print(f"🚀 [PIPELINE START] Basin: {basin.upper()} ({th_name} / {en_name})")
