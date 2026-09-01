@@ -7,8 +7,8 @@ from automated GIS & FABDEM 30m downloads to Backend & Frontend GeoJSON/JSON exp
 
 Steps:
   [Step 1] Automated GIS Boundaries, OSM Waterways/Polygons & FABDEM 30m Ingestion
-  [Step 2] Terrain Engine & OSM River Network Extraction (with DEM profiling & RDP simplification)
-  [Step 3] Station Snapping & 2-Layer Hybrid Flow Paths & Sub-Catchments (Stream Burning 15m + D8)
+  [Step 2] 2-Layer Hybrid Flow Paths & Hydro-Enforced Stream Routing (Stream Burning 15m + D8)
+  [Step 3] Sub-Catchment Polygon Delineation (from Flow Accumulation Grids)
   [Step 3.5] OSM Vector-Based Waterlevel Topology (Gauge-to-Gauge Relations)
   [Step 4] Travel Time & Hydrological Response Model (4h Rise Detection + ML Ridge / Kinematic Fallback)
   [Step 5] Empirical ML Rainfall Trigger Thresholds (K-Means AMC Soil Regimes + 4 Windows: 3h, 24h, 72h, 168h)
@@ -48,7 +48,6 @@ from scripts.fetch_basin_gis import (
     fetch_osm_water_polygons,
     download_fabdem
 )
-from scripts.build_river_network import process_basin_terrain
 from scripts.generate_flow_paths import generate_basin_flow_paths
 from scripts.generate_catchments import generate_basin_catchments
 from scripts.generate_osm_waterlevel_relations import generate_osm_relations
@@ -62,7 +61,6 @@ def run_pipeline_for_basin(
     basin: str,
     dataset_dir: str = "./dataset",
     terrain_dir: str = "./terrain",
-    stream_threshold: int = 300,
     force: bool = False,
     force_osm: bool = False,
     force_dem: bool = False,
@@ -164,25 +162,10 @@ def run_pipeline_for_basin(
         print(f"\n🌊 [Step 1/6] Skipping GIS/DEM fetch (--skip-fetch specified)...")
 
     # -------------------------------------------------------------
-    # Step 2: Terrain Engine & River Network Extraction
+    # Step 2: Station Snapping & 2-Layer Hybrid Flow Paths
     # -------------------------------------------------------------
     t0 = time.time()
-    print(f"\n🏔️ [Step 2/6] Profiling River Network, Elevations, and Confluences...")
-    process_basin_terrain(
-        basin=basin,
-        basin_dir=basin_dir,
-        terrain_dir=terrain_basin_dir,
-        stream_threshold=stream_threshold,
-        force=force
-    )
-    t2_elapsed = time.time() - t0
-    print(f"  ⏱️ Step 2 completed in {t2_elapsed:.1f}s")
-
-    # -------------------------------------------------------------
-    # Step 3: Station Snapping & 2-Layer Hybrid Flow Paths & Catchments
-    # -------------------------------------------------------------
-    t0 = time.time()
-    print(f"\n🔗 [Step 3/6] Hydro-Enforcing DEM, Snapping Stations, Tracing Flow Paths & Catchments...")
+    print(f"\n🔗 [Step 2/6] Hydro-Enforcing DEM, Snapping Stations & Tracing 2-Layer Flow Paths...")
     generate_basin_flow_paths(
         basin=basin,
         basin_dir=basin_dir,
@@ -191,6 +174,14 @@ def run_pipeline_for_basin(
         burn_depth=burn_depth,
         crop_buffer_m=crop_buffer_m
     )
+    t2_elapsed = time.time() - t0
+    print(f"  ⏱️ Step 2 completed in {t2_elapsed:.1f}s")
+
+    # -------------------------------------------------------------
+    # Step 3: Catchment Polygon Delineation
+    # -------------------------------------------------------------
+    t0 = time.time()
+    print(f"\n🏔️ [Step 3/6] Delineating Sub-Catchment Polygons for Stations...")
     generate_basin_catchments(
         basin=basin,
         basin_dir=basin_dir,
@@ -246,8 +237,8 @@ def run_pipeline_for_basin(
     print("\n" + "═" * 78)
     print(f"✅ [PIPELINE FINISHED] Basin: {basin.upper()} ({th_name}) in {total_elapsed:.1f}s")
     print(f"   • Step 1 (GIS & DEM Fetch)        : {t1_elapsed:.1f}s")
-    print(f"   • Step 2 (River Network Engine)   : {t2_elapsed:.1f}s")
-    print(f"   • Step 3 (Flow Paths & Catchment) : {t3_elapsed:.1f}s")
+    print(f"   • Step 2 (Flow Paths Engine)      : {t2_elapsed:.1f}s")
+    print(f"   • Step 3 (Catchment Delineation)  : {t3_elapsed:.1f}s")
     print(f"   • Step 3.5 (OSM Gauge Topology)   : {t35_elapsed:.1f}s")
     print(f"   • Step 4 (Response Travel Time)   : {t4_elapsed:.1f}s")
     print(f"   • Step 5 (Rain Trigger Engine)    : {t5_elapsed:.1f}s")
@@ -266,7 +257,6 @@ def main():
     )
     parser.add_argument("--dir", type=str, default="./dataset", help="Root dataset directory")
     parser.add_argument("--terrain-dir", type=str, default="./terrain", help="Terrain DEM directory (independent of --dir)")
-    parser.add_argument("--threshold", type=int, default=300, help="Stream delineation cell accumulation threshold (default: 300)")
     parser.add_argument("--burn-depth", type=float, default=15.0, help="Stream channel burn depth in meters (default: 15.0)")
     parser.add_argument("--crop-buffer-m", type=float, default=2000.0, help="Buffer in meters for OSM data boundary cropping (default: 2000.0)")
     parser.add_argument("--force", action="store_true", help="Force re-generation of all steps and caches")
@@ -286,7 +276,6 @@ def main():
             basin=b,
             dataset_dir=args.dir,
             terrain_dir=args.terrain_dir,
-            stream_threshold=args.threshold,
             force=args.force,
             force_osm=args.force_osm,
             force_dem=args.force_dem,
