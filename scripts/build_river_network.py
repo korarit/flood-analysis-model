@@ -135,66 +135,92 @@ def process_basin_terrain(
     node_endpoints = {}
 
     for feat in osm_features:
-        coords = feat.get("geometry", {}).get("coordinates", [])
-        if not coords or len(coords) < 2:
+        geom = feat.get("geometry") or {}
+        gtype = geom.get("type", "")
+        raw_coords = geom.get("coordinates", [])
+
+        if gtype == "LineString":
+            lines = [raw_coords]
+        elif gtype == "MultiLineString":
+            lines = raw_coords
+        elif gtype == "GeometryCollection":
+            lines = [g.get("coordinates", []) for g in geom.get("geometries", []) if g.get("type") == "LineString"]
+            for g in geom.get("geometries", []):
+                if g.get("type") == "MultiLineString":
+                    lines.extend(g.get("coordinates", []))
+        else:
             continue
 
-        # Spatial Southern Limit Filter: keep river if ANY part of it is above effective_min_lat
-        lats = [c[1] for c in coords]
-        if max(lats) < effective_min_lat:
-            continue
+        props = feat.get("properties") or {}
 
-        props = feat.get("properties", {})
-        length_km = linestring_length_km(coords)
-        if length_km < 0.05:  # Skip trivial micro-segments < 50m
-            continue
+        for coords in lines:
+            if not coords or len(coords) < 2:
+                continue
 
-        # Sample Elevations
-        z_start = sample_elev(coords[0][0], coords[0][1])
-        z_end = sample_elev(coords[-1][0], coords[-1][1])
+            # Ensure coords is a list of [lon, lat] pairs (not nested lists)
+            valid_pts = [
+                c for c in coords
+                if isinstance(c, (list, tuple)) and len(c) >= 2
+                and isinstance(c[0], (int, float)) and isinstance(c[1], (int, float))
+            ]
+            if len(valid_pts) < 2:
+                continue
 
-        # Enforce Downhill Flow Direction (higher to lower elevation)
-        oriented_coords = list(coords)
-        if z_start < z_end - 0.5:
-            oriented_coords.reverse()
-            z_start, z_end = z_end, z_start
+            # Spatial Southern Limit Filter: keep river if ANY part of it is above effective_min_lat
+            lats = [c[1] for c in valid_pts]
+            if max(lats) < effective_min_lat:
+                continue
 
-        dz = max(0.0, z_start - z_end)
-        slope = (dz / (length_km * 1000.0)) if length_km > 0.001 else 0.0005
+            length_km = linestring_length_km(valid_pts)
+            if length_km < 0.05:  # Skip trivial micro-segments < 50m
+                continue
 
-        reach_counter += 1
-        reach_id = f"REACH_{reach_counter:05d}"
-        r_name = props.get("name_th") or props.get("name") or props.get("name_en") or ""
+            # Sample Elevations
+            z_start = sample_elev(valid_pts[0][0], valid_pts[0][1])
+            z_end = sample_elev(valid_pts[-1][0], valid_pts[-1][1])
 
-        clean_props = {
-            "reach_id": reach_id,
-            "osm_id": props.get("osm_id", reach_counter),
-            "river_name": r_name,
-            "waterway": props.get("waterway", "stream"),
-            "length_km": round(length_km, 3),
-            "upstream_elev_m": round(z_start, 2),
-            "downstream_elev_m": round(z_end, 2),
-            "elevation_diff_m": round(dz, 2),
-            "river_slope": round(slope, 6)
-        }
+            # Enforce Downhill Flow Direction (higher to lower elevation)
+            oriented_coords = list(valid_pts)
+            if z_start < z_end - 0.5:
+                oriented_coords.reverse()
+                z_start, z_end = z_end, z_start
 
-        out_feat = {
-            "type": "Feature",
-            "id": reach_id,
-            "properties": clean_props,
-            "geometry": {
-                "type": "LineString",
-                "coordinates": oriented_coords
+            dz = max(0.0, z_start - z_end)
+            slope = (dz / (length_km * 1000.0)) if length_km > 0.001 else 0.0005
+
+            reach_counter += 1
+            reach_id = f"REACH_{reach_counter:05d}"
+            r_name = props.get("name_th") or props.get("name") or props.get("name_en") or ""
+
+            clean_props = {
+                "reach_id": reach_id,
+                "osm_id": props.get("osm_id", reach_counter),
+                "river_name": r_name,
+                "waterway": props.get("waterway", "stream"),
+                "length_km": round(length_km, 3),
+                "upstream_elev_m": round(z_start, 2),
+                "downstream_elev_m": round(z_end, 2),
+                "elevation_diff_m": round(dz, 2),
+                "river_slope": round(slope, 6)
             }
-        }
-        all_river_features.append(out_feat)
-        all_river_segments.append(clean_props)
 
-        # Track endpoints for Confluence detection
-        start_pt = (round(oriented_coords[0][0], 4), round(oriented_coords[0][1], 4))
-        end_pt = (round(oriented_coords[-1][0], 4), round(oriented_coords[-1][1], 4))
-        node_endpoints.setdefault(start_pt, []).append((reach_id, "start"))
-        node_endpoints.setdefault(end_pt, []).append((reach_id, "end"))
+            out_feat = {
+                "type": "Feature",
+                "id": reach_id,
+                "properties": clean_props,
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": oriented_coords
+                }
+            }
+            all_river_features.append(out_feat)
+            all_river_segments.append(clean_props)
+
+            # Track endpoints for Confluence detection
+            start_pt = (round(oriented_coords[0][0], 4), round(oriented_coords[0][1], 4))
+            end_pt = (round(oriented_coords[-1][0], 4), round(oriented_coords[-1][1], 4))
+            node_endpoints.setdefault(start_pt, []).append((reach_id, "start"))
+            node_endpoints.setdefault(end_pt, []).append((reach_id, "end"))
 
     # 5. Detect Confluences (where 2 or more tributaries meet)
     all_confluences = []
