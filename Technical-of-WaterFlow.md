@@ -65,7 +65,7 @@
 | **Stream Burning (AGREE / Trenching)** | การปรับสภาพแบบจำลองภูมิประเทศ | บังคับร่องน้ำเวกเตอร์ลงใน DEM ลึก 15 เมตร เพื่อป้องกันไม่ให้น้ำไหลข้ามถนน/สะพาน |
 | **Wang & Liu Pit Filling & Flat Resolution** | การจำลองอุทกวิทยาเชิงตัวเลข | เติมหลุมยุบ (Sinks) และสร้างความลาดเอียงเทียมในที่ราบลุ่มน้ำแบนราบ |
 | **Directed Acyclic Graph (DAG)** | ทฤษฎีกราฟและวิทยาการคอมพิวเตอร์ | จัดการโครงข่ายแม่น้ำแบบมีทิศทางตามแรงโน้มถ่วง ป้องกันการไหลวนลูป |
-| **Spatial Hash Grid Indexing** | การประมวลผลข้อมูลเชิงพื้นที่ $O(1)$ | รวมจุดเชื่อมต่อแม่น้ำ (Vertex Welding) และค้นหาสถานีใกล้เคียงด้วยความเร็วสูง |
+| **Spatial Hash Grid Indexing** | การประมวลผลเชิงพื้นที่ความเร็วสูง | รวมจุดเชื่อมต่อแม่น้ำ (Vertex Welding) และค้นหาสถานีใกล้เคียง |
 | **Haversine Geodesic Meander Distance** | ภูมิมาตรศาสตร์ (Geodesy) | คำนวณระยะทางจริงตามความคดเคี้ยวของลำน้ำบนทรงกลมโลก |
 
 ---
@@ -99,10 +99,14 @@ flowchart TD
 
 ### การขุดร่องน้ำและการแก้ไขแอ่งน้ำขัง (Stream Burning & Flat Resolution)
 
-1. **ปัญหาของ Raw DEM:** ข้อมูลความสูงจากดาวเทียม (SRTM/FABDEM) มักตรวจจับยอดสะพาน ถนน หรือคันดินกั้นน้ำเป็นแนวภูเขาขวางลำน้ำ ทำให้น้ำจำลองไหลสะดุดหรือไหลออกนอกแม่น้ำจริง
+1. **ปัญหาของ Raw DEM:** ข้อมูลความสูงจากดาวเทียม (SRTM/FABDEM) มักตรวจจับยอดสะพาน ถนน หรือคันดินกั้นน้ำเป็นแนวขวางลำน้ำ ทำให้น้ำจำลองไหลสะดุดหรือไหลออกนอกแม่น้ำจริง
 2. **การทำ Hydro-Enforced Stream Burning (`burn_stream_network_into_dem`):**
-   ระบบนำเส้นเวกเตอร์ลำน้ำจริงจาก OpenStreetMap มาขุดร่อง (Burn) ลงบนตารางกริด DEM ด้วยความลึก $15\text{ เมตร}$:
-   $$Z_{\text{conditioned}}(r, c) = Z_{\text{dem}}(r, c) - 15.0 \quad \text{เมื่อ } (r, c) \in \text{OSM Stream Footprint}$$
+   ระบบนำเส้นเวกเตอร์ลำน้ำจริงจาก OpenStreetMap มาขุดร่อง (Burn) ลงบนตารางกริด DEM ด้วยความลึก 15 เมตร:
+
+$$Z_{\text{conditioned}}(r, c) = Z_{\text{dem}}(r, c) - 15.0$$
+
+*(ใช้เฉพาะกริดพิกัด $(r, c)$ ที่ทับซ้อนกับร่องน้ำ OSM Stream Footprint)*
+
 3. **การแก้ปัญหาที่ราบลุ่มน้ำขัง (`enforce_geodesic_flat_slope`):**
    สำหรับพื้นที่ราบเรียบที่ผลต่างความสูงเป็นศูนย์ ($\Delta Z = 0$) ระบบจะสร้างความลาดเอียงขนาดเล็กยิ่งยวด ($10^{-6}\text{ m/m}$) ชี้ตรงไปยังจุดทางออก เพื่อป้องกันไม่ให้เกิดกริดน้ำขัง (Sinks/Flats)
 
@@ -110,19 +114,30 @@ flowchart TD
 
 ### ทฤษฎี D8 Flow Direction และ Flow Accumulation
 
-* **D8 Flow Direction:** พิจารณากริดรอบตัว 8 ทิศ และเลือกทิศทางที่มี **ความลาดชันสูงสุด (Steepest Slope Drop)**:
-  $$\text{Slope}_i = \frac{Z_{\text{center}} - Z_i}{d_i}$$
-  *(โดย $d_i = \text{Cell Size}$ สำหรับทิศหลัก และ $d_i = \sqrt{2} \times \text{Cell Size}$ สำหรับทิศทแยง)*
+#### 1. D8 Flow Direction
+พิจารณากริดรอบตัว 8 ทิศ และเลือกทิศทางที่มี **ความลาดชันสูงสุด (Steepest Downward Slope)**:
+
+$$S_i = \frac{Z_{\text{center}} - Z_i}{d_i}$$
+
+* $Z_{\text{center}}$ : ระดับความสูงของเซลล์กึ่งกลาง
+* $Z_i$ : ระดับความสูงของเซลล์ข้างเคียงทิศที่ $i$ ($i = 1, 2, \dots, 8$)
+* $d_i$ : ระยะห่างระหว่างจุดศูนย์กลางเซลล์
+  * สำหรับทิศหลัก (เหนือ, ใต้, ออก, ตก): $d_i = \text{Cell Size}$ (ประมาณ 30 เมตร)
+  * สำหรับทิศทแยง (เฉียง): $d_i = \sqrt{2} \times \text{Cell Size}$ (ประมาณ 42.4 เมตร)
 
 ```text
-  ทิศทางการไหล D8 (รหัสไบนารี):
-  [ 32 ]  [ 64 ]  [ 128 ]
-  [ 16 ]  [ C  ]  [  1  ]
-  [  8 ]  [  4 ]  [  2  ]
+  รหัสทิศทางการไหล D8 (Binary Direction Encoding):
+  [ 32 ]  [ 64 ]  [ 128 ]       ( NW )   ( N )   ( NE )
+  [ 16 ]  [ C  ]  [  1  ]       ( W  )  ( เซลล์ ) ( E  )
+  [  8 ]  [  4 ]  [  2  ]       ( SW )   ( S )   ( SE )
 ```
 
-* **Flow Accumulation ($A_{\text{acc}}$):** คำนวณจำนวนเซลล์ต้นน้ำทั้งหมดที่ระบายน้ำไหลผ่านเซลล์ปัจจุบัน:
-  $$A_{\text{acc}}(u) = 1 + \sum_{v \in \text{Upstream}(u)} A_{\text{acc}}(v)$$
+#### 2. Flow Accumulation
+คำนวณจำนวนเซลล์ต้นน้ำทั้งหมดที่ไหลมารวมกันที่เซลล์ปัจจุบัน:
+
+$$\text{Acc}(u) = 1 + \sum_{v \in \text{Upstream}(u)} \text{Acc}(v)$$
+
+* เซลล์ที่มีค่า $\text{Acc}$ สูง จะหมายถึงแนวแม่น้ำสายหลักและลำน้ำสาขา
 
 ---
 
@@ -166,7 +181,7 @@ flowchart TD
 
 คลาส `DirectedRiverGraph` ใน [`graph_topology.py`](file:///home/korarit/Desktop/flood-analysis-project/flood-analysis-model/scripts/modules/graph_topology.py#L119) ทำหน้าที่สร้างกราฟเครือข่ายแม่น้ำ:
 
-1. **Spatial Hash Grid Vertex Welding ($O(1)$ Complexity):**
+1. **Spatial Hash Grid Vertex Welding:**
    * จัดแบ่งพิกัดเป็นตารางกริดขนาดเล็ก ($\text{Tolerance} \approx 0.00035^{\circ} \approx 35\text{ เมตร}$)
    * จุดปลายของแม่น้ำที่อยู่ใกล้กันจะถูกเชื่อมประสานเป็นโหนดเดียวกันอัตโนมัติ ทำให้กราฟเชื่อมต่อกันต่อเนื่องตลอดทั้งสาย
 2. **Elevation-Enforced Directionality:**
@@ -180,9 +195,14 @@ flowchart TD
 สถานีวัดน้ำภาคสนามมักติดตั้งอยู่บนตลิ่งหรือข้างสะพาน ซึ่งพิกัด GPS จริงอาจคลาดเคลื่อนจากกึ่งกลางร่องน้ำเวกเตอร์:
 
 1. ระบบทำการฉายภาพตั้งฉาก (Orthogonal Projection) จากพิกัดสถานี $P(x_p, y_p)$ ไปยังเส้นตรงของลำน้ำ $AB$:
-   $$t = \frac{(x_p - x_a)(x_b - x_a) + (y_p - y_a)(y_b - y_a)}{\|B - A\|^2}, \quad t \in [0, 1]$$
-   $$P_{\text{snapped}} = A + t(B - A)$$
-2. แทรกจุด $P_{\text{snapped}}$ เข้าเป็นโหนดใหม่ในโครงข่ายแม่น้ำ และแบ่ง Edge ย่อยออกเป็น 2 ท่อนอย่างแม่นยำ
+
+$$L^2 = (x_b - x_a)^2 + (y_b - y_a)^2$$
+
+$$t = \frac{(x_p - x_a)(x_b - x_a) + (y_p - y_a)(y_b - y_a)}{L^2}, \quad t \in [0, 1]$$
+
+$$P_{\text{snap}} = A + t(B - A)$$
+
+2. แทรกจุด $P_{\text{snap}}$ เข้าเป็นโหนดใหม่ในโครงข่ายแม่น้ำ และแบ่ง Edge ย่อยออกเป็น 2 ท่อนอย่างแม่นยำ
 
 ---
 
