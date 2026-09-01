@@ -121,7 +121,58 @@
 
 ## 4. วิธีการรันระบบ (Quickstart & Execution Guide)
 
-### 4.1 การรันโมเดลหลัก (Master Pipeline)
+
+### 4.1 การรวบรวมและเตรียมชุดข้อมูล (Data Collection & Scraping Guide)
+
+ชุดสคริปต์สำหรับเตรียมข้อมูลสถานี, ขูดข้อมูลย้อนหลังจากหน่วยงานต่างๆ (HII, DWR, RID), และรวมเป็น Time-series รายชั่วโมง:
+
+```bash
+# -------------------------------------------------------------
+# ขั้นตอนที่ 1: แยกรายชื่อสถานีตาม 22 ลุ่มน้ำหลักจาก API Master Data
+# -------------------------------------------------------------
+# รันแยกลุ่มน้ำทั้งหมด (สร้าง dataset/{basin}/station/ และ summary.json)
+python generate_station_dataset.py --basin all
+
+# หรือรันเฉพาะลุ่มน้ำที่ต้องการ (เช่น yom, chi, mae-klong)
+python generate_station_dataset.py --basin yom
+
+# -------------------------------------------------------------
+# ขั้นตอนที่ 2: ดึงค่าระดับตลิ่ง (Bank MSL), ศูนย์เสา (ZG), QMax จากกรมชลประทาน
+# -------------------------------------------------------------
+# ดึงข้อมูลสถานีชลประทานทั้งประเทศ (Utok 1-8) และ Enrich ไฟล์สถานีทุกทุกลุ่มน้ำ
+python scrape_rid_station_metadata.py --basin all
+
+# หรืออัปเดตเฉพาะลุ่มน้ำที่ต้องการ
+python scrape_rid_station_metadata.py --basin yom
+
+# -------------------------------------------------------------
+# ขั้นตอนที่ 3: ดาวน์โหลดข้อมูลประวัติฝนและระดับน้ำย้อนหลัง (01/2025 - 07/2026)
+# -------------------------------------------------------------
+# 3.1 ดึงข้อมูลฝนและระดับน้ำจาก HII Open Data Catalog (ทั้ง Non-MOU และ MOU)
+python fetch_hii_data.py --basin yom --start 202501 --end 202607
+# (ทดสอบเร็วด้วย --smoke-test หรือรันทุกทุกลุ่มน้ำด้วย --basin all)
+
+# 3.2 ขูดข้อมูลฝนรายชั่วโมงจากกรมทรัพยากรน้ำ (DWR Web Scraper แบบ 8-Day Chunking)
+python scrape_dwr_rain.py --basin yom --workers 4
+# (ทดสอบเร็วด้วย --smoke-test หรือรันทุกทุกลุ่มน้ำด้วย --basin all)
+
+# 3.3 ขูดข้อมูลระดับน้ำรายชั่วโมงจากกรมชลประทาน (RID Web Service WCF)
+python scrape_rid_waterlevel.py --basin yom --workers 10
+# (ทดสอบเร็วด้วย --smoke-test หรือรันทุกทุกลุ่มน้ำด้วย --basin all)
+
+# -------------------------------------------------------------
+# ขั้นตอนที่ 4: รวมและทำความสะอาดข้อมูล Time-series รายชั่วโมง (Consolidation)
+# -------------------------------------------------------------
+# รวมข้อมูลฝนและระดับน้ำจากทุกแหล่งเข้าด้วยกัน -> processed/{basin}_hourly_*.csv
+python consolidate_basin_data.py --basin yom
+
+# หรือรวมข้อมูลครบทุก 22 ลุ่มน้ำ
+python consolidate_basin_data.py --basin all
+```
+
+---
+
+### 4.2 การรันโมเดลหลัก (Master Pipeline)
 
 สามารถรันครบทุกขั้นตอน (Step 1 ถึง Step 6) จบในคำสั่งเดียวสำหรับลุ่มน้ำใดๆ:
 
@@ -139,10 +190,9 @@
 ./venv/bin/python scripts/run_model_pipeline.py --basin all
 ```
 
-
 ---
 
-### 4.2 สคริปต์ด่วนเฉพาะจุด (Standalone Fast Utilities)
+### 4.3 สคริปต์ด่วนเฉพาะจุด (Standalone Fast Utilities)
 
 หากต้องการปรับปรุงเฉพาะส่วนโดยไม่ต้องรันทั้งไปป์ไลน์ใหม่:
 
@@ -165,6 +215,7 @@
 # 📦 ส่งออกไฟล์สำหรับ Frontend และ Database
 ./venv/bin/python scripts/export_backend_dataset.py --basin yom
 ```
+
 
 ---
 
