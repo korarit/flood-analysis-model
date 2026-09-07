@@ -1,0 +1,169 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "mun_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำมูลตอนบน (ปักธงชัย/โชคชัย/นครราชสีมา)",
+        "basin_slug": "mun",
+        "order": 1,
+        "downstream_subbasin": "mun_02_mid_north",
+        "min_lat": 15.8035,
+        "max_lat": 16.364,
+        "min_lon": 101.226,
+        "max_lon": 105.658
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              105.658,
+              15.7735
+            ],
+            [
+              105.658,
+              16.394000000000002
+            ],
+            [
+              101.226,
+              16.394000000000002
+            ],
+            [
+              101.226,
+              15.7735
+            ],
+            [
+              105.658,
+              15.7735
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "mun_02_mid_north",
+        "subbasin_name_th": "ลุ่มน้ำมูลตอนกลางเหนือ (พิมาย/ชุมพวง/สตึก)",
+        "basin_slug": "mun",
+        "order": 2,
+        "downstream_subbasin": "mun_03_central",
+        "min_lat": 15.243,
+        "max_lat": 15.8035,
+        "min_lon": 101.226,
+        "max_lon": 105.658
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              105.658,
+              15.213000000000001
+            ],
+            [
+              105.658,
+              15.833499999999999
+            ],
+            [
+              101.226,
+              15.833499999999999
+            ],
+            [
+              101.226,
+              15.213000000000001
+            ],
+            [
+              105.658,
+              15.213000000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "mun_03_central",
+        "subbasin_name_th": "ลุ่มน้ำมูลตอนกลาง (ท่าตูม/รัตนบุรี/ราษีไศล/ศรีสะเกษ)",
+        "basin_slug": "mun",
+        "order": 3,
+        "downstream_subbasin": "mun_04_lower",
+        "min_lat": 14.6825,
+        "max_lat": 15.243,
+        "min_lon": 101.226,
+        "max_lon": 105.658
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              105.658,
+              14.652500000000002
+            ],
+            [
+              105.658,
+              15.273000000000001
+            ],
+            [
+              101.226,
+              15.273000000000001
+            ],
+            [
+              101.226,
+              14.652500000000002
+            ],
+            [
+              105.658,
+              14.652500000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "mun_04_lower",
+        "subbasin_name_th": "ลุ่มน้ำมูลตอนล่าง (วารินชำราบ/อุบลราชธานี/โขงเจียม/บรรจบแม่น้ำโขง)",
+        "basin_slug": "mun",
+        "order": 4,
+        "downstream_subbasin": null,
+        "min_lat": 14.122,
+        "max_lat": 14.6825,
+        "min_lon": 101.226,
+        "max_lon": 105.658
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              105.658,
+              14.092
+            ],
+            [
+              105.658,
+              14.7125
+            ],
+            [
+              101.226,
+              14.7125
+            ],
+            [
+              101.226,
+              14.092
+            ],
+            [
+              105.658,
+              14.092
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

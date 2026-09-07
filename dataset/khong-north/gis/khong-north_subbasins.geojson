@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "khong-north_01",
+        "subbasin_name_th": "ลุ่มน้ำkhong-north ตอนบน (ต้นน้ำ)",
+        "basin_slug": "khong-north",
+        "order": 1,
+        "downstream_subbasin": "khong-north_02",
+        "min_lat": 19.93667,
+        "max_lat": 20.457,
+        "min_lon": 98.86,
+        "max_lon": 100.647
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.64699999999999,
+              19.906666666666666
+            ],
+            [
+              100.64699999999999,
+              20.487000000000002
+            ],
+            [
+              98.86,
+              20.487000000000002
+            ],
+            [
+              98.86,
+              19.906666666666666
+            ],
+            [
+              100.64699999999999,
+              19.906666666666666
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "khong-north_02",
+        "subbasin_name_th": "ลุ่มน้ำkhong-north ตอนกลาง",
+        "basin_slug": "khong-north",
+        "order": 2,
+        "downstream_subbasin": "khong-north_03",
+        "min_lat": 19.41633,
+        "max_lat": 19.93667,
+        "min_lon": 98.86,
+        "max_lon": 100.647
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.64699999999999,
+              19.386333333333333
+            ],
+            [
+              100.64699999999999,
+              19.96666666666667
+            ],
+            [
+              98.86,
+              19.96666666666667
+            ],
+            [
+              98.86,
+              19.386333333333333
+            ],
+            [
+              100.64699999999999,
+              19.386333333333333
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "khong-north_03",
+        "subbasin_name_th": "ลุ่มน้ำkhong-north ตอนล่าง (ท้ายน้ำ)",
+        "basin_slug": "khong-north",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 18.896,
+        "max_lat": 19.41633,
+        "min_lon": 98.86,
+        "max_lon": 100.647
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.64699999999999,
+              18.866
+            ],
+            [
+              100.64699999999999,
+              19.446333333333335
+            ],
+            [
+              98.86,
+              19.446333333333335
+            ],
+            [
+              98.86,
+              18.866
+            ],
+            [
+              100.64699999999999,
+              18.866
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

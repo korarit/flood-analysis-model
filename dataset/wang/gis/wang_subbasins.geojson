@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "wang_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำวังตอนบน (พาน/วังเหนือ/แจ้ห่ม)",
+        "basin_slug": "wang",
+        "order": 1,
+        "downstream_subbasin": "wang_02_central",
+        "min_lat": 18.69467,
+        "max_lat": 19.509,
+        "min_lon": 98.838,
+        "max_lon": 100.002
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.002,
+              18.664666666666665
+            ],
+            [
+              100.002,
+              19.539
+            ],
+            [
+              98.83800000000001,
+              19.539
+            ],
+            [
+              98.83800000000001,
+              18.664666666666665
+            ],
+            [
+              100.002,
+              18.664666666666665
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "wang_02_central",
+        "subbasin_name_th": "ลุ่มน้ำวังตอนกลาง (เมืองลำปาง/เกาะคา/สบปราบ)",
+        "basin_slug": "wang",
+        "order": 2,
+        "downstream_subbasin": "wang_03_lower",
+        "min_lat": 17.88033,
+        "max_lat": 18.69467,
+        "min_lon": 98.838,
+        "max_lon": 100.002
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.002,
+              17.85033333333333
+            ],
+            [
+              100.002,
+              18.724666666666668
+            ],
+            [
+              98.83800000000001,
+              18.724666666666668
+            ],
+            [
+              98.83800000000001,
+              17.85033333333333
+            ],
+            [
+              100.002,
+              17.85033333333333
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "wang_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำวังตอนล่าง (เถิน/แม่พริก/สามเงา/บรรจบแม่น้ำปิง)",
+        "basin_slug": "wang",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 17.066,
+        "max_lat": 17.88033,
+        "min_lon": 98.838,
+        "max_lon": 100.002
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.002,
+              17.035999999999998
+            ],
+            [
+              100.002,
+              17.910333333333334
+            ],
+            [
+              98.83800000000001,
+              17.910333333333334
+            ],
+            [
+              98.83800000000001,
+              17.035999999999998
+            ],
+            [
+              100.002,
+              17.035999999999998
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

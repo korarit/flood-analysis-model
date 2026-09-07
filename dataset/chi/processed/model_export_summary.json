@@ -1,0 +1,12 @@
+{
+  "basin": "chi",
+  "total_database_relations": 185,
+  "gauge_to_gauge_relations": 80,
+  "rainfall_to_gauge_relations": 105,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/chi/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/chi/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/chi/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/chi/processed/river_network.geojson"
+  ]
+}

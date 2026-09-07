@@ -1,0 +1,12 @@
+{
+  "basin": "khong-north",
+  "total_database_relations": 549,
+  "gauge_to_gauge_relations": 105,
+  "rainfall_to_gauge_relations": 444,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/khong-north/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/khong-north/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/khong-north/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/khong-north/processed/river_network.geojson"
+  ]
+}

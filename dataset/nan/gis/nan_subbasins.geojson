@@ -1,0 +1,210 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "nan_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำน่านตอนบน (เฉลิมพระเกียรติ/ปัว/ท่าวังผา/เมืองน่าน)",
+        "basin_slug": "nan",
+        "order": 1,
+        "downstream_subbasin": "nan_02_mid_north",
+        "min_lat": 18.8482,
+        "max_lat": 19.635,
+        "min_lon": 99.5,
+        "max_lon": 101.405
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.405,
+              18.8182
+            ],
+            [
+              101.405,
+              19.665000000000003
+            ],
+            [
+              99.5,
+              19.665000000000003
+            ],
+            [
+              99.5,
+              18.8182
+            ],
+            [
+              101.405,
+              18.8182
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "nan_02_mid_north",
+        "subbasin_name_th": "ลุ่มน้ำน่านตอนกลางเหนือ (เวียงสา/นาน้อย/เขื่อนสิริกิติ์)",
+        "basin_slug": "nan",
+        "order": 2,
+        "downstream_subbasin": "nan_03_central",
+        "min_lat": 18.0614,
+        "max_lat": 18.8482,
+        "min_lon": 99.5,
+        "max_lon": 101.405
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.405,
+              18.031399999999998
+            ],
+            [
+              101.405,
+              18.8782
+            ],
+            [
+              99.5,
+              18.8782
+            ],
+            [
+              99.5,
+              18.031399999999998
+            ],
+            [
+              101.405,
+              18.031399999999998
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "nan_03_central",
+        "subbasin_name_th": "ลุ่มน้ำน่านตอนกลาง (อุตรดิตถ์/ตรอน/พิชัย)",
+        "basin_slug": "nan",
+        "order": 3,
+        "downstream_subbasin": "nan_04_mid_south",
+        "min_lat": 17.2746,
+        "max_lat": 18.0614,
+        "min_lon": 99.5,
+        "max_lon": 101.405
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.405,
+              17.2446
+            ],
+            [
+              101.405,
+              18.0914
+            ],
+            [
+              99.5,
+              18.0914
+            ],
+            [
+              99.5,
+              17.2446
+            ],
+            [
+              101.405,
+              17.2446
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "nan_04_mid_south",
+        "subbasin_name_th": "ลุ่มน้ำน่านตอนกลางใต้ (พรหมพิราม/พิษณุโลก/บางกระทุ่ม)",
+        "basin_slug": "nan",
+        "order": 4,
+        "downstream_subbasin": "nan_05_lower",
+        "min_lat": 16.4878,
+        "max_lat": 17.2746,
+        "min_lon": 99.5,
+        "max_lon": 101.405
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.405,
+              16.4578
+            ],
+            [
+              101.405,
+              17.3046
+            ],
+            [
+              99.5,
+              17.3046
+            ],
+            [
+              99.5,
+              16.4578
+            ],
+            [
+              101.405,
+              16.4578
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "nan_05_lower",
+        "subbasin_name_th": "ลุ่มน้ำน่านตอนล่าง (พิจิตร/บางมูลนาก/ชุมแสง/ปากน้ำโพ)",
+        "basin_slug": "nan",
+        "order": 5,
+        "downstream_subbasin": null,
+        "min_lat": 15.701,
+        "max_lat": 16.4878,
+        "min_lon": 99.5,
+        "max_lon": 101.405
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.405,
+              15.671000000000001
+            ],
+            [
+              101.405,
+              16.5178
+            ],
+            [
+              99.5,
+              16.5178
+            ],
+            [
+              99.5,
+              15.671000000000001
+            ],
+            [
+              101.405,
+              15.671000000000001
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

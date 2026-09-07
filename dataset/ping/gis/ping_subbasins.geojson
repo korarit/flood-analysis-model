@@ -1,0 +1,210 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "ping_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำปิงตอนบน (เชียงดาว/แม่แตง/แม่ริม/เมืองเชียงใหม่)",
+        "basin_slug": "ping",
+        "order": 1,
+        "downstream_subbasin": "ping_02_mid_north",
+        "min_lat": 18.981,
+        "max_lat": 19.801,
+        "min_lon": 98.022,
+        "max_lon": 100.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.2,
+              18.950999999999997
+            ],
+            [
+              100.2,
+              19.831
+            ],
+            [
+              98.022,
+              19.831
+            ],
+            [
+              98.022,
+              18.950999999999997
+            ],
+            [
+              100.2,
+              18.950999999999997
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "ping_02_mid_north",
+        "subbasin_name_th": "ลุ่มน้ำปิงตอนกลางเหนือ (หางดง/ลำพูน/จอมทอง/ฮอด)",
+        "basin_slug": "ping",
+        "order": 2,
+        "downstream_subbasin": "ping_03_central",
+        "min_lat": 18.161,
+        "max_lat": 18.981,
+        "min_lon": 98.022,
+        "max_lon": 100.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.2,
+              18.131
+            ],
+            [
+              100.2,
+              19.011000000000003
+            ],
+            [
+              98.022,
+              19.011000000000003
+            ],
+            [
+              98.022,
+              18.131
+            ],
+            [
+              100.2,
+              18.131
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "ping_03_central",
+        "subbasin_name_th": "ลุ่มน้ำปิงตอนกลาง (ดอยเต่า/เขื่อนภูมิพล/สามเงา)",
+        "basin_slug": "ping",
+        "order": 3,
+        "downstream_subbasin": "ping_04_mid_south",
+        "min_lat": 17.341,
+        "max_lat": 18.161,
+        "min_lon": 98.022,
+        "max_lon": 100.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.2,
+              17.311
+            ],
+            [
+              100.2,
+              18.191000000000003
+            ],
+            [
+              98.022,
+              18.191000000000003
+            ],
+            [
+              98.022,
+              17.311
+            ],
+            [
+              100.2,
+              17.311
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "ping_04_mid_south",
+        "subbasin_name_th": "ลุ่มน้ำปิงตอนกลางใต้ (บ้านตาก/เมืองตาก/วังเจ้า)",
+        "basin_slug": "ping",
+        "order": 4,
+        "downstream_subbasin": "ping_05_lower",
+        "min_lat": 16.521,
+        "max_lat": 17.341,
+        "min_lon": 98.022,
+        "max_lon": 100.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.2,
+              16.491
+            ],
+            [
+              100.2,
+              17.371000000000002
+            ],
+            [
+              98.022,
+              17.371000000000002
+            ],
+            [
+              98.022,
+              16.491
+            ],
+            [
+              100.2,
+              16.491
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "ping_05_lower",
+        "subbasin_name_th": "ลุ่มน้ำปิงตอนล่าง (โกสัมพีนคร/กำแพงเพชร/ขาณุวรลักษบุรี/บรรพตพิสัย/นครสวรรค์)",
+        "basin_slug": "ping",
+        "order": 5,
+        "downstream_subbasin": null,
+        "min_lat": 15.701,
+        "max_lat": 16.521,
+        "min_lon": 98.022,
+        "max_lon": 100.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.2,
+              15.671000000000001
+            ],
+            [
+              100.2,
+              16.551000000000002
+            ],
+            [
+              98.022,
+              16.551000000000002
+            ],
+            [
+              98.022,
+              15.671000000000001
+            ],
+            [
+              100.2,
+              15.671000000000001
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

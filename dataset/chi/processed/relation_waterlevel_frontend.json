@@ -1,0 +1,2146 @@
+[
+  {
+    "stationId": "3914",
+    "stationName": "บ้านวังหิน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5215",
+        "stationName": "คลองปาว",
+        "stationType": "water_level",
+        "distanceKm": 34.15,
+        "travelTimeMinutes": 1028,
+        "travelTimeMinutesMin": 588,
+        "travelTimeMinutesMax": 1616,
+        "travelTimeHours": 17.1,
+        "travelTimeHoursMin": 9.8,
+        "travelTimeHoursMax": 26.9,
+        "riverSlope": 0.00017,
+        "elevationDiffM": 5.81,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4006",
+    "stationName": "บ้านโพน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5215",
+        "stationName": "คลองปาว",
+        "stationType": "water_level",
+        "distanceKm": 169.35,
+        "travelTimeMinutes": 5002,
+        "travelTimeMinutesMin": 2905,
+        "travelTimeMinutesMax": 7525,
+        "travelTimeHours": 83.4,
+        "travelTimeHoursMin": 48.4,
+        "travelTimeHoursMax": 125.4,
+        "riverSlope": 0.000231,
+        "elevationDiffM": 39.04,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1465",
+    "stationName": "เหนือฝายวังยาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3899",
+        "stationName": "บ้านม่วงลาด",
+        "stationType": "water_level",
+        "distanceKm": 10.47,
+        "travelTimeMinutes": 317,
+        "travelTimeMinutesMin": 182,
+        "travelTimeMinutesMax": 528,
+        "travelTimeHours": 5.3,
+        "travelTimeHoursMin": 3.0,
+        "travelTimeHoursMax": 8.8,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4016",
+    "stationName": "บ้านท่าไฮ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3960",
+    "stationName": "บ้านหนองม่วง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1460",
+    "stationName": "ยางตลาด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3914",
+        "stationName": "บ้านวังหิน",
+        "stationType": "water_level",
+        "distanceKm": 38.77,
+        "travelTimeMinutes": 1166,
+        "travelTimeMinutesMin": 667,
+        "travelTimeMinutesMax": 1943,
+        "travelTimeHours": 19.4,
+        "travelTimeHoursMin": 11.1,
+        "travelTimeHoursMax": 32.4,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5215",
+    "stationName": "คลองปาว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "2241",
+    "stationName": "บ้านดงบัง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1455",
+        "stationName": "ท้ายฝายร้อยเอ็ด",
+        "stationType": "water_level",
+        "distanceKm": 212.5,
+        "travelTimeMinutes": 5620,
+        "travelTimeMinutesMin": 3645,
+        "travelTimeMinutesMax": 8540,
+        "travelTimeHours": 93.7,
+        "travelTimeHoursMin": 60.8,
+        "travelTimeHoursMax": 142.3,
+        "riverSlope": 0.000381,
+        "elevationDiffM": 80.9,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3990",
+    "stationName": "เนินยางใต้",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5215",
+        "stationName": "คลองปาว",
+        "stationType": "water_level",
+        "distanceKm": 170.4,
+        "travelTimeMinutes": 5115,
+        "travelTimeMinutesMin": 2923,
+        "travelTimeMinutesMax": 8014,
+        "travelTimeHours": 85.2,
+        "travelTimeHoursMin": 48.7,
+        "travelTimeHoursMax": 133.6,
+        "riverSlope": 0.000173,
+        "elevationDiffM": 29.55,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4017",
+    "stationName": "บ้านท่างาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3999",
+    "stationName": "บ้านดงสวรรค์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5215",
+        "stationName": "คลองปาว",
+        "stationType": "water_level",
+        "distanceKm": 163.34,
+        "travelTimeMinutes": 4716,
+        "travelTimeMinutesMin": 2802,
+        "travelTimeMinutesMax": 7109,
+        "travelTimeHours": 78.6,
+        "travelTimeHoursMin": 46.7,
+        "travelTimeHoursMax": 118.5,
+        "riverSlope": 0.000256,
+        "elevationDiffM": 41.75,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3967",
+    "stationName": "บ้านหนองริวหนัง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "5216",
+    "stationName": "ห้วยยัง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3930",
+        "stationName": "บ้านแก่งยาว",
+        "stationType": "water_level",
+        "distanceKm": 32.96,
+        "travelTimeMinutes": 818,
+        "travelTimeMinutesMin": 567,
+        "travelTimeMinutesMax": 1250,
+        "travelTimeHours": 13.6,
+        "travelTimeHoursMin": 9.4,
+        "travelTimeHoursMax": 20.8,
+        "riverSlope": 0.000516,
+        "elevationDiffM": 17.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8550",
+    "stationName": "บ้านสมสนุก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5216",
+        "stationName": "ห้วยยัง",
+        "stationType": "water_level",
+        "distanceKm": 39.24,
+        "travelTimeMinutes": 973,
+        "travelTimeMinutesMin": 675,
+        "travelTimeMinutesMax": 1488,
+        "travelTimeHours": 16.2,
+        "travelTimeHoursMin": 11.2,
+        "travelTimeHoursMax": 24.8,
+        "riverSlope": 0.000515,
+        "elevationDiffM": 20.21,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1410",
+    "stationName": "ชนบท",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8819",
+        "stationName": "บ้านหนองไห*",
+        "stationType": "water_level",
+        "distanceKm": 46.4,
+        "travelTimeMinutes": 1395,
+        "travelTimeMinutesMin": 798,
+        "travelTimeMinutesMax": 2324,
+        "travelTimeHours": 23.2,
+        "travelTimeHoursMin": 13.3,
+        "travelTimeHoursMax": 38.7,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3894",
+    "stationName": "บ้านท่านางเลื่อน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1410",
+        "stationName": "ชนบท",
+        "stationType": "water_level",
+        "distanceKm": 0.0,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2175",
+    "stationName": "บ้านวังยาวใหญ่",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "4377",
+    "stationName": "ลำเชิญ อ.ชุมแพ (ท้ายฝายโครงการชลประทานน้ำเชิญ)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "10097",
+        "stationName": "สะพานข้ามลำน้ำเชิญ (มิตรผลหนองเรือ)",
+        "stationType": "water_level",
+        "distanceKm": 96.09,
+        "travelTimeMinutes": 2529,
+        "travelTimeMinutesMin": 1649,
+        "travelTimeMinutesMax": 3845,
+        "travelTimeHours": 42.1,
+        "travelTimeHoursMin": 27.5,
+        "travelTimeHoursMax": 64.1,
+        "riverSlope": 0.00039,
+        "elevationDiffM": 37.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8652",
+    "stationName": "บ้านจาน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8823",
+        "stationName": "บ้านหนองโน*",
+        "stationType": "water_level",
+        "distanceKm": 72.73,
+        "travelTimeMinutes": 2185,
+        "travelTimeMinutesMin": 1249,
+        "travelTimeMinutesMax": 3389,
+        "travelTimeHours": 36.4,
+        "travelTimeHoursMin": 20.8,
+        "travelTimeHoursMax": 56.5,
+        "riverSlope": 0.000182,
+        "elevationDiffM": 13.26,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3966",
+    "stationName": "บ้านท่าเม่า",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4442",
+        "stationName": "ลำน้ำพอง โรงเรียนลำน้ำพอง",
+        "stationType": "water_level",
+        "distanceKm": 36.96,
+        "travelTimeMinutes": 1112,
+        "travelTimeMinutesMin": 636,
+        "travelTimeMinutesMax": 1852,
+        "travelTimeHours": 18.5,
+        "travelTimeHoursMin": 10.6,
+        "travelTimeHoursMax": 30.9,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4441",
+    "stationName": "ลำน้ำพอง (เหนือฝายหนองหวาย)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3966",
+        "stationName": "บ้านท่าเม่า",
+        "stationType": "water_level",
+        "distanceKm": 16.44,
+        "travelTimeMinutes": 334,
+        "travelTimeMinutesMin": 250,
+        "travelTimeMinutesMax": 520,
+        "travelTimeHours": 5.6,
+        "travelTimeHoursMin": 4.2,
+        "travelTimeHoursMax": 8.7,
+        "riverSlope": 0.001311,
+        "elevationDiffM": 21.54,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4442",
+    "stationName": "ลำน้ำพอง โรงเรียนลำน้ำพอง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1399",
+        "stationName": "สะพานฉลองขอนแก่น 200 ปี",
+        "stationType": "water_level",
+        "distanceKm": 12.56,
+        "travelTimeMinutes": 289,
+        "travelTimeMinutesMin": 217,
+        "travelTimeMinutesMax": 445,
+        "travelTimeHours": 4.8,
+        "travelTimeHoursMin": 3.6,
+        "travelTimeHoursMax": 7.4,
+        "riverSlope": 0.000748,
+        "elevationDiffM": 9.39,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8819",
+    "stationName": "บ้านหนองไห*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4443",
+        "stationName": "แม่น้ำชี บ้านหินกอง",
+        "stationType": "water_level",
+        "distanceKm": 23.77,
+        "travelTimeMinutes": 716,
+        "travelTimeMinutesMin": 410,
+        "travelTimeMinutesMax": 1181,
+        "travelTimeHours": 11.9,
+        "travelTimeHoursMin": 6.8,
+        "travelTimeHoursMax": 19.7,
+        "riverSlope": 0.000134,
+        "elevationDiffM": 3.19,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4443",
+    "stationName": "แม่น้ำชี บ้านหินกอง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1440",
+        "stationName": "เหนือฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 54.82,
+        "travelTimeMinutes": 1647,
+        "travelTimeMinutesMin": 942,
+        "travelTimeMinutesMax": 2617,
+        "travelTimeHours": 27.4,
+        "travelTimeHoursMin": 15.7,
+        "travelTimeHoursMax": 43.6,
+        "riverSlope": 0.000162,
+        "elevationDiffM": 8.87,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2179",
+    "stationName": "บ้านห้วยซ้อ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "8756",
+    "stationName": "บ้านเขาวง*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "2177",
+        "stationName": "บ้านท่าเริงรมย์*",
+        "stationType": "water_level",
+        "distanceKm": 24.82,
+        "travelTimeMinutes": 748,
+        "travelTimeMinutesMin": 428,
+        "travelTimeMinutesMax": 1180,
+        "travelTimeHours": 12.5,
+        "travelTimeHoursMin": 7.1,
+        "travelTimeHoursMax": 19.7,
+        "riverSlope": 0.000167,
+        "elevationDiffM": 4.15,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "10097",
+    "stationName": "สะพานข้ามลำน้ำเชิญ (มิตรผลหนองเรือ)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4431",
+        "stationName": "เขื่อนอุบลรัตน์",
+        "stationType": "water_level",
+        "distanceKm": 93.01,
+        "travelTimeMinutes": 2793,
+        "travelTimeMinutesMin": 1597,
+        "travelTimeMinutesMax": 4655,
+        "travelTimeHours": 46.5,
+        "travelTimeHoursMin": 26.6,
+        "travelTimeHoursMax": 77.6,
+        "riverSlope": 1.1e-05,
+        "elevationDiffM": 1.06,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4431",
+    "stationName": "เขื่อนอุบลรัตน์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "2176",
+    "stationName": "บ้านโนนหัวช้าง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3916",
+    "stationName": "บ้านกุดกว้าง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1440",
+        "stationName": "เหนือฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 29.16,
+        "travelTimeMinutes": 784,
+        "travelTimeMinutesMin": 502,
+        "travelTimeMinutesMax": 1189,
+        "travelTimeHours": 13.1,
+        "travelTimeHoursMin": 8.4,
+        "travelTimeHoursMax": 19.8,
+        "riverSlope": 0.000359,
+        "elevationDiffM": 10.47,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1399",
+    "stationName": "สะพานฉลองขอนแก่น 200 ปี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1413",
+    "stationName": "เมืองขอนแก่น",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4444",
+        "stationName": "แม่น้ำชี ฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 35.8,
+        "travelTimeMinutes": 1077,
+        "travelTimeMinutesMin": 616,
+        "travelTimeMinutesMax": 1665,
+        "travelTimeHours": 17.9,
+        "travelTimeHoursMin": 10.3,
+        "travelTimeHoursMax": 27.8,
+        "riverSlope": 0.000185,
+        "elevationDiffM": 6.64,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8820",
+    "stationName": "บ้านท่าฉาง*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1410",
+        "stationName": "ชนบท",
+        "stationType": "water_level",
+        "distanceKm": 81.69,
+        "travelTimeMinutes": 2454,
+        "travelTimeMinutesMin": 1403,
+        "travelTimeMinutesMax": 3974,
+        "travelTimeHours": 40.9,
+        "travelTimeHoursMin": 23.4,
+        "travelTimeHoursMax": 66.2,
+        "riverSlope": 0.000147,
+        "elevationDiffM": 12.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2177",
+    "stationName": "บ้านท่าเริงรมย์*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3962",
+    "stationName": "บ้านโนนหัน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "10097",
+        "stationName": "สะพานข้ามลำน้ำเชิญ (มิตรผลหนองเรือ)",
+        "stationType": "water_level",
+        "distanceKm": 109.28,
+        "travelTimeMinutes": 2652,
+        "travelTimeMinutesMin": 1876,
+        "travelTimeMinutesMax": 4062,
+        "travelTimeHours": 44.2,
+        "travelTimeHoursMin": 31.3,
+        "travelTimeHoursMax": 67.7,
+        "riverSlope": 0.000564,
+        "elevationDiffM": 61.67,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "6052",
+    "stationName": "เขื่อนจุฬาภรณ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5597",
+        "stationName": "บ้านโนนเขวา",
+        "stationType": "water_level",
+        "distanceKm": 63.79,
+        "travelTimeMinutes": 865,
+        "travelTimeMinutesMin": 620,
+        "travelTimeMinutesMax": 1396,
+        "travelTimeHours": 14.4,
+        "travelTimeHoursMin": 10.3,
+        "travelTimeHoursMax": 23.3,
+        "riverSlope": 0.008041,
+        "elevationDiffM": 512.89,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8821",
+    "stationName": "บ้านโนนน้อย*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3839",
+        "stationName": "บ้านค่าย",
+        "stationType": "water_level",
+        "distanceKm": 20.07,
+        "travelTimeMinutes": 605,
+        "travelTimeMinutesMin": 346,
+        "travelTimeMinutesMax": 1008,
+        "travelTimeHours": 10.1,
+        "travelTimeHoursMin": 5.8,
+        "travelTimeHoursMax": 16.8,
+        "riverSlope": 8e-06,
+        "elevationDiffM": 0.17,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3851",
+    "stationName": "บ้านโนนเชือก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8821",
+        "stationName": "บ้านโนนน้อย*",
+        "stationType": "water_level",
+        "distanceKm": 26.18,
+        "travelTimeMinutes": 788,
+        "travelTimeMinutesMin": 451,
+        "travelTimeMinutesMax": 1313,
+        "travelTimeHours": 13.1,
+        "travelTimeHoursMin": 7.5,
+        "travelTimeHoursMax": 21.9,
+        "riverSlope": 9.5e-05,
+        "elevationDiffM": 2.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3870",
+    "stationName": "บ้านหนองอ้อ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3851",
+        "stationName": "บ้านโนนเชือก",
+        "stationType": "water_level",
+        "distanceKm": 50.34,
+        "travelTimeMinutes": 1513,
+        "travelTimeMinutesMin": 865,
+        "travelTimeMinutesMax": 2285,
+        "travelTimeHours": 25.2,
+        "travelTimeHoursMin": 14.4,
+        "travelTimeHoursMax": 38.1,
+        "riverSlope": 0.000209,
+        "elevationDiffM": 10.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1378",
+    "stationName": "บ้านเขว้า",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3870",
+        "stationName": "บ้านหนองอ้อ",
+        "stationType": "water_level",
+        "distanceKm": 3.99,
+        "travelTimeMinutes": 109,
+        "travelTimeMinutesMin": 71,
+        "travelTimeMinutesMax": 165,
+        "travelTimeHours": 1.8,
+        "travelTimeHoursMin": 1.2,
+        "travelTimeHoursMax": 2.8,
+        "riverSlope": 0.000376,
+        "elevationDiffM": 1.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2173",
+    "stationName": "บ้านผาทอง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268533",
+        "stationName": "บ้านโนนระเวียง*",
+        "stationType": "water_level",
+        "distanceKm": 34.57,
+        "travelTimeMinutes": 625,
+        "travelTimeMinutesMin": 466,
+        "travelTimeMinutesMax": 983,
+        "travelTimeHours": 10.4,
+        "travelTimeHoursMin": 7.8,
+        "travelTimeHoursMax": 16.4,
+        "riverSlope": 0.00219,
+        "elevationDiffM": 75.73,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "268533",
+    "stationName": "บ้านโนนระเวียง*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "268819",
+    "stationName": "บ้านหนองม่วง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3851",
+        "stationName": "บ้านโนนเชือก",
+        "stationType": "water_level",
+        "distanceKm": 26.23,
+        "travelTimeMinutes": 612,
+        "travelTimeMinutesMin": 452,
+        "travelTimeMinutesMax": 941,
+        "travelTimeHours": 10.2,
+        "travelTimeHoursMin": 7.5,
+        "travelTimeHoursMax": 15.7,
+        "riverSlope": 0.000685,
+        "elevationDiffM": 17.97,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2164",
+    "stationName": "บ้านใหม่สามัคคี*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1378",
+        "stationName": "บ้านเขว้า",
+        "stationType": "water_level",
+        "distanceKm": 0.01,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8822",
+    "stationName": "บ้านโนนตูม*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1378",
+        "stationName": "บ้านเขว้า",
+        "stationType": "water_level",
+        "distanceKm": 37.35,
+        "travelTimeMinutes": 858,
+        "travelTimeMinutesMin": 642,
+        "travelTimeMinutesMax": 1321,
+        "travelTimeHours": 14.3,
+        "travelTimeHoursMin": 10.7,
+        "travelTimeHoursMax": 22.0,
+        "riverSlope": 0.000731,
+        "elevationDiffM": 27.29,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8762",
+    "stationName": "บ้านโหล่น*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8822",
+        "stationName": "บ้านโนนตูม*",
+        "stationType": "water_level",
+        "distanceKm": 56.06,
+        "travelTimeMinutes": 1150,
+        "travelTimeMinutesMin": 862,
+        "travelTimeMinutesMax": 1788,
+        "travelTimeHours": 19.2,
+        "travelTimeHoursMin": 14.4,
+        "travelTimeHoursMax": 29.8,
+        "riverSlope": 0.00122,
+        "elevationDiffM": 68.41,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "257191",
+    "stationName": "สะพานน้ำชี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8822",
+        "stationName": "บ้านโนนตูม*",
+        "stationType": "water_level",
+        "distanceKm": 13.13,
+        "travelTimeMinutes": 350,
+        "travelTimeMinutesMin": 227,
+        "travelTimeMinutesMax": 532,
+        "travelTimeHours": 5.8,
+        "travelTimeHoursMin": 3.8,
+        "travelTimeHoursMax": 8.9,
+        "riverSlope": 0.000379,
+        "elevationDiffM": 4.97,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "6055",
+    "stationName": "น้ำพรม บ้านกุดเลาะ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5591",
+        "stationName": "บ้านระหัด",
+        "stationType": "water_level",
+        "distanceKm": 20.09,
+        "travelTimeMinutes": 513,
+        "travelTimeMinutesMin": 347,
+        "travelTimeMinutesMax": 782,
+        "travelTimeHours": 8.6,
+        "travelTimeHoursMin": 5.8,
+        "travelTimeHoursMax": 13.0,
+        "riverSlope": 0.000458,
+        "elevationDiffM": 9.2,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4359",
+    "stationName": "น้ำพรม อ.เกษตรสมบูรณ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "5596",
+    "stationName": "บ้านกุดจิก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3947",
+    "stationName": "บ้านยาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5591",
+        "stationName": "บ้านระหัด",
+        "stationType": "water_level",
+        "distanceKm": 25.07,
+        "travelTimeMinutes": 673,
+        "travelTimeMinutesMin": 432,
+        "travelTimeMinutesMax": 1021,
+        "travelTimeHours": 11.2,
+        "travelTimeHoursMin": 7.2,
+        "travelTimeHoursMax": 17.0,
+        "riverSlope": 0.000363,
+        "elevationDiffM": 9.1,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5591",
+    "stationName": "บ้านระหัด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4359",
+        "stationName": "น้ำพรม อ.เกษตรสมบูรณ์",
+        "stationType": "water_level",
+        "distanceKm": 3.64,
+        "travelTimeMinutes": 84,
+        "travelTimeMinutesMin": 63,
+        "travelTimeMinutesMax": 129,
+        "travelTimeHours": 1.4,
+        "travelTimeHoursMin": 1.1,
+        "travelTimeHoursMax": 2.1,
+        "riverSlope": 0.000834,
+        "elevationDiffM": 3.04,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5598",
+    "stationName": "บ้านโนนงิ้ว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "5597",
+    "stationName": "บ้านโนนเขวา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5591",
+        "stationName": "บ้านระหัด",
+        "stationType": "water_level",
+        "distanceKm": 28.05,
+        "travelTimeMinutes": 696,
+        "travelTimeMinutesMin": 483,
+        "travelTimeMinutesMax": 1063,
+        "travelTimeHours": 11.6,
+        "travelTimeHoursMin": 8.1,
+        "travelTimeHoursMax": 17.7,
+        "riverSlope": 0.000519,
+        "elevationDiffM": 14.56,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2168",
+    "stationName": "บ้านซับมงคล",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268819",
+        "stationName": "บ้านหนองม่วง",
+        "stationType": "water_level",
+        "distanceKm": 59.18,
+        "travelTimeMinutes": 991,
+        "travelTimeMinutesMin": 731,
+        "travelTimeMinutesMax": 1570,
+        "travelTimeHours": 16.5,
+        "travelTimeHoursMin": 12.2,
+        "travelTimeHoursMax": 26.2,
+        "riverSlope": 0.003071,
+        "elevationDiffM": 181.74,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5693",
+    "stationName": "บ้านวังอ้ายโพธิ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "2169",
+    "stationName": "บ้านสะพานหิน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268819",
+        "stationName": "บ้านหนองม่วง",
+        "stationType": "water_level",
+        "distanceKm": 55.95,
+        "travelTimeMinutes": 937,
+        "travelTimeMinutesMin": 691,
+        "travelTimeMinutesMax": 1484,
+        "travelTimeHours": 15.6,
+        "travelTimeHoursMin": 11.5,
+        "travelTimeHoursMax": 24.7,
+        "riverSlope": 0.003078,
+        "elevationDiffM": 172.21,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5694",
+    "stationName": "บ้านเทพพนา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5691",
+        "stationName": "บ้านโคกสะอาด",
+        "stationType": "water_level",
+        "distanceKm": 11.91,
+        "travelTimeMinutes": 124,
+        "travelTimeMinutesMin": 86,
+        "travelTimeMinutesMax": 205,
+        "travelTimeHours": 2.1,
+        "travelTimeHoursMin": 1.4,
+        "travelTimeHoursMax": 3.4,
+        "riverSlope": 0.029212,
+        "elevationDiffM": 347.92,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5691",
+    "stationName": "บ้านโคกสะอาด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3839",
+    "stationName": "บ้านค่าย",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1376",
+        "stationName": "เมืองชัยภูมิ",
+        "stationType": "water_level",
+        "distanceKm": 0.95,
+        "travelTimeMinutes": 19,
+        "travelTimeMinutesMin": 14,
+        "travelTimeMinutesMax": 34,
+        "travelTimeHours": 0.3,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.6,
+        "riverSlope": 0.002979,
+        "elevationDiffM": 2.83,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3878",
+    "stationName": "บ้านตาดโตน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3850",
+        "stationName": "บ้านแก่งโก",
+        "stationType": "water_level",
+        "distanceKm": 74.98,
+        "travelTimeMinutes": 2095,
+        "travelTimeMinutesMin": 1288,
+        "travelTimeMinutesMax": 3168,
+        "travelTimeHours": 34.9,
+        "travelTimeHoursMin": 21.5,
+        "travelTimeHoursMax": 52.8,
+        "riverSlope": 0.000298,
+        "elevationDiffM": 22.31,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5695",
+    "stationName": "บ้านท่าหินโงม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3878",
+        "stationName": "บ้านตาดโตน",
+        "stationType": "water_level",
+        "distanceKm": 16.82,
+        "travelTimeMinutes": 201,
+        "travelTimeMinutesMin": 142,
+        "travelTimeMinutesMax": 328,
+        "travelTimeHours": 3.4,
+        "travelTimeHoursMin": 2.4,
+        "travelTimeHoursMax": 5.5,
+        "riverSlope": 0.015044,
+        "elevationDiffM": 253.12,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2165",
+    "stationName": "บ้านลาดผักหนาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3878",
+        "stationName": "บ้านตาดโตน",
+        "stationType": "water_level",
+        "distanceKm": 25.94,
+        "travelTimeMinutes": 328,
+        "travelTimeMinutesMin": 233,
+        "travelTimeMinutesMax": 533,
+        "travelTimeHours": 5.5,
+        "travelTimeHoursMin": 3.9,
+        "travelTimeHoursMax": 8.9,
+        "riverSlope": 0.011324,
+        "elevationDiffM": 293.71,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3850",
+    "stationName": "บ้านแก่งโก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1376",
+    "stationName": "เมืองชัยภูมิ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3839",
+        "stationName": "บ้านค่าย",
+        "stationType": "water_level",
+        "distanceKm": 0.02,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8824",
+    "stationName": "บ้านเกิ้งพัฒนา*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3905",
+    "stationName": "บ้านดินดำ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "8823",
+    "stationName": "บ้านหนองโน*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3905",
+        "stationName": "บ้านดินดำ",
+        "stationType": "water_level",
+        "distanceKm": 21.32,
+        "travelTimeMinutes": 643,
+        "travelTimeMinutesMin": 368,
+        "travelTimeMinutesMax": 1070,
+        "travelTimeHours": 10.7,
+        "travelTimeHoursMin": 6.1,
+        "travelTimeHoursMax": 17.8,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1438",
+    "stationName": "เมืองมหาสารคาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3905",
+        "stationName": "บ้านดินดำ",
+        "stationType": "water_level",
+        "distanceKm": 0.0,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0001,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1441",
+    "stationName": "ท้ายฝายมหาสารคาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4444",
+        "stationName": "แม่น้ำชี ฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 0.94,
+        "travelTimeMinutes": 31,
+        "travelTimeMinutesMin": 18,
+        "travelTimeMinutesMax": 51,
+        "travelTimeHours": 0.5,
+        "travelTimeHoursMin": 0.3,
+        "travelTimeHoursMax": 0.8,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3917",
+    "stationName": "บ้านดอนขนวน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1441",
+        "stationName": "ท้ายฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 0.0,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1440",
+    "stationName": "เหนือฝายมหาสารคาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1441",
+        "stationName": "ท้ายฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 0.03,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.024015,
+        "elevationDiffM": 0.7,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4444",
+    "stationName": "แม่น้ำชี ฝายมหาสารคาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1441",
+        "stationName": "ท้ายฝายมหาสารคาม",
+        "stationType": "water_level",
+        "distanceKm": 0.05,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 4e-06,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3824",
+    "stationName": "บ้านฟ้าหยาด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268623",
+        "stationName": "บ้านธาตุน้อย*",
+        "stationType": "water_level",
+        "distanceKm": 66.78,
+        "travelTimeMinutes": 2006,
+        "travelTimeMinutesMin": 1147,
+        "travelTimeMinutesMax": 3343,
+        "travelTimeHours": 33.4,
+        "travelTimeHoursMin": 19.1,
+        "travelTimeHoursMax": 55.7,
+        "riverSlope": 6.7e-05,
+        "elevationDiffM": 4.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "7161",
+    "stationName": "บ้านดอนยาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5893",
+        "stationName": "บ้านดอนขยอม",
+        "stationType": "water_level",
+        "distanceKm": 46.24,
+        "travelTimeMinutes": 1390,
+        "travelTimeMinutesMin": 795,
+        "travelTimeMinutesMax": 2316,
+        "travelTimeHours": 23.2,
+        "travelTimeHoursMin": 13.2,
+        "travelTimeHoursMax": 38.6,
+        "riverSlope": 4.3e-05,
+        "elevationDiffM": 2.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3617",
+    "stationName": "ประปายโสธร",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5893",
+        "stationName": "บ้านดอนขยอม",
+        "stationType": "water_level",
+        "distanceKm": 10.35,
+        "travelTimeMinutes": 224,
+        "travelTimeMinutesMin": 168,
+        "travelTimeMinutesMax": 347,
+        "travelTimeHours": 3.7,
+        "travelTimeHoursMin": 2.8,
+        "travelTimeHoursMax": 5.8,
+        "riverSlope": 0.000998,
+        "elevationDiffM": 10.33,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3899",
+    "stationName": "บ้านม่วงลาด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3887",
+    "stationName": "บ้านท่าสะแบง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "8551",
+    "stationName": "บ้านธวัชดินแดง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8551",
+        "stationName": "บ้านธวัชดินแดง",
+        "stationType": "water_level",
+        "distanceKm": 8.51,
+        "travelTimeMinutes": 258,
+        "travelTimeMinutesMin": 148,
+        "travelTimeMinutesMax": 430,
+        "travelTimeHours": 4.3,
+        "travelTimeHoursMin": 2.5,
+        "travelTimeHoursMax": 7.2,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5893",
+    "stationName": "บ้านดอนขยอม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3824",
+        "stationName": "บ้านฟ้าหยาด",
+        "stationType": "water_level",
+        "distanceKm": 55.9,
+        "travelTimeMinutes": 1680,
+        "travelTimeMinutesMin": 960,
+        "travelTimeMinutesMax": 2799,
+        "travelTimeHours": 28.0,
+        "travelTimeHoursMin": 16.0,
+        "travelTimeHoursMax": 46.6,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1455",
+    "stationName": "ท้ายฝายร้อยเอ็ด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1456",
+    "stationName": "เหนือฝายร้อยเอ็ด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1455",
+        "stationName": "ท้ายฝายร้อยเอ็ด",
+        "stationType": "water_level",
+        "distanceKm": 0.09,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.032575,
+        "elevationDiffM": 2.84,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3909",
+    "stationName": "บ้านกุดก่วง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268534",
+        "stationName": "บ้านดงกลาง 2*",
+        "stationType": "water_level",
+        "distanceKm": 23.7,
+        "travelTimeMinutes": 714,
+        "travelTimeMinutesMin": 408,
+        "travelTimeMinutesMax": 1189,
+        "travelTimeHours": 11.9,
+        "travelTimeHoursMin": 6.8,
+        "travelTimeHoursMax": 19.8,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "268534",
+    "stationName": "บ้านดงกลาง 2*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7161",
+        "stationName": "บ้านดอนยาง",
+        "stationType": "water_level",
+        "distanceKm": 74.17,
+        "travelTimeMinutes": 2228,
+        "travelTimeMinutesMin": 1274,
+        "travelTimeMinutesMax": 3557,
+        "travelTimeHours": 37.1,
+        "travelTimeHoursMin": 21.2,
+        "travelTimeHoursMax": 59.3,
+        "riverSlope": 0.000158,
+        "elevationDiffM": 11.72,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3930",
+    "stationName": "บ้านแก่งยาว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3909",
+        "stationName": "บ้านกุดก่วง",
+        "stationType": "water_level",
+        "distanceKm": 27.58,
+        "travelTimeMinutes": 748,
+        "travelTimeMinutesMin": 475,
+        "travelTimeMinutesMax": 1135,
+        "travelTimeHours": 12.5,
+        "travelTimeHoursMin": 7.9,
+        "travelTimeHoursMax": 18.9,
+        "riverSlope": 0.000344,
+        "elevationDiffM": 9.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8746",
+    "stationName": "บ้านกุดแห่*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "8744",
+    "stationName": "บ้านฝั่งแดง*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "4379",
+    "stationName": "อ.นากลาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "268756",
+    "stationName": "บ้านวังสามหาบ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "268816",
+    "stationName": "อ่างเก็บน้ำห้วยลาดกั่ว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "4429",
+    "stationName": "อ.ศรีบุญเรือง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4431",
+        "stationName": "เขื่อนอุบลรัตน์",
+        "stationType": "water_level",
+        "distanceKm": 63.5,
+        "travelTimeMinutes": 1900,
+        "travelTimeMinutesMin": 1091,
+        "travelTimeMinutesMax": 2855,
+        "travelTimeHours": 31.7,
+        "travelTimeHoursMin": 18.2,
+        "travelTimeHoursMax": 47.6,
+        "riverSlope": 0.000218,
+        "elevationDiffM": 13.86,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "268817",
+    "stationName": "อ่างเก็บน้ำห้วยซับม่วง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "4043",
+    "stationName": "บ้านข้องโป้",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "268757",
+    "stationName": "บ้านวังหมื่น",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4043",
+        "stationName": "บ้านข้องโป้",
+        "stationType": "water_level",
+        "distanceKm": 26.65,
+        "travelTimeMinutes": 636,
+        "travelTimeMinutesMin": 459,
+        "travelTimeMinutesMax": 976,
+        "travelTimeHours": 10.6,
+        "travelTimeHoursMin": 7.7,
+        "travelTimeHoursMax": 16.3,
+        "riverSlope": 0.000618,
+        "elevationDiffM": 16.48,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4428",
+    "stationName": "ลำพะเนียง อ.เมือง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "268757",
+        "stationName": "บ้านวังหมื่น",
+        "stationType": "water_level",
+        "distanceKm": 0.0,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0001,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1352",
+    "stationName": "ท้ายฝายธาตุน้อย",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5795",
+        "stationName": "บ้านเขื่องใน",
+        "stationType": "water_level",
+        "distanceKm": 6.59,
+        "travelTimeMinutes": 201,
+        "travelTimeMinutesMin": 115,
+        "travelTimeMinutesMax": 334,
+        "travelTimeHours": 3.4,
+        "travelTimeHoursMin": 1.9,
+        "travelTimeHoursMax": 5.6,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8987",
+    "stationName": "บ้านท่าศาลา*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "268623",
+    "stationName": "บ้านธาตุน้อย*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1351",
+        "stationName": "เหนือฝายธาตุน้อย",
+        "stationType": "water_level",
+        "distanceKm": 0.78,
+        "travelTimeMinutes": 26,
+        "travelTimeMinutesMin": 16,
+        "travelTimeMinutesMax": 43,
+        "travelTimeHours": 0.4,
+        "travelTimeHoursMin": 0.3,
+        "travelTimeHoursMax": 0.7,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5795",
+    "stationName": "บ้านเขื่องใน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1349",
+        "stationName": "เขื่องใน",
+        "stationType": "water_level",
+        "distanceKm": 10.47,
+        "travelTimeMinutes": 225,
+        "travelTimeMinutesMin": 169,
+        "travelTimeMinutesMax": 348,
+        "travelTimeHours": 3.8,
+        "travelTimeHoursMin": 2.8,
+        "travelTimeHoursMax": 5.8,
+        "riverSlope": 0.001047,
+        "elevationDiffM": 10.96,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1349",
+    "stationName": "เขื่องใน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1351",
+    "stationName": "เหนือฝายธาตุน้อย",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1352",
+        "stationName": "ท้ายฝายธาตุน้อย",
+        "stationType": "water_level",
+        "distanceKm": 1.79,
+        "travelTimeMinutes": 53,
+        "travelTimeMinutesMin": 33,
+        "travelTimeMinutesMax": 81,
+        "travelTimeHours": 0.9,
+        "travelTimeHoursMin": 0.6,
+        "travelTimeHoursMax": 1.4,
+        "riverSlope": 0.00028,
+        "elevationDiffM": 0.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5649",
+    "stationName": "บ้านซำม่วง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5627",
+        "stationName": "บ้านฟองใต้",
+        "stationType": "water_level",
+        "distanceKm": 24.27,
+        "travelTimeMinutes": 276,
+        "travelTimeMinutesMin": 193,
+        "travelTimeMinutesMax": 453,
+        "travelTimeHours": 4.6,
+        "travelTimeHoursMin": 3.2,
+        "travelTimeHoursMax": 7.5,
+        "riverSlope": 0.018463,
+        "elevationDiffM": 448.04,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5627",
+    "stationName": "บ้านฟองใต้",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "8825",
+        "stationName": "บ้านน้ำพอง*",
+        "stationType": "water_level",
+        "distanceKm": 33.05,
+        "travelTimeMinutes": 515,
+        "travelTimeMinutesMin": 376,
+        "travelTimeMinutesMax": 820,
+        "travelTimeHours": 8.6,
+        "travelTimeHoursMin": 6.3,
+        "travelTimeHoursMax": 13.7,
+        "riverSlope": 0.004331,
+        "elevationDiffM": 143.12,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5647",
+    "stationName": "บ้านห้วยหินลับ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5627",
+        "stationName": "บ้านฟองใต้",
+        "stationType": "water_level",
+        "distanceKm": 9.61,
+        "travelTimeMinutes": 103,
+        "travelTimeMinutesMin": 72,
+        "travelTimeMinutesMax": 170,
+        "travelTimeHours": 1.7,
+        "travelTimeHoursMin": 1.2,
+        "travelTimeHoursMax": 2.8,
+        "riverSlope": 0.026022,
+        "elevationDiffM": 249.97,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4378",
+    "stationName": "น้ำพวย อ.ผาขาว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4431",
+        "stationName": "เขื่อนอุบลรัตน์",
+        "stationType": "water_level",
+        "distanceKm": 122.41,
+        "travelTimeMinutes": 3045,
+        "travelTimeMinutesMin": 2101,
+        "travelTimeMinutesMax": 4653,
+        "travelTimeHours": 50.8,
+        "travelTimeHoursMin": 35.0,
+        "travelTimeHoursMax": 77.5,
+        "riverSlope": 0.000504,
+        "elevationDiffM": 61.73,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4437",
+    "stationName": "น้ำพอง บ้านผานกเค้า (E.29)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5849",
+        "stationName": "บ้านผานกเค้า",
+        "stationType": "water_level",
+        "distanceKm": 0.61,
+        "travelTimeMinutes": 21,
+        "travelTimeMinutesMin": 13,
+        "travelTimeMinutesMax": 36,
+        "travelTimeHours": 0.3,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.6,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2238",
+    "stationName": "บ้านนาแปน*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5849",
+        "stationName": "บ้านผานกเค้า",
+        "stationType": "water_level",
+        "distanceKm": 19.53,
+        "travelTimeMinutes": 392,
+        "travelTimeMinutesMin": 294,
+        "travelTimeMinutesMax": 611,
+        "travelTimeHours": 6.5,
+        "travelTimeHoursMin": 4.9,
+        "travelTimeHoursMax": 10.2,
+        "riverSlope": 0.001372,
+        "elevationDiffM": 26.8,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8825",
+    "stationName": "บ้านน้ำพอง*",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5849",
+        "stationName": "บ้านผานกเค้า",
+        "stationType": "water_level",
+        "distanceKm": 21.09,
+        "travelTimeMinutes": 556,
+        "travelTimeMinutesMin": 364,
+        "travelTimeMinutesMax": 845,
+        "travelTimeHours": 9.3,
+        "travelTimeHoursMin": 6.1,
+        "travelTimeHoursMax": 14.1,
+        "riverSlope": 0.000395,
+        "elevationDiffM": 8.32,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5849",
+    "stationName": "บ้านผานกเค้า",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "4437",
+        "stationName": "น้ำพอง บ้านผานกเค้า (E.29)",
+        "stationType": "water_level",
+        "distanceKm": 0.02,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.002043,
+        "elevationDiffM": 0.04,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "2237",
+    "stationName": "บ้านวังยาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "10074",
+        "stationName": "บ้านอีเลิศ",
+        "stationType": "water_level",
+        "distanceKm": 10.63,
+        "travelTimeMinutes": 193,
+        "travelTimeMinutesMin": 144,
+        "travelTimeMinutesMax": 304,
+        "travelTimeHours": 3.2,
+        "travelTimeHoursMin": 2.4,
+        "travelTimeHoursMax": 5.1,
+        "riverSlope": 0.002244,
+        "elevationDiffM": 23.86,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "10074",
+    "stationName": "บ้านอีเลิศ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "2238",
+        "stationName": "บ้านนาแปน*",
+        "stationType": "water_level",
+        "distanceKm": 4.35,
+        "travelTimeMinutes": 96,
+        "travelTimeMinutesMin": 72,
+        "travelTimeMinutesMax": 148,
+        "travelTimeHours": 1.6,
+        "travelTimeHoursMin": 1.2,
+        "travelTimeHoursMax": 2.5,
+        "riverSlope": 0.000999,
+        "elevationDiffM": 4.34,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "4358",
+    "stationName": "ยอดภูกระดึง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5627",
+        "stationName": "บ้านฟองใต้",
+        "stationType": "water_level",
+        "distanceKm": 35.21,
+        "travelTimeMinutes": 375,
+        "travelTimeMinutesMin": 260,
+        "travelTimeMinutesMax": 619,
+        "travelTimeHours": 6.2,
+        "travelTimeHoursMin": 4.3,
+        "travelTimeHoursMax": 10.3,
+        "riverSlope": 0.024503,
+        "elevationDiffM": 862.65,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  }
+]

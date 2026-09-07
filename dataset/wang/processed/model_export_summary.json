@@ -1,0 +1,12 @@
+{
+  "basin": "wang",
+  "total_database_relations": 293,
+  "gauge_to_gauge_relations": 65,
+  "rainfall_to_gauge_relations": 228,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/wang/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/wang/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/wang/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/wang/processed/river_network.geojson"
+  ]
+}

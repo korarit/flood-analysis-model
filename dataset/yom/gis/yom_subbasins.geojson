@@ -1,0 +1,210 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "yom_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำยมตอนบน (พะเยา/ปง/เชียงม่วน)",
+        "basin_slug": "yom",
+        "order": 1,
+        "downstream_subbasin": "yom_02_mid_north",
+        "min_lat": 18.787923799999998,
+        "max_lat": 19.543639,
+        "min_lon": 99.15449799999999,
+        "max_lon": 100.7744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.8244,
+              18.7679238
+            ],
+            [
+              100.8244,
+              19.563639
+            ],
+            [
+              99.10449799999999,
+              19.563639
+            ],
+            [
+              99.10449799999999,
+              18.7679238
+            ],
+            [
+              100.8244,
+              18.7679238
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "yom_02_mid_north",
+        "subbasin_name_th": "ลุ่มน้ำยมตอนกลางเหนือ (สอง/ร้องกวาง/แพร่)",
+        "basin_slug": "yom",
+        "order": 2,
+        "downstream_subbasin": "yom_03_central",
+        "min_lat": 18.032208599999997,
+        "max_lat": 18.787923799999998,
+        "min_lon": 99.15449799999999,
+        "max_lon": 100.7744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.8244,
+              18.012208599999997
+            ],
+            [
+              100.8244,
+              18.807923799999998
+            ],
+            [
+              99.10449799999999,
+              18.807923799999998
+            ],
+            [
+              99.10449799999999,
+              18.012208599999997
+            ],
+            [
+              100.8244,
+              18.012208599999997
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "yom_03_central",
+        "subbasin_name_th": "ลุ่มน้ำยมตอนกลาง (ศรีสัชนาลัย/สวรรคโลก)",
+        "basin_slug": "yom",
+        "order": 3,
+        "downstream_subbasin": "yom_04_mid_south",
+        "min_lat": 17.2764934,
+        "max_lat": 18.0322086,
+        "min_lon": 99.15449799999999,
+        "max_lon": 100.7744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.8244,
+              17.2564934
+            ],
+            [
+              100.8244,
+              18.0522086
+            ],
+            [
+              99.10449799999999,
+              18.0522086
+            ],
+            [
+              99.10449799999999,
+              17.2564934
+            ],
+            [
+              100.8244,
+              17.2564934
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "yom_04_mid_south",
+        "subbasin_name_th": "ลุ่มน้ำยมตอนกลางใต้ (สุโขทัย/กงไกรลาศ)",
+        "basin_slug": "yom",
+        "order": 4,
+        "downstream_subbasin": "yom_05_lower",
+        "min_lat": 16.5207782,
+        "max_lat": 17.2764934,
+        "min_lon": 99.15449799999999,
+        "max_lon": 100.7744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.8244,
+              16.5007782
+            ],
+            [
+              100.8244,
+              17.2964934
+            ],
+            [
+              99.10449799999999,
+              17.2964934
+            ],
+            [
+              99.10449799999999,
+              16.5007782
+            ],
+            [
+              100.8244,
+              16.5007782
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "yom_05_lower",
+        "subbasin_name_th": "ลุ่มน้ำยมตอนล่าง (บางระกำ/พิจิตร/ชุมแสง)",
+        "basin_slug": "yom",
+        "order": 5,
+        "downstream_subbasin": null,
+        "min_lat": 15.765063,
+        "max_lat": 16.5207782,
+        "min_lon": 99.15449799999999,
+        "max_lon": 100.7744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.8244,
+              15.745063
+            ],
+            [
+              100.8244,
+              16.5407782
+            ],
+            [
+              99.10449799999999,
+              16.5407782
+            ],
+            [
+              99.10449799999999,
+              15.745063
+            ],
+            [
+              100.8244,
+              15.745063
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
