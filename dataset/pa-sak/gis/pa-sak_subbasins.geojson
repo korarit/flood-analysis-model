@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "pasak_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำป่าสักตอนบน (ด่านซ้าย/หล่มเก่า/หล่มสัก/เมืองเพชรบูรณ์)",
+        "basin_slug": "pa-sak",
+        "order": 1,
+        "downstream_subbasin": "pasak_02_central",
+        "min_lat": 16.31533,
+        "max_lat": 17.268,
+        "min_lon": 100.521,
+        "max_lon": 101.61
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.61,
+              16.285333333333334
+            ],
+            [
+              101.61,
+              17.298000000000002
+            ],
+            [
+              100.521,
+              17.298000000000002
+            ],
+            [
+              100.521,
+              16.285333333333334
+            ],
+            [
+              101.61,
+              16.285333333333334
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "pasak_02_central",
+        "subbasin_name_th": "ลุ่มน้ำป่าสักตอนกลาง (หนองไผ่/วิเชียรบุรี/เขื่อนป่าสักชลสิทธิ์)",
+        "basin_slug": "pa-sak",
+        "order": 2,
+        "downstream_subbasin": "pasak_03_lower",
+        "min_lat": 15.36267,
+        "max_lat": 16.31533,
+        "min_lon": 100.521,
+        "max_lon": 101.61
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.61,
+              15.332666666666668
+            ],
+            [
+              101.61,
+              16.345333333333336
+            ],
+            [
+              100.521,
+              16.345333333333336
+            ],
+            [
+              100.521,
+              15.332666666666668
+            ],
+            [
+              101.61,
+              15.332666666666668
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "pasak_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำป่าสักตอนล่าง (พัฒนานิคม/แก่งคอย/สระบุรี/พระนครศรีอยุธยา)",
+        "basin_slug": "pa-sak",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 14.41,
+        "max_lat": 15.36267,
+        "min_lon": 100.521,
+        "max_lon": 101.61
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.61,
+              14.38
+            ],
+            [
+              101.61,
+              15.392666666666667
+            ],
+            [
+              100.521,
+              15.392666666666667
+            ],
+            [
+              100.521,
+              14.38
+            ],
+            [
+              101.61,
+              14.38
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

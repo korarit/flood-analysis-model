@@ -1,0 +1,782 @@
+[
+  {
+    "station": {
+      "id": 3666,
+      "tele_station_name": {
+        "th": "ท้ายเขื่อนพระรามหก",
+        "en": ""
+      },
+      "tele_station_lat": 14.56012,
+      "tele_station_long": 100.71994,
+      "tele_station_oldcode": "G07003-S.26",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.83,
+      "qmax": 641,
+      "min_bank": 7.2,
+      "river_name": "แม่น้ำป่าสักตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าเรือ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าเรือ",
+        "en": ""
+      },
+      "province_code": "14",
+      "province_name": {
+        "th": "พระนครศรีอยุธยา",
+        "en": ""
+      },
+      "geo_code": "140201",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3795,
+      "tele_station_name": {
+        "th": "บ้านท่ารวก",
+        "en": ""
+      },
+      "tele_station_lat": 15.22528,
+      "tele_station_long": 101.277458,
+      "tele_station_oldcode": "G07003-S.14",
+      "tele_station_type": "waterlevel",
+      "ground_level": 53.19,
+      "qmax": 204,
+      "min_bank": 62,
+      "river_name": "ลำสนธิ",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชัยบาดาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองยายโต๊ะ",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160411",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5800,
+      "tele_station_name": {
+        "th": "บ้านพูลทรัพย์",
+        "en": ""
+      },
+      "tele_station_lat": 15.32743,
+      "tele_station_long": 101.212402,
+      "tele_station_oldcode": "G07003-S.43",
+      "tele_station_type": "waterlevel",
+      "ground_level": 36.74,
+      "qmax": 926,
+      "min_bank": 51.9,
+      "river_name": "แม่น้ำป่าสักส่วนที่ 3/2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ชัยบาดาล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกาะรัง",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160412",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3754,
+      "tele_station_name": {
+        "th": "ท้ายเขื่อนป่าสักชลสิทธิ์",
+        "en": ""
+      },
+      "tele_station_lat": 14.83464,
+      "tele_station_long": 101.084297,
+      "tele_station_oldcode": "G07003-S.28",
+      "tele_station_type": "waterlevel",
+      "ground_level": 15.05,
+      "qmax": 1184,
+      "min_bank": 31.46,
+      "river_name": "แม่น้ำป่าสักตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พัฒนานิคม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "16",
+      "province_name": {
+        "th": "ลพบุรี",
+        "en": ""
+      },
+      "geo_code": "160207",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3665,
+      "tele_station_name": {
+        "th": "สถานีแพดับเพลิง",
+        "en": ""
+      },
+      "tele_station_lat": 14.55752,
+      "tele_station_long": 100.924217,
+      "tele_station_oldcode": "G07003-S.32",
+      "tele_station_type": "waterlevel",
+      "ground_level": 1.36,
+      "qmax": 829,
+      "min_bank": 12.8,
+      "river_name": "แม่น้ำป่าสักตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสระบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตะกุด",
+        "en": ""
+      },
+      "province_code": "19",
+      "province_name": {
+        "th": "สระบุรี",
+        "en": ""
+      },
+      "geo_code": "190114",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3674,
+      "tele_station_name": {
+        "th": "บ้านป่า",
+        "en": ""
+      },
+      "tele_station_lat": 14.62918,
+      "tele_station_long": 101.014427,
+      "tele_station_oldcode": "G07003-S.9",
+      "tele_station_type": "waterlevel",
+      "ground_level": 5.38,
+      "qmax": 1204,
+      "min_bank": 19.95,
+      "river_name": "แม่น้ำป่าสักตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แก่งคอย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านป่า",
+        "en": ""
+      },
+      "province_code": "19",
+      "province_name": {
+        "th": "สระบุรี",
+        "en": ""
+      },
+      "geo_code": "190208",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3841,
+      "tele_station_name": {
+        "th": "บ้านบ่อวัง",
+        "en": ""
+      },
+      "tele_station_lat": 15.5783,
+      "tele_station_long": 101.088623,
+      "tele_station_oldcode": "G07003-S.42",
+      "tele_station_type": "waterlevel",
+      "ground_level": 54.6,
+      "qmax": 250,
+      "min_bank": 62.79,
+      "river_name": "แม่น้ำป่าสักส่วนที่ 3/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วิเชียรบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สระประดู่",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670502",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10113,
+      "tele_station_name": {
+        "th": "บ้านท่าไม้ทอง",
+        "en": ""
+      },
+      "tele_station_lat": 15.43676,
+      "tele_station_long": 101.101089,
+      "tele_station_oldcode": "G07003-S.52",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 56.1,
+      "river_name": "แม่น้ำป่าสักส่วนที่ 3/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีเทพ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สระกรวด",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670602",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3618,
+      "tele_station_name": {
+        "th": "ต.ตาลเดี่ยว",
+        "en": ""
+      },
+      "tele_station_lat": 16.78157,
+      "tele_station_long": 101.246689,
+      "tele_station_oldcode": "G07003-S.3",
+      "tele_station_type": "waterlevel",
+      "ground_level": 139.32,
+      "qmax": 77.44999694824219,
+      "min_bank": 144.93001,
+      "river_name": "แม่น้ำป่าสักตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หล่มสัก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตาลเดี่ยว",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670303",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 15502748,
+      "tele_station_name": {
+        "th": "สะพานบ้านวังร่อง",
+        "en": ""
+      },
+      "tele_station_lat": 16.83062,
+      "tele_station_long": 101.307968,
+      "tele_station_oldcode": "G07003-S.53",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 440,
+      "min_bank": 157,
+      "river_name": "แม่น้ำป่าสักตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หล่มสัก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สักหลง",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670307",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4026,
+      "tele_station_name": {
+        "th": "ต.ตาดกลอย",
+        "en": ""
+      },
+      "tele_station_lat": 17.004061,
+      "tele_station_long": 101.352898,
+      "tele_station_oldcode": "G07003-S.33",
+      "tele_station_type": "waterlevel",
+      "ground_level": 190.93,
+      "qmax": 415,
+      "min_bank": 198.93,
+      "river_name": "แม่น้ำป่าสักตอนบน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หล่มเก่า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ตาดกลอย",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670409",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10112,
+      "tele_station_name": {
+        "th": "ต.นาเฉลียง",
+        "en": ""
+      },
+      "tele_station_lat": 16.11496,
+      "tele_station_long": 101.097023,
+      "tele_station_oldcode": "G07003-S.51",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 65.18,
+      "river_name": "แม่น้ำป่าสักส่วนที่ 3/1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองเพชรบูรณ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ระวิง",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670117",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3923,
+      "tele_station_name": {
+        "th": "ต.ในเมือง",
+        "en": ""
+      },
+      "tele_station_lat": 16.42322,
+      "tele_station_long": 101.162079,
+      "tele_station_oldcode": "G07003-S.4B",
+      "tele_station_type": "waterlevel",
+      "ground_level": 109.41,
+      "qmax": 190,
+      "min_bank": 115.7,
+      "river_name": "แม่น้ำป่าสักส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองเพชรบูรณ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ในเมือง",
+        "en": ""
+      },
+      "province_code": "67",
+      "province_name": {
+        "th": "เพชรบูรณ์",
+        "en": ""
+      },
+      "geo_code": "670101",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 12,
+      "basin_code": 12,
+      "basin_name": {
+        "th": "ลุ่มน้ำป่าสัก",
+        "en": "Pa Sak River Basin"
+      }
+    }
+  }
+]
