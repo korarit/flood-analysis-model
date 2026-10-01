@@ -332,7 +332,8 @@ def main():
     base_dir = Path(__file__).resolve().parent.parent / args.dataset_dir
     resolver = StationIdResolver()
 
-    all_basins = ["yom", "ping", "nan", "wang", "chao-phraya", "chi", "khong-north", "mun", "pa-sak"]
+    # Discover all basins present in the dataset directory
+    all_basins = sorted([d.name for d in base_dir.iterdir() if d.is_dir() and not d.name.startswith(".")])
     target_basins = all_basins if args.basin == "all" else [b.strip() for b in args.basin.split(",")]
 
     print("=" * 80)
