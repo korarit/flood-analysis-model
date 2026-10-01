@@ -1,0 +1,302 @@
+[
+  {
+    "station": {
+      "id": 3718,
+      "tele_station_name": {
+        "th": "ที่ว่าการอ.นครชัยศรี",
+        "en": ""
+      },
+      "tele_station_lat": 13.80096,
+      "tele_station_long": 100.188026,
+      "tele_station_oldcode": "G07003-T.1",
+      "tele_station_type": "waterlevel",
+      "ground_level": -9.1,
+      "qmax": null,
+      "min_bank": 1.5,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730301",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5894,
+      "tele_station_name": {
+        "th": "วัดบางไผ่นารถ",
+        "en": ""
+      },
+      "tele_station_lat": 14.05221,
+      "tele_station_long": 100.175087,
+      "tele_station_oldcode": "G07003-T.15",
+      "tele_station_type": "waterlevel",
+      "ground_level": -5.74,
+      "qmax": null,
+      "min_bank": 1.8000002,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางไทรป่า",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730506",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5818,
+      "tele_station_name": {
+        "th": "ร.ร.บ้านสามพราน",
+        "en": ""
+      },
+      "tele_station_lat": 13.72411,
+      "tele_station_long": 100.215683,
+      "tele_station_oldcode": "G07003-T.14",
+      "tele_station_type": "waterlevel",
+      "ground_level": -8.76,
+      "qmax": null,
+      "min_bank": 1.5,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามพราน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามพราน",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730606",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5817,
+      "tele_station_name": {
+        "th": "บ้านบางการ้อง",
+        "en": ""
+      },
+      "tele_station_lat": 14.157,
+      "tele_station_long": 100.127907,
+      "tele_station_oldcode": "G07003-T.13",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.67,
+      "qmax": null,
+      "min_bank": 2.4,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720703",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5816,
+      "tele_station_name": {
+        "th": "บ้านวัดพระรูป",
+        "en": ""
+      },
+      "tele_station_lat": 14.47046,
+      "tele_station_long": 100.114769,
+      "tele_station_oldcode": "G07003-T.10",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.44,
+      "qmax": null,
+      "min_bank": 3.5,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าพี่เลี้ยง",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720101",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  }
+]

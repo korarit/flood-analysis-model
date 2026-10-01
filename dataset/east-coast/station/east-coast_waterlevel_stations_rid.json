@@ -1,0 +1,1082 @@
+[
+  {
+    "station": {
+      "id": 3705,
+      "tele_station_name": {
+        "th": "บ้านฉมัน",
+        "en": ""
+      },
+      "tele_station_lat": 12.74451,
+      "tele_station_long": 102.206421,
+      "tele_station_oldcode": "G07003-Z.14",
+      "tele_station_type": "waterlevel",
+      "ground_level": 5.502,
+      "qmax": 201,
+      "min_bank": 13.35,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "มะขาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ฉมัน",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220506",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3706,
+      "tele_station_name": {
+        "th": "บ้านปึก",
+        "en": ""
+      },
+      "tele_station_lat": 12.76323,
+      "tele_station_long": 102.138039,
+      "tele_station_oldcode": "G07003-Z.13",
+      "tele_station_type": "waterlevel",
+      "ground_level": 5.85,
+      "qmax": 226.39999389648438,
+      "min_bank": 12.32,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "มะขาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังแซ้ม",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220504",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3707,
+      "tele_station_name": {
+        "th": "บ้านโป่งโรงเซ็น",
+        "en": ""
+      },
+      "tele_station_lat": 12.79196,
+      "tele_station_long": 102.254669,
+      "tele_station_oldcode": "G07003-Z.21",
+      "tele_station_type": "waterlevel",
+      "ground_level": 20.904,
+      "qmax": 211.0500030517578,
+      "min_bank": 28.69,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "มะขาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปัถวี",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220503",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3704,
+      "tele_station_name": {
+        "th": "สะพานวัดจันทนาราม",
+        "en": ""
+      },
+      "tele_station_lat": 12.61359,
+      "tele_station_long": 102.114113,
+      "tele_station_oldcode": "G07003-Z.57",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.91,
+      "qmax": 464.79998779296875,
+      "min_bank": 3.44,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองจันทบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "จันทนิมิต",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220107",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3714,
+      "tele_station_name": {
+        "th": "บ้านขุนซ่อง",
+        "en": ""
+      },
+      "tele_station_lat": 13.07735,
+      "tele_station_long": 101.945534,
+      "tele_station_oldcode": "G07003-Z.28",
+      "tele_station_type": "waterlevel",
+      "ground_level": 33.078,
+      "qmax": 105.6500015258789,
+      "min_bank": 39.089996,
+      "river_name": "คลองโตนด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แก่งหางแมว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ขุนซ่อง",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220802",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568260,
+      "tele_station_name": {
+        "th": "บ้านวังอีแอ่น",
+        "en": ""
+      },
+      "tele_station_lat": 13.05894,
+      "tele_station_long": 101.821693,
+      "tele_station_oldcode": "G07003-Z.65",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 50.310001373291016,
+      "min_bank": 46,
+      "river_name": "คลองโตนด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แก่งหางแมว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พวา",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220804",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7298,
+      "tele_station_name": {
+        "th": "ตำบลท่าหลวง",
+        "en": ""
+      },
+      "tele_station_lat": 12.657133,
+      "tele_station_long": 102.15435,
+      "tele_station_oldcode": "G07003-Z.64",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.795,
+      "qmax": 437.200012,
+      "min_bank": 7.21,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แหลมสิงห์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกาะเปริด",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220602",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568257,
+      "tele_station_name": {
+        "th": "บ้านคอแล",
+        "en": ""
+      },
+      "tele_station_lat": 12.61798,
+      "tele_station_long": 102.474937,
+      "tele_station_oldcode": "G07003-Z.45",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 134.5,
+      "min_bank": 34,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ่อไร่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบอน",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230404",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568259,
+      "tele_station_name": {
+        "th": "บ้านบ่อไร่",
+        "en": ""
+      },
+      "tele_station_lat": 12.57286,
+      "tele_station_long": 102.532753,
+      "tele_station_oldcode": "G07003-Z.59",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 160.67999267578125,
+      "min_bank": 24.32,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ่อไร่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ่อพลอย",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230401",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568261,
+      "tele_station_name": {
+        "th": "บ้านคลองพร้าว",
+        "en": ""
+      },
+      "tele_station_lat": 12.05068,
+      "tele_station_long": 102.30014,
+      "tele_station_oldcode": "G07003-Z.66",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 600.2000122070312,
+      "min_bank": 6.06,
+      "river_name": "ชายฝั่งทะเลตะวันออก (เกาะ)",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เกาะช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกาะช้าง",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230701",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3610,
+      "tele_station_name": {
+        "th": "บ้านศรีบัวทอง",
+        "en": ""
+      },
+      "tele_station_lat": 12.4765,
+      "tele_station_long": 102.477867,
+      "tele_station_oldcode": "G07003-Z.10",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.59,
+      "qmax": 444,
+      "min_bank": 13.4,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาสมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เทพนิมิต",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230307",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568256,
+      "tele_station_name": {
+        "th": "บ้านหนองบัว",
+        "en": ""
+      },
+      "tele_station_lat": 12.54094,
+      "tele_station_long": 102.445923,
+      "tele_station_oldcode": "G07003-Z.30",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 385.6400146484375,
+      "min_bank": 19.42,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาสมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะตอ",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230305",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3703,
+      "tele_station_name": {
+        "th": "บ้านเขาสมิง",
+        "en": ""
+      },
+      "tele_station_lat": 12.35731,
+      "tele_station_long": 102.437897,
+      "tele_station_oldcode": "G07003-Z.58",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.79,
+      "qmax": null,
+      "min_bank": 4.5,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาสมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เขาสมิง",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230301",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1568258,
+      "tele_station_name": {
+        "th": " บ้านคลองขวาง",
+        "en": ""
+      },
+      "tele_station_lat": 12.34927,
+      "tele_station_long": 102.654663,
+      "tele_station_oldcode": "G07003-Z.47A",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 72,
+      "min_bank": 23.1,
+      "river_name": "ชายฝั่งทะเลตะวันออก (ลุ่มน้ำสาขา 5)",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่ากุ่ม",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230111",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5808,
+      "tele_station_name": {
+        "th": "บ้านค่าย",
+        "en": ""
+      },
+      "tele_station_lat": 12.78358,
+      "tele_station_long": 101.295937,
+      "tele_station_oldcode": "G07003-Z.62",
+      "tele_station_type": "waterlevel",
+      "ground_level": 3.03,
+      "qmax": 153,
+      "min_bank": 10.219999,
+      "river_name": "คลองใหญ่",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านค่าย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านค่าย",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210501",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3710,
+      "tele_station_name": {
+        "th": "บ้านซำฆ้อ",
+        "en": ""
+      },
+      "tele_station_lat": 12.95677,
+      "tele_station_long": 101.672096,
+      "tele_station_oldcode": "G07003-Z.18",
+      "tele_station_type": "waterlevel",
+      "ground_level": 26.234,
+      "qmax": 94.5,
+      "min_bank": 34.15,
+      "river_name": "แม่น้ำประแส",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาชะเมา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ชำฆ้อ",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210703",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5807,
+      "tele_station_name": {
+        "th": "บ้านเขาโบสถ์",
+        "en": ""
+      },
+      "tele_station_lat": 12.73796,
+      "tele_station_long": 101.228401,
+      "tele_station_oldcode": "G07003-Z.38",
+      "tele_station_type": "waterlevel",
+      "ground_level": 7.034,
+      "qmax": 52.5,
+      "min_bank": 10.6,
+      "river_name": "คลองใหญ่",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองระยอง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทับมา",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210111",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3711,
+      "tele_station_name": {
+        "th": "บ้านเขาวังไทร",
+        "en": ""
+      },
+      "tele_station_lat": 12.85783,
+      "tele_station_long": 101.615738,
+      "tele_station_oldcode": "G07003-Z.11",
+      "tele_station_type": "waterlevel",
+      "ground_level": 3.172,
+      "qmax": 154.39999389648438,
+      "min_bank": 9.16,
+      "river_name": "แม่น้ำประแส",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แกลง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "กระแสบน",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210307",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  }
+]

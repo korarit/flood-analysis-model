@@ -1,0 +1,482 @@
+[
+  {
+    "station": {
+      "id": 1792,
+      "tele_station_name": {
+        "th": "เมืองกาญจนบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 14.06047,
+      "tele_station_long": 99.48325,
+      "tele_station_oldcode": "G23069-KRN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 20.28,
+      "qmax": null,
+      "min_bank": 25.685,
+      "river_name": "แม่น้ำแควใหญ่ตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกาญจนบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แก่งเสี้ยน",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710105",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 4769,
+      "tele_station_name": {
+        "th": "ลิ่นถิ่น",
+        "en": ""
+      },
+      "tele_station_lat": 14.53559,
+      "tele_station_long": 98.78764,
+      "tele_station_oldcode": "G23069-KRN004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 59.85,
+      "qmax": null,
+      "min_bank": 70.524,
+      "river_name": "แม่น้ำแควน้อยตอนบนส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710204",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1795,
+      "tele_station_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tele_station_lat": 14.11265,
+      "tele_station_long": 99.14635,
+      "tele_station_oldcode": "G23069-KRN002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 30.012,
+      "qmax": null,
+      "min_bank": 46.515,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลุ่มสุ่ม",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710201",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1787,
+      "tele_station_name": {
+        "th": "บ้านโป่ง",
+        "en": ""
+      },
+      "tele_station_lat": 13.81866,
+      "tele_station_long": 99.86508,
+      "tele_station_oldcode": "G23069-RAJ002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.132,
+      "qmax": null,
+      "min_bank": 11.839,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโป่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เบิกไพร",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700514",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1784,
+      "tele_station_name": {
+        "th": "สวนผึ้ง",
+        "en": ""
+      },
+      "tele_station_lat": 13.56008,
+      "tele_station_long": 99.36224,
+      "tele_station_oldcode": "G23069-RAJ003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 94.218,
+      "qmax": null,
+      "min_bank": 102.751,
+      "river_name": "ลำภาชี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สวนผึ้ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สวนผึ้ง",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700301",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1788,
+      "tele_station_name": {
+        "th": "โพธาราม",
+        "en": ""
+      },
+      "tele_station_lat": 13.63308,
+      "tele_station_long": 99.8164,
+      "tele_station_oldcode": "G23069-RAJ001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.091,
+      "qmax": null,
+      "min_bank": 7.804,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "โพธาราม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เจ็ดเสมียน",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700709",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1829,
+      "tele_station_name": {
+        "th": "พระรามสอง",
+        "en": ""
+      },
+      "tele_station_lat": 13.38362,
+      "tele_station_long": 99.9836,
+      "tele_station_oldcode": "G23069-MKG006",
+      "tele_station_type": "waterlevel",
+      "ground_level": -11.86,
+      "qmax": null,
+      "min_bank": 1.989,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสงคราม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่กลอง",
+        "en": ""
+      },
+      "province_code": "75",
+      "province_name": {
+        "th": "สมุทรสงคราม",
+        "en": ""
+      },
+      "geo_code": "750101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1828,
+      "tele_station_name": {
+        "th": "บ้านแพ้ว",
+        "en": ""
+      },
+      "tele_station_lat": 13.57563,
+      "tele_station_long": 100.07884,
+      "tele_station_oldcode": "G23069-MKG005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.296,
+      "qmax": null,
+      "min_bank": 0.959,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านแพ้ว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "geo_code": "740306",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  }
+]

@@ -1,0 +1,842 @@
+[
+  {
+    "station": {
+      "id": 1211,
+      "tele_station_name": {
+        "th": "นายายอาม",
+        "en": ""
+      },
+      "tele_station_lat": 12.722433,
+      "tele_station_long": 101.95606,
+      "tele_station_oldcode": "G23069-CHN005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.44,
+      "qmax": null,
+      "min_bank": 4.2759,
+      "river_name": "คลองโตนด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นายายอาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังใหม่",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220906",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1200,
+      "tele_station_name": {
+        "th": "เมืองจันทบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 12.613584,
+      "tele_station_long": 102.11407,
+      "tele_station_oldcode": "G23069-CHN001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.817,
+      "qmax": null,
+      "min_bank": 3.252,
+      "river_name": "แม่น้ำจันทบุรี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองจันทบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "จันทนิมิต",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220107",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1208,
+      "tele_station_name": {
+        "th": "แก่งหางแมว",
+        "en": ""
+      },
+      "tele_station_lat": 12.986792,
+      "tele_station_long": 101.89965,
+      "tele_station_oldcode": "G23069-CHN004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 21.6,
+      "qmax": null,
+      "min_bank": 27.1001,
+      "river_name": "คลองโตนด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แก่งหางแมว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แก่งหางแมว",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220801",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 8294,
+      "tele_station_name": {
+        "th": "สถานีวิจัยประมงศรีราชา",
+        "en": ""
+      },
+      "tele_station_lat": 13.185876,
+      "tele_station_long": 100.916916,
+      "tele_station_oldcode": "G23069-GOT001",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ชายฝั่งทะเลตะวันออก (ลุ่มน้ำสาขา 1)",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีราชา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางพระ",
+        "en": ""
+      },
+      "province_code": "20",
+      "province_name": {
+        "th": "ชลบุรี",
+        "en": ""
+      },
+      "geo_code": "200707",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10127,
+      "tele_station_name": {
+        "th": "คลองโสน",
+        "en": ""
+      },
+      "tele_station_lat": 12.513374,
+      "tele_station_long": 102.50484,
+      "tele_station_oldcode": "G23069-TRD006",
+      "tele_station_type": "waterlevel",
+      "ground_level": 5.5,
+      "qmax": null,
+      "min_bank": 15.719,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ่อไร่",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ่อพลอย",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230401",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10126,
+      "tele_station_name": {
+        "th": "คลองประณีต บ.ตลุง",
+        "en": ""
+      },
+      "tele_station_lat": 12.511324,
+      "tele_station_long": 102.37168,
+      "tele_station_oldcode": "G23069-TRD005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.928,
+      "qmax": null,
+      "min_bank": 5.219,
+      "river_name": "ชายฝั่งทะเลตะวันออก (ลุ่มน้ำสาขา 4)",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เขาสมิง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ประณีต",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230306",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10128,
+      "tele_station_name": {
+        "th": "คลองเขาระกำ",
+        "en": ""
+      },
+      "tele_station_lat": 12.25058,
+      "tele_station_long": 102.475716,
+      "tele_station_oldcode": "G23069-TRD007",
+      "tele_station_type": "waterlevel",
+      "ground_level": 1.563,
+      "qmax": null,
+      "min_bank": 4.689,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังกระแจะ",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230107",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1214,
+      "tele_station_name": {
+        "th": "บางพระ",
+        "en": ""
+      },
+      "tele_station_lat": 12.238111,
+      "tele_station_long": 102.50981,
+      "tele_station_oldcode": "G23069-TRD004",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.75,
+      "qmax": null,
+      "min_bank": 1.244,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางพระ",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230101",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1216,
+      "tele_station_name": {
+        "th": "วังกระแจะ",
+        "en": ""
+      },
+      "tele_station_lat": 12.262444,
+      "tele_station_long": 102.52681,
+      "tele_station_oldcode": "G23069-TRD003",
+      "tele_station_type": "waterlevel",
+      "ground_level": -5.51,
+      "qmax": null,
+      "min_bank": 1.23,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังกระแจะ",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230107",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1218,
+      "tele_station_name": {
+        "th": "ห้วยแร้ง",
+        "en": ""
+      },
+      "tele_station_lat": 12.369261,
+      "tele_station_long": 102.54332,
+      "tele_station_oldcode": "G23069-TRD002",
+      "tele_station_type": "waterlevel",
+      "ground_level": -4.31,
+      "qmax": null,
+      "min_bank": 3.558,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยแร้ง",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230108",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1217,
+      "tele_station_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tele_station_lat": 12.325195,
+      "tele_station_long": 102.5005,
+      "tele_station_oldcode": "G23069-TRD001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.744,
+      "qmax": null,
+      "min_bank": 0.69,
+      "river_name": "แม่น้ำเมืองตราด",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองตราด",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ห้วยแร้ง",
+        "en": ""
+      },
+      "province_code": "23",
+      "province_name": {
+        "th": "ตราด",
+        "en": ""
+      },
+      "geo_code": "230108",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1198,
+      "tele_station_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "tele_station_lat": 12.849195,
+      "tele_station_long": 101.301346,
+      "tele_station_oldcode": "G23069-RAY002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 8.57,
+      "qmax": null,
+      "min_bank": 15.967,
+      "river_name": "คลองใหญ่",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านค่าย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210506",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1196,
+      "tele_station_name": {
+        "th": "ชุมชนประแส",
+        "en": ""
+      },
+      "tele_station_lat": 12.716423,
+      "tele_station_long": 101.704124,
+      "tele_station_oldcode": "G23069-VLGE26",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำประแส",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แกลง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากน้ำกระแส",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210313",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1195,
+      "tele_station_name": {
+        "th": "เมืองแกลง",
+        "en": ""
+      },
+      "tele_station_lat": 12.802991,
+      "tele_station_long": 101.65024,
+      "tele_station_oldcode": "G23069-RAY001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.445,
+      "qmax": null,
+      "min_bank": 3.966,
+      "river_name": "แม่น้ำประแส",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แกลง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านนา",
+        "en": ""
+      },
+      "province_code": "21",
+      "province_name": {
+        "th": "ระยอง",
+        "en": ""
+      },
+      "geo_code": "210308",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 17,
+      "basin_code": 17,
+      "basin_name": {
+        "th": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+        "en": "East Coast River Basin"
+      }
+    }
+  }
+]

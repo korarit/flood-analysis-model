@@ -1,7 +1,7 @@
 """
 Script to extract and organize Rainfall and Water Level station lists
 by River Basin (matching frontend basins: yom, nan, ping, wang, chao-phraya)
-and by Agency (HII + MOU, DWR, and RID for water level).
+and by Agency (HII + MOU and DWR for rain; HII + MOU and RID for water level, excluding DWR).
 
 Outputs clean JSON and CSV files into the dataset/{basin}/station/ directories.
 """
@@ -492,7 +492,7 @@ def process_all_basins(
 
         # --------------------------------------------------------------
         # Process Water Level Stations for this basin
-        # (Filtering HII+MOU, DWR, and RID for waterlevel)
+        # (Filtering HII+MOU and RID for waterlevel; DWR excluded due to no historical WL)
         # --------------------------------------------------------------
         wl_stations = []
         seen_wl_ids = set()
@@ -514,9 +514,17 @@ def process_all_basins(
                 st_id = st.get("id")
                 if st_id and st_id in seen_wl_ids:
                     continue
+
+                clean_st = clean_waterlevel_station(feat, basin_info)
+
+                # Exclude DWR (กรมทรัพยากรน้ำ) stations because historical water level data is unavailable
+                ag_name_th = clean_st.get("agency", {}).get("agency_name", {}).get("th", "")
+                ag_short_th = clean_st.get("agency", {}).get("agency_shortname", {}).get("th", "")
+                if is_dwr(ag_name_th, ag_short_th):
+                    continue
+
                 if st_id:
                     seen_wl_ids.add(st_id)
-                clean_st = clean_waterlevel_station(feat, basin_info)
                 wl_stations.append(clean_st)
 
         # Sort stations by province, amphoe, name
@@ -528,19 +536,12 @@ def process_all_basins(
             )
         )
 
-        # Filter agency subsets for Water Level (HII + MOU, DWR, and RID)
+        # Filter agency subsets for Water Level (HII + MOU and RID)
         wl_hii_mou = [
             st for st in wl_stations
             if is_hii_or_mou(
                 st.get("agency", {}).get("agency_name", {}).get("th", ""),
                 st.get("station", {}).get("tele_station_oldcode", "")
-            )
-        ]
-        wl_dwr = [
-            st for st in wl_stations
-            if is_dwr(
-                st.get("agency", {}).get("agency_name", {}).get("th", ""),
-                st.get("agency", {}).get("agency_shortname", {}).get("th", "")
             )
         ]
         wl_rid = [
@@ -563,15 +564,18 @@ def process_all_basins(
             basin_station_dir / f"{slug}_waterlevel_stations_hii.csv"
         )
         save_dataset_files(
-            wl_dwr,
-            basin_station_dir / f"{slug}_waterlevel_stations_dwr.json",
-            basin_station_dir / f"{slug}_waterlevel_stations_dwr.csv"
-        )
-        save_dataset_files(
             wl_rid,
             basin_station_dir / f"{slug}_waterlevel_stations_rid.json",
             basin_station_dir / f"{slug}_waterlevel_stations_rid.csv"
         )
+
+        # Clean up legacy DWR waterlevel station files if present
+        dwr_wl_json = basin_station_dir / f"{slug}_waterlevel_stations_dwr.json"
+        dwr_wl_csv = basin_station_dir / f"{slug}_waterlevel_stations_dwr.csv"
+        if dwr_wl_json.exists():
+            dwr_wl_json.unlink()
+        if dwr_wl_csv.exists():
+            dwr_wl_csv.unlink()
 
         summary_report.append({
             "slug": slug,
@@ -582,7 +586,6 @@ def process_all_basins(
             "rain_dwr": len(rain_dwr),
             "wl_total": len(wl_stations),
             "wl_hii_mou": len(wl_hii_mou),
-            "wl_dwr": len(wl_dwr),
             "wl_rid": len(wl_rid),
         })
 
@@ -594,20 +597,20 @@ def process_all_basins(
 
     # 3. Print Output Summary
     print("\n[3/3] สรุปผลการสร้างชุดข้อมูลสถานี (Dataset Summary):")
-    print("-" * 88)
-    print(f"{'ลุ่มน้ำ (Basin)':<20} | {'ฝน (Rain) HII+MOU / DWR / รวม':<25} | {'น้ำ (WL) HII / DWR / RID / รวม':<32}")
-    print("-" * 88)
+    print("-" * 75)
+    print(f"{'ลุ่มน้ำ (Basin)':<20} | {'ฝน (Rain) HII+MOU / DWR / รวม':<25} | {'น้ำ (WL) HII / RID / รวม':<25}")
+    print("-" * 75)
     total_rain_all = 0
     total_wl_all = 0
     total_wl_rid = 0
     for r in summary_report:
         rain_str = f"{r['rain_hii_mou']:>3} / {r['rain_dwr']:>3} / {r['rain_total']:>3}"
-        wl_str = f"{r['wl_hii_mou']:>3} / {r['wl_dwr']:>3} / {r['wl_rid']:>3} / {r['wl_total']:>3}"
-        print(f"{r['slug'] + ' (' + r['basin_name_th'] + ')':<20} | {rain_str:<25} | {wl_str:<32}")
+        wl_str = f"{r['wl_hii_mou']:>3} / {r['wl_rid']:>3} / {r['wl_total']:>3}"
+        print(f"{r['slug'] + ' (' + r['basin_name_th'] + ')':<20} | {rain_str:<25} | {wl_str:<25}")
         total_rain_all += r['rain_total']
         total_wl_all += r['wl_total']
         total_wl_rid += r['wl_rid']
-    print("-" * 88)
+    print("-" * 75)
     print(f"รวมสถานีฝนทั้งหมด: {total_rain_all:,} สถานี")
     print(f"รวมสถานีระดับน้ำทั้งหมด: {total_wl_all:,} สถานี (เป็นของกรมชลประทาน RID: {total_wl_rid:,} สถานี)")
     print(f"จัดเก็บไฟล์เรียบร้อยที่โฟลเดอร์: {output_dir.resolve()}")

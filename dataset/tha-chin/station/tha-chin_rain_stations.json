@@ -1,0 +1,4249 @@
+[
+  {
+    "station": {
+      "id": 528779,
+      "tele_station_name": {
+        "th": "สนข.บางบอน"
+      },
+      "tele_station_lat": 13.63392,
+      "tele_station_long": 100.36884,
+      "tele_station_oldcode": "RF.BBN.01",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+        "en": "Department of Drainage and Sewerage BMA"
+      },
+      "agency_shortname": {
+        "th": "สนน กทม.",
+        "en": "BMA"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": "Bangkok"
+      },
+      "amphoe_name": {
+        "th": "บางบอน",
+        "en": "Bang Bon District"
+      },
+      "tumbon_name": {
+        "th": "บางบอน",
+        "en": "Bang Bon"
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": "Bangkok"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 723,
+      "tele_station_name": {
+        "en": "Don Cha-am",
+        "th": "อบต.ดอนชะเอม"
+      },
+      "tele_station_lat": 13.96196,
+      "tele_station_long": 99.80394,
+      "tele_station_oldcode": "DNCM",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ท่ามะกา",
+        "en": "Tha Maka District"
+      },
+      "tumbon_name": {
+        "th": "ดอนชะเอม",
+        "en": "Don Cha-Em"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316739,
+      "tele_station_name": {
+        "th": "วัดหนองปลิง"
+      },
+      "tele_station_lat": 14.293831,
+      "tele_station_long": 99.807415,
+      "tele_station_oldcode": "ridtele_TTC18",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ห้วยกระเจา",
+        "en": "Huai Krachao District"
+      },
+      "tumbon_name": {
+        "th": "ดอนแสลบ",
+        "en": "Don Salaep"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501243,
+      "tele_station_name": {
+        "th": "บ้านบึงหล่ม"
+      },
+      "tele_station_lat": 14.732977,
+      "tele_station_long": 99.707595,
+      "tele_station_oldcode": "STN1209",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เลาขวัญ",
+        "en": "Lao Khwan District"
+      },
+      "tumbon_name": {
+        "th": "หนองปลิง",
+        "en": "Nong Pling"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501272,
+      "tele_station_name": {
+        "th": "บ้านหนองปลิง"
+      },
+      "tele_station_lat": 14.710845,
+      "tele_station_long": 99.759001,
+      "tele_station_oldcode": "STN1239",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เลาขวัญ",
+        "en": "Lao Khwan District"
+      },
+      "tumbon_name": {
+        "th": "หนองปลิง",
+        "en": "Nong Pling"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1784,
+      "tele_station_name": {
+        "th": "บ้านหนองใหญ่"
+      },
+      "tele_station_lat": 14.765087,
+      "tele_station_long": 99.60336,
+      "tele_station_oldcode": "STN0263",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เลาขวัญ",
+        "en": "Lao Khwan District"
+      },
+      "tumbon_name": {
+        "th": "หนองปลิง",
+        "en": "Nong Pling"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1785,
+      "tele_station_name": {
+        "th": "บ้านเขาวงพระจันทร์"
+      },
+      "tele_station_lat": 14.712119,
+      "tele_station_long": 99.642757,
+      "tele_station_oldcode": "STN0682",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เลาขวัญ",
+        "en": "Lao Khwan District"
+      },
+      "tumbon_name": {
+        "th": "หนองฝ้าย",
+        "en": "Nong Fai"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 729,
+      "tele_station_name": {
+        "en": "Thung Krabam",
+        "th": "อบต.ทุ่งกระบ่ำ"
+      },
+      "tele_station_lat": 14.58876,
+      "tele_station_long": 99.63505,
+      "tele_station_oldcode": "NAPJ",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "07",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เลาขวัญ",
+        "en": "Lao Khwan District"
+      },
+      "tumbon_name": {
+        "th": "ทุ่งกระบ่ำ",
+        "en": "Thung Krabam"
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": "Kanchanaburi"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316386,
+      "tele_station_name": {
+        "th": "T.ปตร.มะขามเฒ่า"
+      },
+      "tele_station_lat": 15.222455,
+      "tele_station_long": 100.062221,
+      "tele_station_oldcode": "ridtele_T.MakhamthaoRegulator",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "วัดสิงห์",
+        "en": "Wat Sing District"
+      },
+      "tumbon_name": {
+        "th": "มะขามเฒ่า",
+        "en": "Makham Thao"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 87,
+      "tele_station_name": {
+        "en": "Wat Sing",
+        "th": "ทต.วัดสิงห์"
+      },
+      "tele_station_lat": 15.2584,
+      "tele_station_long": 100.04493,
+      "tele_station_oldcode": "WTSG",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "วัดสิงห์",
+        "en": "Wat Sing District"
+      },
+      "tumbon_name": {
+        "th": "วัดสิงห์",
+        "en": "Wat Sing"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492345,
+      "tele_station_name": {
+        "en": "Makhamtoa-Uthong Gate",
+        "th": "ท้ายปตร.มะขามเฒ่า-อู่ทอง"
+      },
+      "tele_station_lat": 15.22229,
+      "tele_station_long": 100.06236,
+      "tele_station_oldcode": "ATG042",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "วัดสิงห์",
+        "en": "Wat Sing District"
+      },
+      "tumbon_name": {
+        "th": "มะขามเฒ่า",
+        "en": "Makham Thao"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1100900,
+      "tele_station_name": {
+        "th": "ศาลาเอนกประสงค์ ม.4"
+      },
+      "tele_station_lat": 15.30132,
+      "tele_station_long": 99.78449,
+      "tele_station_oldcode": "TA95",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หนองมะโมง",
+        "en": "Nong Mamong District"
+      },
+      "tumbon_name": {
+        "th": "วังตะเคียน",
+        "en": "Wang Takhian"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1100899,
+      "tele_station_name": {
+        "th": "ศาลาเอนกประสงค์ หมู่ 1"
+      },
+      "tele_station_lat": 15.29858,
+      "tele_station_long": 99.85879,
+      "tele_station_oldcode": "TA94",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หนองมะโมง",
+        "en": "Nong Mamong District"
+      },
+      "tumbon_name": {
+        "th": "วังตะเคียน",
+        "en": "Wang Takhian"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 93,
+      "tele_station_name": {
+        "en": "Hankha",
+        "th": "ทต.หันคา"
+      },
+      "tele_station_lat": 14.96964,
+      "tele_station_long": 100.01039,
+      "tele_station_oldcode": "HNKA",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หันคา",
+        "en": "Hankha District"
+      },
+      "tumbon_name": {
+        "th": "หันคา",
+        "en": "Han Kha"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492358,
+      "tele_station_name": {
+        "en": "Ta Bot Gate",
+        "th": "ท้ายปตร.ท่าโบสถ์"
+      },
+      "tele_station_lat": 15.05349,
+      "tele_station_long": 100.01175,
+      "tele_station_oldcode": "ATG122",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หันคา",
+        "en": "Hankha District"
+      },
+      "tumbon_name": {
+        "th": "สามง่ามท่าโบสถ์",
+        "en": "Sam Ngam Tha Bot"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316723,
+      "tele_station_name": {
+        "th": "ปตร.ท่าโบสถ์"
+      },
+      "tele_station_lat": 15.05395,
+      "tele_station_long": 100.01206,
+      "tele_station_oldcode": "ridtele_TTC02",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หันคา",
+        "en": "Hankha District"
+      },
+      "tumbon_name": {
+        "th": "สามง่ามท่าโบสถ์",
+        "en": "Sam Ngam Tha Bot"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1119550,
+      "tele_station_name": {
+        "th": "บ้านเลขที่ 2 หมู่ 4"
+      },
+      "tele_station_lat": 14.94948,
+      "tele_station_long": 99.82735,
+      "tele_station_oldcode": "TB01",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เนินขาม",
+        "en": "Noen Kham District"
+      },
+      "tumbon_name": {
+        "th": "สุขเดือนห้า",
+        "en": "Suk Duean Ha"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1100902,
+      "tele_station_name": {
+        "th": "ศาลาเอนกประสงค์ หมู่ 5"
+      },
+      "tele_station_lat": 14.95844,
+      "tele_station_long": 99.85305,
+      "tele_station_oldcode": "TB02",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เนินขาม",
+        "en": "Noen Kham District"
+      },
+      "tumbon_name": {
+        "th": "สุขเดือนห้า",
+        "en": "Suk Duean Ha"
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": "Chai Nat"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3708,
+      "tele_station_name": {
+        "en": "NAKHONPATHOM",
+        "th": "นครปฐม"
+      },
+      "tele_station_lat": 14.01167,
+      "tele_station_long": 99.97,
+      "tele_station_oldcode": "48451",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมอุตุนิยมวิทยา",
+        "en": "Thai Meteorological Department"
+      },
+      "agency_shortname": {
+        "th": "อต.",
+        "en": "TMD"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "กำแพงแสน",
+        "en": "Kamphaeng Saen District"
+      },
+      "tumbon_name": {
+        "th": "กำแพงแสน",
+        "en": "Kamphaeng Saen"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 743,
+      "tele_station_name": {
+        "en": "Kamphaeng Saen",
+        "th": "อบต.กำแพงแสน"
+      },
+      "tele_station_lat": 14.00326,
+      "tele_station_long": 99.98091,
+      "tele_station_oldcode": "KSKP",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "กำแพงแสน",
+        "en": "Kamphaeng Saen District"
+      },
+      "tumbon_name": {
+        "th": "กำแพงแสน",
+        "en": "Kamphaeng Saen"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 748,
+      "tele_station_name": {
+        "en": "Nakhon Chai Si Bridge",
+        "th": "สะพานนครชัยศรี"
+      },
+      "tele_station_lat": 13.79217,
+      "tele_station_long": 100.19817,
+      "tele_station_oldcode": "THA008",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "นครชัยศรี",
+        "en": "Nakhon Chai Si District"
+      },
+      "tumbon_name": {
+        "th": "ไทยาวาส",
+        "en": "Thaiyawat"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 744,
+      "tele_station_name": {
+        "en": "Nakhon Chai Si",
+        "th": "อบต.นครชัยศรี"
+      },
+      "tele_station_lat": 13.79036,
+      "tele_station_long": 100.19051,
+      "tele_station_oldcode": "TANA",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "นครชัยศรี",
+        "en": "Nakhon Chai Si District"
+      },
+      "tumbon_name": {
+        "th": "นครชัยศรี",
+        "en": "Nakhon Chai Si"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 745,
+      "tele_station_name": {
+        "en": "Tha Chin 7",
+        "th": "บางเลน"
+      },
+      "tele_station_lat": 14.01636,
+      "tele_station_long": 100.17979,
+      "tele_station_oldcode": "THA007",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "บางเลน",
+        "en": "Bang Len District"
+      },
+      "tumbon_name": {
+        "th": "บางเลน",
+        "en": "Bang Len"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316728,
+      "tele_station_name": {
+        "th": "โรงเรียนวัดบางปลา"
+      },
+      "tele_station_lat": 13.983198,
+      "tele_station_long": 100.179057,
+      "tele_station_oldcode": "ridtele_TTC07",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "บางเลน",
+        "en": "Bang Len District"
+      },
+      "tumbon_name": {
+        "th": "บางปลา",
+        "en": "Bang Pla"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 749,
+      "tele_station_name": {
+        "en": "Saladin Communuty",
+        "th": "ศาลาดิน"
+      },
+      "tele_station_lat": 13.80777,
+      "tele_station_long": 100.27417,
+      "tele_station_oldcode": "VLGE20",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "พุทธมณฑล",
+        "en": "Phutthamonthon District"
+      },
+      "tumbon_name": {
+        "th": "มหาสวัสดิ์",
+        "en": "Mahasawat"
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": "Nakhon Pathom"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 455219,
+      "tele_station_name": {
+        "en": "SAMUTSONGKRAM",
+        "th": "สมุทรสงคราม"
+      },
+      "tele_station_lat": 13.40778,
+      "tele_station_long": 100.03222,
+      "tele_station_oldcode": "48438",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมอุตุนิยมวิทยา",
+        "en": "Thai Meteorological Department"
+      },
+      "agency_shortname": {
+        "th": "อต.",
+        "en": "TMD"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสงคราม",
+        "en": "Mueang Samut Songkhram District"
+      },
+      "tumbon_name": {
+        "th": "บางแก้ว",
+        "en": "Bang Kaeo"
+      },
+      "province_code": "75",
+      "province_name": {
+        "th": "สมุทรสงคราม",
+        "en": "Samut Songkhram"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316730,
+      "tele_station_name": {
+        "th": "วัดท่ากระบือ"
+      },
+      "tele_station_lat": 13.662052,
+      "tele_station_long": 100.223332,
+      "tele_station_oldcode": "ridtele_TTC09",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "กระทุ่มแบน",
+        "en": "Krathum Baen District"
+      },
+      "tumbon_name": {
+        "th": "บางยาง",
+        "en": "Bang Yang"
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": "Samut Sakhon"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 751,
+      "tele_station_name": {
+        "en": "Krung Thep 6",
+        "th": "คลองมหาชัย วัดพันท้ายนรสิงห์"
+      },
+      "tele_station_lat": 13.58184,
+      "tele_station_long": 100.36587,
+      "tele_station_oldcode": "BKK006",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": "Mueang Samut Sakhon District"
+      },
+      "tumbon_name": {
+        "th": "พันท้ายนรสิงห์",
+        "en": "Phanthai Norasing"
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": "Samut Sakhon"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 753,
+      "tele_station_name": {
+        "en": "Thachin River",
+        "th": "ปากแม่น้ำท่าจีน"
+      },
+      "tele_station_lat": 13.5178,
+      "tele_station_long": 100.27499,
+      "tele_station_oldcode": "GLF002",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": "Mueang Samut Sakhon District"
+      },
+      "tumbon_name": {
+        "th": "บางหญ้าแพรก",
+        "en": "Bang Ya Phraek"
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": "Samut Sakhon"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 752,
+      "tele_station_name": {
+        "en": "Bang Kra Chao",
+        "th": "อบต.บางกระเจ้า"
+      },
+      "tele_station_lat": 13.52146,
+      "tele_station_long": 100.19283,
+      "tele_station_oldcode": "BKJO",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": "Mueang Samut Sakhon District"
+      },
+      "tumbon_name": {
+        "th": "บางกระเจ้า",
+        "en": "Bang Krachao"
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": "Samut Sakhon"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 750,
+      "tele_station_name": {
+        "en": "Tha Chin 9",
+        "th": "เมืองสมุทรสาคร"
+      },
+      "tele_station_lat": 13.58598,
+      "tele_station_long": 100.23048,
+      "tele_station_oldcode": "THA009",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": "Mueang Samut Sakhon District"
+      },
+      "tumbon_name": {
+        "th": "ท่าจีน",
+        "en": "Tha Chin"
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": "Samut Sakhon"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 734,
+      "tele_station_name": {
+        "en": "Tha Chin 3",
+        "th": "ด่านช้าง"
+      },
+      "tele_station_lat": 14.83506,
+      "tele_station_long": 99.66543,
+      "tele_station_oldcode": "THA003",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501445,
+      "tele_station_name": {
+        "th": "บ้านกกเชียง"
+      },
+      "tele_station_lat": 14.927231,
+      "tele_station_long": 99.50882,
+      "tele_station_oldcode": "STN1415",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยขมิ้น",
+        "en": "Huai Khamin"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1101094,
+      "tele_station_name": {
+        "th": "บ้านกกเต็น บริเวณวัดกกเต็น หมู่ 8"
+      },
+      "tele_station_lat": 14.94617,
+      "tele_station_long": 99.59413,
+      "tele_station_oldcode": "TF19",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยขมิ้น",
+        "en": "Huai Khamin"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501463,
+      "tele_station_name": {
+        "th": "บ้านท่าเดื่อ"
+      },
+      "tele_station_lat": 14.872319,
+      "tele_station_long": 99.568946,
+      "tele_station_oldcode": "STN1434",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "นิคมกระเสียว",
+        "en": "Nikhom Krasiao"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1790,
+      "tele_station_name": {
+        "th": "บ้านป่าขี"
+      },
+      "tele_station_lat": 14.962566,
+      "tele_station_long": 99.515459,
+      "tele_station_oldcode": "STN1015",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยขมิ้น",
+        "en": "Huai Khamin"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1101095,
+      "tele_station_name": {
+        "th": "บ้านป่าเลา หมู่ 11 บ้านผู้ใหญ่"
+      },
+      "tele_station_lat": 14.95213,
+      "tele_station_long": 99.57769,
+      "tele_station_oldcode": "TF20",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยขมิ้น",
+        "en": "Huai Khamin"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 500130,
+      "tele_station_name": {
+        "th": "บ้านโป่งคอม"
+      },
+      "tele_station_lat": 14.764333,
+      "tele_station_long": 99.565738,
+      "tele_station_oldcode": "STN1261",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 735,
+      "tele_station_name": {
+        "en": "Nikhom Krasiao",
+        "th": "อบต.นิคมกระเสียว"
+      },
+      "tele_station_lat": 14.85733,
+      "tele_station_long": 99.57508,
+      "tele_station_oldcode": "NIKS",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": "Dan Chang District"
+      },
+      "tumbon_name": {
+        "th": "นิคมกระเสียว",
+        "en": "Nikhom Krasiao"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1106453,
+      "tele_station_name": {
+        "en": "Thung PaMok",
+        "th": "ทุ่งโพธิ์พระยา"
+      },
+      "tele_station_lat": 14.320748,
+      "tele_station_long": 100.017395,
+      "tele_station_oldcode": "TCP007",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "บางปลาม้า",
+        "en": "Bang Pla Ma District"
+      },
+      "tumbon_name": {
+        "th": "วัดโบสถ์",
+        "en": "Wat Bot"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316726,
+      "tele_station_name": {
+        "th": "วัดมณีวรรณ"
+      },
+      "tele_station_lat": 14.3969,
+      "tele_station_long": 100.153,
+      "tele_station_oldcode": "ridtele_TTC05",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "บางปลาม้า",
+        "en": "Bang Pla Ma District"
+      },
+      "tumbon_name": {
+        "th": "โคกคราม",
+        "en": "Khok Khram"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1106448,
+      "tele_station_name": {
+        "en": "Khlong Bang So",
+        "th": "ปตร.ปลายคลองบางซอ (ทุ่งเจ้าเจ็ด)"
+      },
+      "tele_station_lat": 14.194874,
+      "tele_station_long": 100.13267,
+      "tele_station_oldcode": "TCP002",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": "Song Phi Nong District"
+      },
+      "tumbon_name": {
+        "th": "บางตาเถร",
+        "en": "Bang Ta Then"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 737,
+      "tele_station_name": {
+        "en": "Tha Chedi Temple (TTC06)",
+        "th": "วัดท่าเจดีย์ (TTC06)"
+      },
+      "tele_station_lat": 14.15657,
+      "tele_station_long": 100.12744,
+      "tele_station_oldcode": "THA006",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": "Song Phi Nong District"
+      },
+      "tumbon_name": {
+        "th": "บางตาเถร",
+        "en": "Bang Ta Then"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 736,
+      "tele_station_name": {
+        "en": "Song Phi Nong",
+        "th": "สองพี่น้อง"
+      },
+      "tele_station_lat": 14.21608,
+      "tele_station_long": 100.05017,
+      "tele_station_oldcode": "THA010",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": "Song Phi Nong District"
+      },
+      "tumbon_name": {
+        "th": "สองพี่น้อง",
+        "en": "Song Phi Nong"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492360,
+      "tele_station_name": {
+        "en": "Cholmakpijarn Gate",
+        "th": "ท้ายปตร.ชลมาร์คพิจารณ์"
+      },
+      "tele_station_lat": 14.7706,
+      "tele_station_long": 100.08824,
+      "tele_station_oldcode": "ATG132",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk District"
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316724,
+      "tele_station_name": {
+        "th": "ปตร.สามชุก"
+      },
+      "tele_station_lat": 14.772463,
+      "tele_station_long": 100.088281,
+      "tele_station_oldcode": "ridtele_TTC03",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk District"
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 738,
+      "tele_station_name": {
+        "en": "Tha Chin 4",
+        "th": "สามชุก"
+      },
+      "tele_station_lat": 14.75138,
+      "tele_station_long": 100.09592,
+      "tele_station_oldcode": "THA004",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk District"
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492359,
+      "tele_station_name": {
+        "en": "Upper Cholmakpijarn Gate",
+        "th": "เหนือปตร.ชลมาร์คพิจารณ์"
+      },
+      "tele_station_lat": 14.77118,
+      "tele_station_long": 100.0884,
+      "tele_station_oldcode": "ATG131",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk District"
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": "Sam Chuk"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316735,
+      "tele_station_name": {
+        "th": "บ้านด่านช้าง"
+      },
+      "tele_station_lat": 14.8197,
+      "tele_station_long": 99.6941,
+      "tele_station_oldcode": "ridtele_TTC14",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "หนองหญ้าไซ",
+        "en": "Nong Ya Sai District"
+      },
+      "tumbon_name": {
+        "th": "หนองขาม",
+        "en": "Nong Kham"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 742,
+      "tele_station_name": {
+        "en": "Chedi",
+        "th": "ทต.เจดีย์"
+      },
+      "tele_station_lat": 14.38422,
+      "tele_station_long": 99.96114,
+      "tele_station_oldcode": "KYKT",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "อู่ทอง",
+        "en": "U Thong District"
+      },
+      "tumbon_name": {
+        "th": "เจดีย์",
+        "en": "Chedi"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3695,
+      "tele_station_name": {
+        "en": "U THONG AGROMET.",
+        "th": "อู่ทอง สกษ."
+      },
+      "tele_station_lat": 14.30361,
+      "tele_station_long": 99.86472,
+      "tele_station_oldcode": "48427",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมอุตุนิยมวิทยา",
+        "en": "Thai Meteorological Department"
+      },
+      "agency_shortname": {
+        "th": "อต.",
+        "en": "TMD"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "อู่ทอง",
+        "en": "U Thong District"
+      },
+      "tumbon_name": {
+        "th": "จรเข้สามพัน",
+        "en": "Chorakhe Sam Phan"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1100894,
+      "tele_station_name": {
+        "th": "โรงเรียนวัดหาดอาสา หมู่ 1"
+      },
+      "tele_station_lat": 14.59844,
+      "tele_station_long": 99.85305,
+      "tele_station_oldcode": "TA84",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "อู่ทอง",
+        "en": "U Thong District"
+      },
+      "tumbon_name": {
+        "th": "บ้านโข้ง",
+        "en": "Ban Khong"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316736,
+      "tele_station_name": {
+        "th": "ไซฟอนกระเสียว"
+      },
+      "tele_station_lat": 14.844778,
+      "tele_station_long": 100.015492,
+      "tele_station_oldcode": "ridtele_TTC15",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เดิมบางนางบวช",
+        "en": "Doem Bang Nang Buat District"
+      },
+      "tumbon_name": {
+        "th": "หัวเขา",
+        "en": "Hua Khao"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492362,
+      "tele_station_name": {
+        "en": "Pho Phraya Gate",
+        "th": "ท้ายปตร.โพธิ์พระยา"
+      },
+      "tele_station_lat": 14.53181,
+      "tele_station_long": 100.12245,
+      "tele_station_oldcode": "ATG142",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": "Mueang Suphan Buri District"
+      },
+      "tumbon_name": {
+        "th": "โพธิ์พระยา",
+        "en": "Pho Phraya"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3693,
+      "tele_station_name": {
+        "en": "SUPHAN BURI",
+        "th": "สุพรรณบุรี"
+      },
+      "tele_station_lat": 14.47444,
+      "tele_station_long": 100.13889,
+      "tele_station_oldcode": "48425",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมอุตุนิยมวิทยา",
+        "en": "Thai Meteorological Department"
+      },
+      "agency_shortname": {
+        "th": "อต.",
+        "en": "TMD"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": "Mueang Suphan Buri District"
+      },
+      "tumbon_name": {
+        "th": "ท่าระหัด",
+        "en": "Tha Rahat"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 731,
+      "tele_station_name": {
+        "en": "Tha Chin 5",
+        "th": "เมืองสุพรรณบุรี"
+      },
+      "tele_station_lat": 14.4705,
+      "tele_station_long": 100.11475,
+      "tele_station_oldcode": "THA005",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": "Mueang Suphan Buri District"
+      },
+      "tumbon_name": {
+        "th": "ท่าพี่เลี้ยง",
+        "en": "Tha Phi Liang"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 492361,
+      "tele_station_name": {
+        "en": "Upper Pho Phraya Gate",
+        "th": "เหนือปตร.โพธิ์พระยา"
+      },
+      "tele_station_lat": 14.53248,
+      "tele_station_long": 100.12224,
+      "tele_station_oldcode": "ATG141",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": "Central"
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": "Mueang Suphan Buri District"
+      },
+      "tumbon_name": {
+        "th": "โพธิ์พระยา",
+        "en": "Pho Phraya"
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": "Suphan Buri"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501130,
+      "tele_station_name": {
+        "th": "บ้านนาทุ่งเชือก"
+      },
+      "tele_station_lat": 15.160483,
+      "tele_station_long": 99.544922,
+      "tele_station_oldcode": "STN1089",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยแห้ง",
+        "en": "Huai Haeng"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1661,
+      "tele_station_name": {
+        "th": "บ้านบุ่ง"
+      },
+      "tele_station_lat": 15.12854,
+      "tele_station_long": 99.464856,
+      "tele_station_oldcode": "STN0171",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "เจ้าวัด",
+        "en": "Chao Wat"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1316734,
+      "tele_station_name": {
+        "th": "บ้านผาทั่ง"
+      },
+      "tele_station_lat": 15.1054,
+      "tele_station_long": 99.5358,
+      "tele_station_oldcode": "ridtele_TTC13",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยแห้ง",
+        "en": "Huai Haeng"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1654,
+      "tele_station_name": {
+        "th": "บ้านพุบอน"
+      },
+      "tele_station_lat": 15.07572,
+      "tele_station_long": 99.419734,
+      "tele_station_oldcode": "STN0680",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501115,
+      "tele_station_name": {
+        "th": "บ้านหน้าฝาย"
+      },
+      "tele_station_lat": 15.067142,
+      "tele_station_long": 99.542776,
+      "tele_station_oldcode": "STN1074",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านบึง",
+        "en": "Ban Bueng"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1655,
+      "tele_station_name": {
+        "th": "บ้านหินตุ้ม"
+      },
+      "tele_station_lat": 15.046578,
+      "tele_station_long": 99.476521,
+      "tele_station_oldcode": "STN0679",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1660,
+      "tele_station_name": {
+        "th": "บ้านห้วยลึก"
+      },
+      "tele_station_lat": 15.218677,
+      "tele_station_long": 99.50252,
+      "tele_station_oldcode": "STN0471",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "คอกควาย",
+        "en": "Khok Khwai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501135,
+      "tele_station_name": {
+        "th": "บ้านอีพุ่งใหญ่"
+      },
+      "tele_station_lat": 15.17196,
+      "tele_station_long": 99.48342,
+      "tele_station_oldcode": "STN1094",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "เจ้าวัด",
+        "en": "Chao Wat"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501116,
+      "tele_station_name": {
+        "th": "บ้านไร่พริก"
+      },
+      "tele_station_lat": 14.991398,
+      "tele_station_long": 99.564953,
+      "tele_station_oldcode": "STN1075",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านบึง",
+        "en": "Ban Bueng"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501166,
+      "tele_station_name": {
+        "th": "บ้านไร่ใหม่"
+      },
+      "tele_station_lat": 15.230766,
+      "tele_station_long": 99.463888,
+      "tele_station_oldcode": "STN1126",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "คอกควาย",
+        "en": "Khok Khwai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1101155,
+      "tele_station_name": {
+        "th": "ศาลากลางหมู่บ้าน หมู่ 1"
+      },
+      "tele_station_lat": 15.08673,
+      "tele_station_long": 99.51816,
+      "tele_station_oldcode": "TG22",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 603,
+      "tele_station_name": {
+        "en": "Ban Rai",
+        "th": "ศูนย์อปพร. อบต.บ้านไร่"
+      },
+      "tele_station_lat": 15.08265,
+      "tele_station_long": 99.51935,
+      "tele_station_oldcode": "BARI",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 642767,
+      "tele_station_name": {
+        "en": "Forest Protection Unit of Khao Pan So",
+        "th": "หน่วยพิทักษ์ป่าเขาปันโส"
+      },
+      "tele_station_lat": 15.23958,
+      "tele_station_long": 99.40895,
+      "tele_station_oldcode": "MOU080",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1301",
+      "sub_basin_name": null,
+      "sponsor_by": "บริษัท แอดวานซ์ อินโฟร์ เซอร์วิส จำกัด (มหาชน)"
+    },
+    "agency": {
+      "agency_name": {
+        "th": "มูลนิธิอาสาเพื่อนพึ่ง (ภาฯ) ยามยาก สภากาชาดไทย",
+        "en": "Friend in Need (of 'Pa') Volunteers Foundation"
+      },
+      "agency_shortname": {
+        "th": "พพภ",
+        "en": "FOP"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "บ้านไร่",
+        "en": "Ban Rai District"
+      },
+      "tumbon_name": {
+        "th": "คอกควาย",
+        "en": "Khok Khwai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501152,
+      "tele_station_name": {
+        "th": "บ้านสนามบิน"
+      },
+      "tele_station_lat": 15.396463,
+      "tele_station_long": 99.661082,
+      "tele_station_oldcode": "STN1111",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "หนองฉาง",
+        "en": "Nong Chang District"
+      },
+      "tumbon_name": {
+        "th": "เขากวางทอง",
+        "en": "Khao Kwang Thong"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501128,
+      "tele_station_name": {
+        "th": "บ้านกกงิ้ว"
+      },
+      "tele_station_lat": 15.304712,
+      "tele_station_long": 99.648582,
+      "tele_station_oldcode": "STN1087",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "สุขฤทัย",
+        "en": "Suk Ruethai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1666,
+      "tele_station_name": {
+        "th": "บ้านกลาง"
+      },
+      "tele_station_lat": 15.313404,
+      "tele_station_long": 99.58156,
+      "tele_station_oldcode": "STN0951",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1119646,
+      "tele_station_name": {
+        "th": "บ้านนายสมชาย (ผู้นำชุมชน) หมู่ 2"
+      },
+      "tele_station_lat": 15.35148,
+      "tele_station_long": 99.53145,
+      "tele_station_oldcode": "TG20",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมป้องกันและบรรเทาสาธารณภัย",
+        "en": "Department of Disaster Prevention and Mitigation"
+      },
+      "agency_shortname": {
+        "th": "ปภ.",
+        "en": "DDPM"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "ทองหลาง",
+        "en": "Thong Lang"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1123712,
+      "tele_station_name": {
+        "th": "บ้านวังบ่าง"
+      },
+      "tele_station_lat": 15.312792,
+      "tele_station_long": 99.658732,
+      "tele_station_oldcode": "STN1873",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "สุขฤทัย",
+        "en": "Suk Ruethai"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1659,
+      "tele_station_name": {
+        "th": "บ้านหนองจอก"
+      },
+      "tele_station_lat": 15.277273,
+      "tele_station_long": 99.554759,
+      "tele_station_oldcode": "STN0226",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1658,
+      "tele_station_name": {
+        "th": "บ้านหินโหง่น"
+      },
+      "tele_station_lat": 15.234026,
+      "tele_station_long": 99.588856,
+      "tele_station_oldcode": "STN0950",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 606,
+      "tele_station_name": {
+        "en": "Huai Kot",
+        "th": "อบต.ห้วยคต"
+      },
+      "tele_station_lat": 15.30362,
+      "tele_station_long": 99.60969,
+      "tele_station_oldcode": "HIKT",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1302",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot District"
+      },
+      "tumbon_name": {
+        "th": "ห้วยคต",
+        "en": "Huai Khot"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  }
+]

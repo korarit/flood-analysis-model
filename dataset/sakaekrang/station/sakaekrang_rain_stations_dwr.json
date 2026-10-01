@@ -1,0 +1,380 @@
+[
+  {
+    "station": {
+      "id": 1651,
+      "tele_station_name": {
+        "th": "บ้านตลิ่งสูง"
+      },
+      "tele_station_lat": 15.912504,
+      "tele_station_long": 99.418904,
+      "tele_station_oldcode": "STN0560",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1101",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่วงก์",
+        "en": "Mae Wong District"
+      },
+      "tumbon_name": {
+        "th": "แม่เล่ย์",
+        "en": "Mae Le"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1650,
+      "tele_station_name": {
+        "th": "บ้านปางข้าวสาร"
+      },
+      "tele_station_lat": 15.840499,
+      "tele_station_long": 99.323096,
+      "tele_station_oldcode": "STN0561",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1101",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่วงก์",
+        "en": "Mae Wong District"
+      },
+      "tumbon_name": {
+        "th": "แม่เล่ย์",
+        "en": "Mae Le"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 501246,
+      "tele_station_name": {
+        "th": "บ้านปางสุด"
+      },
+      "tele_station_lat": 15.850186,
+      "tele_station_long": 99.429506,
+      "tele_station_oldcode": "STN1212",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1101",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่วงก์",
+        "en": "Mae Wong District"
+      },
+      "tumbon_name": {
+        "th": "แม่เล่ย์",
+        "en": "Mae Le"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1649,
+      "tele_station_name": {
+        "th": "บ้านใหม่ศรีนคร"
+      },
+      "tele_station_lat": 15.788101,
+      "tele_station_long": 99.458804,
+      "tele_station_oldcode": "STN0559",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1103",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่วงก์",
+        "en": "Mae Wong District"
+      },
+      "tumbon_name": {
+        "th": "แม่เล่ย์",
+        "en": "Mae Le"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1652,
+      "tele_station_name": {
+        "th": "บ้านปางสัก"
+      },
+      "tele_station_lat": 15.751256,
+      "tele_station_long": 99.313844,
+      "tele_station_oldcode": "STN0940",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1103",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่เปิน",
+        "en": "Mae Poen District"
+      },
+      "tumbon_name": {
+        "th": "แม่เปิน",
+        "en": "Mae Poen"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1653,
+      "tele_station_name": {
+        "th": "บ้านเขาแหลม"
+      },
+      "tele_station_lat": 15.646343,
+      "tele_station_long": 99.424945,
+      "tele_station_oldcode": "STN0941",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1103",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "04",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "แม่เปิน",
+        "en": "Mae Poen District"
+      },
+      "tumbon_name": {
+        "th": "แม่เปิน",
+        "en": "Mae Poen"
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": "Nakhon Sawan"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1664,
+      "tele_station_name": {
+        "th": "บ้านโป่งมะค่า"
+      },
+      "tele_station_lat": 15.494331,
+      "tele_station_long": 99.445433,
+      "tele_station_oldcode": "STN0949",
+      "tele_station_type": "rainfall_24h",
+      "sub_basin_id": "1104",
+      "sub_basin_name": null,
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมทรัพยากรน้ำ",
+        "en": "Department of Water Resources"
+      },
+      "agency_shortname": {
+        "th": "ทน.",
+        "en": "DWR"
+      }
+    },
+    "geocode": {
+      "warning_zone": "06",
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": "North"
+      },
+      "amphoe_name": {
+        "th": "ลานสัก",
+        "en": "Lan Sak District"
+      },
+      "tumbon_name": {
+        "th": "ระบำ",
+        "en": "Rabam"
+      },
+      "province_code": "61",
+      "province_name": {
+        "th": "อุทัยธานี",
+        "en": "Uthai Thani"
+      }
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  }
+]

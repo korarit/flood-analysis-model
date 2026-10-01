@@ -1,0 +1,242 @@
+[
+  {
+    "station": {
+      "id": 1697,
+      "tele_station_name": {
+        "th": "สะพานต้นน้ำ (เกาะแก้ว-ตลิ่งสูง)",
+        "en": ""
+      },
+      "tele_station_lat": 15.91465,
+      "tele_station_long": 99.4194,
+      "tele_station_oldcode": "G23069-SKG003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 102.34,
+      "qmax": null,
+      "min_bank": 118.12,
+      "river_name": "น้ำแม่วง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปางมะค่า",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620411",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1696,
+      "tele_station_name": {
+        "th": "สะพานแม่วงก์",
+        "en": ""
+      },
+      "tele_station_lat": 15.90176,
+      "tele_station_long": 99.4704,
+      "tele_station_oldcode": "G23069-SKG005",
+      "tele_station_type": "waterlevel",
+      "ground_level": 107.7,
+      "qmax": null,
+      "min_bank": 113.69,
+      "river_name": "น้ำแม่วง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปางมะค่า",
+        "en": ""
+      },
+      "province_code": "62",
+      "province_name": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "geo_code": "620411",
+      "rid_code": "1",
+      "tmd_code": "3"
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1665,
+      "tele_station_name": {
+        "th": "คลองกลาง",
+        "en": ""
+      },
+      "tele_station_lat": 15.7832,
+      "tele_station_long": 99.65321,
+      "tele_station_oldcode": "G23069-SKG007",
+      "tele_station_type": "waterlevel",
+      "ground_level": 70.31,
+      "qmax": null,
+      "min_bank": 74.1,
+      "river_name": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลาดยาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ศาลเจ้าไก่ต่อ",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "601116",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1670,
+      "tele_station_name": {
+        "th": "สะพานแม่เล่ย์",
+        "en": ""
+      },
+      "tele_station_lat": 15.84175,
+      "tele_station_long": 99.41808,
+      "tele_station_oldcode": "G23069-SKG004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 111.91,
+      "qmax": null,
+      "min_bank": 136.59,
+      "river_name": "น้ำแม่วง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "3",
+      "area_name": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "แม่วงก์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "แม่เล่ย์",
+        "en": ""
+      },
+      "province_code": "60",
+      "province_name": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "geo_code": "601303",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 11,
+      "basin_code": 11,
+      "basin_name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    }
+  }
+]

@@ -1,0 +1,1142 @@
+[
+  {
+    "station": {
+      "id": 1109,
+      "tele_station_name": {
+        "th": "คลองลำปลาทิว ลาดกระบัง",
+        "en": ""
+      },
+      "tele_station_lat": 13.7407,
+      "tele_station_long": 100.79468,
+      "tele_station_oldcode": "G23069-BKK009",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.171,
+      "qmax": null,
+      "min_bank": 0.6228,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลาดกระบัง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลาดกระบัง",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "101101",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1114,
+      "tele_station_name": {
+        "th": "คลองลาดพร้าว ปากคลอง2สายใต้",
+        "en": ""
+      },
+      "tele_station_lat": 13.93183,
+      "tele_station_long": 100.63952,
+      "tele_station_oldcode": "G23069-BKK020",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.01,
+      "qmax": null,
+      "min_bank": 4.4571,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "1",
+      "area_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลาดพร้าว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลาดพร้าว",
+        "en": ""
+      },
+      "province_code": "10",
+      "province_name": {
+        "th": "กรุงเทพมหานคร",
+        "en": ""
+      },
+      "geo_code": "103801",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7551,
+      "tele_station_name": {
+        "th": "ฝายจิตรมานี",
+        "en": ""
+      },
+      "tele_station_lat": 13.11548,
+      "tele_station_long": 102.20316,
+      "tele_station_oldcode": "G23069-SDO002",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองพระสทึง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอยดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทรายขาว",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220704",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7552,
+      "tele_station_name": {
+        "th": "ฝายน้ำล้นคลองปะตง (ทน.)",
+        "en": ""
+      },
+      "tele_station_lat": 13.120727,
+      "tele_station_long": 102.21833,
+      "tele_station_oldcode": "G23069-SDO003",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "คลองพระสทึง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สอยดาว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปะตง",
+        "en": ""
+      },
+      "province_code": "22",
+      "province_name": {
+        "th": "จันทบุรี",
+        "en": ""
+      },
+      "geo_code": "220701",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1229,
+      "tele_station_name": {
+        "th": "ปากคลองพระองค์เจ้าฯ (บางน้ำเปรี้ยว)",
+        "en": ""
+      },
+      "tele_station_lat": 13.83819,
+      "tele_station_long": 100.9666,
+      "tele_station_oldcode": "G23069-BKK016",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.43,
+      "qmax": null,
+      "min_bank": 1.237,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางน้ำเปรี้ยว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางน้ำเปรี้ยว",
+        "en": ""
+      },
+      "province_code": "24",
+      "province_name": {
+        "th": "ฉะเชิงเทรา",
+        "en": ""
+      },
+      "geo_code": "240301",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1234,
+      "tele_station_name": {
+        "th": "บางปะกง",
+        "en": ""
+      },
+      "tele_station_lat": 13.54901,
+      "tele_station_long": 101.00111,
+      "tele_station_oldcode": "G23069-BPK001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -11.654,
+      "qmax": null,
+      "min_bank": 1.665,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางปะกง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าสะอ้าน",
+        "en": ""
+      },
+      "province_code": "24",
+      "province_name": {
+        "th": "ฉะเชิงเทรา",
+        "en": ""
+      },
+      "geo_code": "240402",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1236,
+      "tele_station_name": {
+        "th": "พนมสารคาม",
+        "en": ""
+      },
+      "tele_station_lat": 13.72662,
+      "tele_station_long": 101.35298,
+      "tele_station_oldcode": "G23069-BPK004",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.66,
+      "qmax": null,
+      "min_bank": 5.395,
+      "river_name": "คลองท่าลาด",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พนมสารคาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "เกาะขนุน",
+        "en": ""
+      },
+      "province_code": "24",
+      "province_name": {
+        "th": "ฉะเชิงเทรา",
+        "en": ""
+      },
+      "geo_code": "240601",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1269,
+      "tele_station_name": {
+        "th": "องครักษ์",
+        "en": ""
+      },
+      "tele_station_lat": 14.113633,
+      "tele_station_long": 101.01952,
+      "tele_station_oldcode": "G23069-NYK000",
+      "tele_station_type": "waterlevel",
+      "ground_level": -3.173,
+      "qmax": null,
+      "min_bank": 2.577,
+      "river_name": "แม่น้ำนครนายก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "องครักษ์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "องครักษ์",
+        "en": ""
+      },
+      "province_code": "26",
+      "province_name": {
+        "th": "นครนายก",
+        "en": ""
+      },
+      "geo_code": "260409",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1255,
+      "tele_station_name": {
+        "th": "สะพานเขานางบวช",
+        "en": ""
+      },
+      "tele_station_lat": 14.245718,
+      "tele_station_long": 101.27481,
+      "tele_station_oldcode": "G23069-NYK008",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.642,
+      "qmax": null,
+      "min_bank": 8.907,
+      "river_name": "แม่น้ำนครนายก",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองนครนายก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ศรีนาวา",
+        "en": ""
+      },
+      "province_code": "26",
+      "province_name": {
+        "th": "นครนายก",
+        "en": ""
+      },
+      "geo_code": "260109",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1140,
+      "tele_station_name": {
+        "th": "คลองหกวา ลำลูกกา คลอง8",
+        "en": ""
+      },
+      "tele_station_lat": 13.9416,
+      "tele_station_long": 100.77499,
+      "tele_station_oldcode": "G23069-BKK015",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.48,
+      "qmax": null,
+      "min_bank": 2.706,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ลำลูกกา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลำลูกกา",
+        "en": ""
+      },
+      "province_code": "13",
+      "province_name": {
+        "th": "ปทุมธานี",
+        "en": ""
+      },
+      "geo_code": "130604",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1242,
+      "tele_station_name": {
+        "th": "กบินทร์บุรี",
+        "en": ""
+      },
+      "tele_station_lat": 13.986616,
+      "tele_station_long": 101.70547,
+      "tele_station_oldcode": "G23069-PRC001",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.794,
+      "qmax": null,
+      "min_bank": 11.431,
+      "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "กบินทร์บุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "กบินทร์",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250201",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10118,
+      "tele_station_name": {
+        "th": "คลองห้วยยาง",
+        "en": ""
+      },
+      "tele_station_lat": 14.136408,
+      "tele_station_long": 101.857475,
+      "tele_station_oldcode": "G23069-KIZ003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 27.419,
+      "qmax": null,
+      "min_bank": 37.394,
+      "river_name": "แม่น้ำหนุมาน",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นาดี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ทุ่งโพธิ์",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250304",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1245,
+      "tele_station_name": {
+        "th": "นาดี",
+        "en": ""
+      },
+      "tele_station_lat": 14.133605,
+      "tele_station_long": 101.72767,
+      "tele_station_oldcode": "G23069-PRC003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 7.472,
+      "qmax": null,
+      "min_bank": 16.782,
+      "river_name": "แม่น้ำหนุมาน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นาดี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สะพานหิน",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250303",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5119,
+      "tele_station_name": {
+        "th": "วัดบางแตน",
+        "en": ""
+      },
+      "tele_station_lat": 13.902437,
+      "tele_station_long": 101.168,
+      "tele_station_oldcode": "G23069-VLGE47",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านสร้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางแตน",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250605",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1249,
+      "tele_station_name": {
+        "th": "ประจันตคาม (KGT7A)",
+        "en": ""
+      },
+      "tele_station_lat": 14.070941,
+      "tele_station_long": 101.51893,
+      "tele_station_oldcode": "G23069-PRC004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0.91,
+      "qmax": null,
+      "min_bank": 6.6625,
+      "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ประจันตคาม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ประจันตคาม",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250701",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1250,
+      "tele_station_name": {
+        "th": "ศรีมหาโพธิ (KGT6)",
+        "en": ""
+      },
+      "tele_station_lat": 13.97348,
+      "tele_station_long": 101.51751,
+      "tele_station_oldcode": "G23069-PRC005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.56,
+      "qmax": null,
+      "min_bank": 7.5808,
+      "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ศรีมหาโพธิ",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านทาม",
+        "en": ""
+      },
+      "province_code": "25",
+      "province_name": {
+        "th": "ปราจีนบุรี",
+        "en": ""
+      },
+      "geo_code": "250803",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1127,
+      "tele_station_name": {
+        "th": "คลองจระเข้ใหญ่ บางเสาธง (วัดศรีวารีน้อย)",
+        "en": ""
+      },
+      "tele_station_lat": 13.66949,
+      "tele_station_long": 100.80058,
+      "tele_station_oldcode": "G23069-BKK017",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.181,
+      "qmax": null,
+      "min_bank": 0.432,
+      "river_name": "ที่ราบแม่น้ำบางปะกงส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางเสาธง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ศีรษะจรเข้ใหญ่",
+        "en": ""
+      },
+      "province_code": "11",
+      "province_name": {
+        "th": "สมุทรปราการ",
+        "en": ""
+      },
+      "geo_code": "110603",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1270,
+      "tele_station_name": {
+        "th": "คลองพระปรง",
+        "en": ""
+      },
+      "tele_station_lat": 13.937376,
+      "tele_station_long": 101.922035,
+      "tele_station_oldcode": "G23069-SKE001",
+      "tele_station_type": "waterlevel",
+      "ground_level": 10.194,
+      "qmax": null,
+      "min_bank": 19.615,
+      "river_name": "แม่น้ำพระปรงส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสระแก้ว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านแก้ง",
+        "en": ""
+      },
+      "province_code": "27",
+      "province_name": {
+        "th": "สระแก้ว",
+        "en": ""
+      },
+      "geo_code": "270102",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1271,
+      "tele_station_name": {
+        "th": "เมืองสระแก้ว",
+        "en": ""
+      },
+      "tele_station_lat": 13.809611,
+      "tele_station_long": 102.05431,
+      "tele_station_oldcode": "G23069-SKE002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 24.287,
+      "qmax": null,
+      "min_bank": 34.76,
+      "river_name": "คลองพระสทึง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสระแก้ว",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สระขวัญ",
+        "en": ""
+      },
+      "province_code": "27",
+      "province_name": {
+        "th": "สระแก้ว",
+        "en": ""
+      },
+      "geo_code": "270108",
+      "rid_code": "5",
+      "tmd_code": "2"
+    },
+    "basin": {
+      "id": 15,
+      "basin_code": 15,
+      "basin_name": {
+        "th": "ลุ่มน้ำบางปะกง",
+        "en": "Bang Pakong River Basin"
+      }
+    }
+  }
+]

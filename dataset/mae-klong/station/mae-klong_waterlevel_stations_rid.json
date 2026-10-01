@@ -1,0 +1,902 @@
+[
+  {
+    "station": {
+      "id": 3613,
+      "tele_station_name": {
+        "th": "บ้านวังเย็น",
+        "en": ""
+      },
+      "tele_station_lat": 13.93906,
+      "tele_station_long": 99.416252,
+      "tele_station_oldcode": "G07003-K.37",
+      "tele_station_type": "waterlevel",
+      "ground_level": 18.33,
+      "qmax": 1955,
+      "min_bank": 31.449999,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 3",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ด่านมะขามเตี้ย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "กลอนโด",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "711102",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7163,
+      "tele_station_name": {
+        "th": "บ้านหนองไผ่",
+        "en": ""
+      },
+      "tele_station_lat": 13.78092,
+      "tele_station_long": 99.420921,
+      "tele_station_oldcode": "G07003-K.62",
+      "tele_station_type": "waterlevel",
+      "ground_level": 48.65,
+      "qmax": null,
+      "min_bank": 54.8,
+      "river_name": "ลำภาชี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ด่านมะขามเตี้ย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองไผ่",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "711104",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3721,
+      "tele_station_name": {
+        "th": "บ้านวังขนาย",
+        "en": ""
+      },
+      "tele_station_lat": 13.95094,
+      "tele_station_long": 99.645477,
+      "tele_station_oldcode": "G07003-K.11A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 8.33,
+      "qmax": 1300,
+      "min_bank": 15.9,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าม่วง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังขนาย",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710602",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6100324,
+      "tele_station_name": {
+        "th": "บ้านใหม่",
+        "en": ""
+      },
+      "tele_station_lat": 13.92983,
+      "tele_station_long": 99.668228,
+      "tele_station_oldcode": "G07003-K.63",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 18,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ท่าม่วง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังขนาย",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710602",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7164,
+      "tele_station_name": {
+        "th": "บ้านยางสูง",
+        "en": ""
+      },
+      "tele_station_lat": 14.48943,
+      "tele_station_long": 99.469788,
+      "tele_station_oldcode": "G07003-K.49",
+      "tele_station_type": "waterlevel",
+      "ground_level": 99.17,
+      "qmax": null,
+      "min_bank": 103,
+      "river_name": "ห้วยตะเพิน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ่อพลอย",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หลุมรัง",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710305",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3728,
+      "tele_station_name": {
+        "th": "บ้านทุ่งนานางหรอก",
+        "en": ""
+      },
+      "tele_station_lat": 14.17522,
+      "tele_station_long": 99.434067,
+      "tele_station_oldcode": "G07003-K.12",
+      "tele_station_type": "waterlevel",
+      "ground_level": 39.43,
+      "qmax": 230,
+      "min_bank": 45.8,
+      "river_name": "ห้วยตะเพิน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกาญจนบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลาดหญ้า",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710107",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3724,
+      "tele_station_name": {
+        "th": "บ้านหนองบัว",
+        "en": ""
+      },
+      "tele_station_lat": 14.05861,
+      "tele_station_long": 99.445221,
+      "tele_station_oldcode": "G07003-K.35A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 22.482,
+      "qmax": 440,
+      "min_bank": 27,
+      "river_name": "แม่น้ำแควใหญ่ตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกาญจนบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "หนองบัว",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710106",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5810,
+      "tele_station_name": {
+        "th": "สะพานข้ามแม่น้ำแม่กลองหน้าศาลากลางจ.กาญจนบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 13.99597,
+      "tele_station_long": 99.538818,
+      "tele_station_oldcode": "G07003-K.3A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 13.369,
+      "qmax": null,
+      "min_bank": 25.8,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองกาญจนบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ปากแพรก",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710103",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3615,
+      "tele_station_name": {
+        "th": "บ้านน้ำโจน",
+        "en": ""
+      },
+      "tele_station_lat": 14.43409,
+      "tele_station_long": 98.80909,
+      "tele_station_oldcode": "G07003-K.31",
+      "tele_station_type": "waterlevel",
+      "ground_level": 56.248,
+      "qmax": 2210,
+      "min_bank": 69,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 1",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710204",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3730,
+      "tele_station_name": {
+        "th": "บ้านบ้องตี้น้อย",
+        "en": ""
+      },
+      "tele_station_lat": 14.27618,
+      "tele_station_long": 98.931068,
+      "tele_station_oldcode": "G07003-K.32A",
+      "tele_station_type": "waterlevel",
+      "ground_level": 84.311,
+      "qmax": 350,
+      "min_bank": 90.2,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วังกระแจะ",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710205",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5809,
+      "tele_station_name": {
+        "th": "บ้านปากแซง",
+        "en": ""
+      },
+      "tele_station_lat": 14.21513,
+      "tele_station_long": 99.058197,
+      "tele_station_oldcode": "G07003-K.58",
+      "tele_station_type": "waterlevel",
+      "ground_level": 36.66,
+      "qmax": 630,
+      "min_bank": 45.8,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าเสา",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710202",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 3614,
+      "tele_station_name": {
+        "th": "บ้านลุ่มสุ่ม",
+        "en": ""
+      },
+      "tele_station_lat": 14.09243,
+      "tele_station_long": 99.178993,
+      "tele_station_oldcode": "G07003-K.10",
+      "tele_station_type": "waterlevel",
+      "ground_level": 27.62,
+      "qmax": 1020,
+      "min_bank": 40.7,
+      "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ไทรโยค",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ลุ่มสุ่ม",
+        "en": ""
+      },
+      "province_code": "71",
+      "province_name": {
+        "th": "กาญจนบุรี",
+        "en": ""
+      },
+      "geo_code": "710201",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7165,
+      "tele_station_name": {
+        "th": "สะพานค่ายหลวง",
+        "en": ""
+      },
+      "tele_station_lat": 13.80568,
+      "tele_station_long": 99.87159,
+      "tele_station_oldcode": "G07003-K.55A",
+      "tele_station_type": "waterlevel",
+      "ground_level": -0.48,
+      "qmax": 1730,
+      "min_bank": 9,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บ้านโป่ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บ้านโป่ง",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700501",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 6100323,
+      "tele_station_name": {
+        "th": "บ้านทุ่งแหลม",
+        "en": ""
+      },
+      "tele_station_lat": 13.61917,
+      "tele_station_long": 99.407219,
+      "tele_station_oldcode": "G07003-K.64",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": 86.5,
+      "river_name": "ลำภาชี",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สวนผึ้ง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ป่าหวาย",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700302",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 10100,
+      "tele_station_name": {
+        "th": "สะพานบ้านหม้อ-สร้อยฟ้า ",
+        "en": ""
+      },
+      "tele_station_lat": 13.74118,
+      "tele_station_long": 99.842941,
+      "tele_station_oldcode": "G07003-K.56A",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": 1870,
+      "min_bank": 8.3,
+      "river_name": "ที่ราบแม่น้ำแม่กลอง",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "agency_shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "agency_code": "G07003"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "โพธาราม",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "คลองตาคต",
+        "en": ""
+      },
+      "province_code": "70",
+      "province_name": {
+        "th": "ราชบุรี",
+        "en": ""
+      },
+      "geo_code": "700705",
+      "rid_code": "4",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 14,
+      "basin_code": 14,
+      "basin_name": {
+        "th": "ลุ่มน้ำแม่กลอง",
+        "en": "Mae Klong River Basin"
+      }
+    }
+  }
+]

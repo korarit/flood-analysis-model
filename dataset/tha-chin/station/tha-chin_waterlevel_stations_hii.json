@@ -1,0 +1,1142 @@
+[
+  {
+    "station": {
+      "id": 5256,
+      "tele_station_name": {
+        "th": "ท้ายปตร.มะขามเฒ่า-อู่ทอง",
+        "en": ""
+      },
+      "tele_station_lat": 15.22229,
+      "tele_station_long": 100.06236,
+      "tele_station_oldcode": "G23069-ATG042",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "วัดสิงห์",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "มะขามเฒ่า",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180302",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5268,
+      "tele_station_name": {
+        "th": "ท้ายปตร.ท่าโบสถ์",
+        "en": ""
+      },
+      "tele_station_lat": 15.05349,
+      "tele_station_long": 100.01175,
+      "tele_station_oldcode": "G23069-ATG122",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "หันคา",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามง่ามท่าโบสถ์",
+        "en": ""
+      },
+      "province_code": "18",
+      "province_name": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "geo_code": "180611",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1822,
+      "tele_station_name": {
+        "th": "สะพานนครชัยศรี",
+        "en": ""
+      },
+      "tele_station_lat": 13.79217,
+      "tele_station_long": 100.19817,
+      "tele_station_oldcode": "G23069-THA008",
+      "tele_station_type": "waterlevel",
+      "ground_level": -7.99,
+      "qmax": null,
+      "min_bank": 1.946,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ไทยาวาส",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730324",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1819,
+      "tele_station_name": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tele_station_lat": 14.01636,
+      "tele_station_long": 100.17979,
+      "tele_station_oldcode": "G23069-THA007",
+      "tele_station_type": "waterlevel",
+      "ground_level": -7.51,
+      "qmax": null,
+      "min_bank": 2.206,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730501",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1823,
+      "tele_station_name": {
+        "th": "ศาลาดิน",
+        "en": ""
+      },
+      "tele_station_lat": 13.80777,
+      "tele_station_long": 100.27417,
+      "tele_station_oldcode": "G23069-VLGE20",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.017,
+      "qmax": null,
+      "min_bank": 2.311,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "พุทธมณฑล",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "มหาสวัสดิ์",
+        "en": ""
+      },
+      "province_code": "73",
+      "province_name": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "geo_code": "730703",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1825,
+      "tele_station_name": {
+        "th": "คลองมหาชัย วัดพันท้ายนรสิงห์",
+        "en": ""
+      },
+      "tele_station_lat": 13.58184,
+      "tele_station_long": 100.36587,
+      "tele_station_oldcode": "G23069-BKK006",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.674,
+      "qmax": null,
+      "min_bank": 1.301,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "พันท้ายนรสิงห์",
+        "en": ""
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "geo_code": "740113",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1827,
+      "tele_station_name": {
+        "th": "ปากแม่น้ำท่าจีน",
+        "en": ""
+      },
+      "tele_station_lat": 13.5178,
+      "tele_station_long": 100.27499,
+      "tele_station_oldcode": "G23069-GLF002",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางหญ้าแพรก",
+        "en": ""
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "geo_code": "740117",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1824,
+      "tele_station_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tele_station_lat": 13.58598,
+      "tele_station_long": 100.23048,
+      "tele_station_oldcode": "G23069-THA009",
+      "tele_station_type": "waterlevel",
+      "ground_level": -6.949,
+      "qmax": null,
+      "min_bank": 1.925,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าจีน",
+        "en": ""
+      },
+      "province_code": "74",
+      "province_name": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "geo_code": "740108",
+      "rid_code": "",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1810,
+      "tele_station_name": {
+        "th": "ด่านช้าง",
+        "en": ""
+      },
+      "tele_station_lat": 14.83506,
+      "tele_station_long": 99.66543,
+      "tele_station_oldcode": "G23069-THA003",
+      "tele_station_type": "waterlevel",
+      "ground_level": 60.998,
+      "qmax": null,
+      "min_bank": 70.36,
+      "river_name": "ห้วยกระเสียว",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "ด่านช้าง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ด่านช้าง",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720302",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7993,
+      "tele_station_name": {
+        "th": "ทุ่งโพธิ์พระยา",
+        "en": ""
+      },
+      "tele_station_lat": 14.320748,
+      "tele_station_long": 100.017395,
+      "tele_station_oldcode": "G23069-TCP007",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.5,
+      "qmax": null,
+      "min_bank": 1,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "บางปลาม้า",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "วัดโบสถ์",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720413",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 7989,
+      "tele_station_name": {
+        "th": "ปตร.ปลายคลองบางซอ (ทุ่งเจ้าเจ็ด)",
+        "en": ""
+      },
+      "tele_station_lat": 14.194874,
+      "tele_station_long": 100.13267,
+      "tele_station_oldcode": "G23069-TCP002",
+      "tele_station_type": "waterlevel",
+      "ground_level": 0,
+      "qmax": null,
+      "min_bank": 4.4,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720703",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1813,
+      "tele_station_name": {
+        "th": "วัดท่าเจดีย์ (TTC06)",
+        "en": ""
+      },
+      "tele_station_lat": 14.15657,
+      "tele_station_long": 100.12744,
+      "tele_station_oldcode": "G23069-THA006",
+      "tele_station_type": "waterlevel",
+      "ground_level": -2.065,
+      "qmax": null,
+      "min_bank": 2.139,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": ""
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720703",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1812,
+      "tele_station_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tele_station_lat": 14.21608,
+      "tele_station_long": 100.05017,
+      "tele_station_oldcode": "G23069-THA010",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.518,
+      "qmax": null,
+      "min_bank": 2.439,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720701",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5270,
+      "tele_station_name": {
+        "th": "ท้ายปตร.ชลมาร์คพิจารณ์",
+        "en": ""
+      },
+      "tele_station_lat": 14.7706,
+      "tele_station_long": 100.08824,
+      "tele_station_oldcode": "G23069-ATG132",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720803",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1814,
+      "tele_station_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tele_station_lat": 14.75138,
+      "tele_station_long": 100.09592,
+      "tele_station_oldcode": "G23069-THA004",
+      "tele_station_type": "waterlevel",
+      "ground_level": 2.54,
+      "qmax": null,
+      "min_bank": 7.942,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720803",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5269,
+      "tele_station_name": {
+        "th": "เหนือปตร.ชลมาร์คพิจารณ์",
+        "en": ""
+      },
+      "tele_station_lat": 14.77118,
+      "tele_station_long": 100.0884,
+      "tele_station_oldcode": "G23069-ATG131",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720803",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5272,
+      "tele_station_name": {
+        "th": "ท้ายปตร.โพธิ์พระยา",
+        "en": ""
+      },
+      "tele_station_lat": 14.53181,
+      "tele_station_long": 100.12245,
+      "tele_station_oldcode": "G23069-ATG142",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โพธิ์พระยา",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720119",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 1809,
+      "tele_station_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tele_station_lat": 14.4705,
+      "tele_station_long": 100.11475,
+      "tele_station_oldcode": "G23069-THA005",
+      "tele_station_type": "waterlevel",
+      "ground_level": -1.6,
+      "qmax": null,
+      "min_bank": 4.959,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "ท่าพี่เลี้ยง",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720101",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  },
+  {
+    "station": {
+      "id": 5271,
+      "tele_station_name": {
+        "th": "เหนือปตร.โพธิ์พระยา",
+        "en": ""
+      },
+      "tele_station_lat": 14.53248,
+      "tele_station_long": 100.12224,
+      "tele_station_oldcode": "G23069-ATG141",
+      "tele_station_type": "waterlevel",
+      "ground_level": null,
+      "qmax": null,
+      "min_bank": null,
+      "river_name": "ที่ราบแม่น้ำท่าจีน",
+      "sponsor_by": null
+    },
+    "agency": {
+      "agency_name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "agency_shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "agency_code": "G23069"
+    },
+    "geocode": {
+      "area_code": "2",
+      "area_name": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe_name": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon_name": {
+        "th": "โพธิ์พระยา",
+        "en": ""
+      },
+      "province_code": "72",
+      "province_name": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "geo_code": "720119",
+      "rid_code": "3",
+      "tmd_code": "1"
+    },
+    "basin": {
+      "id": 13,
+      "basin_code": 13,
+      "basin_name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    }
+  }
+]
