@@ -171,22 +171,45 @@ def run_rid_scraper(
             continue
 
         basin_config = BASIN_RID_MAP[basin]
-        basin_id = basin_config["basin_id"]
+        basin_ids = basin_config.get("basin_ids", [basin_config.get("basin_id")])
         utok_ids = basin_config["utok_ids"]
 
-        print(f"\n--- Basin: {basin.upper()} ({basin_config['name_th']}, BasinID={basin_id}) ---")
+        bids_str = ", ".join(map(str, basin_ids))
+        print(f"\n--- Basin: {basin.upper()} ({basin_config['name_th']}, RID BasinID={bids_str}) ---")
 
         # Discover all unique station groups across relevant offices
         seen_group_ids = set()
         station_groups = []
 
-        for u_id in utok_ids:
-            groups = fetch_rid_station_groups(session, u_id, basin_id)
-            for g in groups:
-                gid = g.get("StationGroupID")
-                if gid and gid not in seen_group_ids:
-                    seen_group_ids.add(gid)
-                    station_groups.append(g)
+        for b_id in basin_ids:
+            for u_id in utok_ids:
+                groups = fetch_rid_station_groups(session, u_id, b_id)
+                for g in groups:
+                    gid = g.get("StationGroupID")
+                    if gid and gid not in seen_group_ids:
+                        seen_group_ids.add(gid)
+                        station_groups.append(g)
+
+        # Fallback to local rid_station_master.csv if online discovery returns empty
+        if not station_groups:
+            master_csv = dataset_dir / "rid_station_master.csv"
+            if master_csv.exists():
+                try:
+                    with open(master_csv, "r", encoding="utf-8-sig") as f:
+                        reader = csv.DictReader(f)
+                        for row in reader:
+                            row_bid = int(row.get("basin_id", 0)) if row.get("basin_id") else 0
+                            row_bname = row.get("basin_name", "")
+                            if row_bid in basin_ids or any(rn in row_bname for rn in basin_config.get("rid_basin_names", [])):
+                                gid = int(row.get("group_id", 0)) if row.get("group_id") else 0
+                                if gid and gid not in seen_group_ids:
+                                    seen_group_ids.add(gid)
+                                    station_groups.append({
+                                        "StationGroupID": gid,
+                                        "StationGroupName": row.get("group_name", "")
+                                    })
+                except Exception:
+                    pass
 
         if not station_groups:
             print(f"  [WARN] No RID station groups found for {basin}")
