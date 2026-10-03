@@ -11,10 +11,15 @@
       "tele_station_oldcode": "G07003-K.37",
       "tele_station_type": "waterlevel",
       "ground_level": 18.33,
-      "qmax": 1955,
-      "min_bank": 31.449999,
+      "qmax": 1910.0,
+      "min_bank": 31.45,
       "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 3",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 31.45,
+      "warning_level_msl": 30.95,
+      "critical_level_msl": 31.45,
+      "zero_gauge_msl": 19.799999237060547,
+      "bank_level_relative_m": 11.649999618530273
     },
     "agency": {
       "agency_name": {
@@ -74,7 +79,12 @@
       "qmax": null,
       "min_bank": 54.8,
       "river_name": "ลำภาชี",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 54.8,
+      "warning_level_msl": 54.3,
+      "critical_level_msl": 54.8,
+      "zero_gauge_msl": 49.0,
+      "bank_level_relative_m": 5.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -131,10 +141,15 @@
       "tele_station_oldcode": "G07003-K.11A",
       "tele_station_type": "waterlevel",
       "ground_level": 8.33,
-      "qmax": 1300,
+      "qmax": 1300.0,
       "min_bank": 15.9,
       "river_name": "ที่ราบแม่น้ำแม่กลอง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 15.9,
+      "warning_level_msl": 15.4,
+      "critical_level_msl": 15.9,
+      "zero_gauge_msl": 9.699999809265137,
+      "bank_level_relative_m": 6.199999809265137
     },
     "agency": {
       "agency_name": {
@@ -190,11 +205,16 @@
       "tele_station_long": 99.668228,
       "tele_station_oldcode": "G07003-K.63",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 7.900000095367432,
       "qmax": null,
-      "min_bank": 18,
+      "min_bank": 18.0,
       "river_name": "ที่ราบแม่น้ำแม่กลอง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 18.0,
+      "warning_level_msl": 17.5,
+      "critical_level_msl": 18.0,
+      "zero_gauge_msl": 7.900000095367432,
+      "bank_level_relative_m": 10.100000381469727
     },
     "agency": {
       "agency_name": {
@@ -252,9 +272,14 @@
       "tele_station_type": "waterlevel",
       "ground_level": 99.17,
       "qmax": null,
-      "min_bank": 103,
+      "min_bank": 103.0,
       "river_name": "ห้วยตะเพิน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 103.0,
+      "warning_level_msl": 102.5,
+      "critical_level_msl": 103.0,
+      "zero_gauge_msl": 98.5,
+      "bank_level_relative_m": 4.5
     },
     "agency": {
       "agency_name": {
@@ -311,10 +336,15 @@
       "tele_station_oldcode": "G07003-K.12",
       "tele_station_type": "waterlevel",
       "ground_level": 39.43,
-      "qmax": 230,
+      "qmax": 230.0,
       "min_bank": 45.8,
       "river_name": "ห้วยตะเพิน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 45.8,
+      "warning_level_msl": 45.3,
+      "critical_level_msl": 45.8,
+      "zero_gauge_msl": 39.70000076293945,
+      "bank_level_relative_m": 6.099999904632568
     },
     "agency": {
       "agency_name": {
@@ -371,10 +401,15 @@
       "tele_station_oldcode": "G07003-K.35A",
       "tele_station_type": "waterlevel",
       "ground_level": 22.482,
-      "qmax": 440,
-      "min_bank": 27,
+      "qmax": 440.0,
+      "min_bank": 27.0,
       "river_name": "แม่น้ำแควใหญ่ตอนล่างส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 27.0,
+      "warning_level_msl": 26.5,
+      "critical_level_msl": 27.0,
+      "zero_gauge_msl": 21.5,
+      "bank_level_relative_m": 5.5
     },
     "agency": {
       "agency_name": {
@@ -434,7 +469,12 @@
       "qmax": null,
       "min_bank": 25.8,
       "river_name": "ที่ราบแม่น้ำแม่กลอง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 25.8,
+      "warning_level_msl": 25.3,
+      "critical_level_msl": 25.8,
+      "zero_gauge_msl": 14.0,
+      "bank_level_relative_m": 11.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -491,10 +531,15 @@
       "tele_station_oldcode": "G07003-K.31",
       "tele_station_type": "waterlevel",
       "ground_level": 56.248,
-      "qmax": 2210,
-      "min_bank": 69,
+      "qmax": 2210.0,
+      "min_bank": 69.0,
       "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 1",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 69.0,
+      "warning_level_msl": 68.5,
+      "critical_level_msl": 69.0,
+      "zero_gauge_msl": 54.20000076293945,
+      "bank_level_relative_m": 14.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -551,10 +596,15 @@
       "tele_station_oldcode": "G07003-K.32A",
       "tele_station_type": "waterlevel",
       "ground_level": 84.311,
-      "qmax": 350,
+      "qmax": 350.0,
       "min_bank": 90.2,
       "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 90.2,
+      "warning_level_msl": 89.7,
+      "critical_level_msl": 90.2,
+      "zero_gauge_msl": 84.19999694824219,
+      "bank_level_relative_m": 6.0
     },
     "agency": {
       "agency_name": {
@@ -611,10 +661,15 @@
       "tele_station_oldcode": "G07003-K.58",
       "tele_station_type": "waterlevel",
       "ground_level": 36.66,
-      "qmax": 630,
+      "qmax": 630.0,
       "min_bank": 45.8,
       "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 45.8,
+      "warning_level_msl": 45.3,
+      "critical_level_msl": 45.8,
+      "zero_gauge_msl": 39.5,
+      "bank_level_relative_m": 6.300000190734863
     },
     "agency": {
       "agency_name": {
@@ -671,10 +726,15 @@
       "tele_station_oldcode": "G07003-K.10",
       "tele_station_type": "waterlevel",
       "ground_level": 27.62,
-      "qmax": 1020,
+      "qmax": 1020.0,
       "min_bank": 40.7,
       "river_name": "แม่น้ำแควน้อยตอนล่างส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 40.7,
+      "warning_level_msl": 40.2,
+      "critical_level_msl": 40.7,
+      "zero_gauge_msl": 30.399999618530273,
+      "bank_level_relative_m": 10.300000190734863
     },
     "agency": {
       "agency_name": {
@@ -731,10 +791,15 @@
       "tele_station_oldcode": "G07003-K.55A",
       "tele_station_type": "waterlevel",
       "ground_level": -0.48,
-      "qmax": 1730,
-      "min_bank": 9,
+      "qmax": 1730.0,
+      "min_bank": 9.0,
       "river_name": "ที่ราบแม่น้ำแม่กลอง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 9.0,
+      "warning_level_msl": 8.5,
+      "critical_level_msl": 9.0,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 9.0
     },
     "agency": {
       "agency_name": {
@@ -790,11 +855,16 @@
       "tele_station_long": 99.407219,
       "tele_station_oldcode": "G07003-K.64",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 79.0,
       "qmax": null,
       "min_bank": 86.5,
       "river_name": "ลำภาชี",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 86.5,
+      "warning_level_msl": 86.0,
+      "critical_level_msl": 86.5,
+      "zero_gauge_msl": 79.0,
+      "bank_level_relative_m": 7.5
     },
     "agency": {
       "agency_name": {
@@ -850,11 +920,16 @@
       "tele_station_long": 99.842941,
       "tele_station_oldcode": "G07003-K.56A",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
-      "qmax": 1870,
+      "ground_level": -2.0,
+      "qmax": 1870.0,
       "min_bank": 8.3,
       "river_name": "ที่ราบแม่น้ำแม่กลอง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 8.3,
+      "warning_level_msl": 7.8,
+      "critical_level_msl": 8.3,
+      "zero_gauge_msl": -2.0,
+      "bank_level_relative_m": 10.300000190734863
     },
     "agency": {
       "agency_name": {

@@ -191,10 +191,14 @@
       "tele_station_oldcode": "G07003-Ct.4",
       "tele_station_type": "waterlevel",
       "ground_level": 65.73,
-      "qmax": 197,
-      "min_bank": 71,
+      "qmax": 197.0,
+      "min_bank": 71.67,
       "river_name": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 1",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 71.67,
+      "warning_level_msl": 71.17,
+      "critical_level_msl": 71.67,
+      "bank_level_relative_m": 71.66999816894531
     },
     "agency": {
       "agency_name": {
@@ -251,10 +255,14 @@
       "tele_station_oldcode": "G07003-Ct.5A",
       "tele_station_type": "waterlevel",
       "ground_level": 102.21,
-      "qmax": 232,
-      "min_bank": 106.86,
+      "qmax": 232.0,
+      "min_bank": 107.22,
       "river_name": "น้ำแม่วง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 107.22,
+      "warning_level_msl": 106.72,
+      "critical_level_msl": 107.22,
+      "bank_level_relative_m": 107.22000122070312
     },
     "agency": {
       "agency_name": {
@@ -431,10 +439,14 @@
       "tele_station_oldcode": "G07003-Ct.9",
       "tele_station_type": "waterlevel",
       "ground_level": 122.58,
-      "qmax": 280,
-      "min_bank": 127.47,
+      "qmax": 280.0,
+      "min_bank": 127.92,
       "river_name": "ห้วยทับเสลา",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 127.92,
+      "warning_level_msl": 127.42,
+      "critical_level_msl": 127.92,
+      "bank_level_relative_m": 127.91999816894531
     },
     "agency": {
       "agency_name": {
@@ -491,10 +503,14 @@
       "tele_station_oldcode": "G07003-Ct.19",
       "tele_station_type": "waterlevel",
       "ground_level": 16.78,
-      "qmax": 637,
-      "min_bank": 24.35,
+      "qmax": 637.0,
+      "min_bank": 24.52,
       "river_name": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 3",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 24.52,
+      "warning_level_msl": 24.02,
+      "critical_level_msl": 24.52,
+      "bank_level_relative_m": 24.520000457763672
     },
     "agency": {
       "agency_name": {
@@ -551,10 +567,14 @@
       "tele_station_oldcode": "G07003-Ct.2A",
       "tele_station_type": "waterlevel",
       "ground_level": 11.3,
-      "qmax": 616,
+      "qmax": 616.0,
       "min_bank": 21.34,
       "river_name": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 3",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 21.34,
+      "warning_level_msl": 20.84,
+      "critical_level_msl": 21.34,
+      "bank_level_relative_m": 21.34000015258789
     },
     "agency": {
       "agency_name": {

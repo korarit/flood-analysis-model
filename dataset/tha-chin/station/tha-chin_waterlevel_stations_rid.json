@@ -14,7 +14,12 @@
       "qmax": null,
       "min_bank": 1.5,
       "river_name": "ที่ราบแม่น้ำท่าจีน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 1.5,
+      "warning_level_msl": 1.0,
+      "critical_level_msl": 1.5,
+      "zero_gauge_msl": -9.699999809265137,
+      "bank_level_relative_m": 11.199999809265137
     },
     "agency": {
       "agency_name": {
@@ -72,9 +77,14 @@
       "tele_station_type": "waterlevel",
       "ground_level": -5.74,
       "qmax": null,
-      "min_bank": 1.8000002,
+      "min_bank": 1.8,
       "river_name": "ที่ราบแม่น้ำท่าจีน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 1.8,
+      "warning_level_msl": 1.3,
+      "critical_level_msl": 1.8,
+      "zero_gauge_msl": -6.0,
+      "bank_level_relative_m": 7.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -134,7 +144,12 @@
       "qmax": null,
       "min_bank": 1.5,
       "river_name": "ที่ราบแม่น้ำท่าจีน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 1.5,
+      "warning_level_msl": 1.0,
+      "critical_level_msl": 1.5,
+      "zero_gauge_msl": -8.800000190734863,
+      "bank_level_relative_m": 10.300000190734863
     },
     "agency": {
       "agency_name": {
@@ -194,7 +209,12 @@
       "qmax": null,
       "min_bank": 2.4,
       "river_name": "ที่ราบแม่น้ำท่าจีน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 2.4,
+      "warning_level_msl": 1.9,
+      "critical_level_msl": 2.4,
+      "zero_gauge_msl": -4.0,
+      "bank_level_relative_m": 6.400000095367432
     },
     "agency": {
       "agency_name": {
@@ -254,7 +274,12 @@
       "qmax": null,
       "min_bank": 3.5,
       "river_name": "ที่ราบแม่น้ำท่าจีน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 3.5,
+      "warning_level_msl": 3.0,
+      "critical_level_msl": 3.5,
+      "zero_gauge_msl": -2.5,
+      "bank_level_relative_m": 6.0
     },
     "agency": {
       "agency_name": {

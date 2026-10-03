@@ -12,9 +12,14 @@
       "tele_station_type": "waterlevel",
       "ground_level": 13.364,
       "qmax": 83.94999694824219,
-      "min_bank": 18.369999,
+      "min_bank": 18.37,
       "river_name": "คลองหลวง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 18.37,
+      "warning_level_msl": 17.87,
+      "critical_level_msl": 18.37,
+      "zero_gauge_msl": 13.569999694824219,
+      "bank_level_relative_m": 4.800000190734863
     },
     "agency": {
       "agency_name": {
@@ -70,11 +75,16 @@
       "tele_station_long": 101.070473,
       "tele_station_oldcode": "G07003-Ny.3",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 5.099999904632568,
       "qmax": 71.80000305175781,
-      "min_bank": 11.360001,
+      "min_bank": 11.36,
       "river_name": "แม่น้ำนครนายก",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 11.36,
+      "warning_level_msl": 10.86,
+      "critical_level_msl": 11.36,
+      "zero_gauge_msl": 5.099999904632568,
+      "bank_level_relative_m": 6.260000228881836
     },
     "agency": {
       "agency_name": {
@@ -134,7 +144,12 @@
       "qmax": 266.8999938964844,
       "min_bank": 8.81,
       "river_name": "แม่น้ำนครนายก",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 8.81,
+      "warning_level_msl": 8.31,
+      "critical_level_msl": 8.81,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 8.8100004196167
     },
     "agency": {
       "agency_name": {
@@ -194,7 +209,12 @@
       "qmax": null,
       "min_bank": 8.2,
       "river_name": "แม่น้ำนครนายก",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 8.2,
+      "warning_level_msl": 7.7,
+      "critical_level_msl": 8.2,
+      "zero_gauge_msl": 1.6399999856948853,
+      "bank_level_relative_m": 6.559999942779541
     },
     "agency": {
       "agency_name": {
@@ -252,9 +272,14 @@
       "tele_station_type": "waterlevel",
       "ground_level": 1.421,
       "qmax": 542.7999877929688,
-      "min_bank": 12.219999,
+      "min_bank": 12.22,
       "river_name": "แม่น้ำหนุมาน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 12.22,
+      "warning_level_msl": 11.72,
+      "critical_level_msl": 12.22,
+      "zero_gauge_msl": 2.069999933242798,
+      "bank_level_relative_m": 10.149999618530273
     },
     "agency": {
       "agency_name": {
@@ -314,7 +339,12 @@
       "qmax": 341.79998779296875,
       "min_bank": 16.17,
       "river_name": "แม่น้ำพระปรงส่วนที่ 2",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 16.17,
+      "warning_level_msl": 15.67,
+      "critical_level_msl": 16.17,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 16.170000076293945
     },
     "agency": {
       "agency_name": {
@@ -374,7 +404,12 @@
       "qmax": 543.9000244140625,
       "min_bank": 8.79,
       "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 8.79,
+      "warning_level_msl": 8.29,
+      "critical_level_msl": 8.79,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 8.789999961853027
     },
     "agency": {
       "agency_name": {
@@ -434,7 +469,12 @@
       "qmax": 423.6000061035156,
       "min_bank": 11.12,
       "river_name": "แม่น้ำหนุมาน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 11.12,
+      "warning_level_msl": 10.62,
+      "critical_level_msl": 11.12,
+      "zero_gauge_msl": 3.559999942779541,
+      "bank_level_relative_m": 7.559999942779541
     },
     "agency": {
       "agency_name": {
@@ -494,7 +534,12 @@
       "qmax": 114.4000015258789,
       "min_bank": 39.41,
       "river_name": "แม่น้ำหนุมาน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 39.41,
+      "warning_level_msl": 38.91,
+      "critical_level_msl": 39.41,
+      "zero_gauge_msl": 34.34000015258789,
+      "bank_level_relative_m": 5.070000171661377
     },
     "agency": {
       "agency_name": {
@@ -550,11 +595,16 @@
       "tele_station_long": 101.727707,
       "tele_station_oldcode": "G07003-Kgt.33",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
-      "qmax": 277,
-      "min_bank": 13,
+      "ground_level": 3.4000000953674316,
+      "qmax": 277.0,
+      "min_bank": 13.0,
       "river_name": "แม่น้ำหนุมาน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 13.0,
+      "warning_level_msl": 12.5,
+      "critical_level_msl": 13.0,
+      "zero_gauge_msl": 3.4000000953674316,
+      "bank_level_relative_m": 9.600000381469727
     },
     "agency": {
       "agency_name": {
@@ -614,7 +664,12 @@
       "qmax": 188.6999969482422,
       "min_bank": 20.21,
       "river_name": "แม่น้ำหนุมาน",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 20.21,
+      "warning_level_msl": 19.71,
+      "critical_level_msl": 20.21,
+      "zero_gauge_msl": 12.369999885559082,
+      "bank_level_relative_m": 7.840000152587891
     },
     "agency": {
       "agency_name": {
@@ -670,11 +725,16 @@
       "tele_station_long": 101.518982,
       "tele_station_oldcode": "G07003-Kgt.51",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 0.0,
       "qmax": null,
       "min_bank": 12.58,
       "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 12.58,
+      "warning_level_msl": 12.08,
+      "critical_level_msl": 12.58,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 12.579999923706055
     },
     "agency": {
       "agency_name": {
@@ -734,7 +794,12 @@
       "qmax": null,
       "min_bank": 6.61,
       "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 6.61,
+      "warning_level_msl": 6.11,
+      "critical_level_msl": 6.61,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 6.610000133514404
     },
     "agency": {
       "agency_name": {
@@ -791,10 +856,15 @@
       "tele_station_oldcode": "G07003-Kgt.1",
       "tele_station_type": "waterlevel",
       "ground_level": -6.089,
-      "qmax": 698,
+      "qmax": 698.0,
       "min_bank": 4.13,
       "river_name": "แม่น้ำปราจีนบุรีตอนล่าง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 4.13,
+      "warning_level_msl": 3.63,
+      "critical_level_msl": 4.13,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 4.130000114440918
     },
     "agency": {
       "agency_name": {
@@ -850,11 +920,16 @@
       "tele_station_long": 101.106087,
       "tele_station_oldcode": "G07003-Ny.6",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 28.850000381469727,
       "qmax": 116.69999694824219,
       "min_bank": 32.61,
       "river_name": "แม่น้ำนครนายก",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 32.61,
+      "warning_level_msl": 32.11,
+      "critical_level_msl": 32.61,
+      "zero_gauge_msl": 28.850000381469727,
+      "bank_level_relative_m": 3.759999990463257
     },
     "agency": {
       "agency_name": {
@@ -910,11 +985,16 @@
       "tele_station_long": 102.045387,
       "tele_station_oldcode": "G07003-Kgt.47",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 52.0,
       "qmax": 463.8999938964844,
       "min_bank": 63.77,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 63.77,
+      "warning_level_msl": 63.27,
+      "critical_level_msl": 63.77,
+      "zero_gauge_msl": 52.0,
+      "bank_level_relative_m": 11.770000457763672
     },
     "agency": {
       "agency_name": {
@@ -970,11 +1050,16 @@
       "tele_station_long": 102.080322,
       "tele_station_oldcode": "G07003-Kgt.40",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 77.0,
       "qmax": 655.4000244140625,
       "min_bank": 86.11,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 86.11,
+      "warning_level_msl": 85.61,
+      "critical_level_msl": 86.11,
+      "zero_gauge_msl": 77.0,
+      "bank_level_relative_m": 9.109999656677246
     },
     "agency": {
       "agency_name": {
@@ -1030,11 +1115,16 @@
       "tele_station_long": 102.031914,
       "tele_station_oldcode": "G07003-Kgt.38",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 0.0,
       "qmax": 270.20001220703125,
       "min_bank": 7.68,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 7.68,
+      "warning_level_msl": 7.18,
+      "critical_level_msl": 7.68,
+      "zero_gauge_msl": 0.0,
+      "bank_level_relative_m": 7.679999828338623
     },
     "agency": {
       "agency_name": {
@@ -1091,10 +1181,15 @@
       "tele_station_oldcode": "G07003-Kgt.9",
       "tele_station_type": "waterlevel",
       "ground_level": 39.094,
-      "qmax": 522,
+      "qmax": 522.0,
       "min_bank": 49.57,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 49.57,
+      "warning_level_msl": 49.07,
+      "critical_level_msl": 49.57,
+      "zero_gauge_msl": 39.56999969482422,
+      "bank_level_relative_m": 10.0
     },
     "agency": {
       "agency_name": {
@@ -1150,11 +1245,16 @@
       "tele_station_long": 101.955063,
       "tele_station_oldcode": "G07003-Kgt.42",
       "tele_station_type": "waterlevel",
-      "ground_level": null,
+      "ground_level": 14.5,
       "qmax": 513.7999877929688,
-      "min_bank": 25.810001,
+      "min_bank": 25.81,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 25.81,
+      "warning_level_msl": 25.31,
+      "critical_level_msl": 25.81,
+      "zero_gauge_msl": 14.5,
+      "bank_level_relative_m": 11.3100004196167
     },
     "agency": {
       "agency_name": {
@@ -1211,10 +1311,15 @@
       "tele_station_oldcode": "G07003-Kgt.10",
       "tele_station_type": "waterlevel",
       "ground_level": 24.468,
-      "qmax": 300,
-      "min_bank": 35,
+      "qmax": 300.0,
+      "min_bank": 35.0,
       "river_name": "คลองพระสทึง",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 35.0,
+      "warning_level_msl": 34.5,
+      "critical_level_msl": 35.0,
+      "zero_gauge_msl": 24.0,
+      "bank_level_relative_m": 11.0
     },
     "agency": {
       "agency_name": {
@@ -1271,10 +1376,15 @@
       "tele_station_oldcode": "G07003-Kgt.12A",
       "tele_station_type": "waterlevel",
       "ground_level": 12.509,
-      "qmax": 116,
-      "min_bank": 21,
+      "qmax": 116.0,
+      "min_bank": 21.0,
       "river_name": "แม่น้ำพระปรงส่วนที่ 1",
-      "sponsor_by": null
+      "sponsor_by": null,
+      "bank_level_msl": 21.0,
+      "warning_level_msl": 20.5,
+      "critical_level_msl": 21.0,
+      "zero_gauge_msl": 12.430000305175781,
+      "bank_level_relative_m": 8.569999694824219
     },
     "agency": {
       "agency_name": {
