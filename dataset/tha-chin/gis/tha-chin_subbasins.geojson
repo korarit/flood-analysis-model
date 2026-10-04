@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "thachin_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำท่าจีนตอนบน (วัดสิงห์/เดิมบางนางบวช/สามชุก)",
+        "basin_slug": "tha-chin",
+        "order": 1,
+        "downstream_subbasin": "thachin_02_central",
+        "min_lat": 14.748,
+        "max_lat": 15.441,
+        "min_lon": 99.293,
+        "max_lon": 100.438
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.438,
+              14.718000000000002
+            ],
+            [
+              100.438,
+              15.471
+            ],
+            [
+              99.293,
+              15.471
+            ],
+            [
+              99.293,
+              14.718000000000002
+            ],
+            [
+              100.438,
+              14.718000000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "thachin_02_central",
+        "subbasin_name_th": "ลุ่มน้ำท่าจีนตอนกลาง (เมืองสุพรรณบุรี/สองพี่น้อง/บางเลน)",
+        "basin_slug": "tha-chin",
+        "order": 2,
+        "downstream_subbasin": "thachin_03_lower",
+        "min_lat": 14.055,
+        "max_lat": 14.748,
+        "min_lon": 99.293,
+        "max_lon": 100.438
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.438,
+              14.025
+            ],
+            [
+              100.438,
+              14.777999999999999
+            ],
+            [
+              99.293,
+              14.777999999999999
+            ],
+            [
+              99.293,
+              14.025
+            ],
+            [
+              100.438,
+              14.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "thachin_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำท่าจีนตอนล่าง (นครชัยศรี/สามพราน/กระทุ่มแบน/สมุทรสาคร/อ่าวไทย)",
+        "basin_slug": "tha-chin",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 13.362,
+        "max_lat": 14.055,
+        "min_lon": 99.293,
+        "max_lon": 100.438
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.438,
+              13.332
+            ],
+            [
+              100.438,
+              14.084999999999999
+            ],
+            [
+              99.293,
+              14.084999999999999
+            ],
+            [
+              99.293,
+              13.332
+            ],
+            [
+              100.438,
+              13.332
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

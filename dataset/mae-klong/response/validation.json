@@ -1,0 +1,9 @@
+{
+  "basin": "mae-klong",
+  "total_station_pairs": 33,
+  "observed_pairs_count": 11,
+  "estimated_pairs_count": 22,
+  "total_flood_events_detected": 33688,
+  "detection_rule": "continuous_rise_4h_with_plateau_midpoint",
+  "timestamp": "2026-10-04T07:53:20.058533"
+}

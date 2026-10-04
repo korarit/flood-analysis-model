@@ -1,0 +1,9 @@
+{
+  "basin": "tha-chin",
+  "total_station_pairs": 17,
+  "observed_pairs_count": 16,
+  "estimated_pairs_count": 1,
+  "total_flood_events_detected": 36663,
+  "detection_rule": "continuous_rise_4h_with_plateau_midpoint",
+  "timestamp": "2026-10-04T09:55:15.427976"
+}

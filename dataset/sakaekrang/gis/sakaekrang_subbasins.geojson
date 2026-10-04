@@ -1,0 +1,87 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "sakae_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำสะแกกรังตอนบน (ลาดยาว/สว่างอารมณ์)",
+        "basin_slug": "sakaekrang",
+        "order": 1,
+        "downstream_subbasin": "sakae_02_lower",
+        "min_lat": 15.6905,
+        "max_lat": 16.095,
+        "min_lon": 99.033,
+        "max_lon": 100.164
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.164,
+              15.6605
+            ],
+            [
+              100.164,
+              16.125
+            ],
+            [
+              99.033,
+              16.125
+            ],
+            [
+              99.033,
+              15.6605
+            ],
+            [
+              100.164,
+              15.6605
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "sakae_02_lower",
+        "subbasin_name_th": "ลุ่มน้ำสะแกกรังตอนล่าง (ทัพทัน/เมืองอุทัยธานี/บรรจบเจ้าพระยา)",
+        "basin_slug": "sakaekrang",
+        "order": 2,
+        "downstream_subbasin": null,
+        "min_lat": 15.286,
+        "max_lat": 15.6905,
+        "min_lon": 99.033,
+        "max_lon": 100.164
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.164,
+              15.256
+            ],
+            [
+              100.164,
+              15.7205
+            ],
+            [
+              99.033,
+              15.7205
+            ],
+            [
+              99.033,
+              15.256
+            ],
+            [
+              100.164,
+              15.256
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

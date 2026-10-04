@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "east_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำชายฝั่งทะเลตะวันออกตอนบน (ชลบุรี/บางละมุง/สัตหีบ)",
+        "basin_slug": "east-coast",
+        "order": 1,
+        "downstream_subbasin": "east_02_central",
+        "min_lat": 12.83467,
+        "max_lat": 13.471,
+        "min_lon": 100.784,
+        "max_lon": 102.961
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.961,
+              12.804666666666668
+            ],
+            [
+              102.961,
+              13.501
+            ],
+            [
+              100.784,
+              13.501
+            ],
+            [
+              100.784,
+              12.804666666666668
+            ],
+            [
+              102.961,
+              12.804666666666668
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "east_02_central",
+        "subbasin_name_th": "ลุ่มน้ำชายฝั่งทะเลตะวันออกตอนกลาง (ระยอง/แม่น้ำระยอง/แม่น้ำประแสร์)",
+        "basin_slug": "east-coast",
+        "order": 2,
+        "downstream_subbasin": "east_03_lower",
+        "min_lat": 12.19833,
+        "max_lat": 12.83467,
+        "min_lon": 100.784,
+        "max_lon": 102.961
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.961,
+              12.168333333333333
+            ],
+            [
+              102.961,
+              12.864666666666665
+            ],
+            [
+              100.784,
+              12.864666666666665
+            ],
+            [
+              100.784,
+              12.168333333333333
+            ],
+            [
+              102.961,
+              12.168333333333333
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "east_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำชายฝั่งทะเลตะวันออกตอนล่าง (จันทบุรี/แม่น้ำจันทบุรี/ตราด)",
+        "basin_slug": "east-coast",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 11.562,
+        "max_lat": 12.19833,
+        "min_lon": 100.784,
+        "max_lon": 102.961
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.961,
+              11.532
+            ],
+            [
+              102.961,
+              12.228333333333332
+            ],
+            [
+              100.784,
+              12.228333333333332
+            ],
+            [
+              100.784,
+              11.532
+            ],
+            [
+              102.961,
+              11.532
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

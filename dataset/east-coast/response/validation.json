@@ -1,0 +1,9 @@
+{
+  "basin": "east-coast",
+  "total_station_pairs": 19,
+  "observed_pairs_count": 15,
+  "estimated_pairs_count": 4,
+  "total_flood_events_detected": 25485,
+  "detection_rule": "continuous_rise_4h_with_plateau_midpoint",
+  "timestamp": "2026-10-04T07:32:43.906615"
+}

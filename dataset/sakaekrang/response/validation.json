@@ -1,0 +1,9 @@
+{
+  "basin": "sakaekrang",
+  "total_station_pairs": 7,
+  "observed_pairs_count": 4,
+  "estimated_pairs_count": 3,
+  "total_flood_events_detected": 6109,
+  "detection_rule": "continuous_rise_4h_with_plateau_midpoint",
+  "timestamp": "2026-10-04T09:54:18.743784"
+}

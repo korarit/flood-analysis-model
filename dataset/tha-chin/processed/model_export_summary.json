@@ -1,0 +1,12 @@
+{
+  "basin": "tha-chin",
+  "total_database_relations": 43,
+  "gauge_to_gauge_relations": 17,
+  "rainfall_to_gauge_relations": 26,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/tha-chin/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/tha-chin/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/tha-chin/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/tha-chin/processed/river_network.geojson"
+  ]
+}

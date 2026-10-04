@@ -1,0 +1,1248 @@
+{
+  "1697": {
+    "id": "1697",
+    "code": "G23069-SKG003",
+    "name": {
+      "th": "สะพานต้นน้ำ (เกาะแก้ว-ตลิ่งสูง)",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.91465,
+    "long": 99.4194,
+    "riverName": "น้ำแม่วง",
+    "groundLevel": 102.34,
+    "qmax": null,
+    "minBank": 118.12,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ปางมะค่า",
+        "en": ""
+      },
+      "province": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "provinceCode": "62",
+      "geoCode": "620411",
+      "ridCode": "1",
+      "tmdCode": "3",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1696",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "water_level",
+        "distanceKm": 9.09,
+        "travelTimeMinutes": 960,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 3390,
+        "travelTimeHours": 16.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 56.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1696": {
+    "id": "1696",
+    "code": "G23069-SKG005",
+    "name": {
+      "th": "สะพานแม่วงก์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.90176,
+    "long": 99.4704,
+    "riverName": "น้ำแม่วง",
+    "groundLevel": 107.7,
+    "qmax": null,
+    "minBank": 113.69,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ขาณุวรลักษบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ปางมะค่า",
+        "en": ""
+      },
+      "province": {
+        "th": "กำแพงเพชร",
+        "en": ""
+      },
+      "provinceCode": "62",
+      "geoCode": "620411",
+      "ridCode": "1",
+      "tmdCode": "3",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "592",
+        "stationName": "สะพานแม่เล่ย์",
+        "stationType": "rainfall",
+        "distanceKm": 14.93,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "3872",
+        "stationName": "บ้านปางมะค่า",
+        "stationType": "water_level",
+        "distanceKm": 4.97,
+        "travelTimeMinutes": 390,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2190,
+        "travelTimeHours": 6.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 36.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1665": {
+    "id": "1665",
+    "code": "G23069-SKG007",
+    "name": {
+      "th": "คลองกลาง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.7832,
+    "long": 99.65321,
+    "riverName": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 1",
+    "groundLevel": 70.31,
+    "qmax": null,
+    "minBank": 74.1,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ลาดยาว",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ศาลเจ้าไก่ต่อ",
+        "en": ""
+      },
+      "province": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "provinceCode": "60",
+      "geoCode": "601116",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7986",
+        "stationName": "ท้ายเขื่อนวังร่มเกล้า",
+        "stationType": "water_level",
+        "distanceKm": 71.86,
+        "travelTimeMinutes": 11024,
+        "travelTimeMinutesMin": 639,
+        "travelTimeMinutesMax": 11054,
+        "travelTimeHours": 183.73,
+        "travelTimeHoursMin": 10.65,
+        "travelTimeHoursMax": 184.23,
+        "confidence": "LOW",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  "3853": {
+    "id": "3853",
+    "code": "G07003-Ct.4",
+    "name": {
+      "th": "บ้านศาลเจ้าไก่ต่อ",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.78585,
+    "long": 99.678329,
+    "riverName": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 1",
+    "groundLevel": 65.73,
+    "qmax": 197.0,
+    "minBank": 71.67,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ลาดยาว",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ศาลเจ้าไก่ต่อ",
+        "en": ""
+      },
+      "province": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "provinceCode": "60",
+      "geoCode": "601116",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7986",
+        "stationName": "ท้ายเขื่อนวังร่มเกล้า",
+        "stationType": "water_level",
+        "distanceKm": 69.32,
+        "travelTimeMinutes": 10671,
+        "travelTimeMinutesMin": 618,
+        "travelTimeMinutesMax": 10701,
+        "travelTimeHours": 177.85,
+        "travelTimeHoursMin": 10.3,
+        "travelTimeHoursMax": 178.35,
+        "confidence": "LOW",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  "3872": {
+    "id": "3872",
+    "code": "G07003-Ct.5A",
+    "name": {
+      "th": "บ้านปางมะค่า",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.92832,
+    "long": 99.502373,
+    "riverName": "น้ำแม่วง",
+    "groundLevel": 102.21,
+    "qmax": 232.0,
+    "minBank": 107.22,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "แม่วงก์",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "เขาชนกัน",
+        "en": ""
+      },
+      "province": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "provinceCode": "60",
+      "geoCode": "601305",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "619",
+        "stationName": "สะพานต้นน้ำ (เกาะแก้ว-ตลิ่งสูง)",
+        "stationType": "rainfall",
+        "distanceKm": 13.91,
+        "travelTimeMinutes": 344,
+        "travelTimeMinutesMin": 240,
+        "travelTimeMinutesMax": 526,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 4.0,
+        "travelTimeHoursMax": 8.8,
+        "influenceWeightPercent": 11.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "618",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "rainfall",
+        "distanceKm": 6.12,
+        "travelTimeMinutes": 154,
+        "travelTimeMinutesMin": 106,
+        "travelTimeMinutesMax": 235,
+        "travelTimeHours": 2.6,
+        "travelTimeHoursMin": 1.8,
+        "travelTimeHoursMax": 3.9,
+        "influenceWeightPercent": 27.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1651",
+        "stationName": "บ้านตลิ่งสูง",
+        "stationType": "rainfall",
+        "distanceKm": 14.14,
+        "travelTimeMinutes": 267,
+        "travelTimeMinutesMin": 200,
+        "travelTimeMinutesMax": 419,
+        "travelTimeHours": 4.5,
+        "travelTimeHoursMin": 3.3,
+        "travelTimeHoursMax": 7.0,
+        "influenceWeightPercent": 11.7,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1650",
+        "stationName": "บ้านปางข้าวสาร",
+        "stationType": "rainfall",
+        "distanceKm": 30.31,
+        "travelTimeMinutes": 365,
+        "travelTimeMinutesMin": 268,
+        "travelTimeMinutesMax": 562,
+        "travelTimeHours": 6.1,
+        "travelTimeHoursMin": 4.5,
+        "travelTimeHoursMax": 9.4,
+        "influenceWeightPercent": 5.5,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "501246",
+        "stationName": "บ้านปางสุด",
+        "stationType": "rainfall",
+        "distanceKm": 16.85,
+        "travelTimeMinutes": 269,
+        "travelTimeMinutesMin": 200,
+        "travelTimeMinutesMax": 413,
+        "travelTimeHours": 4.5,
+        "travelTimeHoursMin": 3.3,
+        "travelTimeHoursMax": 6.9,
+        "influenceWeightPercent": 9.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1137142",
+        "stationName": "ศาลาเอนกประสงค์บ้านมอช้างงาม หมู่ 21",
+        "stationType": "rainfall",
+        "distanceKm": 25.79,
+        "travelTimeMinutes": 453,
+        "travelTimeMinutesMin": 336,
+        "travelTimeMinutesMax": 714,
+        "travelTimeHours": 7.5,
+        "travelTimeHoursMin": 5.6,
+        "travelTimeHoursMax": 11.9,
+        "influenceWeightPercent": 6.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.1,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 24.4,
+            "warningRainMm": 43.3,
+            "wetSoilWarningRainMm": 29.4,
+            "drySoilWarningRainMm": 62.7
+          },
+          "72h": {
+            "inceptionRainMm": 31.4,
+            "warningRainMm": 77.9,
+            "wetSoilWarningRainMm": 53.0,
+            "drySoilWarningRainMm": 113.0
+          },
+          "168h": {
+            "inceptionRainMm": 42.6,
+            "warningRainMm": 93.6,
+            "wetSoilWarningRainMm": 63.7,
+            "drySoilWarningRainMm": 135.7
+          }
+        }
+      },
+      {
+        "stationId": "1100961",
+        "stationName": "ศาลาเอนกประสงค์หมู่บ้าน หมู่ 9",
+        "stationType": "rainfall",
+        "distanceKm": 18.94,
+        "travelTimeMinutes": 344,
+        "travelTimeMinutesMin": 257,
+        "travelTimeMinutesMax": 538,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 4.3,
+        "travelTimeHoursMax": 9.0,
+        "influenceWeightPercent": 8.7,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.9,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 26.6,
+            "warningRainMm": 44.6,
+            "wetSoilWarningRainMm": 30.3,
+            "drySoilWarningRainMm": 64.6
+          },
+          "72h": {
+            "inceptionRainMm": 35.6,
+            "warningRainMm": 64.9,
+            "wetSoilWarningRainMm": 44.1,
+            "drySoilWarningRainMm": 94.1
+          },
+          "168h": {
+            "inceptionRainMm": 48.1,
+            "warningRainMm": 84.9,
+            "wetSoilWarningRainMm": 57.7,
+            "drySoilWarningRainMm": 123.1
+          }
+        }
+      },
+      {
+        "stationId": "592",
+        "stationName": "สะพานแม่เล่ย์",
+        "stationType": "rainfall",
+        "distanceKm": 20.81,
+        "travelTimeMinutes": 255,
+        "travelTimeMinutesMin": 189,
+        "travelTimeMinutesMax": 401,
+        "travelTimeHours": 4.2,
+        "travelTimeHoursMin": 3.1,
+        "travelTimeHoursMax": 6.7,
+        "influenceWeightPercent": 7.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1121254",
+        "stationName": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์ขุนน้ำเย็น",
+        "stationType": "rainfall",
+        "distanceKm": 34.5,
+        "travelTimeMinutes": 556,
+        "travelTimeMinutesMin": 410,
+        "travelTimeMinutesMax": 880,
+        "travelTimeHours": 9.3,
+        "travelTimeHoursMin": 6.8,
+        "travelTimeHoursMax": 14.7,
+        "influenceWeightPercent": 4.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "593",
+        "stationName": "หน่วยพิทักษ์ อช.แม่วงก์ที่ 4 (แม่เรวา)",
+        "stationType": "rainfall",
+        "distanceKm": 26.1,
+        "travelTimeMinutes": 481,
+        "travelTimeMinutesMin": 360,
+        "travelTimeMinutesMax": 755,
+        "travelTimeHours": 8.0,
+        "travelTimeHoursMin": 6.0,
+        "travelTimeHoursMax": 12.6,
+        "influenceWeightPercent": 6.3,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 17.0,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 19.0,
+            "warningRainMm": 40.0,
+            "wetSoilWarningRainMm": 27.2,
+            "drySoilWarningRainMm": 58.0
+          },
+          "72h": {
+            "inceptionRainMm": 21.0,
+            "warningRainMm": 110.4,
+            "wetSoilWarningRainMm": 75.1,
+            "drySoilWarningRainMm": 160.1
+          },
+          "168h": {
+            "inceptionRainMm": 29.0,
+            "warningRainMm": 115.4,
+            "wetSoilWarningRainMm": 78.5,
+            "drySoilWarningRainMm": 167.3
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  "1670": {
+    "id": "1670",
+    "code": "G23069-SKG004",
+    "name": {
+      "th": "สะพานแม่เล่ย์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.84175,
+    "long": 99.41808,
+    "riverName": "น้ำแม่วง",
+    "groundLevel": 111.91,
+    "qmax": null,
+    "minBank": 136.59,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "แม่วงก์",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "แม่เล่ย์",
+        "en": ""
+      },
+      "province": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "provinceCode": "60",
+      "geoCode": "601303",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1696",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "water_level",
+        "distanceKm": 13.46,
+        "travelTimeMinutes": 390,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 651,
+        "travelTimeHours": 6.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 10.85,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "7986": {
+    "id": "7986",
+    "code": "G07003-Ct.25",
+    "name": {
+      "th": "ท้ายเขื่อนวังร่มเกล้า",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.50282,
+    "long": 99.967072,
+    "riverName": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 3",
+    "groundLevel": 19.46,
+    "qmax": 630,
+    "minBank": 30.2,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "โกรกพระ",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "หาดสูง",
+        "en": ""
+      },
+      "province": {
+        "th": "นครสวรรค์",
+        "en": ""
+      },
+      "provinceCode": "60",
+      "geoCode": "600209",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3819",
+        "stationName": "บ้านดอนใหญ่",
+        "stationType": "water_level",
+        "distanceKm": 13.0,
+        "travelTimeMinutes": 2290,
+        "travelTimeMinutesMin": 180,
+        "travelTimeMinutesMax": 2320,
+        "travelTimeHours": 38.17,
+        "travelTimeHoursMin": 3.0,
+        "travelTimeHoursMax": 38.67,
+        "confidence": "MEDIUM",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  "3823": {
+    "id": "3823",
+    "code": "G07003-Ct.9",
+    "name": {
+      "th": "บ้านบุ่งอ้ายเจี้ยม",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.51829,
+    "long": 99.483528,
+    "riverName": "ห้วยทับเสลา",
+    "groundLevel": 122.58,
+    "qmax": 280.0,
+    "minBank": 127.92,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ลานสัก",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ระบำ",
+        "en": ""
+      },
+      "province": {
+        "th": "อุทัยธานี",
+        "en": ""
+      },
+      "provinceCode": "61",
+      "geoCode": "610704",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1316406",
+        "stationName": "เขื่อนทับเสลา",
+        "stationType": "rainfall",
+        "distanceKm": 5.96,
+        "travelTimeMinutes": 90,
+        "travelTimeMinutesMin": 66,
+        "travelTimeMinutesMax": 144,
+        "travelTimeHours": 1.5,
+        "travelTimeHoursMin": 1.1,
+        "travelTimeHoursMax": 2.4,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.4,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 25.3,
+            "warningRainMm": 43.8,
+            "wetSoilWarningRainMm": 29.8,
+            "drySoilWarningRainMm": 63.5
+          },
+          "72h": {
+            "inceptionRainMm": 33.1,
+            "warningRainMm": 72.8,
+            "wetSoilWarningRainMm": 49.5,
+            "drySoilWarningRainMm": 105.5
+          },
+          "168h": {
+            "inceptionRainMm": 44.8,
+            "warningRainMm": 90.2,
+            "wetSoilWarningRainMm": 61.3,
+            "drySoilWarningRainMm": 130.7
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  "3819": {
+    "id": "3819",
+    "code": "G07003-Ct.19",
+    "name": {
+      "th": "บ้านดอนใหญ่",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.45274,
+    "long": 100.031891,
+    "riverName": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 3",
+    "groundLevel": 16.78,
+    "qmax": 637.0,
+    "minBank": 24.52,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองอุทัยธานี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "หนองไผ่แบน",
+        "en": ""
+      },
+      "province": {
+        "th": "อุทัยธานี",
+        "en": ""
+      },
+      "provinceCode": "61",
+      "geoCode": "610111",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3812",
+        "stationName": "บ้านหาดทนง",
+        "stationType": "water_level",
+        "distanceKm": 7.17,
+        "travelTimeMinutes": 1305,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 3660,
+        "travelTimeHours": 21.75,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 61.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "3812": {
+    "id": "3812",
+    "code": "G07003-Ct.2A",
+    "name": {
+      "th": "บ้านหาดทนง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.41085,
+    "long": 100.057068,
+    "riverName": "แม่น้ำสะแกกรังตอนล่างส่วนที่ 3",
+    "groundLevel": 11.3,
+    "qmax": 616.0,
+    "minBank": 21.34,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "3",
+      "areaName": {
+        "th": "ภาคเหนือ",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองอุทัยธานี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สะแกกรัง",
+        "en": ""
+      },
+      "province": {
+        "th": "อุทัยธานี",
+        "en": ""
+      },
+      "provinceCode": "61",
+      "geoCode": "610103",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 11,
+      "code": 11,
+      "name": {
+        "th": "ลุ่มน้ำสะแกกรัง",
+        "en": "Sakae Krang River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1100964",
+        "stationName": "องค์การบริหารส่วนตำบลหาดสูง",
+        "stationType": "rainfall",
+        "distanceKm": 25.91,
+        "travelTimeMinutes": 396,
+        "travelTimeMinutesMin": 297,
+        "travelTimeMinutesMax": 593,
+        "travelTimeHours": 6.6,
+        "travelTimeHoursMin": 5.0,
+        "travelTimeHoursMax": 9.9,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.6,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 28.2,
+            "warningRainMm": 45.6,
+            "wetSoilWarningRainMm": 31.0,
+            "drySoilWarningRainMm": 66.0
+          },
+          "72h": {
+            "inceptionRainMm": 38.7,
+            "warningRainMm": 55.4,
+            "wetSoilWarningRainMm": 37.6,
+            "drySoilWarningRainMm": 80.3
+          },
+          "168h": {
+            "inceptionRainMm": 52.1,
+            "warningRainMm": 78.5,
+            "wetSoilWarningRainMm": 53.4,
+            "drySoilWarningRainMm": 113.8
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  }
+}

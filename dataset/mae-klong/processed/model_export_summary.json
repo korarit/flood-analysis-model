@@ -1,0 +1,12 @@
+{
+  "basin": "mae-klong",
+  "total_database_relations": 171,
+  "gauge_to_gauge_relations": 33,
+  "rainfall_to_gauge_relations": 138,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/mae-klong/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/mae-klong/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/mae-klong/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/mae-klong/processed/river_network.geojson"
+  ]
+}

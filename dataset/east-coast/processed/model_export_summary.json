@@ -1,0 +1,12 @@
+{
+  "basin": "east-coast",
+  "total_database_relations": 98,
+  "gauge_to_gauge_relations": 19,
+  "rainfall_to_gauge_relations": 79,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/east-coast/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/east-coast/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/east-coast/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/east-coast/processed/river_network.geojson"
+  ]
+}

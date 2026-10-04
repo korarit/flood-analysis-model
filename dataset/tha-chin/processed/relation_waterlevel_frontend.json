@@ -1,0 +1,459 @@
+[
+  {
+    "stationId": "5256",
+    "stationName": "ท้ายปตร.มะขามเฒ่า-อู่ทอง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "5268",
+    "stationName": "ท้ายปตร.ท่าโบสถ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3718",
+    "stationName": "ที่ว่าการอ.นครชัยศรี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 67.58,
+        "travelTimeMinutes": 2031,
+        "travelTimeMinutesMin": 1161,
+        "travelTimeMinutesMax": 3383,
+        "travelTimeHours": 33.9,
+        "travelTimeHoursMin": 19.4,
+        "travelTimeHoursMax": 56.4,
+        "riverSlope": 0.0001,
+        "elevationDiffM": 6.73,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1822",
+    "stationName": "สะพานนครชัยศรี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5818",
+        "stationName": "ร.ร.บ้านสามพราน",
+        "stationType": "water_level",
+        "distanceKm": 28.35,
+        "travelTimeMinutes": 853,
+        "travelTimeMinutesMin": 488,
+        "travelTimeMinutesMax": 1307,
+        "travelTimeHours": 14.2,
+        "travelTimeHoursMin": 8.1,
+        "travelTimeHoursMax": 21.8,
+        "riverSlope": 0.000194,
+        "elevationDiffM": 5.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1819",
+    "stationName": "บางเลน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1819",
+        "stationName": "บางเลน",
+        "stationType": "water_level",
+        "distanceKm": 11.23,
+        "travelTimeMinutes": 340,
+        "travelTimeMinutesMin": 195,
+        "travelTimeMinutesMax": 566,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 3.2,
+        "travelTimeHoursMax": 9.4,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5894",
+    "stationName": "วัดบางไผ่นารถ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 46.41,
+        "travelTimeMinutes": 1395,
+        "travelTimeMinutesMin": 798,
+        "travelTimeMinutesMax": 2325,
+        "travelTimeHours": 23.2,
+        "travelTimeHoursMin": 13.3,
+        "travelTimeHoursMax": 38.8,
+        "riverSlope": 3.8e-05,
+        "elevationDiffM": 1.78,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1823",
+    "stationName": "ศาลาดิน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 52.88,
+        "travelTimeMinutes": 1589,
+        "travelTimeMinutesMin": 909,
+        "travelTimeMinutesMax": 2648,
+        "travelTimeHours": 26.5,
+        "travelTimeHoursMin": 15.2,
+        "travelTimeHoursMax": 44.1,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5818",
+    "stationName": "ร.ร.บ้านสามพราน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5818",
+        "stationName": "ร.ร.บ้านสามพราน",
+        "stationType": "water_level",
+        "distanceKm": 32.68,
+        "travelTimeMinutes": 983,
+        "travelTimeMinutesMin": 562,
+        "travelTimeMinutesMax": 1638,
+        "travelTimeHours": 16.4,
+        "travelTimeHoursMin": 9.4,
+        "travelTimeHoursMax": 27.3,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1825",
+    "stationName": "คลองมหาชัย วัดพันท้ายนรสิงห์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1827",
+    "stationName": "ปากแม่น้ำท่าจีน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1824",
+    "stationName": "เมืองสมุทรสาคร",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1824",
+        "stationName": "เมืองสมุทรสาคร",
+        "stationType": "water_level",
+        "distanceKm": 5.34,
+        "travelTimeMinutes": 163,
+        "travelTimeMinutesMin": 94,
+        "travelTimeMinutesMax": 271,
+        "travelTimeHours": 2.7,
+        "travelTimeHoursMin": 1.6,
+        "travelTimeHoursMax": 4.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1810",
+    "stationName": "ด่านช้าง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "7993",
+    "stationName": "ทุ่งโพธิ์พระยา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1812",
+        "stationName": "สองพี่น้อง",
+        "stationType": "water_level",
+        "distanceKm": 35.37,
+        "travelTimeMinutes": 913,
+        "travelTimeMinutesMin": 609,
+        "travelTimeMinutesMax": 1391,
+        "travelTimeHours": 15.2,
+        "travelTimeHoursMin": 10.2,
+        "travelTimeHoursMax": 23.2,
+        "riverSlope": 0.00043,
+        "elevationDiffM": 15.21,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5817",
+    "stationName": "บ้านบางการ้อง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1813",
+        "stationName": "วัดท่าเจดีย์ (TTC06)",
+        "stationType": "water_level",
+        "distanceKm": 0.59,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.009938,
+        "elevationDiffM": 5.87,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "7989",
+    "stationName": "ปตร.ปลายคลองบางซอ (ทุ่งเจ้าเจ็ด)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1813",
+    "stationName": "วัดท่าเจดีย์ (TTC06)",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5817",
+        "stationName": "บ้านบางการ้อง",
+        "stationType": "water_level",
+        "distanceKm": 0.07,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1812",
+    "stationName": "สองพี่น้อง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1812",
+        "stationName": "สองพี่น้อง",
+        "stationType": "water_level",
+        "distanceKm": 40.97,
+        "travelTimeMinutes": 1232,
+        "travelTimeMinutesMin": 705,
+        "travelTimeMinutesMax": 2053,
+        "travelTimeHours": 20.5,
+        "travelTimeHoursMin": 11.8,
+        "travelTimeHoursMax": 34.2,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5270",
+    "stationName": "ท้ายปตร.ชลมาร์คพิจารณ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1814",
+    "stationName": "สามชุก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5816",
+        "stationName": "บ้านวัดพระรูป",
+        "stationType": "water_level",
+        "distanceKm": 44.8,
+        "travelTimeMinutes": 1347,
+        "travelTimeMinutesMin": 770,
+        "travelTimeMinutesMax": 2244,
+        "travelTimeHours": 22.4,
+        "travelTimeHoursMin": 12.8,
+        "travelTimeHoursMax": 37.4,
+        "riverSlope": 0.000112,
+        "elevationDiffM": 5.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5269",
+    "stationName": "เหนือปตร.ชลมาร์คพิจารณ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5270",
+        "stationName": "ท้ายปตร.ชลมาร์คพิจารณ์",
+        "stationType": "water_level",
+        "distanceKm": 2.76,
+        "travelTimeMinutes": 86,
+        "travelTimeMinutesMin": 50,
+        "travelTimeMinutesMax": 142,
+        "travelTimeHours": 1.4,
+        "travelTimeHoursMin": 0.8,
+        "travelTimeHoursMax": 2.4,
+        "riverSlope": 0.000101,
+        "elevationDiffM": 0.28,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5272",
+    "stationName": "ท้ายปตร.โพธิ์พระยา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5271",
+        "stationName": "เหนือปตร.โพธิ์พระยา",
+        "stationType": "water_level",
+        "distanceKm": 0.63,
+        "travelTimeMinutes": 22,
+        "travelTimeMinutesMin": 13,
+        "travelTimeMinutesMax": 37,
+        "travelTimeHours": 0.4,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.6,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5816",
+    "stationName": "บ้านวัดพระรูป",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1813",
+        "stationName": "วัดท่าเจดีย์ (TTC06)",
+        "stationType": "water_level",
+        "distanceKm": 69.38,
+        "travelTimeMinutes": 2084,
+        "travelTimeMinutesMin": 1191,
+        "travelTimeMinutesMax": 3473,
+        "travelTimeHours": 34.7,
+        "travelTimeHoursMin": 19.9,
+        "travelTimeHoursMax": 57.9,
+        "riverSlope": 2.9e-05,
+        "elevationDiffM": 2.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1809",
+    "stationName": "เมืองสุพรรณบุรี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5816",
+        "stationName": "บ้านวัดพระรูป",
+        "stationType": "water_level",
+        "distanceKm": 0.01,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5271",
+    "stationName": "เหนือปตร.โพธิ์พระยา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5272",
+        "stationName": "ท้ายปตร.โพธิ์พระยา",
+        "stationType": "water_level",
+        "distanceKm": 0.08,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  }
+]

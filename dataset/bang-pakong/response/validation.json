@@ -1,0 +1,9 @@
+{
+  "basin": "bang-pakong",
+  "total_station_pairs": 31,
+  "observed_pairs_count": 20,
+  "estimated_pairs_count": 11,
+  "total_flood_events_detected": 27836,
+  "detection_rule": "continuous_rise_4h_with_plateau_midpoint",
+  "timestamp": "2026-10-04T07:26:58.665073"
+}

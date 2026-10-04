@@ -1,0 +1,742 @@
+[
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "619",
+    "from_station_name": "สะพานต้นน้ำ (เกาะแก้ว-ตลิ่งสูง)",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 13.91,
+    "distance_km": 0.05,
+    "channel_distance_km": 13.86,
+    "segment_length_km": 14.18,
+    "response_lag_minutes": 344,
+    "response_lag_minutes_min": 240,
+    "response_lag_minutes_max": 526,
+    "response_lag_hours": 5.7,
+    "response_lag_hours_min": 4.0,
+    "response_lag_hours_max": 8.8,
+    "elevation_diff_m": 7.37,
+    "slope": 0.000191,
+    "upstream_elev_m": 105.75,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 11.9,
+    "attach_way_id": 48,
+    "attach_osm_id": "269899062",
+    "attach_class": "river",
+    "attach_length_km": 27.799,
+    "attach_distance_m": 19.0,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "618",
+    "from_station_name": "สะพานแม่วงก์",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 6.12,
+    "distance_km": 0.04,
+    "channel_distance_km": 6.08,
+    "segment_length_km": 6.37,
+    "response_lag_minutes": 154,
+    "response_lag_minutes_min": 106,
+    "response_lag_minutes_max": 235,
+    "response_lag_hours": 2.6,
+    "response_lag_hours_min": 1.8,
+    "response_lag_hours_max": 3.9,
+    "elevation_diff_m": 3.08,
+    "slope": 0.000501,
+    "upstream_elev_m": 101.46,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 27.0,
+    "attach_way_id": 48,
+    "attach_osm_id": "269899062",
+    "attach_class": "river",
+    "attach_length_km": 27.799,
+    "attach_distance_m": 9.8,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1651",
+    "from_station_name": "บ้านตลิ่งสูง",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 14.14,
+    "distance_km": 0.09,
+    "channel_distance_km": 14.05,
+    "segment_length_km": 14.48,
+    "response_lag_minutes": 267,
+    "response_lag_minutes_min": 200,
+    "response_lag_minutes_max": 419,
+    "response_lag_hours": 4.5,
+    "response_lag_hours_min": 3.3,
+    "response_lag_hours_max": 7.0,
+    "elevation_diff_m": 24.44,
+    "slope": 0.020264,
+    "upstream_elev_m": 122.82,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 11.7,
+    "attach_way_id": 48,
+    "attach_osm_id": "269899062",
+    "attach_class": "river",
+    "attach_length_km": 27.799,
+    "attach_distance_m": 88.0,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1650",
+    "from_station_name": "บ้านปางข้าวสาร",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 30.31,
+    "distance_km": 14.18,
+    "channel_distance_km": 16.13,
+    "segment_length_km": 30.65,
+    "response_lag_minutes": 365,
+    "response_lag_minutes_min": 268,
+    "response_lag_minutes_max": 562,
+    "response_lag_hours": 6.1,
+    "response_lag_hours_min": 4.5,
+    "response_lag_hours_max": 9.4,
+    "elevation_diff_m": 97.54,
+    "slope": 0.004519,
+    "upstream_elev_m": 195.92,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 5.5,
+    "attach_way_id": 374,
+    "attach_osm_id": "1409683437",
+    "attach_class": "stream",
+    "attach_length_km": 0.55,
+    "attach_distance_m": 95.7,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "501246",
+    "from_station_name": "บ้านปางสุด",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 16.85,
+    "distance_km": 5.83,
+    "channel_distance_km": 11.03,
+    "segment_length_km": 17.15,
+    "response_lag_minutes": 269,
+    "response_lag_minutes_min": 200,
+    "response_lag_minutes_max": 413,
+    "response_lag_hours": 4.5,
+    "response_lag_hours_min": 3.3,
+    "response_lag_hours_max": 6.9,
+    "elevation_diff_m": 34.74,
+    "slope": 0.001989,
+    "upstream_elev_m": 133.12,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 9.8,
+    "attach_way_id": 70,
+    "attach_osm_id": "410322872",
+    "attach_class": "river",
+    "attach_length_km": 2.1,
+    "attach_distance_m": 53.8,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1137142",
+    "from_station_name": "ศาลาเอนกประสงค์บ้านมอช้างงาม หมู่ 21",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 25.79,
+    "distance_km": 0.05,
+    "channel_distance_km": 25.74,
+    "segment_length_km": 26.07,
+    "response_lag_minutes": 453,
+    "response_lag_minutes_min": 336,
+    "response_lag_minutes_max": 714,
+    "response_lag_hours": 7.5,
+    "response_lag_hours_min": 5.6,
+    "response_lag_hours_max": 11.9,
+    "elevation_diff_m": 63.02,
+    "slope": 0.017666,
+    "upstream_elev_m": 161.4,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 6.4,
+    "attach_way_id": 44,
+    "attach_osm_id": "269899018",
+    "attach_class": "river",
+    "attach_length_km": 13.837,
+    "attach_distance_m": 29.3,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 19.1,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 24.4,
+        "warningRainMm": 43.3,
+        "wetSoilWarningRainMm": 29.4,
+        "drySoilWarningRainMm": 62.7
+      },
+      "72h": {
+        "inceptionRainMm": 31.4,
+        "warningRainMm": 77.9,
+        "wetSoilWarningRainMm": 53.0,
+        "drySoilWarningRainMm": 113.0
+      },
+      "168h": {
+        "inceptionRainMm": 42.6,
+        "warningRainMm": 93.6,
+        "wetSoilWarningRainMm": 63.7,
+        "drySoilWarningRainMm": 135.7
+      }
+    },
+    "thresholdConfidence": "MEDIUM",
+    "matchedEventCount": 0
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1100961",
+    "from_station_name": "ศาลาเอนกประสงค์หมู่บ้าน หมู่ 9",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 18.94,
+    "distance_km": 0.92,
+    "channel_distance_km": 18.02,
+    "segment_length_km": 19.25,
+    "response_lag_minutes": 344,
+    "response_lag_minutes_min": 257,
+    "response_lag_minutes_max": 538,
+    "response_lag_hours": 5.7,
+    "response_lag_hours_min": 4.3,
+    "response_lag_hours_max": 9.0,
+    "elevation_diff_m": 36.07,
+    "slope": 0.008234,
+    "upstream_elev_m": 134.45,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 8.7,
+    "attach_way_id": 49,
+    "attach_osm_id": "269899073",
+    "attach_class": "river",
+    "attach_length_km": 9.733,
+    "attach_distance_m": 64.7,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 19.9,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 26.6,
+        "warningRainMm": 44.6,
+        "wetSoilWarningRainMm": 30.3,
+        "drySoilWarningRainMm": 64.6
+      },
+      "72h": {
+        "inceptionRainMm": 35.6,
+        "warningRainMm": 64.9,
+        "wetSoilWarningRainMm": 44.1,
+        "drySoilWarningRainMm": 94.1
+      },
+      "168h": {
+        "inceptionRainMm": 48.1,
+        "warningRainMm": 84.9,
+        "wetSoilWarningRainMm": 57.7,
+        "drySoilWarningRainMm": 123.1
+      }
+    },
+    "thresholdConfidence": "MEDIUM",
+    "matchedEventCount": 0
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 1,
+    "previous_gauge_id": "1670",
+    "from_station_id": "592",
+    "from_station_name": "สะพานแม่เล่ย์",
+    "to_station_id": "1696",
+    "to_station_name": "สะพานแม่วงก์",
+    "total_distance_km": 14.93,
+    "distance_km": 14.33,
+    "segment_length_km": 14.33,
+    "response_lag_minutes": 15,
+    "response_lag_minutes_min": 10,
+    "response_lag_minutes_max": 30,
+    "response_lag_hours": 0.2,
+    "response_lag_hours_min": 0.2,
+    "response_lag_hours_max": 0.5,
+    "elevation_diff_m": 41.68,
+    "slope": 0.070253,
+    "upstream_elev_m": 139.87,
+    "downstream_elev_m": 98.19,
+    "influence_weight_percent": 100.0,
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 177
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 2,
+    "previous_gauge_id": "1696",
+    "from_station_id": "592",
+    "from_station_name": "สะพานแม่เล่ย์",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 20.81,
+    "distance_km": 5.88,
+    "segment_length_km": 5.88,
+    "response_lag_minutes": 255,
+    "response_lag_minutes_min": 189,
+    "response_lag_minutes_max": 401,
+    "response_lag_hours": 4.2,
+    "response_lag_hours_min": 3.1,
+    "response_lag_hours_max": 6.7,
+    "elevation_diff_m": 41.49,
+    "slope": 0.00278,
+    "upstream_elev_m": 139.87,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 7.9,
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1121254",
+    "from_station_name": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์ขุนน้ำเย็น",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 34.5,
+    "distance_km": 1.62,
+    "channel_distance_km": 32.89,
+    "segment_length_km": 34.8,
+    "response_lag_minutes": 556,
+    "response_lag_minutes_min": 410,
+    "response_lag_minutes_max": 880,
+    "response_lag_hours": 9.3,
+    "response_lag_hours_min": 6.8,
+    "response_lag_hours_max": 14.7,
+    "elevation_diff_m": 110.53,
+    "slope": 0.013198,
+    "upstream_elev_m": 208.91,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 4.8,
+    "attach_way_id": 44,
+    "attach_osm_id": "269899018",
+    "attach_class": "river",
+    "attach_length_km": 13.837,
+    "attach_distance_m": 58.2,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.2,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 27.3,
+        "warningRainMm": 45.0,
+        "wetSoilWarningRainMm": 30.6,
+        "drySoilWarningRainMm": 65.2
+      },
+      "72h": {
+        "inceptionRainMm": 36.9,
+        "warningRainMm": 60.9,
+        "wetSoilWarningRainMm": 41.4,
+        "drySoilWarningRainMm": 88.3
+      },
+      "168h": {
+        "inceptionRainMm": 49.8,
+        "warningRainMm": 82.2,
+        "wetSoilWarningRainMm": 55.9,
+        "drySoilWarningRainMm": 119.2
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "593",
+    "from_station_name": "หน่วยพิทักษ์ อช.แม่วงก์ที่ 4 (แม่เรวา)",
+    "to_station_id": "3872",
+    "to_station_name": "บ้านปางมะค่า",
+    "total_distance_km": 26.1,
+    "distance_km": 0.05,
+    "channel_distance_km": 26.05,
+    "segment_length_km": 26.37,
+    "response_lag_minutes": 481,
+    "response_lag_minutes_min": 360,
+    "response_lag_minutes_max": 755,
+    "response_lag_hours": 8.0,
+    "response_lag_hours_min": 6.0,
+    "response_lag_hours_max": 12.6,
+    "elevation_diff_m": 51.06,
+    "slope": 0.173635,
+    "upstream_elev_m": 149.44,
+    "downstream_elev_m": 98.38,
+    "influence_weight_percent": 6.3,
+    "attach_way_id": 44,
+    "attach_osm_id": "269899018",
+    "attach_class": "river",
+    "attach_length_km": 13.837,
+    "attach_distance_m": 3.0,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 17.0,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 19.0,
+        "warningRainMm": 40.0,
+        "wetSoilWarningRainMm": 27.2,
+        "drySoilWarningRainMm": 58.0
+      },
+      "72h": {
+        "inceptionRainMm": 21.0,
+        "warningRainMm": 110.4,
+        "wetSoilWarningRainMm": 75.1,
+        "drySoilWarningRainMm": 160.1
+      },
+      "168h": {
+        "inceptionRainMm": 29.0,
+        "warningRainMm": 115.4,
+        "wetSoilWarningRainMm": 78.5,
+        "drySoilWarningRainMm": 167.3
+      }
+    },
+    "thresholdConfidence": "HIGH",
+    "matchedEventCount": 233
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1100964",
+    "from_station_name": "องค์การบริหารส่วนตำบลหาดสูง",
+    "to_station_id": "3812",
+    "to_station_name": "บ้านหาดทนง",
+    "total_distance_km": 25.91,
+    "distance_km": 14.8,
+    "channel_distance_km": 11.11,
+    "segment_length_km": 25.97,
+    "response_lag_minutes": 396,
+    "response_lag_minutes_min": 297,
+    "response_lag_minutes_max": 593,
+    "response_lag_hours": 6.6,
+    "response_lag_hours_min": 5.0,
+    "response_lag_hours_max": 9.9,
+    "elevation_diff_m": 24.91,
+    "slope": 0.001465,
+    "upstream_elev_m": 26.91,
+    "downstream_elev_m": 2.0,
+    "influence_weight_percent": 100.0,
+    "attach_way_id": 99,
+    "attach_osm_id": "552149868",
+    "attach_class": "river",
+    "attach_length_km": 4.352,
+    "attach_distance_m": 38.5,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 20.6,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 28.2,
+        "warningRainMm": 45.6,
+        "wetSoilWarningRainMm": 31.0,
+        "drySoilWarningRainMm": 66.0
+      },
+      "72h": {
+        "inceptionRainMm": 38.7,
+        "warningRainMm": 55.4,
+        "wetSoilWarningRainMm": 37.6,
+        "drySoilWarningRainMm": 80.3
+      },
+      "168h": {
+        "inceptionRainMm": 52.1,
+        "warningRainMm": 78.5,
+        "wetSoilWarningRainMm": 53.4,
+        "drySoilWarningRainMm": 113.8
+      }
+    },
+    "thresholdConfidence": "MEDIUM",
+    "matchedEventCount": 0
+  },
+  {
+    "feature_type": "rainfall_to_gauge_flowpath",
+    "cascade_segment": 0,
+    "previous_gauge_id": "",
+    "from_station_id": "1316406",
+    "from_station_name": "เขื่อนทับเสลา",
+    "to_station_id": "3823",
+    "to_station_name": "บ้านบุ่งอ้ายเจี้ยม",
+    "total_distance_km": 5.96,
+    "distance_km": 0.04,
+    "channel_distance_km": 5.92,
+    "segment_length_km": 6.04,
+    "response_lag_minutes": 90,
+    "response_lag_minutes_min": 66,
+    "response_lag_minutes_max": 144,
+    "response_lag_hours": 1.5,
+    "response_lag_hours_min": 1.1,
+    "response_lag_hours_max": 2.4,
+    "elevation_diff_m": 28.13,
+    "slope": 0.179055,
+    "upstream_elev_m": 142.41,
+    "downstream_elev_m": 114.28,
+    "influence_weight_percent": 100.0,
+    "attach_way_id": 142,
+    "attach_osm_id": "645593656",
+    "attach_class": "river",
+    "attach_length_km": 17.357,
+    "attach_distance_m": 53.5,
+    "attach_quality": "ok",
+    "rainfallThresholds": {
+      "3h": {
+        "inceptionRainMm": 19.4,
+        "warningRainMm": 35.0,
+        "wetSoilWarningRainMm": 23.8,
+        "drySoilWarningRainMm": 50.8
+      },
+      "24h": {
+        "inceptionRainMm": 25.3,
+        "warningRainMm": 43.8,
+        "wetSoilWarningRainMm": 29.8,
+        "drySoilWarningRainMm": 63.5
+      },
+      "72h": {
+        "inceptionRainMm": 33.1,
+        "warningRainMm": 72.8,
+        "wetSoilWarningRainMm": 49.5,
+        "drySoilWarningRainMm": 105.5
+      },
+      "168h": {
+        "inceptionRainMm": 44.8,
+        "warningRainMm": 90.2,
+        "wetSoilWarningRainMm": 61.3,
+        "drySoilWarningRainMm": 130.7
+      }
+    },
+    "thresholdConfidence": "MEDIUM",
+    "matchedEventCount": 0
+  }
+]

@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "bangpakong_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำบางปะกงตอนบน (แม่น้ำนครนายก/แม่น้ำปราจีนบุรี/กบินทร์บุรี)",
+        "basin_slug": "bang-pakong",
+        "order": 1,
+        "downstream_subbasin": "bangpakong_02_central",
+        "min_lat": 14.022,
+        "max_lat": 14.514,
+        "min_lon": 100.567,
+        "max_lon": 102.596
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.596,
+              13.992
+            ],
+            [
+              102.596,
+              14.543999999999999
+            ],
+            [
+              100.56700000000001,
+              14.543999999999999
+            ],
+            [
+              100.56700000000001,
+              13.992
+            ],
+            [
+              102.596,
+              13.992
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "bangpakong_02_central",
+        "subbasin_name_th": "ลุ่มน้ำบางปะกงตอนกลาง (บ้านสร้าง/พนมสารคาม/เมืองฉะเชิงเทรา)",
+        "basin_slug": "bang-pakong",
+        "order": 2,
+        "downstream_subbasin": "bangpakong_03_lower",
+        "min_lat": 13.53,
+        "max_lat": 14.022,
+        "min_lon": 100.567,
+        "max_lon": 102.596
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.596,
+              13.5
+            ],
+            [
+              102.596,
+              14.051999999999998
+            ],
+            [
+              100.56700000000001,
+              14.051999999999998
+            ],
+            [
+              100.56700000000001,
+              13.5
+            ],
+            [
+              102.596,
+              13.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "bangpakong_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำบางปะกงตอนล่าง (บ้านโพธิ์/บางปะกง/อ่าวไทย)",
+        "basin_slug": "bang-pakong",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 13.038,
+        "max_lat": 13.53,
+        "min_lon": 100.567,
+        "max_lon": 102.596
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.596,
+              13.008000000000001
+            ],
+            [
+              102.596,
+              13.559999999999999
+            ],
+            [
+              100.56700000000001,
+              13.559999999999999
+            ],
+            [
+              100.56700000000001,
+              13.008000000000001
+            ],
+            [
+              102.596,
+              13.008000000000001
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,668 @@
+[
+  {
+    "stationId": "1697",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1696",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "water_level",
+        "distanceKm": 9.09,
+        "travelTimeMinutes": 960,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 3390,
+        "travelTimeHours": 16.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 56.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  {
+    "stationId": "1696",
+    "influencingStations": [
+      {
+        "stationId": "592",
+        "stationName": "สะพานแม่เล่ย์",
+        "stationType": "rainfall",
+        "distanceKm": 14.93,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "3872",
+        "stationName": "บ้านปางมะค่า",
+        "stationType": "water_level",
+        "distanceKm": 4.97,
+        "travelTimeMinutes": 390,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2190,
+        "travelTimeHours": 6.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 36.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  {
+    "stationId": "3872",
+    "influencingStations": [
+      {
+        "stationId": "619",
+        "stationName": "สะพานต้นน้ำ (เกาะแก้ว-ตลิ่งสูง)",
+        "stationType": "rainfall",
+        "distanceKm": 13.91,
+        "travelTimeMinutes": 344,
+        "travelTimeMinutesMin": 240,
+        "travelTimeMinutesMax": 526,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 4.0,
+        "travelTimeHoursMax": 8.8,
+        "influenceWeightPercent": 11.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "618",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "rainfall",
+        "distanceKm": 6.12,
+        "travelTimeMinutes": 154,
+        "travelTimeMinutesMin": 106,
+        "travelTimeMinutesMax": 235,
+        "travelTimeHours": 2.6,
+        "travelTimeHoursMin": 1.8,
+        "travelTimeHoursMax": 3.9,
+        "influenceWeightPercent": 27.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1651",
+        "stationName": "บ้านตลิ่งสูง",
+        "stationType": "rainfall",
+        "distanceKm": 14.14,
+        "travelTimeMinutes": 267,
+        "travelTimeMinutesMin": 200,
+        "travelTimeMinutesMax": 419,
+        "travelTimeHours": 4.5,
+        "travelTimeHoursMin": 3.3,
+        "travelTimeHoursMax": 7.0,
+        "influenceWeightPercent": 11.7,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1650",
+        "stationName": "บ้านปางข้าวสาร",
+        "stationType": "rainfall",
+        "distanceKm": 30.31,
+        "travelTimeMinutes": 365,
+        "travelTimeMinutesMin": 268,
+        "travelTimeMinutesMax": 562,
+        "travelTimeHours": 6.1,
+        "travelTimeHoursMin": 4.5,
+        "travelTimeHoursMax": 9.4,
+        "influenceWeightPercent": 5.5,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "501246",
+        "stationName": "บ้านปางสุด",
+        "stationType": "rainfall",
+        "distanceKm": 16.85,
+        "travelTimeMinutes": 269,
+        "travelTimeMinutesMin": 200,
+        "travelTimeMinutesMax": 413,
+        "travelTimeHours": 4.5,
+        "travelTimeHoursMin": 3.3,
+        "travelTimeHoursMax": 6.9,
+        "influenceWeightPercent": 9.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1137142",
+        "stationName": "ศาลาเอนกประสงค์บ้านมอช้างงาม หมู่ 21",
+        "stationType": "rainfall",
+        "distanceKm": 25.79,
+        "travelTimeMinutes": 453,
+        "travelTimeMinutesMin": 336,
+        "travelTimeMinutesMax": 714,
+        "travelTimeHours": 7.5,
+        "travelTimeHoursMin": 5.6,
+        "travelTimeHoursMax": 11.9,
+        "influenceWeightPercent": 6.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.1,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 24.4,
+            "warningRainMm": 43.3,
+            "wetSoilWarningRainMm": 29.4,
+            "drySoilWarningRainMm": 62.7
+          },
+          "72h": {
+            "inceptionRainMm": 31.4,
+            "warningRainMm": 77.9,
+            "wetSoilWarningRainMm": 53.0,
+            "drySoilWarningRainMm": 113.0
+          },
+          "168h": {
+            "inceptionRainMm": 42.6,
+            "warningRainMm": 93.6,
+            "wetSoilWarningRainMm": 63.7,
+            "drySoilWarningRainMm": 135.7
+          }
+        }
+      },
+      {
+        "stationId": "1100961",
+        "stationName": "ศาลาเอนกประสงค์หมู่บ้าน หมู่ 9",
+        "stationType": "rainfall",
+        "distanceKm": 18.94,
+        "travelTimeMinutes": 344,
+        "travelTimeMinutesMin": 257,
+        "travelTimeMinutesMax": 538,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 4.3,
+        "travelTimeHoursMax": 9.0,
+        "influenceWeightPercent": 8.7,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.9,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 26.6,
+            "warningRainMm": 44.6,
+            "wetSoilWarningRainMm": 30.3,
+            "drySoilWarningRainMm": 64.6
+          },
+          "72h": {
+            "inceptionRainMm": 35.6,
+            "warningRainMm": 64.9,
+            "wetSoilWarningRainMm": 44.1,
+            "drySoilWarningRainMm": 94.1
+          },
+          "168h": {
+            "inceptionRainMm": 48.1,
+            "warningRainMm": 84.9,
+            "wetSoilWarningRainMm": 57.7,
+            "drySoilWarningRainMm": 123.1
+          }
+        }
+      },
+      {
+        "stationId": "592",
+        "stationName": "สะพานแม่เล่ย์",
+        "stationType": "rainfall",
+        "distanceKm": 20.81,
+        "travelTimeMinutes": 255,
+        "travelTimeMinutesMin": 189,
+        "travelTimeMinutesMax": 401,
+        "travelTimeHours": 4.2,
+        "travelTimeHoursMin": 3.1,
+        "travelTimeHoursMax": 6.7,
+        "influenceWeightPercent": 7.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1121254",
+        "stationName": "หน่วยจัดการต้นน้ำและพัฒนาชุมชนในพื้นที่ป่าอนุรักษ์ขุนน้ำเย็น",
+        "stationType": "rainfall",
+        "distanceKm": 34.5,
+        "travelTimeMinutes": 556,
+        "travelTimeMinutesMin": 410,
+        "travelTimeMinutesMax": 880,
+        "travelTimeHours": 9.3,
+        "travelTimeHoursMin": 6.8,
+        "travelTimeHoursMax": 14.7,
+        "influenceWeightPercent": 4.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "593",
+        "stationName": "หน่วยพิทักษ์ อช.แม่วงก์ที่ 4 (แม่เรวา)",
+        "stationType": "rainfall",
+        "distanceKm": 26.1,
+        "travelTimeMinutes": 481,
+        "travelTimeMinutesMin": 360,
+        "travelTimeMinutesMax": 755,
+        "travelTimeHours": 8.0,
+        "travelTimeHoursMin": 6.0,
+        "travelTimeHoursMax": 12.6,
+        "influenceWeightPercent": 6.3,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 17.0,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 19.0,
+            "warningRainMm": 40.0,
+            "wetSoilWarningRainMm": 27.2,
+            "drySoilWarningRainMm": 58.0
+          },
+          "72h": {
+            "inceptionRainMm": 21.0,
+            "warningRainMm": 110.4,
+            "wetSoilWarningRainMm": 75.1,
+            "drySoilWarningRainMm": 160.1
+          },
+          "168h": {
+            "inceptionRainMm": 29.0,
+            "warningRainMm": 115.4,
+            "wetSoilWarningRainMm": 78.5,
+            "drySoilWarningRainMm": 167.3
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1665",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7986",
+        "stationName": "ท้ายเขื่อนวังร่มเกล้า",
+        "stationType": "water_level",
+        "distanceKm": 71.86,
+        "travelTimeMinutes": 11024,
+        "travelTimeMinutesMin": 639,
+        "travelTimeMinutesMax": 11054,
+        "travelTimeHours": 183.73,
+        "travelTimeHoursMin": 10.65,
+        "travelTimeHoursMax": 184.23,
+        "confidence": "LOW",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "7986",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3819",
+        "stationName": "บ้านดอนใหญ่",
+        "stationType": "water_level",
+        "distanceKm": 13.0,
+        "travelTimeMinutes": 2290,
+        "travelTimeMinutesMin": 180,
+        "travelTimeMinutesMax": 2320,
+        "travelTimeHours": 38.17,
+        "travelTimeHoursMin": 3.0,
+        "travelTimeHoursMax": 38.67,
+        "confidence": "MEDIUM",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3853",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7986",
+        "stationName": "ท้ายเขื่อนวังร่มเกล้า",
+        "stationType": "water_level",
+        "distanceKm": 69.32,
+        "travelTimeMinutes": 10671,
+        "travelTimeMinutesMin": 618,
+        "travelTimeMinutesMax": 10701,
+        "travelTimeHours": 177.85,
+        "travelTimeHoursMin": 10.3,
+        "travelTimeHoursMax": 178.35,
+        "confidence": "LOW",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1670",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1696",
+        "stationName": "สะพานแม่วงก์",
+        "stationType": "water_level",
+        "distanceKm": 13.46,
+        "travelTimeMinutes": 390,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 651,
+        "travelTimeHours": 6.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 10.85,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  {
+    "stationId": "3819",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3812",
+        "stationName": "บ้านหาดทนง",
+        "stationType": "water_level",
+        "distanceKm": 7.17,
+        "travelTimeMinutes": 1305,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 3660,
+        "travelTimeHours": 21.75,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 61.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  {
+    "stationId": "3812",
+    "influencingStations": [
+      {
+        "stationId": "1100964",
+        "stationName": "องค์การบริหารส่วนตำบลหาดสูง",
+        "stationType": "rainfall",
+        "distanceKm": 25.91,
+        "travelTimeMinutes": 396,
+        "travelTimeMinutesMin": 297,
+        "travelTimeMinutesMax": 593,
+        "travelTimeHours": 6.6,
+        "travelTimeHoursMin": 5.0,
+        "travelTimeHoursMax": 9.9,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.6,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 28.2,
+            "warningRainMm": 45.6,
+            "wetSoilWarningRainMm": 31.0,
+            "drySoilWarningRainMm": 66.0
+          },
+          "72h": {
+            "inceptionRainMm": 38.7,
+            "warningRainMm": 55.4,
+            "wetSoilWarningRainMm": 37.6,
+            "drySoilWarningRainMm": 80.3
+          },
+          "168h": {
+            "inceptionRainMm": 52.1,
+            "warningRainMm": 78.5,
+            "wetSoilWarningRainMm": 53.4,
+            "drySoilWarningRainMm": 113.8
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3823",
+    "influencingStations": [
+      {
+        "stationId": "1316406",
+        "stationName": "เขื่อนทับเสลา",
+        "stationType": "rainfall",
+        "distanceKm": 5.96,
+        "travelTimeMinutes": 90,
+        "travelTimeMinutesMin": 66,
+        "travelTimeMinutesMax": 144,
+        "travelTimeHours": 1.5,
+        "travelTimeHoursMin": 1.1,
+        "travelTimeHoursMax": 2.4,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 19.4,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 25.3,
+            "warningRainMm": 43.8,
+            "wetSoilWarningRainMm": 29.8,
+            "drySoilWarningRainMm": 63.5
+          },
+          "72h": {
+            "inceptionRainMm": 33.1,
+            "warningRainMm": 72.8,
+            "wetSoilWarningRainMm": 49.5,
+            "drySoilWarningRainMm": 105.5
+          },
+          "168h": {
+            "inceptionRainMm": 44.8,
+            "warningRainMm": 90.2,
+            "wetSoilWarningRainMm": 61.3,
+            "drySoilWarningRainMm": 130.7
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  }
+]

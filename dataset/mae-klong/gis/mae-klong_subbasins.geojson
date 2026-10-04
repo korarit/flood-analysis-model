@@ -1,0 +1,128 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "maeklong_01_upper",
+        "subbasin_name_th": "ลุ่มน้ำแม่กลองตอนบน (แควใหญ่/แควน้อย/ไทรโยค/ศรีสวัสดิ์)",
+        "basin_slug": "mae-klong",
+        "order": 1,
+        "downstream_subbasin": "maeklong_02_central",
+        "min_lat": 15.31233,
+        "max_lat": 16.389,
+        "min_lon": 98.134,
+        "max_lon": 100.243
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.243,
+              15.282333333333334
+            ],
+            [
+              100.243,
+              16.419
+            ],
+            [
+              98.134,
+              16.419
+            ],
+            [
+              98.134,
+              15.282333333333334
+            ],
+            [
+              100.243,
+              15.282333333333334
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "maeklong_02_central",
+        "subbasin_name_th": "ลุ่มน้ำแม่กลองตอนกลาง (เมืองกาญจนบุรี/ท่าม่วง/ท่ามะกา/บ้านโป่ง)",
+        "basin_slug": "mae-klong",
+        "order": 2,
+        "downstream_subbasin": "maeklong_03_lower",
+        "min_lat": 14.23567,
+        "max_lat": 15.31233,
+        "min_lon": 98.134,
+        "max_lon": 100.243
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.243,
+              14.205666666666668
+            ],
+            [
+              100.243,
+              15.342333333333332
+            ],
+            [
+              98.134,
+              15.342333333333332
+            ],
+            [
+              98.134,
+              14.205666666666668
+            ],
+            [
+              100.243,
+              14.205666666666668
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "subbasin_id": "maeklong_03_lower",
+        "subbasin_name_th": "ลุ่มน้ำแม่กลองตอนล่าง (โพธาราม/เมืองราชบุรี/อัมพวา/สมุทรสงคราม/อ่าวไทย)",
+        "basin_slug": "mae-klong",
+        "order": 3,
+        "downstream_subbasin": null,
+        "min_lat": 13.159,
+        "max_lat": 14.23567,
+        "min_lon": 98.134,
+        "max_lon": 100.243
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.243,
+              13.129000000000001
+            ],
+            [
+              100.243,
+              14.265666666666666
+            ],
+            [
+              98.134,
+              14.265666666666666
+            ],
+            [
+              98.134,
+              13.129000000000001
+            ],
+            [
+              100.243,
+              13.129000000000001
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "basin": "sakaekrang",
+  "processed_at": "2026-10-03 18:04:57",
+  "rainfall": {
+    "dataset_type": "rainfall",
+    "output_file": "/content/drive/MyDrive/krtza1/flood_dataset/sakaekrang/processed/sakaekrang_hourly_rainfall.csv",
+    "total_records": 258152,
+    "valid_records": 252429,
+    "missing_records": 5723,
+    "unique_stations": 21,
+    "stations": [
+      "LNSK",
+      "MOU415",
+      "MOU416",
+      "MWOG",
+      "NGCG",
+      "NKYG",
+      "SKG002",
+      "SKG003",
+      "SKG004",
+      "SKG005",
+      "SKG007",
+      "SKG008",
+      "STN0559",
+      "STN0560",
+      "STN0561",
+      "STN0940",
+      "STN0941",
+      "STN0949",
+      "STN1212",
+      "SWAR",
+      "TPTN"
+    ],
+    "agency_counts": {
+      "DWR": 84680,
+      "HII_MOU": 27696,
+      "HII_NON_MOU": 145776
+    },
+    "agency_nulls": {
+      "HII_MOU": 2843,
+      "HII_NON_MOU": 2880
+    },
+    "date_range": [
+      "2025-01-01 00:00:00",
+      "2026-07-31 23:00:00"
+    ],
+    "duration_sec": 24.89
+  },
+  "waterlevel": {
+    "dataset_type": "waterlevel",
+    "output_file": "/content/drive/MyDrive/krtza1/flood_dataset/sakaekrang/processed/sakaekrang_hourly_waterlevel.csv",
+    "total_records": 114764,
+    "valid_records": 114763,
+    "missing_records": 1,
+    "unique_stations": 11,
+    "stations": [
+      "Ct.19",
+      "Ct.2A",
+      "Ct.4",
+      "Ct.5A",
+      "Ct.8",
+      "Ct.8A",
+      "Ct.9",
+      "SKG003",
+      "SKG004",
+      "SKG005",
+      "SKG007"
+    ],
+    "agency_counts": {
+      "RID": 68132,
+      "HII": 46632
+    },
+    "agency_nulls": {
+      "HII": 1
+    },
+    "date_range": [
+      "2025-01-01 00:00:00",
+      "2026-07-31 23:00:00"
+    ],
+    "duration_sec": 15.26
+  }
+}

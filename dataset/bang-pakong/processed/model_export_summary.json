@@ -1,0 +1,12 @@
+{
+  "basin": "bang-pakong",
+  "total_database_relations": 123,
+  "gauge_to_gauge_relations": 31,
+  "rainfall_to_gauge_relations": 92,
+  "files_exported": [
+    "/content/drive/MyDrive/krtza1/flood_dataset/bang-pakong/processed/station_relations_db.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/bang-pakong/processed/relations_frontend.json",
+    "/content/drive/MyDrive/krtza1/flood_dataset/bang-pakong/processed/flow_paths.geojson",
+    "/content/drive/MyDrive/krtza1/flood_dataset/bang-pakong/processed/river_network.geojson"
+  ]
+}

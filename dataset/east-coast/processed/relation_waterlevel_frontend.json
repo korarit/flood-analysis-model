@@ -1,0 +1,570 @@
+[
+  {
+    "stationId": "1211",
+    "stationName": "นายายอาม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3705",
+    "stationName": "บ้านฉมัน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7298",
+        "stationName": "ตำบลท่าหลวง",
+        "stationType": "water_level",
+        "distanceKm": 18.32,
+        "travelTimeMinutes": 434,
+        "travelTimeMinutesMin": 316,
+        "travelTimeMinutesMax": 666,
+        "travelTimeHours": 7.2,
+        "travelTimeHoursMin": 5.3,
+        "travelTimeHoursMax": 11.1,
+        "riverSlope": 0.000646,
+        "elevationDiffM": 11.83,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3706",
+    "stationName": "บ้านปึก",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "7298",
+        "stationName": "ตำบลท่าหลวง",
+        "stationType": "water_level",
+        "distanceKm": 23.25,
+        "travelTimeMinutes": 623,
+        "travelTimeMinutesMin": 401,
+        "travelTimeMinutesMax": 946,
+        "travelTimeHours": 10.4,
+        "travelTimeHoursMin": 6.7,
+        "travelTimeHoursMax": 15.8,
+        "riverSlope": 0.000366,
+        "elevationDiffM": 8.5,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3707",
+    "stationName": "บ้านโป่งโรงเซ็น",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3705",
+        "stationName": "บ้านฉมัน",
+        "stationType": "water_level",
+        "distanceKm": 9.15,
+        "travelTimeMinutes": 194,
+        "travelTimeMinutesMin": 146,
+        "travelTimeMinutesMax": 300,
+        "travelTimeHours": 3.2,
+        "travelTimeHoursMin": 2.4,
+        "travelTimeHoursMax": 5.0,
+        "riverSlope": 0.001119,
+        "elevationDiffM": 10.23,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8629",
+    "stationName": "สะพานคลองจันทเขลม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3706",
+        "stationName": "บ้านปึก",
+        "stationType": "water_level",
+        "distanceKm": 56.69,
+        "travelTimeMinutes": 1239,
+        "travelTimeMinutesMin": 929,
+        "travelTimeMinutesMax": 1916,
+        "travelTimeHours": 20.6,
+        "travelTimeHoursMin": 15.5,
+        "travelTimeHoursMax": 31.9,
+        "riverSlope": 0.000912,
+        "elevationDiffM": 51.71,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3704",
+    "stationName": "สะพานวัดจันทนาราม",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1200",
+    "stationName": "เมืองจันทบุรี",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3704",
+        "stationName": "สะพานวัดจันทนาราม",
+        "stationType": "water_level",
+        "distanceKm": 0.0,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3714",
+    "stationName": "บ้านขุนซ่อง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1568260",
+    "stationName": "บ้านวังอีแอ่น",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1211",
+        "stationName": "นายายอาม",
+        "stationType": "water_level",
+        "distanceKm": 65.85,
+        "travelTimeMinutes": 1542,
+        "travelTimeMinutesMin": 1131,
+        "travelTimeMinutesMax": 2369,
+        "travelTimeHours": 25.7,
+        "travelTimeHoursMin": 18.9,
+        "travelTimeHoursMax": 39.5,
+        "riverSlope": 0.000666,
+        "elevationDiffM": 43.89,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8630",
+    "stationName": "สะพานคลองวังโตนด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1208",
+        "stationName": "แก่งหางแมว",
+        "stationType": "water_level",
+        "distanceKm": 24.85,
+        "travelTimeMinutes": 509,
+        "travelTimeMinutesMin": 382,
+        "travelTimeMinutesMax": 792,
+        "travelTimeHours": 8.5,
+        "travelTimeHoursMin": 6.4,
+        "travelTimeHoursMax": 13.2,
+        "riverSlope": 0.001246,
+        "elevationDiffM": 30.96,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1208",
+    "stationName": "แก่งหางแมว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1211",
+        "stationName": "นายายอาม",
+        "stationType": "water_level",
+        "distanceKm": 47.93,
+        "travelTimeMinutes": 1259,
+        "travelTimeMinutesMin": 824,
+        "travelTimeMinutesMax": 1915,
+        "travelTimeHours": 21.0,
+        "travelTimeHoursMin": 13.7,
+        "travelTimeHoursMax": 31.9,
+        "riverSlope": 0.000396,
+        "elevationDiffM": 18.96,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "7298",
+    "stationName": "ตำบลท่าหลวง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3704",
+        "stationName": "สะพานวัดจันทนาราม",
+        "stationType": "water_level",
+        "distanceKm": 9.7,
+        "travelTimeMinutes": 294,
+        "travelTimeMinutesMin": 169,
+        "travelTimeMinutesMax": 445,
+        "travelTimeHours": 4.9,
+        "travelTimeHoursMin": 2.8,
+        "travelTimeHoursMax": 7.4,
+        "riverSlope": 0.000206,
+        "elevationDiffM": 2.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8294",
+    "stationName": "สถานีวิจัยประมงศรีราชา",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "10127",
+    "stationName": "คลองโสน",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3610",
+        "stationName": "บ้านศรีบัวทอง",
+        "stationType": "water_level",
+        "distanceKm": 9.93,
+        "travelTimeMinutes": 242,
+        "travelTimeMinutesMin": 172,
+        "travelTimeMinutesMax": 371,
+        "travelTimeHours": 4.0,
+        "travelTimeHoursMin": 2.9,
+        "travelTimeHoursMax": 6.2,
+        "riverSlope": 0.00058,
+        "elevationDiffM": 5.76,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1568257",
+    "stationName": "บ้านคอแล",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3610",
+        "stationName": "บ้านศรีบัวทอง",
+        "stationType": "water_level",
+        "distanceKm": 28.28,
+        "travelTimeMinutes": 648,
+        "travelTimeMinutesMin": 486,
+        "travelTimeMinutesMax": 998,
+        "travelTimeHours": 10.8,
+        "travelTimeHoursMin": 8.1,
+        "travelTimeHoursMax": 16.6,
+        "riverSlope": 0.000742,
+        "elevationDiffM": 20.97,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1568259",
+    "stationName": "บ้านบ่อไร่",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3610",
+        "stationName": "บ้านศรีบัวทอง",
+        "stationType": "water_level",
+        "distanceKm": 22.48,
+        "travelTimeMinutes": 614,
+        "travelTimeMinutesMin": 388,
+        "travelTimeMinutesMax": 931,
+        "travelTimeHours": 10.2,
+        "travelTimeHoursMin": 6.5,
+        "travelTimeHoursMax": 15.5,
+        "riverSlope": 0.000335,
+        "elevationDiffM": 7.52,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "8631",
+    "stationName": "สะพานคลองสะตอ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1568256",
+        "stationName": "บ้านหนองบัว",
+        "stationType": "water_level",
+        "distanceKm": 34.5,
+        "travelTimeMinutes": 615,
+        "travelTimeMinutesMin": 458,
+        "travelTimeMinutesMax": 969,
+        "travelTimeHours": 10.2,
+        "travelTimeHoursMin": 7.6,
+        "travelTimeHoursMax": 16.1,
+        "riverSlope": 0.002326,
+        "elevationDiffM": 80.27,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1568261",
+    "stationName": "บ้านคลองพร้าว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "10126",
+    "stationName": "คลองประณีต บ.ตลุง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3610",
+    "stationName": "บ้านศรีบัวทอง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1217",
+        "stationName": "เมืองตราด",
+        "stationType": "water_level",
+        "distanceKm": 39.47,
+        "travelTimeMinutes": 1171,
+        "travelTimeMinutesMin": 679,
+        "travelTimeMinutesMax": 1762,
+        "travelTimeHours": 19.5,
+        "travelTimeHoursMin": 11.3,
+        "travelTimeHoursMax": 29.4,
+        "riverSlope": 0.000227,
+        "elevationDiffM": 8.98,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1568256",
+    "stationName": "บ้านหนองบัว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "3610",
+        "stationName": "บ้านศรีบัวทอง",
+        "stationType": "water_level",
+        "distanceKm": 14.88,
+        "travelTimeMinutes": 405,
+        "travelTimeMinutesMin": 257,
+        "travelTimeMinutesMax": 614,
+        "travelTimeHours": 6.8,
+        "travelTimeHoursMin": 4.3,
+        "travelTimeHoursMax": 10.2,
+        "riverSlope": 0.000345,
+        "elevationDiffM": 5.13,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "3703",
+    "stationName": "บ้านเขาสมิง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1217",
+        "stationName": "เมืองตราด",
+        "stationType": "water_level",
+        "distanceKm": 10.35,
+        "travelTimeMinutes": 313,
+        "travelTimeMinutesMin": 180,
+        "travelTimeMinutesMax": 522,
+        "travelTimeHours": 5.2,
+        "travelTimeHoursMin": 3.0,
+        "travelTimeHoursMax": 8.7,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1568258",
+    "stationName": "บ้านคลองขวาง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "10128",
+    "stationName": "คลองเขาระกำ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1214",
+    "stationName": "บางพระ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1216",
+    "stationName": "วังกระแจะ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1218",
+    "stationName": "ห้วยแร้ง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1216",
+        "stationName": "วังกระแจะ",
+        "stationType": "water_level",
+        "distanceKm": 16.2,
+        "travelTimeMinutes": 489,
+        "travelTimeMinutesMin": 280,
+        "travelTimeMinutesMax": 814,
+        "travelTimeHours": 8.2,
+        "travelTimeHoursMin": 4.7,
+        "travelTimeHoursMax": 13.6,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1217",
+    "stationName": "เมืองตราด",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1216",
+        "stationName": "วังกระแจะ",
+        "stationType": "water_level",
+        "distanceKm": 8.67,
+        "travelTimeMinutes": 263,
+        "travelTimeMinutesMin": 151,
+        "travelTimeMinutesMax": 438,
+        "travelTimeHours": 4.4,
+        "travelTimeHoursMin": 2.5,
+        "travelTimeHoursMax": 7.3,
+        "riverSlope": 0.0,
+        "elevationDiffM": 0.0,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "5808",
+    "stationName": "บ้านค่าย",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1198",
+    "stationName": "หนองบัว",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3710",
+    "stationName": "บ้านซำฆ้อ",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "5807",
+    "stationName": "บ้านเขาโบสถ์",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "1196",
+    "stationName": "ชุมชนประแส",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  {
+    "stationId": "3711",
+    "stationName": "บ้านเขาวังไทร",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1195",
+        "stationName": "เมืองแกลง",
+        "stationType": "water_level",
+        "distanceKm": 18.52,
+        "travelTimeMinutes": 500,
+        "travelTimeMinutesMin": 320,
+        "travelTimeMinutesMax": 759,
+        "travelTimeHours": 8.3,
+        "travelTimeHoursMin": 5.3,
+        "travelTimeHoursMax": 12.7,
+        "riverSlope": 0.000354,
+        "elevationDiffM": 6.56,
+        "confidence": "HIGH",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  {
+    "stationId": "1195",
+    "stationName": "เมืองแกลง",
+    "stationType": "water_level",
+    "influencingStations": [],
+    "downstreamStations": []
+  }
+]

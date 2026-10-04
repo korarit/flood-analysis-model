@@ -1,0 +1,2796 @@
+{
+  "5256": {
+    "id": "5256",
+    "code": "G23069-ATG042",
+    "name": {
+      "th": "ท้ายปตร.มะขามเฒ่า-อู่ทอง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.22229,
+    "long": 100.06236,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "วัดสิงห์",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "มะขามเฒ่า",
+        "en": ""
+      },
+      "province": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "provinceCode": "18",
+      "geoCode": "180302",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "87",
+        "stationName": "ทต.วัดสิงห์",
+        "stationType": "rainfall",
+        "distanceKm": 5.08,
+        "travelTimeMinutes": 83,
+        "travelTimeMinutesMin": 61,
+        "travelTimeMinutesMax": 131,
+        "travelTimeHours": 1.4,
+        "travelTimeHoursMin": 1.0,
+        "travelTimeHoursMax": 2.2,
+        "influenceWeightPercent": 80.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1100900",
+        "stationName": "ศาลาเอนกประสงค์ ม.4",
+        "stationType": "rainfall",
+        "distanceKm": 48.44,
+        "travelTimeMinutes": 892,
+        "travelTimeMinutesMin": 669,
+        "travelTimeMinutesMax": 1360,
+        "travelTimeHours": 14.9,
+        "travelTimeHoursMin": 11.2,
+        "travelTimeHoursMax": 22.7,
+        "influenceWeightPercent": 8.5,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1100899",
+        "stationName": "ศาลาเอนกประสงค์ หมู่ 1",
+        "stationType": "rainfall",
+        "distanceKm": 38.15,
+        "travelTimeMinutes": 796,
+        "travelTimeMinutesMin": 597,
+        "travelTimeMinutesMax": 1223,
+        "travelTimeHours": 13.3,
+        "travelTimeHoursMin": 9.9,
+        "travelTimeHoursMax": 20.4,
+        "influenceWeightPercent": 10.8,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  "5268": {
+    "id": "5268",
+    "code": "G23069-ATG122",
+    "name": {
+      "th": "ท้ายปตร.ท่าโบสถ์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 15.05349,
+    "long": 100.01175,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "หันคา",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สามง่ามท่าโบสถ์",
+        "en": ""
+      },
+      "province": {
+        "th": "ชัยนาท",
+        "en": ""
+      },
+      "provinceCode": "18",
+      "geoCode": "180611",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "87",
+        "stationName": "ทต.วัดสิงห์",
+        "stationType": "rainfall",
+        "distanceKm": 34.74,
+        "travelTimeMinutes": 850,
+        "travelTimeMinutesMin": 595,
+        "travelTimeMinutesMax": 1300,
+        "travelTimeHours": 14.2,
+        "travelTimeHoursMin": 9.9,
+        "travelTimeHoursMax": 21.7,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  "3718": {
+    "id": "3718",
+    "code": "G07003-T.1",
+    "name": {
+      "th": "ที่ว่าการอ.นครชัยศรี",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.80096,
+    "long": 100.188026,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -9.1,
+    "qmax": null,
+    "minBank": 1.5,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730301",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "748",
+        "stationName": "สะพานนครชัยศรี",
+        "stationType": "rainfall",
+        "distanceKm": 1.5,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 95.6,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1316728",
+        "stationName": "โรงเรียนวัดบางปลา",
+        "stationType": "rainfall",
+        "distanceKm": 32.74,
+        "travelTimeMinutes": 982,
+        "travelTimeMinutesMin": 561,
+        "travelTimeMinutesMax": 1636,
+        "travelTimeHours": 16.4,
+        "travelTimeHoursMin": 9.3,
+        "travelTimeHoursMax": 27.3,
+        "influenceWeightPercent": 4.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 67.58,
+        "travelTimeMinutes": 360,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 1350,
+        "travelTimeHours": 6.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 22.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1822": {
+    "id": "1822",
+    "code": "G23069-THA008",
+    "name": {
+      "th": "สะพานนครชัยศรี",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.79217,
+    "long": 100.19817,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -7.99,
+    "qmax": null,
+    "minBank": 1.946,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "นครชัยศรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ไทยาวาส",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730324",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1316728",
+        "stationName": "โรงเรียนวัดบางปลา",
+        "stationType": "rainfall",
+        "distanceKm": 34.2,
+        "travelTimeMinutes": 1025,
+        "travelTimeMinutesMin": 586,
+        "travelTimeMinutesMax": 1709,
+        "travelTimeHours": 17.1,
+        "travelTimeHoursMin": 9.8,
+        "travelTimeHoursMax": 28.5,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "5818",
+        "stationName": "ร.ร.บ้านสามพราน",
+        "stationType": "water_level",
+        "distanceKm": 28.35,
+        "travelTimeMinutes": 810,
+        "travelTimeMinutesMin": 378,
+        "travelTimeMinutesMax": 1410,
+        "travelTimeHours": 13.5,
+        "travelTimeHoursMin": 6.3,
+        "travelTimeHoursMax": 23.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1819": {
+    "id": "1819",
+    "code": "G23069-THA007",
+    "name": {
+      "th": "บางเลน",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.01636,
+    "long": 100.17979,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -7.51,
+    "qmax": null,
+    "minBank": 2.206,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730501",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1106453",
+        "stationName": "ทุ่งโพธิ์พระยา",
+        "stationType": "rainfall",
+        "distanceKm": 61.88,
+        "travelTimeMinutes": 1710,
+        "travelTimeMinutesMin": 1049,
+        "travelTimeMinutesMax": 2573,
+        "travelTimeHours": 28.5,
+        "travelTimeHoursMin": 17.5,
+        "travelTimeHoursMax": 42.9,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1819",
+        "stationName": "บางเลน",
+        "stationType": "water_level",
+        "distanceKm": 11.23,
+        "travelTimeMinutes": 1080,
+        "travelTimeMinutesMin": 462,
+        "travelTimeMinutesMax": 1500,
+        "travelTimeHours": 18.0,
+        "travelTimeHoursMin": 7.7,
+        "travelTimeHoursMax": 25.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5894": {
+    "id": "5894",
+    "code": "G07003-T.15",
+    "name": {
+      "th": "วัดบางไผ่นารถ",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.05221,
+    "long": 100.175087,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -5.74,
+    "qmax": null,
+    "minBank": 1.8,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "บางเลน",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางไทรป่า",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730506",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 46.41,
+        "travelTimeMinutes": 450,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 1470,
+        "travelTimeHours": 7.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 24.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1823": {
+    "id": "1823",
+    "code": "G23069-VLGE20",
+    "name": {
+      "th": "ศาลาดิน",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.80777,
+    "long": 100.27417,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -2.017,
+    "qmax": null,
+    "minBank": 2.311,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "พุทธมณฑล",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "มหาสวัสดิ์",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730703",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1316728",
+        "stationName": "โรงเรียนวัดบางปลา",
+        "stationType": "rainfall",
+        "distanceKm": 32.1,
+        "travelTimeMinutes": 962,
+        "travelTimeMinutesMin": 550,
+        "travelTimeMinutesMax": 1457,
+        "travelTimeHours": 16.0,
+        "travelTimeHoursMin": 9.2,
+        "travelTimeHoursMax": 24.3,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1823",
+        "stationName": "ศาลาดิน",
+        "stationType": "water_level",
+        "distanceKm": 52.88,
+        "travelTimeMinutes": 1380,
+        "travelTimeMinutesMin": 462,
+        "travelTimeMinutesMax": 1680,
+        "travelTimeHours": 23.0,
+        "travelTimeHoursMin": 7.7,
+        "travelTimeHoursMax": 28.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5818": {
+    "id": "5818",
+    "code": "G07003-T.14",
+    "name": {
+      "th": "ร.ร.บ้านสามพราน",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.72411,
+    "long": 100.215683,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -8.76,
+    "qmax": null,
+    "minBank": 1.5,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สามพราน",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สามพราน",
+        "en": ""
+      },
+      "province": {
+        "th": "นครปฐม",
+        "en": ""
+      },
+      "provinceCode": "73",
+      "geoCode": "730606",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "744",
+        "stationName": "อบต.นครชัยศรี",
+        "stationType": "rainfall",
+        "distanceKm": 32.32,
+        "travelTimeMinutes": 795,
+        "travelTimeMinutesMin": 554,
+        "travelTimeMinutesMax": 1208,
+        "travelTimeHours": 13.2,
+        "travelTimeHoursMin": 9.2,
+        "travelTimeHoursMax": 20.1,
+        "influenceWeightPercent": 61.6,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1316728",
+        "stationName": "โรงเรียนวัดบางปลา",
+        "stationType": "rainfall",
+        "distanceKm": 51.79,
+        "travelTimeMinutes": 1553,
+        "travelTimeMinutesMin": 888,
+        "travelTimeMinutesMax": 2549,
+        "travelTimeHours": 25.9,
+        "travelTimeHoursMin": 14.8,
+        "travelTimeHoursMax": 42.5,
+        "influenceWeightPercent": 38.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "5818",
+        "stationName": "ร.ร.บ้านสามพราน",
+        "stationType": "water_level",
+        "distanceKm": 32.68,
+        "travelTimeMinutes": 870,
+        "travelTimeMinutesMin": 462,
+        "travelTimeMinutesMax": 1500,
+        "travelTimeHours": 14.5,
+        "travelTimeHoursMin": 7.7,
+        "travelTimeHoursMax": 25.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1825": {
+    "id": "1825",
+    "code": "G23069-BKK006",
+    "name": {
+      "th": "คลองมหาชัย วัดพันท้ายนรสิงห์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.58184,
+    "long": 100.36587,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -2.674,
+    "qmax": null,
+    "minBank": 1.301,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "พันท้ายนรสิงห์",
+        "en": ""
+      },
+      "province": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "provinceCode": "74",
+      "geoCode": "740113",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  "1827": {
+    "id": "1827",
+    "code": "G23069-GLF002",
+    "name": {
+      "th": "ปากแม่น้ำท่าจีน",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.5178,
+    "long": 100.27499,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางหญ้าแพรก",
+        "en": ""
+      },
+      "province": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "provinceCode": "74",
+      "geoCode": "740117",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  "1824": {
+    "id": "1824",
+    "code": "G23069-THA009",
+    "name": {
+      "th": "เมืองสมุทรสาคร",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 13.58598,
+    "long": 100.23048,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -6.949,
+    "qmax": null,
+    "minBank": 1.925,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสมุทรสาคร",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ท่าจีน",
+        "en": ""
+      },
+      "province": {
+        "th": "สมุทรสาคร",
+        "en": ""
+      },
+      "provinceCode": "74",
+      "geoCode": "740108",
+      "ridCode": "",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "744",
+        "stationName": "อบต.นครชัยศรี",
+        "stationType": "rainfall",
+        "distanceKm": 57.59,
+        "travelTimeMinutes": 1591,
+        "travelTimeMinutesMin": 988,
+        "travelTimeMinutesMax": 2401,
+        "travelTimeHours": 26.5,
+        "travelTimeHoursMin": 16.5,
+        "travelTimeHoursMax": 40.0,
+        "influenceWeightPercent": 22.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1316730",
+        "stationName": "วัดท่ากระบือ",
+        "stationType": "rainfall",
+        "distanceKm": 16.23,
+        "travelTimeMinutes": 343,
+        "travelTimeMinutesMin": 257,
+        "travelTimeMinutesMax": 532,
+        "travelTimeHours": 5.7,
+        "travelTimeHoursMin": 4.3,
+        "travelTimeHoursMax": 8.9,
+        "influenceWeightPercent": 78.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1824",
+        "stationName": "เมืองสมุทรสาคร",
+        "stationType": "water_level",
+        "distanceKm": 5.34,
+        "travelTimeMinutes": 840,
+        "travelTimeMinutesMin": 462,
+        "travelTimeMinutesMax": 1500,
+        "travelTimeHours": 14.0,
+        "travelTimeHoursMin": 7.7,
+        "travelTimeHoursMax": 25.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1810": {
+    "id": "1810",
+    "code": "G23069-THA003",
+    "name": {
+      "th": "ด่านช้าง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.83506,
+    "long": 99.66543,
+    "riverName": "ห้วยกระเสียว",
+    "groundLevel": 60.998,
+    "qmax": null,
+    "minBank": 70.36,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "ด่านช้าง",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ด่านช้าง",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720302",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  "7993": {
+    "id": "7993",
+    "code": "G23069-TCP007",
+    "name": {
+      "th": "ทุ่งโพธิ์พระยา",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.320748,
+    "long": 100.017395,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -1.5,
+    "qmax": null,
+    "minBank": 1,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "บางปลาม้า",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "วัดโบสถ์",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720413",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "1812",
+        "stationName": "สองพี่น้อง",
+        "stationType": "water_level",
+        "distanceKm": 35.37,
+        "travelTimeMinutes": 358,
+        "travelTimeMinutesMin": 251,
+        "travelTimeMinutesMax": 686,
+        "travelTimeHours": 5.97,
+        "travelTimeHoursMin": 4.18,
+        "travelTimeHoursMax": 11.43,
+        "confidence": "MEDIUM",
+        "responseType": "ESTIMATED"
+      }
+    ]
+  },
+  "5817": {
+    "id": "5817",
+    "code": "G07003-T.13",
+    "name": {
+      "th": "บ้านบางการ้อง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.157,
+    "long": 100.127907,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -4.67,
+    "qmax": null,
+    "minBank": 2.4,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720703",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1106453",
+        "stationName": "ทุ่งโพธิ์พระยา",
+        "stationType": "rainfall",
+        "distanceKm": 39.94,
+        "travelTimeMinutes": 1084,
+        "travelTimeMinutesMin": 673,
+        "travelTimeMinutesMax": 1629,
+        "travelTimeHours": 18.1,
+        "travelTimeHoursMin": 11.2,
+        "travelTimeHoursMax": 27.1,
+        "influenceWeightPercent": 28.2,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1316726",
+        "stationName": "วัดมณีวรรณ",
+        "stationType": "rainfall",
+        "distanceKm": 39.56,
+        "travelTimeMinutes": 1189,
+        "travelTimeMinutesMin": 680,
+        "travelTimeMinutesMax": 1981,
+        "travelTimeHours": 19.8,
+        "travelTimeHoursMin": 11.3,
+        "travelTimeHoursMax": 33.0,
+        "influenceWeightPercent": 28.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "742",
+        "stationName": "ทต.เจดีย์",
+        "stationType": "rainfall",
+        "distanceKm": 48.0,
+        "travelTimeMinutes": 1414,
+        "travelTimeMinutesMin": 827,
+        "travelTimeMinutesMax": 2124,
+        "travelTimeHours": 23.6,
+        "travelTimeHoursMin": 13.8,
+        "travelTimeHoursMax": 35.4,
+        "influenceWeightPercent": 23.4,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "3695",
+        "stationName": "อู่ทอง สกษ.",
+        "stationType": "rainfall",
+        "distanceKm": 56.48,
+        "travelTimeMinutes": 1626,
+        "travelTimeMinutesMin": 967,
+        "travelTimeMinutesMax": 2452,
+        "travelTimeHours": 27.1,
+        "travelTimeHoursMin": 16.1,
+        "travelTimeHoursMax": 40.9,
+        "influenceWeightPercent": 19.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1813",
+        "stationName": "วัดท่าเจดีย์ (TTC06)",
+        "stationType": "water_level",
+        "distanceKm": 0.59,
+        "travelTimeMinutes": 930,
+        "travelTimeMinutesMin": 42,
+        "travelTimeMinutesMax": 1470,
+        "travelTimeHours": 15.5,
+        "travelTimeHoursMin": 0.7,
+        "travelTimeHoursMax": 24.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "7989": {
+    "id": "7989",
+    "code": "G23069-TCP002",
+    "name": {
+      "th": "ปตร.ปลายคลองบางซอ (ทุ่งเจ้าเจ็ด)",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.194874,
+    "long": 100.13267,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": 0,
+    "qmax": null,
+    "minBank": 4.4,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720703",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": []
+  },
+  "1813": {
+    "id": "1813",
+    "code": "G23069-THA006",
+    "name": {
+      "th": "วัดท่าเจดีย์ (TTC06)",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.15657,
+    "long": 100.12744,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -2.065,
+    "qmax": null,
+    "minBank": 2.139,
+    "sponsorBy": "",
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "บางตาเถร",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720703",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "3693",
+        "stationName": "สุพรรณบุรี",
+        "stationType": "rainfall",
+        "distanceKm": 50.52,
+        "travelTimeMinutes": 1485,
+        "travelTimeMinutesMin": 862,
+        "travelTimeMinutesMax": 2456,
+        "travelTimeHours": 24.8,
+        "travelTimeHoursMin": 14.4,
+        "travelTimeHoursMax": 40.9,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "5817",
+        "stationName": "บ้านบางการ้อง",
+        "stationType": "water_level",
+        "distanceKm": 0.07,
+        "travelTimeMinutes": 60,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 1410,
+        "travelTimeHours": 1.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 23.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1812": {
+    "id": "1812",
+    "code": "G23069-THA010",
+    "name": {
+      "th": "สองพี่น้อง",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.21608,
+    "long": 100.05017,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -1.518,
+    "qmax": null,
+    "minBank": 2.439,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สองพี่น้อง",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720701",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1316739",
+        "stationName": "วัดหนองปลิง",
+        "stationType": "rainfall",
+        "distanceKm": 47.95,
+        "travelTimeMinutes": 1202,
+        "travelTimeMinutesMin": 821,
+        "travelTimeMinutesMax": 1835,
+        "travelTimeHours": 20.0,
+        "travelTimeHoursMin": 13.7,
+        "travelTimeHoursMax": 30.6,
+        "influenceWeightPercent": 15.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1106453",
+        "stationName": "ทุ่งโพธิ์พระยา",
+        "stationType": "rainfall",
+        "distanceKm": 24.26,
+        "travelTimeMinutes": 557,
+        "travelTimeMinutesMin": 404,
+        "travelTimeMinutesMax": 844,
+        "travelTimeHours": 9.3,
+        "travelTimeHoursMin": 6.7,
+        "travelTimeHoursMax": 14.1,
+        "influenceWeightPercent": 31.5,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "742",
+        "stationName": "ทต.เจดีย์",
+        "stationType": "rainfall",
+        "distanceKm": 32.32,
+        "travelTimeMinutes": 822,
+        "travelTimeMinutesMin": 558,
+        "travelTimeMinutesMax": 1251,
+        "travelTimeHours": 13.7,
+        "travelTimeHoursMin": 9.3,
+        "travelTimeHoursMax": 20.9,
+        "influenceWeightPercent": 23.6,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "3695",
+        "stationName": "อู่ทอง สกษ.",
+        "stationType": "rainfall",
+        "distanceKm": 40.8,
+        "travelTimeMinutes": 1038,
+        "travelTimeMinutesMin": 699,
+        "travelTimeMinutesMax": 1583,
+        "travelTimeHours": 17.3,
+        "travelTimeHoursMin": 11.7,
+        "travelTimeHoursMax": 26.4,
+        "influenceWeightPercent": 18.7,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "1100894",
+        "stationName": "โรงเรียนวัดหาดอาสา หมู่ 1",
+        "stationType": "rainfall",
+        "distanceKm": 74.77,
+        "travelTimeMinutes": 1697,
+        "travelTimeMinutesMin": 1164,
+        "travelTimeMinutesMax": 2568,
+        "travelTimeHours": 28.3,
+        "travelTimeHoursMin": 19.4,
+        "travelTimeHoursMax": 42.8,
+        "influenceWeightPercent": 10.2,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1812",
+        "stationName": "สองพี่น้อง",
+        "stationType": "water_level",
+        "distanceKm": 40.97,
+        "travelTimeMinutes": 1230,
+        "travelTimeMinutesMin": 378,
+        "travelTimeMinutesMax": 2520,
+        "travelTimeHours": 20.5,
+        "travelTimeHoursMin": 6.3,
+        "travelTimeHoursMax": 42.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5270": {
+    "id": "5270",
+    "code": "G23069-ATG132",
+    "name": {
+      "th": "ท้ายปตร.ชลมาร์คพิจารณ์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.7706,
+    "long": 100.08824,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720803",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "1316724",
+        "stationName": "ปตร.สามชุก",
+        "stationType": "rainfall",
+        "distanceKm": 2.87,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 48.9,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      },
+      {
+        "stationId": "492359",
+        "stationName": "เหนือปตร.ชลมาร์คพิจารณ์",
+        "stationType": "rainfall",
+        "distanceKm": 2.75,
+        "travelTimeMinutes": 15,
+        "travelTimeMinutesMin": 10,
+        "travelTimeMinutesMax": 30,
+        "travelTimeHours": 0.2,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 51.1,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": []
+  },
+  "1814": {
+    "id": "1814",
+    "code": "G23069-THA004",
+    "name": {
+      "th": "สามชุก",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.75138,
+    "long": 100.09592,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": 2.54,
+    "qmax": null,
+    "minBank": 7.942,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720803",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5816",
+        "stationName": "บ้านวัดพระรูป",
+        "stationType": "water_level",
+        "distanceKm": 44.8,
+        "travelTimeMinutes": 870,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2613,
+        "travelTimeHours": 14.5,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 43.55,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5269": {
+    "id": "5269",
+    "code": "G23069-ATG131",
+    "name": {
+      "th": "เหนือปตร.ชลมาร์คพิจารณ์",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.77118,
+    "long": 100.0884,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "สามชุก",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720803",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5270",
+        "stationName": "ท้ายปตร.ชลมาร์คพิจารณ์",
+        "stationType": "water_level",
+        "distanceKm": 2.76,
+        "travelTimeMinutes": 1035,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 3045,
+        "travelTimeHours": 17.25,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 50.75,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5272": {
+    "id": "5272",
+    "code": "G23069-ATG142",
+    "name": {
+      "th": "ท้ายปตร.โพธิ์พระยา",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.53181,
+    "long": 100.12245,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "โพธิ์พระยา",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720119",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5271",
+        "stationName": "เหนือปตร.โพธิ์พระยา",
+        "stationType": "water_level",
+        "distanceKm": 0.63,
+        "travelTimeMinutes": 900,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2760,
+        "travelTimeHours": 15.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 46.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5816": {
+    "id": "5816",
+    "code": "G07003-T.10",
+    "name": {
+      "th": "บ้านวัดพระรูป",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.47046,
+    "long": 100.114769,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -2.44,
+    "qmax": null,
+    "minBank": 3.5,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "กรมชลประทาน",
+        "en": "Royal Irrigation Department"
+      },
+      "shortname": {
+        "th": "ชป.",
+        "en": "RID"
+      },
+      "code": "G07003"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ท่าพี่เลี้ยง",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720101",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [
+      {
+        "stationId": "492361",
+        "stationName": "เหนือปตร.โพธิ์พระยา",
+        "stationType": "rainfall",
+        "distanceKm": 11.06,
+        "travelTimeMinutes": 17,
+        "travelTimeMinutesMin": 12,
+        "travelTimeMinutesMax": 32,
+        "travelTimeHours": 0.3,
+        "travelTimeHoursMin": 0.2,
+        "travelTimeHoursMax": 0.5,
+        "influenceWeightPercent": 100.0,
+        "rainfallThresholds": {
+          "3h": {
+            "inceptionRainMm": 20.2,
+            "warningRainMm": 35.0,
+            "wetSoilWarningRainMm": 23.8,
+            "drySoilWarningRainMm": 50.8
+          },
+          "24h": {
+            "inceptionRainMm": 27.3,
+            "warningRainMm": 45.0,
+            "wetSoilWarningRainMm": 30.6,
+            "drySoilWarningRainMm": 65.2
+          },
+          "72h": {
+            "inceptionRainMm": 36.9,
+            "warningRainMm": 60.9,
+            "wetSoilWarningRainMm": 41.4,
+            "drySoilWarningRainMm": 88.3
+          },
+          "168h": {
+            "inceptionRainMm": 49.8,
+            "warningRainMm": 82.2,
+            "wetSoilWarningRainMm": 55.9,
+            "drySoilWarningRainMm": 119.2
+          }
+        }
+      }
+    ],
+    "downstreamStations": [
+      {
+        "stationId": "1813",
+        "stationName": "วัดท่าเจดีย์ (TTC06)",
+        "stationType": "water_level",
+        "distanceKm": 69.38,
+        "travelTimeMinutes": 720,
+        "travelTimeMinutesMin": 168,
+        "travelTimeMinutesMax": 1290,
+        "travelTimeHours": 12.0,
+        "travelTimeHoursMin": 2.8,
+        "travelTimeHoursMax": 21.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "1809": {
+    "id": "1809",
+    "code": "G23069-THA005",
+    "name": {
+      "th": "เมืองสุพรรณบุรี",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.4705,
+    "long": 100.11475,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": -1.6,
+    "qmax": null,
+    "minBank": 4.959,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "ท่าพี่เลี้ยง",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720101",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5816",
+        "stationName": "บ้านวัดพระรูป",
+        "stationType": "water_level",
+        "distanceKm": 0.01,
+        "travelTimeMinutes": 660,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2430,
+        "travelTimeHours": 11.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 40.5,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  },
+  "5271": {
+    "id": "5271",
+    "code": "G23069-ATG141",
+    "name": {
+      "th": "เหนือปตร.โพธิ์พระยา",
+      "en": ""
+    },
+    "stationType": "water_level",
+    "lat": 14.53248,
+    "long": 100.12224,
+    "riverName": "ที่ราบแม่น้ำท่าจีน",
+    "groundLevel": null,
+    "qmax": null,
+    "minBank": null,
+    "sponsorBy": null,
+    "subBasinId": null,
+    "subBasinName": null,
+    "agency": {
+      "name": {
+        "th": "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน)",
+        "en": "Hydro-Informatics Institute (Public Organization)"
+      },
+      "shortname": {
+        "th": "สสน.",
+        "en": "HII"
+      },
+      "code": "G23069"
+    },
+    "geocode": {
+      "areaCode": "2",
+      "areaName": {
+        "th": "ภาคกลาง",
+        "en": ""
+      },
+      "amphoe": {
+        "th": "เมืองสุพรรณบุรี",
+        "en": ""
+      },
+      "tumbon": {
+        "th": "โพธิ์พระยา",
+        "en": ""
+      },
+      "province": {
+        "th": "สุพรรณบุรี",
+        "en": ""
+      },
+      "provinceCode": "72",
+      "geoCode": "720119",
+      "ridCode": "3",
+      "tmdCode": "1",
+      "warningZone": null
+    },
+    "basin": {
+      "id": 13,
+      "code": 13,
+      "name": {
+        "th": "ลุ่มน้ำท่าจีน",
+        "en": "Tha Chin River Basin"
+      }
+    },
+    "influencingStations": [],
+    "downstreamStations": [
+      {
+        "stationId": "5272",
+        "stationName": "ท้ายปตร.โพธิ์พระยา",
+        "stationType": "water_level",
+        "distanceKm": 0.08,
+        "travelTimeMinutes": 720,
+        "travelTimeMinutesMin": 21,
+        "travelTimeMinutesMax": 2520,
+        "travelTimeHours": 12.0,
+        "travelTimeHoursMin": 0.35,
+        "travelTimeHoursMax": 42.0,
+        "confidence": "HIGH",
+        "responseType": "OBSERVED"
+      }
+    ]
+  }
+}

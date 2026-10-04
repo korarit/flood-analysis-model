@@ -1,0 +1,767 @@
+[
+  {
+    "stationId": "1697",
+    "targetStationId": "1696",
+    "relationType": "downstream_gauge",
+    "distanceKm": 9.09,
+    "travelTimeMinutes": 960,
+    "travelTimeMinutesMin": 21,
+    "travelTimeMinutesMax": 3390,
+    "travelTimeHours": 16.0,
+    "travelTimeHoursMin": 0.35,
+    "travelTimeHoursMax": 56.5,
+    "influenceWeightPercent": 100.0,
+    "responseType": "OBSERVED",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "riverSlope": 0.001101,
+      "elevationDiffM": 10.01,
+      "avgHoldingDurationHours": 5.6,
+      "eventCount": 261,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "1696",
+    "targetStationId": "3872",
+    "relationType": "downstream_gauge",
+    "distanceKm": 4.97,
+    "travelTimeMinutes": 390,
+    "travelTimeMinutesMin": 21,
+    "travelTimeMinutesMax": 2190,
+    "travelTimeHours": 6.5,
+    "travelTimeHoursMin": 0.35,
+    "travelTimeHoursMax": 36.5,
+    "influenceWeightPercent": 100.0,
+    "responseType": "OBSERVED",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "riverSlope": 0.0,
+      "elevationDiffM": 0.0,
+      "avgHoldingDurationHours": 6.8,
+      "eventCount": 146,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "1665",
+    "targetStationId": "7986",
+    "relationType": "downstream_gauge",
+    "distanceKm": 71.86,
+    "travelTimeMinutes": 11024,
+    "travelTimeMinutesMin": 639,
+    "travelTimeMinutesMax": 11054,
+    "travelTimeHours": 183.73,
+    "travelTimeHoursMin": 10.65,
+    "travelTimeHoursMax": 184.23,
+    "influenceWeightPercent": 100.0,
+    "responseType": "ESTIMATED",
+    "confidenceLevel": "LOW",
+    "metadata": {
+      "riverSlope": 0.000747,
+      "elevationDiffM": 53.69,
+      "avgHoldingDurationHours": 6.0,
+      "eventCount": 0,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3853",
+    "targetStationId": "7986",
+    "relationType": "downstream_gauge",
+    "distanceKm": 69.32,
+    "travelTimeMinutes": 10671,
+    "travelTimeMinutesMin": 618,
+    "travelTimeMinutesMax": 10701,
+    "travelTimeHours": 177.85,
+    "travelTimeHoursMin": 10.3,
+    "travelTimeHoursMax": 178.35,
+    "influenceWeightPercent": 100.0,
+    "responseType": "ESTIMATED",
+    "confidenceLevel": "LOW",
+    "metadata": {
+      "riverSlope": 0.000734,
+      "elevationDiffM": 50.89,
+      "avgHoldingDurationHours": 6.0,
+      "eventCount": 0,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "1670",
+    "targetStationId": "1696",
+    "relationType": "downstream_gauge",
+    "distanceKm": 13.46,
+    "travelTimeMinutes": 390,
+    "travelTimeMinutesMin": 21,
+    "travelTimeMinutesMax": 651,
+    "travelTimeHours": 6.5,
+    "travelTimeHoursMin": 0.35,
+    "travelTimeHoursMax": 10.85,
+    "influenceWeightPercent": 100.0,
+    "responseType": "OBSERVED",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "riverSlope": 0.002862,
+      "elevationDiffM": 38.51,
+      "avgHoldingDurationHours": 2.2,
+      "eventCount": 10,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "7986",
+    "targetStationId": "3819",
+    "relationType": "downstream_gauge",
+    "distanceKm": 13.0,
+    "travelTimeMinutes": 2290,
+    "travelTimeMinutesMin": 180,
+    "travelTimeMinutesMax": 2320,
+    "travelTimeHours": 38.17,
+    "travelTimeHoursMin": 3.0,
+    "travelTimeHoursMax": 38.67,
+    "influenceWeightPercent": 100.0,
+    "responseType": "ESTIMATED",
+    "confidenceLevel": "MEDIUM",
+    "metadata": {
+      "riverSlope": 0.0,
+      "elevationDiffM": 0.0,
+      "avgHoldingDurationHours": 6.0,
+      "eventCount": 0,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3819",
+    "targetStationId": "3812",
+    "relationType": "downstream_gauge",
+    "distanceKm": 7.17,
+    "travelTimeMinutes": 1305,
+    "travelTimeMinutesMin": 21,
+    "travelTimeMinutesMax": 3660,
+    "travelTimeHours": 21.75,
+    "travelTimeHoursMin": 0.35,
+    "travelTimeHoursMax": 61.0,
+    "influenceWeightPercent": 100.0,
+    "responseType": "OBSERVED",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "riverSlope": 0.000941,
+      "elevationDiffM": 6.75,
+      "avgHoldingDurationHours": 4.2,
+      "eventCount": 46,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "619",
+    "relationType": "rainfall_influence",
+    "distanceKm": 13.91,
+    "travelTimeMinutes": 344,
+    "travelTimeMinutesMin": 240,
+    "travelTimeMinutesMax": 526,
+    "travelTimeHours": 5.7,
+    "travelTimeHoursMin": 4.0,
+    "travelTimeHoursMax": 8.8,
+    "influenceWeightPercent": 11.9,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 7.37,
+      "slope": 0.000191,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "618",
+    "relationType": "rainfall_influence",
+    "distanceKm": 6.12,
+    "travelTimeMinutes": 154,
+    "travelTimeMinutesMin": 106,
+    "travelTimeMinutesMax": 235,
+    "travelTimeHours": 2.6,
+    "travelTimeHoursMin": 1.8,
+    "travelTimeHoursMax": 3.9,
+    "influenceWeightPercent": 27.0,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 3.08,
+      "slope": 0.000501,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "1651",
+    "relationType": "rainfall_influence",
+    "distanceKm": 14.14,
+    "travelTimeMinutes": 267,
+    "travelTimeMinutesMin": 200,
+    "travelTimeMinutesMax": 419,
+    "travelTimeHours": 4.5,
+    "travelTimeHoursMin": 3.3,
+    "travelTimeHoursMax": 7.0,
+    "influenceWeightPercent": 11.7,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 24.44,
+      "slope": 0.020264,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "1650",
+    "relationType": "rainfall_influence",
+    "distanceKm": 30.31,
+    "travelTimeMinutes": 365,
+    "travelTimeMinutesMin": 268,
+    "travelTimeMinutesMax": 562,
+    "travelTimeHours": 6.1,
+    "travelTimeHoursMin": 4.5,
+    "travelTimeHoursMax": 9.4,
+    "influenceWeightPercent": 5.5,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 97.54,
+      "slope": 0.004519,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "501246",
+    "relationType": "rainfall_influence",
+    "distanceKm": 16.85,
+    "travelTimeMinutes": 269,
+    "travelTimeMinutesMin": 200,
+    "travelTimeMinutesMax": 413,
+    "travelTimeHours": 4.5,
+    "travelTimeHoursMin": 3.3,
+    "travelTimeHoursMax": 6.9,
+    "influenceWeightPercent": 9.8,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 34.74,
+      "slope": 0.001989,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "1137142",
+    "relationType": "rainfall_influence",
+    "distanceKm": 25.79,
+    "travelTimeMinutes": 453,
+    "travelTimeMinutesMin": 336,
+    "travelTimeMinutesMax": 714,
+    "travelTimeHours": 7.5,
+    "travelTimeHoursMin": 5.6,
+    "travelTimeHoursMax": 11.9,
+    "influenceWeightPercent": 6.4,
+    "responseType": "MEDIUM",
+    "confidenceLevel": "MEDIUM",
+    "metadata": {
+      "typicalRainThresholdMm": 43.3,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 19.1,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 24.4,
+          "warningRainMm": 43.3,
+          "wetSoilWarningRainMm": 29.4,
+          "drySoilWarningRainMm": 62.7
+        },
+        "72h": {
+          "inceptionRainMm": 31.4,
+          "warningRainMm": 77.9,
+          "wetSoilWarningRainMm": 53.0,
+          "drySoilWarningRainMm": 113.0
+        },
+        "168h": {
+          "inceptionRainMm": 42.6,
+          "warningRainMm": 93.6,
+          "wetSoilWarningRainMm": 63.7,
+          "drySoilWarningRainMm": 135.7
+        }
+      },
+      "elevationDiffM": 63.02,
+      "slope": 0.017666,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "1100961",
+    "relationType": "rainfall_influence",
+    "distanceKm": 18.94,
+    "travelTimeMinutes": 344,
+    "travelTimeMinutesMin": 257,
+    "travelTimeMinutesMax": 538,
+    "travelTimeHours": 5.7,
+    "travelTimeHoursMin": 4.3,
+    "travelTimeHoursMax": 9.0,
+    "influenceWeightPercent": 8.7,
+    "responseType": "MEDIUM",
+    "confidenceLevel": "MEDIUM",
+    "metadata": {
+      "typicalRainThresholdMm": 44.6,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 19.9,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 26.6,
+          "warningRainMm": 44.6,
+          "wetSoilWarningRainMm": 30.3,
+          "drySoilWarningRainMm": 64.6
+        },
+        "72h": {
+          "inceptionRainMm": 35.6,
+          "warningRainMm": 64.9,
+          "wetSoilWarningRainMm": 44.1,
+          "drySoilWarningRainMm": 94.1
+        },
+        "168h": {
+          "inceptionRainMm": 48.1,
+          "warningRainMm": 84.9,
+          "wetSoilWarningRainMm": 57.7,
+          "drySoilWarningRainMm": 123.1
+        }
+      },
+      "elevationDiffM": 36.07,
+      "slope": 0.008234,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "1696",
+    "targetStationId": "592",
+    "relationType": "rainfall_influence",
+    "distanceKm": 14.93,
+    "travelTimeMinutes": 15,
+    "travelTimeMinutesMin": 10,
+    "travelTimeMinutesMax": 30,
+    "travelTimeHours": 0.2,
+    "travelTimeHoursMin": 0.2,
+    "travelTimeHoursMax": 0.5,
+    "influenceWeightPercent": 100.0,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 41.68,
+      "slope": 0.070253,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "592",
+    "relationType": "rainfall_influence",
+    "distanceKm": 20.81,
+    "travelTimeMinutes": 255,
+    "travelTimeMinutesMin": 189,
+    "travelTimeMinutesMax": 401,
+    "travelTimeHours": 4.2,
+    "travelTimeHoursMin": 3.1,
+    "travelTimeHoursMax": 6.7,
+    "influenceWeightPercent": 7.9,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 41.49,
+      "slope": 0.00278,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "1121254",
+    "relationType": "rainfall_influence",
+    "distanceKm": 34.5,
+    "travelTimeMinutes": 556,
+    "travelTimeMinutesMin": 410,
+    "travelTimeMinutesMax": 880,
+    "travelTimeHours": 9.3,
+    "travelTimeHoursMin": 6.8,
+    "travelTimeHoursMax": 14.7,
+    "influenceWeightPercent": 4.8,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 45.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.2,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 27.3,
+          "warningRainMm": 45.0,
+          "wetSoilWarningRainMm": 30.6,
+          "drySoilWarningRainMm": 65.2
+        },
+        "72h": {
+          "inceptionRainMm": 36.9,
+          "warningRainMm": 60.9,
+          "wetSoilWarningRainMm": 41.4,
+          "drySoilWarningRainMm": 88.3
+        },
+        "168h": {
+          "inceptionRainMm": 49.8,
+          "warningRainMm": 82.2,
+          "wetSoilWarningRainMm": 55.9,
+          "drySoilWarningRainMm": 119.2
+        }
+      },
+      "elevationDiffM": 110.53,
+      "slope": 0.013198,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3872",
+    "targetStationId": "593",
+    "relationType": "rainfall_influence",
+    "distanceKm": 26.1,
+    "travelTimeMinutes": 481,
+    "travelTimeMinutesMin": 360,
+    "travelTimeMinutesMax": 755,
+    "travelTimeHours": 8.0,
+    "travelTimeHoursMin": 6.0,
+    "travelTimeHoursMax": 12.6,
+    "influenceWeightPercent": 6.3,
+    "responseType": "HIGH",
+    "confidenceLevel": "HIGH",
+    "metadata": {
+      "typicalRainThresholdMm": 40.0,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 17.0,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 19.0,
+          "warningRainMm": 40.0,
+          "wetSoilWarningRainMm": 27.2,
+          "drySoilWarningRainMm": 58.0
+        },
+        "72h": {
+          "inceptionRainMm": 21.0,
+          "warningRainMm": 110.4,
+          "wetSoilWarningRainMm": 75.1,
+          "drySoilWarningRainMm": 160.1
+        },
+        "168h": {
+          "inceptionRainMm": 29.0,
+          "warningRainMm": 115.4,
+          "wetSoilWarningRainMm": 78.5,
+          "drySoilWarningRainMm": 167.3
+        }
+      },
+      "elevationDiffM": 51.06,
+      "slope": 0.173635,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3812",
+    "targetStationId": "1100964",
+    "relationType": "rainfall_influence",
+    "distanceKm": 25.91,
+    "travelTimeMinutes": 396,
+    "travelTimeMinutesMin": 297,
+    "travelTimeMinutesMax": 593,
+    "travelTimeHours": 6.6,
+    "travelTimeHoursMin": 5.0,
+    "travelTimeHoursMax": 9.9,
+    "influenceWeightPercent": 100.0,
+    "responseType": "MEDIUM",
+    "confidenceLevel": "MEDIUM",
+    "metadata": {
+      "typicalRainThresholdMm": 45.6,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 20.6,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 28.2,
+          "warningRainMm": 45.6,
+          "wetSoilWarningRainMm": 31.0,
+          "drySoilWarningRainMm": 66.0
+        },
+        "72h": {
+          "inceptionRainMm": 38.7,
+          "warningRainMm": 55.4,
+          "wetSoilWarningRainMm": 37.6,
+          "drySoilWarningRainMm": 80.3
+        },
+        "168h": {
+          "inceptionRainMm": 52.1,
+          "warningRainMm": 78.5,
+          "wetSoilWarningRainMm": 53.4,
+          "drySoilWarningRainMm": 113.8
+        }
+      },
+      "elevationDiffM": 24.91,
+      "slope": 0.001465,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  },
+  {
+    "stationId": "3823",
+    "targetStationId": "1316406",
+    "relationType": "rainfall_influence",
+    "distanceKm": 5.96,
+    "travelTimeMinutes": 90,
+    "travelTimeMinutesMin": 66,
+    "travelTimeMinutesMax": 144,
+    "travelTimeHours": 1.5,
+    "travelTimeHoursMin": 1.1,
+    "travelTimeHoursMax": 2.4,
+    "influenceWeightPercent": 100.0,
+    "responseType": "MEDIUM",
+    "confidenceLevel": "MEDIUM",
+    "metadata": {
+      "typicalRainThresholdMm": 43.8,
+      "rainfallThresholds": {
+        "3h": {
+          "inceptionRainMm": 19.4,
+          "warningRainMm": 35.0,
+          "wetSoilWarningRainMm": 23.8,
+          "drySoilWarningRainMm": 50.8
+        },
+        "24h": {
+          "inceptionRainMm": 25.3,
+          "warningRainMm": 43.8,
+          "wetSoilWarningRainMm": 29.8,
+          "drySoilWarningRainMm": 63.5
+        },
+        "72h": {
+          "inceptionRainMm": 33.1,
+          "warningRainMm": 72.8,
+          "wetSoilWarningRainMm": 49.5,
+          "drySoilWarningRainMm": 105.5
+        },
+        "168h": {
+          "inceptionRainMm": 44.8,
+          "warningRainMm": 90.2,
+          "wetSoilWarningRainMm": 61.3,
+          "drySoilWarningRainMm": 130.7
+        }
+      },
+      "elevationDiffM": 28.13,
+      "slope": 0.179055,
+      "detectionRule": "continuous_rise_4h_with_plateau_midpoint"
+    }
+  }
+]
